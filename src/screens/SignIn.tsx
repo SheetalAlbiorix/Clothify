@@ -4,8 +4,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  Image,
-  StatusBar,
+  Image
 } from "react-native";
 import { SignInStyle } from "../styles/SignInStyle";
 import { useColors } from "../hooks/useColors";
@@ -15,7 +14,8 @@ import { RootStackParamList } from "../../App";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { strings } from "../utils/strings";
 import { Ionicons } from "@expo/vector-icons";
-import { Colors } from "../utils/Colors";
+import { StatusBar } from "expo-status-bar";
+import { images } from "../utils/images";
 
 type SignInNavigationProp = StackNavigationProp<RootStackParamList, "SignIn">;
 
@@ -24,6 +24,35 @@ const SignIn = () => {
   const { statusBarStyle } = useTheme();
   const colors = useColors();
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+
+  const validateEmail = (input: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!input) return "Email is required";
+    if (!emailRegex.test(input)) return "Enter a valid email";
+    return "";
+  };
+
+  const validatePassword = (input: string) => {
+    if (!input) return "Password is required";
+    if (input.length < 8) return "Password must be at least 8 characters";
+    return "";
+  };
+
+  const handleEmailChange = (text: string) => {
+    setEmail(text);
+    setEmailError(validateEmail(text));
+  };
+
+  const handlePasswordChange = (text: string) => {
+    setPassword(text);
+    setPasswordError(validatePassword(text));
+  };
+
+  const isFormValid = !emailError && !passwordError && email && password;
 
   return (
     <View
@@ -58,7 +87,12 @@ const SignIn = () => {
           style={SignInStyle.input}
           placeholder="example@gmail.com"
           placeholderTextColor={colors.colors.textAccent}
+          value={email}
+          onChangeText={handleEmailChange}
+          keyboardType="email-address"
+          autoCapitalize="none"
         />
+        {emailError ? <Text style={SignInStyle.errorText}>{emailError}</Text> : null}
 
         <Text style={[SignInStyle.label, {color: colors.colors.text}]}>{strings.password}</Text>
         <View style={SignInStyle.passwordInputContainer}>
@@ -67,6 +101,8 @@ const SignIn = () => {
             placeholder="************"
             placeholderTextColor={colors.colors.textAccent}
             secureTextEntry={!passwordVisible}
+            value={password}
+            onChangeText={handlePasswordChange}
           />
           <TouchableOpacity
             onPress={() => setPasswordVisible(!passwordVisible)}
@@ -79,13 +115,20 @@ const SignIn = () => {
             />
           </TouchableOpacity>
         </View>
+        {passwordError ? <Text style={SignInStyle.errorText}>{passwordError}</Text> : null}
       </View>
 
       <TouchableOpacity onPress={() => navigation.navigate("ForgotPassword")}>
-        <Text style={[SignInStyle.forgotPassword, {color: colors.colors.text}]}>{strings.forgotPassword}</Text>
+        <Text style={SignInStyle.forgotPassword}>{strings.forgotPassword}</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={SignInStyle.signInButton}>
+      <TouchableOpacity 
+        style={[
+          SignInStyle.signInButton, 
+          { opacity: isFormValid ? 1 : 0.5 }
+        ]}
+        disabled={!isFormValid}
+      >
         <Text style={SignInStyle.signInButtonText}>{strings.signIn}</Text>
       </TouchableOpacity>
 
@@ -93,19 +136,19 @@ const SignIn = () => {
       <View style={[SignInStyle.socialContainer, {backgroundColor: colors.colors.background}]}>
         <TouchableOpacity style={SignInStyle.socialButton}>
           <Image
-            source={require("../assets/apple.png")}
+            source={images.appleIcon}
             style={[SignInStyle.socialIcon, {tintColor: colors.colors.tintColor}]}
           />
         </TouchableOpacity>
         <TouchableOpacity style={SignInStyle.socialButton}>
           <Image
-            source={require("../assets/google.png")}
+            source={images.googleIcon}
             style={SignInStyle.socialIcon}
           />
         </TouchableOpacity>
         <TouchableOpacity style={SignInStyle.socialButton}>
           <Image
-            source={require("../assets/meta.png")}
+            source={images.metaIcon}
             style={SignInStyle.socialIcon}
           />
         </TouchableOpacity>

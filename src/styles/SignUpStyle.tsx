@@ -8,7 +8,7 @@ import {
 import { Colors } from "../utils/Colors";
 import { Fonts } from "../components/fonts";
 
-export const SignInStyle = StyleSheet.create({
+export const SignUpStyle = StyleSheet.create({
   container: {
     ...layout.flex_1,
     ...layout.itemsCenter,
@@ -56,11 +56,18 @@ export const SignInStyle = StyleSheet.create({
     ...layout.absolute,
     ...layout.right15,
   },
-  forgotPassword: {
-    ...textStyles.EndText,
+  AgreeTerms: {
+    ...textStyles.CenterText,
+    ...Fonts.size_14,
+    color: Colors.white,
+    ...Spacing.marginBottom_20,
+  },
+  termscondition: {
+    ...textStyles.CenterText,
     ...Fonts.size_14,
     color: Colors.mediumbrown,
     ...Spacing.marginBottom_20,
+    ...textStyles.textUnderLine,
   },
   signInButton: {
     ...layout.fullWidth,
@@ -100,7 +107,7 @@ export const SignInStyle = StyleSheet.create({
     ...layout.customSmallWidth,
     ...layout.customSmallHeight,
     ...layout.resizeContain,
-  }as ImageStyle,
+  } as ImageStyle,
   signUpContainer: {
     ...layout.row,
     ...Spacing.marginTop_10,
@@ -114,6 +121,17 @@ export const SignInStyle = StyleSheet.create({
     color: Colors.mediumbrown,
     ...Fonts.weight_900,
     ...Spacing.marginLeft_5,
+  },
+  disabledButton: {
+    backgroundColor: Colors.midGREY,
+    ...layout.opacity06,
+  },
+
+  checkboxContainer: {
+    ...layout.row,
+    ...layout.itemsCenter,
+    ...Spacing.gap_10,
+    ...Spacing.marginVertical_10,
   },
   errorText: {
     color: "red",

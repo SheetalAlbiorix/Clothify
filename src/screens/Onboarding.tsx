@@ -9,6 +9,7 @@ import { RootStackParamList } from "../../App";
 import { strings } from "../utils/strings";
 import { StatusBar } from "expo-status-bar";
 import { Onboardstyles } from "../styles/OnboradStyle";
+import { images } from "../utils/images";
 
 type OnboardNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -25,19 +26,19 @@ const OnboardingScreen = () => {
   const slides = [
     {
       id: 1,
-      image: require("../assets/Onboarding1.png"),
+      image: images.onboarding1,
       text: strings.SeamlessExp,
       text2: strings.OnboardingLoremText,
     },
     {
       id: 2,
-      image: require("../assets/Onboarding2.png"),
+      image: images.onboarding2,
       text: strings.NewFeatures,
       text2: strings.OnboardingLoremText,
     },
     {
       id: 3,
-      image: require("../assets/Onboarding3.png"),
+      image: images.onboarding3,
       text: strings.GetStarted,
       text2: strings.OnboardingLoremText,
     },
@@ -78,7 +79,7 @@ const OnboardingScreen = () => {
                 style={Onboardstyles.getStartedButton}
                 onPress={() => navigation.navigate("SignIn")}
               >
-                <Text style={Onboardstyles.buttonText}>Get Started</Text>
+                <Text style={Onboardstyles.buttonText}>{strings.GetStartedOnly}</Text>
               </TouchableOpacity>
             )}
           </View>
@@ -93,7 +94,7 @@ const OnboardingScreen = () => {
           >
             <Image
               style={Onboardstyles.arrowIcon}
-              source={require("../assets/leftarrow.png")}
+              source={images.leftarrow}
             />
           </TouchableOpacity>
         )}
@@ -114,7 +115,7 @@ const OnboardingScreen = () => {
           >
             <Image
               style={Onboardstyles.rightarrowIcon}
-              source={require("../assets/rightarrow.png")}
+              source={images.rightarrow}
             />
           </TouchableOpacity>
         )}

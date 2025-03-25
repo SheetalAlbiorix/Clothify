@@ -8,6 +8,7 @@ import { strings } from "../utils/strings";
 import { useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "../../App";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { images } from "../utils/images";
 
 type WelcomeNavigationProp = StackNavigationProp<RootStackParamList, "Welcome">;
 
@@ -28,17 +29,17 @@ const Welcome = () => {
       <View style={welcomestyle.imageContainer}>
         <View style={welcomestyle.largeImageWrapper}>
           <Image
-            source={require("../assets/photo3.png")}
+            source={images.photo3}
             style={welcomestyle.largeImage}
           />
         </View>
         <View style={welcomestyle.smallImagesWrapper}>
           <Image
-            source={require("../assets/photo2.png")}
+            source={images.photo2}
             style={welcomestyle.smallImage1}
           />
           <Image
-            source={require("../assets/photo1.png")}
+            source={images.photo1}
             style={welcomestyle.smallImage2}
           />
         </View>

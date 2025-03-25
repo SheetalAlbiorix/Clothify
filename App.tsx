@@ -5,6 +5,9 @@ import Welcome from "./src/screens/Welcome";
 import Splash from "./src/screens/Splash";
 import Onboarding from "./src/screens/Onboarding";
 import SignIn from "./src/screens/SignIn";
+import SignUp from "./src/screens/SignUp";
+import Verify from "./src/screens/Verify";
+import NewPassword from "./src/screens/NewPassword";
 
 export type RootStackParamList = {
   Splash: undefined;
@@ -13,6 +16,8 @@ export type RootStackParamList = {
   SignUp: undefined;
   Onboarding: undefined;
   ForgotPassword: undefined;
+  Verify: undefined;
+  NewPass: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -28,6 +33,9 @@ export default function App() {
         <Stack.Screen name="Welcome" component={Welcome} />
         <Stack.Screen name="Onboarding" component={Onboarding} />
         <Stack.Screen name="SignIn" component={SignIn} />
+        <Stack.Screen name="SignUp" component={SignUp} />
+        <Stack.Screen name="Verify" component={Verify} />
+        <Stack.Screen name="NewPass" component={NewPassword} />
       </Stack.Navigator>
     </NavigationContainer>
   );

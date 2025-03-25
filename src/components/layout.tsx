@@ -32,6 +32,8 @@ export const layout: Record<string, ViewStyle | TextStyle | ImageStyle> = {
   height_10: { height: 10 },
   width_30: { width: 30 },
   height_30: { height: 30 },
+  height_40: { height: 40 },
+  width_55: { width: 55 },
   highHeight: { height: 70 },
   customSmallHeight: { height: 24 },
   customSmallWidth: { width: 24 },
@@ -54,6 +56,8 @@ export const layout: Record<string, ViewStyle | TextStyle | ImageStyle> = {
   height_250: { height: 250 },
   width_200: { width: 200 },
   height_200: { height: 200 },
+  width_300: { width: 300 },
+  width_350: { width: 350 },
   height_450: { height: 450 },
   height_500: { height: 500 },
   halfHeight: { height: "50%" },
@@ -94,6 +98,7 @@ export const layout: Record<string, ViewStyle | TextStyle | ImageStyle> = {
   innerHeight: { height: 65 },
   maxheight: { maxHeight: 200 },
   opacity: { opacity: 0.9 },
+  opacity06: { opacity: 0.6 },
   translateX_30: { transform: [{ translateX: -30 }] },
   z1: { zIndex: 1 },
   z10: { zIndex: 10 },
@@ -109,6 +114,8 @@ export const textStyles: Styles["TextStyle"] = {
   caption: { fontSize: 14, fontWeight: "300", color: "#777" },
   centerText: { textAlign: "center" },
   EndText: { alignSelf: "flex-end" },
+  textUnderLine: { textDecorationLine: "underline" },
+  letterspace10: { letterSpacing: 10 },
 };
 
 export const borderStyles = {
@@ -132,6 +139,7 @@ export const borderStyles = {
   roundedBottom_5: { borderBottomLeftRadius: 5, borderBottomRightRadius: 5 },
 
   rounded_10: { borderRadius: 10 },
+  rounded_15: { borderRadius: 15 },
   rounded_20: { borderRadius: 20 },
   rounded_25: { borderRadius: 25 },
   rounded_30: { borderRadius: 30 },

@@ -1,0 +1,15 @@
+export const images = {
+    photo1: require("../assets/photo1.png"),
+    photo2: require("../assets/photo2.png"),
+    photo3: require("../assets/photo3.png"),
+    onboarding1: require("../assets/Onboarding1.png"),
+    onboarding2: require("../assets/Onboarding2.png"),
+    onboarding3: require("../assets/Onboarding3.png"),
+    leftarrow: require("../assets/leftarrow.png"),
+    rightarrow: require("../assets/rightarrow.png"),
+    appleIcon: require("../assets/apple.png"),
+    googleIcon: require("../assets/google.png"),
+    metaIcon: require("../assets/meta.png"),
+    eyeClosed: require('../assets/eyeClosed.png'),
+    eyeOpen: require('../assets/eyeOpen.png'),
+}
