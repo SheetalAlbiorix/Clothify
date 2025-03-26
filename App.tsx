@@ -10,6 +10,8 @@ import Verify from "./src/screens/Verify";
 import NewPassword from "./src/screens/NewPassword";
 import CompleteProfile from "./src/screens/CompleteProfile";
 import AllowLocation from "./src/screens/AllowLocation";
+import LocationMain from "./src/screens/LocationMain";
+import HomeScreen from "./src/screens/Home";
 
 export type RootStackParamList = {
   Splash: undefined;
@@ -22,6 +24,8 @@ export type RootStackParamList = {
   NewPass: undefined;
   CompleteProfile: undefined;
   AllowLocation: undefined;
+  LocationMain: undefined;
+  Home: {location: string};
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -42,6 +46,8 @@ export default function App() {
         <Stack.Screen name="NewPass" component={NewPassword} />
         <Stack.Screen name="CompleteProfile" component={CompleteProfile} />
         <Stack.Screen name="AllowLocation" component={AllowLocation} />
+        <Stack.Screen name="LocationMain" component={LocationMain} />
+        <Stack.Screen name="Home" component={HomeScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
