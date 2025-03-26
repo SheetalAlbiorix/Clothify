@@ -31,8 +31,8 @@ const styles = StyleSheet.create({
     ...Spacing.marginBottom_10,
   },
   checkbox: {
-    ...layout.width_30,
-    ...layout.height_30,
+    ...layout.customSmallWidth,
+    ...layout.customSmallHeight,
     ...borderStyles.w_2,
     borderColor: Colors.darkbrown,
     ...layout.itemsCenter,

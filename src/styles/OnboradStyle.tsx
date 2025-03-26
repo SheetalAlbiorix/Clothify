@@ -21,6 +21,7 @@ export const Onboardstyles = StyleSheet.create({
   image: {
     ...layout.mediumWidth,
     ...layout.AverageHeight,
+    ...layout.resizeContain
   } as ImageStyle,
   text: {
     ...Fonts.size_20,

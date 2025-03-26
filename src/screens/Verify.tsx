@@ -45,7 +45,7 @@ const Verify = () => {
   };
 
   const handleVerify = (otpValue: string) => {
-    navigation.navigate('NewPass')
+    navigation.navigate('CompleteProfile')
     console.log("OTP Entered:", otpValue);
   };
 

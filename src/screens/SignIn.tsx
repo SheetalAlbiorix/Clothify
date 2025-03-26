@@ -32,13 +32,13 @@ const SignIn = () => {
   const validateEmail = (input: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!input) return "Email is required";
-    if (!emailRegex.test(input)) return "Enter a valid email";
+    if (!emailRegex.test(input)) return strings.entervalidemail;
     return "";
   };
 
   const validatePassword = (input: string) => {
-    if (!input) return "Password is required";
-    if (input.length < 8) return "Password must be at least 8 characters";
+    if (!input) return strings.Passrequired;
+    if (input.length < 8) return strings.passwordlength;
     return "";
   };
 
@@ -85,7 +85,7 @@ const SignIn = () => {
         <Text style={[SignInStyle.label, {color: colors.colors.text}]}>{strings.email}</Text>
         <TextInput
           style={SignInStyle.input}
-          placeholder="example@gmail.com"
+          placeholder={strings.emailTextdemo}
           placeholderTextColor={colors.colors.textAccent}
           value={email}
           onChangeText={handleEmailChange}
@@ -118,7 +118,7 @@ const SignIn = () => {
         {passwordError ? <Text style={SignInStyle.errorText}>{passwordError}</Text> : null}
       </View>
 
-      <TouchableOpacity onPress={() => navigation.navigate("ForgotPassword")}>
+      <TouchableOpacity onPress={() => navigation.navigate("NewPass")}>
         <Text style={SignInStyle.forgotPassword}>{strings.forgotPassword}</Text>
       </TouchableOpacity>
 

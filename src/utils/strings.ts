@@ -40,6 +40,16 @@ export const strings = {
   passwordError: "Password must be at least 8 characters, with a number & special character.",
   confirmPasswordError: "Passwords do not match.",
   enternewpass: "Enter your new password to continue.",
+  completeyourprofile: "Complete Your Profile",
+  dataprofileInfo: "Don't worry, only you can see your personal data, No one else will be able to see it",
+  phonenumber: "Phone Number",
+  entervalidemail: "Enter a valid email",
+  Passrequired: "Password is required",
+  passwordlength: "Password must be at least 8 characters",
+  namerequired: "Name is required",
+  namelength: "Name must be at least 2 characters",
+  emailrequired: "Email is required",
+  johndoe: "John Doe",
 }
 export const localizedStrings = {
     text: "text",

@@ -12,4 +12,8 @@ export const images = {
     metaIcon: require("../assets/meta.png"),
     eyeClosed: require('../assets/eyeClosed.png'),
     eyeOpen: require('../assets/eyeOpen.png'),
+    profile: require('../assets/profile.png'),
+    editIcon: require('../assets/editIcon.png'),
+    downarrow: require('../assets/downarrow.png'),
+    locationIcon: require('../assets/locationIcon.png'),
 }

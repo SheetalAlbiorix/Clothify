@@ -29,21 +29,21 @@ const SignUp = () => {
   const [passwordError, setPasswordError] = useState("");
 
   const validateName = (input: string) => {
-    if (!input) return "Name is required";
-    if (input.length < 2) return "Name must be at least 2 characters";
+    if (!input) return strings.namerequired;
+    if (input.length < 2) return strings.namelength;
     return "";
   };
 
   const validateEmail = (input: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!input) return "Email is required";
-    if (!emailRegex.test(input)) return "Enter a valid email";
+    if (!input) return strings.emailrequired;
+    if (!emailRegex.test(input)) return strings.entervalidemail;
     return "";
   };
 
   const validatePassword = (input: string) => {
-    if (!input) return "Password is required";
-    if (input.length < 8) return "Password must be at least 8 characters";
+    if (!input) return strings.Passrequired;
+    if (input.length < 8) return strings.passwordlength;
     return "";
   };
 
@@ -104,7 +104,7 @@ const SignUp = () => {
         </Text>
         <TextInput
           style={SignUpStyle.input}
-          placeholder="John Doe"
+          placeholder={strings.johndoe}
           placeholderTextColor={colors.colors.textAccent}
           value={name}
           onChangeText={handleNameChange}
@@ -116,7 +116,7 @@ const SignUp = () => {
         </Text>
         <TextInput
           style={SignUpStyle.input}
-          placeholder="example@gmail.com"
+          placeholder={strings.emailTextdemo}
           placeholderTextColor={colors.colors.textAccent}
           value={email}
           onChangeText={handleEmailChange}
@@ -159,10 +159,12 @@ const SignUp = () => {
           checked={isChecked}
           onToggle={() => setIsChecked(!isChecked)}
         />
+        <View style={SignUpStyle.agreeconditionContainer}>
         <Text style={[SignUpStyle.AgreeTerms, { color: colors.colors.text }]}>
           {strings.agreewith}
         </Text>
         <Text style={SignUpStyle.termscondition}>{strings.termscondition}</Text>
+        </View>
       </TouchableOpacity>
 
       <TouchableOpacity

@@ -1,27 +1,30 @@
-import { StyleSheet } from "react-native";
+import { ImageStyle, StyleSheet } from "react-native";
 import { Colors } from "../utils/Colors";
+import { borderStyles, layout, Spacing } from "../components/layout";
 
 export const newpassstyle = StyleSheet.create({
   container: {
-    flex: 1,
-    paddingHorizontal: 20,
-    paddingTop: 50,
+    ...layout.flex_1,
+    ...Spacing.paddingHorizontal_20,
+    ...Spacing.paddingTop_50,
   },
   backButton: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 20,
+    ...layout.width_medsmall,
+    ...layout.height_medsmall,
+    ...borderStyles.rounded_30,
+    ...borderStyles.w_1,
+    ...borderStyles.mediumBrown,
+    ...layout.itemsCenter,
+    ...layout.justifyCenter,
+    ...Spacing.marginBottom_70,
   },
   leftarrowImage: {
-    width: 24,
-    height: 24,
-  },
+    ...layout.customSmallWidth,
+    ...layout.customSmallHeight,
+  }as ImageStyle,
   verifyTextContainer: {
-    alignItems: "center",
-    marginBottom: 20,
+    ...layout.itemsCenter,
+    ...Spacing.marginBottom_20,
   },
   heading: {
     fontSize: 22,
@@ -77,7 +80,7 @@ export const newpassstyle = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: 10,
-    backgroundColor: Colors.mediumbrown
+    backgroundColor: Colors.mediumbrown,
   },
   submitButtonText: {
     fontSize: 16,

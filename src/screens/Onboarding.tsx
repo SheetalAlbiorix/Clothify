@@ -66,7 +66,6 @@ const OnboardingScreen = () => {
             <Image
               source={slide.image}
               style={Onboardstyles.image}
-              resizeMode="contain"
             />
             <Text style={[Onboardstyles.text, { color: colors.colors.text }]}>
               {slide.text}

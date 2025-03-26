@@ -60,13 +60,13 @@ export const SignUpStyle = StyleSheet.create({
     ...textStyles.CenterText,
     ...Fonts.size_14,
     color: Colors.white,
-    ...Spacing.marginBottom_20,
+    ...Spacing.marginBottom_10,
   },
   termscondition: {
     ...textStyles.CenterText,
     ...Fonts.size_14,
     color: Colors.mediumbrown,
-    ...Spacing.marginBottom_20,
+    ...Spacing.marginBottom_10,
     ...textStyles.textUnderLine,
   },
   signInButton: {
@@ -132,6 +132,10 @@ export const SignUpStyle = StyleSheet.create({
     ...layout.itemsCenter,
     ...Spacing.gap_10,
     ...Spacing.marginVertical_10,
+  },
+  agreeconditionContainer: {
+    ...layout.row,
+    ...Spacing.gap_5
   },
   errorText: {
     color: "red",

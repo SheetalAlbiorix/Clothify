@@ -56,6 +56,7 @@ const NewPassword = () => {
 
   const handleSubmit = () => {
     if (validateInputs()) {
+      navigation.navigate('CompleteProfile')
       console.log("Password changed successfully!");
     }
   };
@@ -100,7 +101,7 @@ const NewPassword = () => {
       </View>
 
       <View style={newpassstyle.inputContainer}>
-        <Text style={newpassstyle.inputLabel}>Password</Text>
+        <Text style={newpassstyle.inputLabel}>{strings.password}</Text>
         <View style={newpassstyle.inputField}>
           <TextInput
             style={newpassstyle.textInput}
@@ -120,7 +121,7 @@ const NewPassword = () => {
       </View>
 
       <View style={newpassstyle.inputContainer}>
-        <Text style={newpassstyle.inputLabel}>Confirm Password</Text>
+        <Text style={newpassstyle.inputLabel}>{strings.confirmPassword}</Text>
         <View style={newpassstyle.inputField}>
           <TextInput
             style={newpassstyle.textInput}
