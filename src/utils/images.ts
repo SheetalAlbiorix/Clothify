@@ -29,6 +29,17 @@ export const images = {
     shirt1: require('../assets/shirt1.png'),
     notificationIcon: require('../assets/notificationIcon.png'),
     bannerIcon: require('../assets/banner.png'),
+    banner2Icon: require('../assets/banner2.png'),
     starIcon: require('../assets/star.png'),
-    filterIcon: require('../assets/filter.png')
+    filterIcon: require('../assets/filter.png'),
+    heartIcon: require('../assets/heartIcon.png'),
+    homeIcon: require('../assets/homeIcon.png'),
+    bagIcon: require('../assets/bagIcon.png'),
+    messageIcon: require('../assets/messageIcon.png'),
+    profileIcon: require('../assets/profileIcon.png'),
+    likeIcon: require('../assets/likeIcon.png'),
+    jacket3: require('../assets/jacket3.png'),
+    jacket4: require('../assets/jacket4.png'),
+    jacket5: require('../assets/jacket5.png'),
+    jacket6: require('../assets/jacket6.png'),
 }
