@@ -14,6 +14,9 @@ import LocationMain from "./src/screens/LocationMain";
 import HomeScreen from "./src/screens/Home";
 import TabBar from "./src/navigation/TabBar";
 import ProductDetail from "./src/screens/ProductDetail";
+import Whistlist from "./src/screens/Whistlist";
+import Cart from "./src/screens/Cart";
+import Checkout from "./src/screens/Checkout";
 
 export type RootStackParamList = {
   Splash: undefined;
@@ -27,9 +30,12 @@ export type RootStackParamList = {
   CompleteProfile: undefined;
   AllowLocation: undefined;
   LocationMain: undefined;
-  Home: {location: string};
+  Home: { location: string };
   Tab: undefined;
   productDetail: undefined;
+  whistlist: undefined;
+  Cart: undefined;
+  Checkout: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -54,6 +60,9 @@ export default function App() {
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="productDetail" component={ProductDetail} />
         <Stack.Screen name="Tab" component={TabBar} />
+        <Stack.Screen name="whistlist" component={Whistlist} />
+        <Stack.Screen name="Cart" component={Cart} />
+        <Stack.Screen name="Checkout" component={Checkout} />
       </Stack.Navigator>
     </NavigationContainer>
   );

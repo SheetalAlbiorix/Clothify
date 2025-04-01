@@ -42,4 +42,7 @@ export const images = {
     jacket4: require('../assets/jacket4.png'),
     jacket5: require('../assets/jacket5.png'),
     jacket6: require('../assets/jacket6.png'),
+    sweatshirt: require('../assets/sweatshirt.png'),
+    locationpin: require('../assets/locationpin.png'),
+    boxtime: require('../assets/boxtime.png'),
 }

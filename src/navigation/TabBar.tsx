@@ -3,10 +3,11 @@ import React from "react";
 import { View, Image, StyleSheet, ImageStyle } from "react-native";
 import HomeScreen from "../screens/Home";
 import { Colors } from "../utils/Colors";
-import { Fonts } from "../components/fonts";
 import { strings } from "../utils/strings";
 import { images } from "../utils/images";
 import { borderStyles, layout, shadowStyles, Spacing } from "../components/layout";
+import Whistlist from "../screens/Whistlist";
+import CartItem from "../screens/Cart";
 
 const Tab = createBottomTabNavigator();
 
@@ -29,7 +30,7 @@ const TabBar = () => {
             case strings.Bag:
               iconSource = images.bagIcon;
               break;
-            case strings.Favorites:
+            case strings.Whistlist:
               iconSource = images.heartIcon;
               break;
             case strings.Message:
@@ -60,8 +61,8 @@ const TabBar = () => {
       })}
     >
       <Tab.Screen name={strings.Home} component={HomeScreen} />
-      <Tab.Screen name={strings.Bag} component={HomeScreen} />
-      <Tab.Screen name={strings.Favorites} component={HomeScreen} />
+      <Tab.Screen name={strings.Bag} component={CartItem} />
+      <Tab.Screen name={strings.Whistlist} component={Whistlist} />
       <Tab.Screen name={strings.Message} component={HomeScreen} />
       <Tab.Screen name={strings.UserProfile} component={HomeScreen} />
     </Tab.Navigator>

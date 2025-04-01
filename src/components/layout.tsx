@@ -29,6 +29,7 @@ export const layout: Record<string, ViewStyle | TextStyle | ImageStyle> = {
   rowReverse: { flexDirection: "row-reverse" },
 
   // Flex
+  grow: { flexGrow: 1 },
   wrap: { flexWrap: "wrap" },
   flex_1: { flex: 1 },
   flex_2: { flex: 2 },
@@ -43,6 +44,8 @@ export const layout: Record<string, ViewStyle | TextStyle | ImageStyle> = {
   //Width
   width_8: { width: 8 },
   width_10: { width: 10 },
+  width_14: { width: 14 },
+  width_15: { width: 15 },
   width_16: { width: 16 },
   width_18: { width: 18 },
   width_20: { width: 20 },
@@ -52,6 +55,7 @@ export const layout: Record<string, ViewStyle | TextStyle | ImageStyle> = {
   width_30: { width: 30 },
   width_35: { width: 35 },
   width_40: { width: 40 },
+  widthinsmall: { width: 45 },
   width_small: { width: 50 },
   width_55: { width: 55 },
   width_medsmall: { width: 60 },
@@ -65,6 +69,7 @@ export const layout: Record<string, ViewStyle | TextStyle | ImageStyle> = {
   width_120: { width: 120 },
   width_140: { width: 140 },
   width_150: { width: 150 },
+  width_175: { width: 175 },
   width_180: { width: 180 },
   width_185: { width: 185 },
   width_190: { width: 190 },
@@ -92,6 +97,8 @@ export const layout: Record<string, ViewStyle | TextStyle | ImageStyle> = {
   //Height
   height_8: { height: 8 },
   height_10: { height: 10 },
+  height_14: { height: 14 },
+  height_15: { height: 15 },
   height_16: { height: 16 },
   height_18: { height: 18 },
   height_20: { height: 20 },
@@ -111,6 +118,7 @@ export const layout: Record<string, ViewStyle | TextStyle | ImageStyle> = {
   height_120: { height: 120 },
   height_140: { height: 140 },
   height_150: { height: 150 },
+  height_160: { height: 160 },
   height_180: { height: 180 },
   height_250: { height: 250 },
   height_200: { height: 200 },
@@ -148,6 +156,7 @@ export const layout: Record<string, ViewStyle | TextStyle | ImageStyle> = {
 
   // Right
   right0: { right: 0 },
+  right10: { right: 10 },
   right15: { right: 15 },
   right20: { right: 20 },
   right60: { right: 60 },
@@ -156,6 +165,7 @@ export const layout: Record<string, ViewStyle | TextStyle | ImageStyle> = {
   // Top
   top0: { top: 0 },
   top5: { top: 5 },
+  top10: { top: 10 },
   top30: { top: 30 },
   top35: { top: 35 },
   top40: { top: 40 },
@@ -184,6 +194,7 @@ export const textStyles: Styles["TextStyle"] = {
   subtitle: { fontSize: 18, fontWeight: "600", color: "#333" },
   title: { fontSize: 24, fontWeight: "bold", color: "#000" },
   centerText: { textAlign: "center" },
+  leftText: { textAlign: "left" },
   EndText: { alignSelf: "flex-end" },
   selfCenter: { alignSelf: "center" },
   textUnderLine: { textDecorationLine: "underline" },
@@ -233,6 +244,7 @@ export const borderStyles = {
   // Border Top Left Right Radius
   roundedTop_5: { borderTopLeftRadius: 5, borderTopRightRadius: 5 },
   roundedTop_10: { borderTopLeftRadius: 10, borderTopRightRadius: 10 },
+  roundedTop_12: { borderTopLeftRadius: 12, borderTopRightRadius: 12 },
 
   // Border Bottom Left Right Radius
   roundedBottom_5: { borderBottomLeftRadius: 5, borderBottomRightRadius: 5 },
@@ -244,6 +256,7 @@ export const borderStyles = {
 
   // Border Colors
   borderBottomdarkish: { borderBottomColor: "#ccc" },
+  borderBottomgrayish: { borderBottomColor: "#ddd" },
   red: { borderColor: "#ff0000" },
   midvoilet: { borderColor: "#007BFF" },
   white: { borderColor: "#ffffff" },
@@ -252,6 +265,7 @@ export const borderStyles = {
   mediumBrown: { borderColor: "#bB4423" },
   lightgrey: { borderColor: "#eeeeee" },
   transparent: { borderColor: "transparent" },
+  bordergray: { borderColor: "#ddd" },
 };
 
 export const Spacing = {
@@ -259,6 +273,7 @@ export const Spacing = {
   gap_5: { gap: 5 },
   gap_10: { gap: 10 },
   gap_20: { gap: 20 },
+  gap_80: { gap: 80 },
 
   // Margin property
   margin_auto: { margin: "auto" },
@@ -269,7 +284,10 @@ export const Spacing = {
   margin_60: { margin: 60 },
 
   // Margin Top
+  marginTopminus5: { marginTop: -5 },
+  marginTop_3: { marginTop: 3 },
   marginTop_5: { marginTop: 5 },
+  marginTop_8: { marginTop: 8 },
   marginTop_10: { marginTop: 10 },
   marginTop_15: { marginTop: 15 },
   marginTop_20: { marginTop: 20 },
@@ -281,6 +299,7 @@ export const Spacing = {
   marginTop_300: { marginTop: 300 },
 
   // Margin Bottom
+  marginBottom_0: { marginBottom: 0 },
   marginBottom_5: { marginBottom: 5 },
   marginBottom_10: { marginBottom: 10 },
   marginBottom_15: { marginBottom: 15 },
@@ -291,6 +310,7 @@ export const Spacing = {
   marginBottom_50: { marginBottom: 50 },
   marginBottom_70: { marginBottom: 70 },
   marginBottom_90: { marginBottom: 90 },
+  marginBottom_140: { marginBottom: 140 },
   marginBottom_280: { marginBottom: 280 },
 
   // Margin Right
@@ -302,6 +322,7 @@ export const Spacing = {
   marginRight_320: { marginRight: 320 },
 
   // Margin Left
+  marginLeft_3: { marginLeft: 3 },
   marginLeft_5: { marginLeft: 5 },
   marginLeft_10: { marginLeft: 10 },
   marginLeft_20: { marginLeft: 20 },
@@ -311,6 +332,8 @@ export const Spacing = {
   marginLeft_320: { marginLeft: 320 },
 
   // Margin Vertical
+  marginVertical_4: { marginVertical: 4 },
+  marginVertical_5: { marginVertical: 5 },
   marginVertical_10: { marginVertical: 10 },
   marginVertical_20: { marginVertical: 20 },
 
@@ -334,6 +357,7 @@ export const Spacing = {
   padding_50: { padding: 50 },
 
   // Padding Top
+  paddingTop_8: { paddingTop: 8 },
   paddingTop_10: { paddingTop: 10 },
   paddingTop_20: { paddingTop: 20 },
   paddingTop_30: { paddingTop: 30 },
@@ -345,6 +369,7 @@ export const Spacing = {
   paddingBottom_10: { paddingBottom: 10 },
   paddingBottom_20: { paddingBottom: 20 },
   paddingBottom_30: { paddingBottom: 30 },
+  paddingBottom_80: { paddingBottom: 80 },
   paddingBottom_100: { paddingBottom: 100 },
 
   // Padding Right

@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, Image, ScrollView } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../App";
@@ -8,7 +8,6 @@ import { ColorNames, Colors } from "../utils/Colors";
 import { productstyle } from "../styles/ProductDetailStyle";
 import { strings } from "../utils/strings";
 import { useColors } from "../hooks/useColors";
-import TabBar from "../navigation/TabBar";
 
 type ProductDetailNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -19,7 +18,8 @@ const ProductDetail = () => {
   const colors = useColors();
   const navigation = useNavigation<ProductDetailNavigationProp>();
 
-  const [selectedColor, setSelectedColor] = useState("Brown");
+  const [selectedColor, setSelectedColor] = useState("Dark Brown");
+  const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [selectedImage, setSelectedImage] = useState(images.jacket1);
 
   const imageList = [
@@ -29,6 +29,27 @@ const ProductDetail = () => {
     images.jacket5,
     images.jacket6,
   ];
+
+  // Memoize image list to avoid unnecessary re-renders
+  const memoizedImageList = useMemo(() => imageList, []);
+
+  // Memoize sizes and color selection logic
+  const memoizedSizeList = useMemo(
+    () => [
+      strings.S,
+      strings.M,
+      strings.L,
+      strings.XL,
+      strings.XXL,
+      strings.XXXL,
+    ],
+    []
+  );
+
+  const memoizedColorList = useMemo(
+    () => [Colors.darkbrown, Colors.mediumbrown, Colors.brown, Colors.black],
+    []
+  );
 
   return (
     <View
@@ -59,7 +80,7 @@ const ProductDetail = () => {
           </View>
 
           <View style={productstyle.thumbnailContainer}>
-            {imageList.map((image, index) => (
+            {memoizedImageList.map((image, index) => (
               <TouchableOpacity
                 key={index}
                 onPress={() => setSelectedImage(image)}
@@ -112,16 +133,25 @@ const ProductDetail = () => {
 
           <Text style={productstyle.sectionTitle}>{strings.selectsize}</Text>
           <View style={productstyle.sizeContainer}>
-            {[
-              strings.S,
-              strings.M,
-              strings.L,
-              strings.XL,
-              strings.XXL,
-              strings.XXXL,
-            ].map((size) => (
-              <TouchableOpacity key={size} style={productstyle.sizeBox}>
-                <Text style={productstyle.sizeText}>{size}</Text>
+            {memoizedSizeList.map((size) => (
+              <TouchableOpacity
+                key={size}
+                style={[
+                  productstyle.sizeBox,
+                  selectedSize === size && {
+                    backgroundColor: Colors.mediumbrown,
+                  },
+                ]}
+                onPress={() => setSelectedSize(size)}
+              >
+                <Text
+                  style={[
+                    productstyle.sizeText,
+                    selectedSize === size && { color: Colors.white },
+                  ]}
+                >
+                  {size}
+                </Text>
               </TouchableOpacity>
             ))}
           </View>
@@ -129,24 +159,19 @@ const ProductDetail = () => {
           <Text
             style={[productstyle.sectionTitle, { color: colors.colors.text }]}
           >
-            Select Color: {selectedColor}
+            {strings.selectColor} {ColorNames[selectedColor] || strings.none}
           </Text>
           <View style={productstyle.colorContainer}>
-            {[
-              Colors.darkbrown,
-              Colors.mediumbrown,
-              Colors.brown,
-              Colors.black,
-            ].map((color, index) => (
+            {memoizedColorList.map((color, index) => (
               <TouchableOpacity
                 key={index}
-                onPress={() => setSelectedColor(ColorNames[color])}
-                style={[
-                  productstyle.colorBox,
-                  { backgroundColor: color },
-                  selectedColor === color && productstyle.selectedColorBox,
-                ]}
-              />
+                onPress={() => setSelectedColor(color)}
+                style={[productstyle.colorBox, { backgroundColor: color }]}
+              >
+                {selectedColor === color && (
+                  <View style={productstyle.selectedIndicator} />
+                )}
+              </TouchableOpacity>
             ))}
           </View>
         </View>
@@ -167,17 +192,17 @@ const ProductDetail = () => {
                 { color: colors.colors.textAccent },
               ]}
             >
-              Total Price
+              {strings.totalprice}
             </Text>
             <Text
               style={[productstyle.totalPrice, { color: colors.colors.text }]}
             >
-              $83.97
+              {strings.pricejacket}
             </Text>
           </View>
           <TouchableOpacity style={productstyle.addToCartButton}>
             <Image source={images.bagIcon} style={productstyle.bagIcon} />
-            <Text style={productstyle.addToCartText}>Add to Cart</Text>
+            <Text style={productstyle.addToCartText}>{strings.addtocart}</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

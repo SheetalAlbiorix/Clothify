@@ -105,11 +105,13 @@ export const productstyle = StyleSheet.create({
   },
   colorContainer: {
     ...layout.row,
+    ...layout.justifyBetween,
     ...Spacing.marginTop_10,
     borderColor: Colors.mediumgrey,
     ...borderStyles.w_1,
-    ...layout.width_180,
-    backgroundColor: Colors.gray,
+    ...borderStyles.rounded_100,
+    ...layout.width_175,
+    backgroundColor: Colors.white,
   },
   footerContainer: {
     ...layout.row,
@@ -170,7 +172,17 @@ export const productstyle = StyleSheet.create({
     ...Spacing.marginRight_10,
     ...borderStyles.w_2,
     ...borderStyles.transparent,
+    ...layout.itemsCenter,
+    ...layout.justifyCenter
   },
+  selectedIndicator: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    backgroundColor: Colors.white,
+    ...layout.itemsCenter,
+    ...layout.justifyCenter
+  },  
   selectedColorBox: {
     borderColor: Colors.lightgrey,
   },

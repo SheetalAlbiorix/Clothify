@@ -91,23 +91,23 @@ export const verifystyle = StyleSheet.create({
     color: Colors.inputColor,
   },
   backButton: {
-    height: 30,
-    width: 30,
-    position: "absolute",
-    top: 50,
-    left: 20,
-    zIndex: 10,
-    padding: 30,
+    ...layout.height_30,
+    ...layout.width_30,
+    ...layout.absolute,
+    ...layout.top50,
+    ...layout.left20,
+    ...layout.z10,
+    ...Spacing.padding_30,
     borderColor: Colors.mediumbrown,
-    borderWidth: 1,
-    borderRadius: 40,
-    justifyContent: 'center',
-    alignItems: 'center'
+    ...borderStyles.w_1,
+    ...borderStyles.rounded_40,
+    ...layout.justifyCenter,
+    ...layout.itemsCenter,
   },
-  
+
   leftarrowImage: {
-    width: 24,
-    height: 24,
-    tintColor: "black",
+    ...layout.customSmallWidth,
+    ...layout.customSmallHeight,
+    tintColor: Colors.black,
   },
 });

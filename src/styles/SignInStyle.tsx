@@ -100,7 +100,7 @@ export const SignInStyle = StyleSheet.create({
     ...layout.customSmallWidth,
     ...layout.customSmallHeight,
     ...layout.resizeContain,
-  }as ImageStyle,
+  } as ImageStyle,
   signUpContainer: {
     ...layout.row,
     ...Spacing.marginTop_10,
@@ -116,9 +116,9 @@ export const SignInStyle = StyleSheet.create({
     ...Spacing.marginLeft_5,
   },
   errorText: {
-    color: "red",
-    fontSize: 12,
-    marginTop: 5,
-    marginLeft: 5,
+    color: Colors.red,
+    ...Fonts.size_12,
+    ...Spacing.marginTop_5,
+    ...Spacing.marginLeft_5,
   },
 });

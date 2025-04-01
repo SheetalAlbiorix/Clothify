@@ -1,6 +1,12 @@
 import { ImageStyle, StyleSheet } from "react-native";
 import { Colors } from "../utils/Colors";
-import { borderStyles, layout, Spacing } from "../components/layout";
+import {
+  borderStyles,
+  layout,
+  Spacing,
+  textStyles,
+} from "../components/layout";
+import { Fonts } from "../components/fonts";
 
 export const newpassstyle = StyleSheet.create({
   container: {
@@ -21,70 +27,70 @@ export const newpassstyle = StyleSheet.create({
   leftarrowImage: {
     ...layout.customSmallWidth,
     ...layout.customSmallHeight,
-  }as ImageStyle,
+  } as ImageStyle,
   verifyTextContainer: {
     ...layout.itemsCenter,
     ...Spacing.marginBottom_20,
   },
   heading: {
-    fontSize: 22,
-    fontWeight: "bold",
+    ...Fonts.size_22,
+    ...Fonts.weight_900,
   },
   VerifytextSecondary: {
-    fontSize: 14,
-    textAlign: "center",
-    marginTop: 5,
+    ...Fonts.size_14,
+    ...textStyles.centerText,
+    ...Spacing.marginTop_5,
   },
   emailtextdemo: {
-    fontSize: 14,
-    textAlign: "center",
-    marginTop: 5,
-    color: "#888",
+    ...Fonts.size_14,
+    ...textStyles.centerText,
+    ...Spacing.marginTop_5,
+    color: Colors.footerColor,
   },
   inputContainer: {
-    marginBottom: 15,
+    ...Spacing.marginBottom_15,
   },
   inputLabel: {
-    fontSize: 14,
-    fontWeight: "600",
-    marginBottom: 5,
+    ...Fonts.size_14,
+    ...Fonts.weight_600,
+    ...Spacing.marginBottom_5,
   },
   inputField: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#F5F5F5",
-    borderRadius: 10,
-    paddingHorizontal: 15,
-    height: 50,
+    ...layout.row,
+    ...layout.itemsCenter,
+    backgroundColor: Colors.lightWhite,
+    ...borderStyles.rounded_10,
+    ...Spacing.paddingHorizontal_15,
+    ...layout.height_small,
   },
   textInput: {
-    flex: 1,
-    fontSize: 16,
-    color: "#333",
+    ...layout.flex_1,
+    ...Fonts.size_16,
+    color: Colors.black,
   },
   eyeIcon: {
-    width: 20,
-    height: 20,
-    tintColor: "#888",
+    ...layout.width_20,
+    ...layout.height_20,
+    tintColor: Colors.footerColor,
   },
   errorText: {
-    color: "red",
-    fontSize: 12,
-    marginTop: -5,
-    marginBottom: 10,
-    textAlign: "left",
+    color: Colors.red,
+    ...Fonts.size_12,
+    ...Spacing.marginTopminus5,
+    ...Spacing.marginBottom_10,
+    ...textStyles.leftText,
   },
   submitButton: {
-    height: 50,
-    borderRadius: 25,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 10,
+    ...layout.height_small,
+    ...borderStyles.rounded_25,
+    ...layout.justifyCenter,
+    ...layout.itemsCenter,
+    ...Spacing.marginTop_10,
     backgroundColor: Colors.mediumbrown,
   },
   submitButtonText: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: "#FFF",
+    ...Fonts.size_16,
+    ...Fonts.weight_900,
+    color: Colors.white,
   },
 });

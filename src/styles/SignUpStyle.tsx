@@ -135,12 +135,12 @@ export const SignUpStyle = StyleSheet.create({
   },
   agreeconditionContainer: {
     ...layout.row,
-    ...Spacing.gap_5
+    ...Spacing.gap_5,
   },
   errorText: {
-    color: "red",
-    fontSize: 12,
-    marginTop: 5,
-    marginLeft: 5,
+    color: Colors.red,
+    ...Fonts.size_12,
+    ...Spacing.marginTop_5,
+    ...Spacing.marginLeft_5,
   },
 });

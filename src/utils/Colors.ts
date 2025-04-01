@@ -26,7 +26,11 @@ export const Colors = {
   inputColor: "#dddddd",
   inputbgColor: "#f9f9f9",
   transparent: "rgba(255, 255, 255, 0.6)",
+  transparentblack: "rgba(0, 0, 0, 0.5)",
   creamypink: "#e6d8d5",
+  lightWhite: "#F5F5F5",
+  silkygrey: "#A5A5A5",
+  chormeyellow: "#F4C430",
 };
 
 export const ColorNames: { [key: string]: string } = {
