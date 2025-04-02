@@ -17,6 +17,11 @@ import ProductDetail from "./src/screens/ProductDetail";
 import Whistlist from "./src/screens/Whistlist";
 import Cart from "./src/screens/Cart";
 import Checkout from "./src/screens/Checkout";
+import ShippingAddress, { AddressType } from "./src/screens/ShippingAddress";
+import ChooseShipping, { ArrivalType } from "./src/screens/ChooseShipping";
+import PaymentMethod, { SavedCardType } from "./src/screens/PaymentMethod";
+import AddCard from "./src/screens/AddCard";
+import Payment from "./src/screens/Payment";
 
 export type RootStackParamList = {
   Splash: undefined;
@@ -35,7 +40,14 @@ export type RootStackParamList = {
   productDetail: undefined;
   whistlist: undefined;
   Cart: undefined;
-  Checkout: undefined;
+  Checkout: { selectedAddress?: AddressType, selectedArrival?: ArrivalType };
+  ShippingAddress: undefined;
+  ChooseShipping: undefined;
+  PaymentMethod: {  newCard?: SavedCardType;
+    selectedAddress?: { label: string; address: string };
+    selectedArrival?: { label: string; arrival: string }; };
+  AddCard: undefined;
+  Payment: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -63,6 +75,11 @@ export default function App() {
         <Stack.Screen name="whistlist" component={Whistlist} />
         <Stack.Screen name="Cart" component={Cart} />
         <Stack.Screen name="Checkout" component={Checkout} />
+        <Stack.Screen name="ShippingAddress" component={ShippingAddress} />
+        <Stack.Screen name="ChooseShipping" component={ChooseShipping} />
+        <Stack.Screen name="PaymentMethod" component={PaymentMethod} />
+        <Stack.Screen name="AddCard" component={AddCard} />
+        <Stack.Screen name="Payment" component={Payment} />
       </Stack.Navigator>
     </NavigationContainer>
   );

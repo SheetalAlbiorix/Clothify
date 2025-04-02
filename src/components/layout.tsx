@@ -78,6 +78,7 @@ export const layout: Record<string, ViewStyle | TextStyle | ImageStyle> = {
   width_300: { width: 300 },
   width_320: { width: 320 },
   width_350: { width: 350 },
+  width_380: { width: 380 },
   width_395: { width: 395 },
   width_420: { width: 420 },
   width_450: { width: 450 },
@@ -110,6 +111,7 @@ export const layout: Record<string, ViewStyle | TextStyle | ImageStyle> = {
   height_40: { height: 40 },
   heightinsmall: { height: 45 },
   height_small: { height: 50 },
+  height_55: { height: 55 },
   height_medsmall: { height: 60 },
   innerHeight: { height: 65 },
   highHeight: { height: 70 },
@@ -186,6 +188,7 @@ export const layout: Record<string, ViewStyle | TextStyle | ImageStyle> = {
   z100: { zIndex: 100 },
   z101: { zIndex: 101 },
   z1000: { zIndex: 1000 },
+  borderdashed: { borderStyle: "dashed" },
 };
 
 export const textStyles: Styles["TextStyle"] = {
@@ -227,6 +230,7 @@ export const borderStyles = {
   // Border Radius
   rounded_4: { borderRadius: 4 },
   rounded_5: { borderRadius: 5 },
+  rounded_7: { borderRadius: 7 },
   rounded_8: { borderRadius: 8 },
   rounded_10: { borderRadius: 10 },
   rounded_12: { borderRadius: 12 },
@@ -312,6 +316,7 @@ export const Spacing = {
   marginBottom_90: { marginBottom: 90 },
   marginBottom_140: { marginBottom: 140 },
   marginBottom_280: { marginBottom: 280 },
+  marginBottom_300: { marginBottom: 300 },
 
   // Margin Right
   marginRight_5: { marginRight: 5 },
@@ -322,6 +327,7 @@ export const Spacing = {
   marginRight_320: { marginRight: 320 },
 
   // Margin Left
+  marginauto: { marginLeft: "auto" },
   marginLeft_3: { marginLeft: 3 },
   marginLeft_5: { marginLeft: 5 },
   marginLeft_10: { marginLeft: 10 },
@@ -375,6 +381,7 @@ export const Spacing = {
   // Padding Right
   paddingRight_10: { paddingRight: 10 },
   paddingRight_20: { paddingRight: 20 },
+  paddingRight_80: { paddingRight: 80 },
 
   // Padding Left
   paddingLeft_10: { paddingLeft: 10 },
@@ -388,9 +395,12 @@ export const Spacing = {
   paddingVertical_12: { paddingVertical: 12 },
   paddingVertical_15: { paddingVertical: 15 },
   paddingVertical_20: { paddingVertical: 20 },
+  paddingVertical_25: { paddingVertical: 25 },
   paddingVertical_40: { paddingVertical: 40 },
   paddingVertical_50: { paddingVertical: 50 },
   paddingVertical_80: { paddingVertical: 80 },
+  paddingVertical_160: { paddingVertical: 160 },
+  paddingVertical_200: { paddingVertical: 200 },
 
   // Padding Horizontal
   paddingHorizontal_10: { paddingHorizontal: 10 },
@@ -433,6 +443,13 @@ export const shadowStyles = {
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 5,
+  },
+  shadowborder: {
+    shadowOffset: { width: 0, height: 2 },
+    shadowColor: "#fff",
+    shadowOpacity: 0.9,
+    shadowRadius: 5,
+    elevation: 2,
   },
 };
 

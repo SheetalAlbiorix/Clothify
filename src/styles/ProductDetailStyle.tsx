@@ -122,7 +122,7 @@ export const productstyle = StyleSheet.create({
     backgroundColor: Colors.black,
     ...borderStyles.roundedTopEndRadius_30,
     ...borderStyles.roundedTopStartRadius_30,
-    ...borderStyles.w_1,
+    ...borderStyles.wTop_2,
     ...shadowStyles.shadowfooter,
   },
   totalPriceLabel: {

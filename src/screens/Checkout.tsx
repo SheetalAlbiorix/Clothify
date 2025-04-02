@@ -1,12 +1,13 @@
 import { View, Text, TouchableOpacity, Image, FlatList } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { checkoutstyle } from "../styles/CheckoutStyle";
 import { strings } from "../utils/strings";
 import { images } from "../utils/images";
-import { useNavigation } from "@react-navigation/native";
+import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { useColors } from "../hooks/useColors";
 import { RootStackParamList } from "../../App";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { Spacing } from "../components/layout";
 
 type CheckoutNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -14,37 +15,51 @@ type CheckoutNavigationProp = StackNavigationProp<
 >;
 
 const orderList = [
-    {
-      id: "1",
-      image: images.jacket1,
-      title: strings.brownjacket,
-      size: strings.XL,
-      price: strings.price1,
-    },
-    {
-      id: "2",
-      image: images.suit1,
-      title: strings.brownsuit,
-      size: strings.M,
-      price: strings.price2,
-    },
-    {
-      id: "3",
-      image: images.jacket2,
-      title: strings.brownshirt,
-      size: strings.XL,
-      price: strings.price1,
-    },
-  ];
+  {
+    id: "1",
+    image: images.jacket1,
+    title: strings.brownjacket,
+    size: strings.XL,
+    price: strings.price1,
+  },
+  {
+    id: "2",
+    image: images.suit1,
+    title: strings.brownsuit,
+    size: strings.M,
+    price: strings.price2,
+  },
+  {
+    id: "3",
+    image: images.jacket2,
+    title: strings.brownshirt,
+    size: strings.XL,
+    price: strings.price1,
+  },
+];
 
 const Checkout = () => {
   const colors = useColors();
   const navigation = useNavigation<CheckoutNavigationProp>();
+  const route = useRoute<
+    RouteProp<{
+      params: {
+        selectedAddress?: { label: string; address: string };
+        selectedArrival?: { label: string; arrival: string };
+      };
+    }>
+  >();
+
+  const { selectedAddress, selectedArrival } = route.params || {};
 
   return (
-    <View style={[checkoutstyle.container, { backgroundColor: colors.colors.background }]}>
-      <View
-        style={checkoutstyle.headerContainer}>
+    <View
+      style={[
+        checkoutstyle.container,
+        { backgroundColor: colors.colors.background },
+      ]}
+    >
+      <View style={checkoutstyle.headerContainer}>
         <TouchableOpacity
           style={checkoutstyle.backButton}
           onPress={() => navigation.goBack()}
@@ -58,73 +73,116 @@ const Checkout = () => {
           {strings.checkout}
         </Text>
       </View>
-      
-      <Text style={[checkoutstyle.shippingheader, { color: colors.colors.text }]}>
-        Shipping Address
-      </Text>
-      <View style={checkoutstyle.homecontainer}>
-        <Image source={images.locationpin} style={[checkoutstyle.locationpinImage, { tintColor: colors.colors.tintColor }]} />
-        <View>
-          <Text style={[checkoutstyle.hometext, { color: colors.colors.text }]}>
-            Home
-          </Text>
-          <Text style={checkoutstyle.address}>
-            1901 Thornridge Cir. Shiloh, Hawaii 81063
-          </Text>
+
+      <View style={checkoutstyle.homeeconomycontainer}>
+        <Text
+          style={[checkoutstyle.shippingheader, { color: colors.colors.text }]}
+        >
+          {strings.shippingaddress}
+        </Text>
+        <View style={checkoutstyle.homecontainer}>
+          <Image
+            source={images.locationpin}
+            style={[
+              checkoutstyle.locationpinImage,
+              { tintColor: colors.colors.tintColor },
+            ]}
+          />
+          <View>
+            <Text
+              style={[checkoutstyle.hometext, { color: colors.colors.text }]}
+            >
+              {selectedAddress ? selectedAddress.label : strings.Home}
+            </Text>
+            <Text style={checkoutstyle.address}>
+              {selectedAddress ? selectedAddress.address : strings.address1}
+            </Text>
+          </View>
+          <TouchableOpacity
+            style={[
+              checkoutstyle.changeButton,
+              { borderColor: colors.colors.borderColor },
+            ]}
+            onPress={() => navigation.navigate("ShippingAddress")}
+          >
+            <Text style={checkoutstyle.changetext}>{strings.Change}</Text>
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity
+
+        <Text
           style={[
-            checkoutstyle.changeButton,
-            { borderColor: colors.colors.borderColor },
+            checkoutstyle.shippingtypeheader,
+            { color: colors.colors.text },
           ]}
         >
-          <Text style={checkoutstyle.changetext}>CHANGE</Text>
-        </TouchableOpacity>
-      </View>
-
-      <Text style={[checkoutstyle.shippingtypeheader, { color: colors.colors.text }]}>
-        Choose Shipping Type
-      </Text>
-      <View style={checkoutstyle.economycontainer}>
-        <Image source={images.boxtime} style={[checkoutstyle.boxtime, { tintColor: colors.colors.tintColor }]} />
-        <View>
-          <Text style={[checkoutstyle.economytext, { color: colors.colors.text }]}>
-            Economy
-          </Text>
-          <Text style={checkoutstyle.estimatedArrival}>
-            Estimated Arrival 25 August 2023
-          </Text>
+          {strings.chooseshippingtype}
+        </Text>
+        <View style={checkoutstyle.economycontainer}>
+          <Image
+            source={images.boxtime}
+            style={[
+              checkoutstyle.boxtime,
+              { tintColor: colors.colors.tintColor },
+            ]}
+          />
+          <View>
+            <Text
+              style={[checkoutstyle.economytext, { color: colors.colors.text }]}
+            >
+              {selectedArrival ? selectedArrival.label : strings.economy}
+            </Text>
+            <Text style={checkoutstyle.estimatedArrival}>
+              {selectedArrival
+                ? selectedArrival.arrival
+                : strings.estimatedarrivaltext}
+            </Text>
+          </View>
+          <TouchableOpacity
+            style={[
+              checkoutstyle.changeButton,
+              { borderColor: colors.colors.borderColor },
+            ]}
+            onPress={() => navigation.navigate("ChooseShipping")}
+          >
+            <Text style={checkoutstyle.changetext}>{strings.Change}</Text>
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity
-          style={[
-            checkoutstyle.changeButton,
-            { borderColor: colors.colors.borderColor },
-          ]}
-        >
-          <Text style={checkoutstyle.changetext}>CHANGE</Text>
-        </TouchableOpacity>
       </View>
 
-      <Text style={[checkoutstyle.orderlistheader, { color: colors.colors.text }]}>
-        Order List
+      <Text
+        style={[checkoutstyle.orderlistheader, { color: colors.colors.text }]}
+      >
+        {strings.orderlist}
       </Text>
       <FlatList
         data={orderList}
         keyExtractor={(item) => item.id}
+        contentContainerStyle={{ ...Spacing.paddingHorizontal_20 }}
         renderItem={({ item }) => (
           <View style={checkoutstyle.orderItem}>
             <Image source={item.image} style={checkoutstyle.productImage} />
             <View>
               <Text
-                style={[checkoutstyle.productTitle, { color: colors.colors.text }]}
+                style={[
+                  checkoutstyle.productTitle,
+                  { color: colors.colors.text },
+                ]}
               >
                 {item.title}
               </Text>
-              <Text style={[checkoutstyle.productSize, { color: colors.colors.text }]}>
-                Size : {item.size}
+              <Text
+                style={[
+                  checkoutstyle.productSize,
+                  { color: colors.colors.text },
+                ]}
+              >
+                {strings.size} {item.size}
               </Text>
               <Text
-                style={[checkoutstyle.productPrice, { color: colors.colors.text }]}
+                style={[
+                  checkoutstyle.productPrice,
+                  { color: colors.colors.text },
+                ]}
               >
                 {item.price}
               </Text>
@@ -133,9 +191,29 @@ const Checkout = () => {
         )}
       />
 
-      <View style={checkoutstyle.footer}>
-        <TouchableOpacity style={checkoutstyle.paymentButton}>
-          <Text style={checkoutstyle.paymentText}>Continue to Payment</Text>
+      <View
+        style={[
+          checkoutstyle.footer,
+          {
+            backgroundColor: colors.colors.background,
+            borderTopColor: colors.colors.borderColor,
+          },
+        ]}
+      >
+        <TouchableOpacity
+          style={checkoutstyle.paymentButton}
+          onPress={() => navigation.navigate({
+            name: "PaymentMethod",
+            params: {
+              selectedAddress,
+              selectedArrival,
+            },
+          })}
+          // *****validation left for non empty address and arrivals fields entered*****
+        >
+          <Text style={checkoutstyle.paymentText}>
+            {strings.continuepayment}
+          </Text>
         </TouchableOpacity>
       </View>
     </View>

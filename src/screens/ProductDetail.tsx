@@ -181,7 +181,7 @@ const ProductDetail = () => {
             productstyle.footerContainer,
             {
               backgroundColor: colors.colors.background,
-              borderColor: colors.colors.borderColor,
+              borderTopColor: colors.colors.borderColor,
             },
           ]}
         >

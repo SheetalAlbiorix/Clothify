@@ -17,6 +17,7 @@ import { cartitemstyle } from "../styles/CartItemStyle";
 import { useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "../../App";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { Colors } from "../utils/Colors";
 
 interface CartItem {
   id: number;
@@ -353,7 +354,7 @@ const Cart = () => {
               <TextInput
                 style={cartitemstyle.promoInput}
                 placeholder="Promo Code"
-                placeholderTextColor="#999"
+                placeholderTextColor={Colors.zetgrey}
                 value={promoCode}
                 onChangeText={setPromoCode}
               />
@@ -381,7 +382,7 @@ const Cart = () => {
                 { color: colors.colors.text },
               ]}
             >
-              Sub-Total
+              {strings.subtotal}
             </Text>
             <Text
               style={[
@@ -400,7 +401,7 @@ const Cart = () => {
                 { color: colors.colors.text },
               ]}
             >
-              Delivery Fee
+              {strings.deliveryfee}
             </Text>
             <Text
               style={[
@@ -420,7 +421,7 @@ const Cart = () => {
                   { color: colors.colors.text },
                 ]}
               >
-                Discount
+                {strings.discount}
               </Text>
               <Text
                 style={[
@@ -437,7 +438,7 @@ const Cart = () => {
             <Text
               style={[cartitemstyle.totalLabel, { color: colors.colors.text }]}
             >
-              Total Cost
+              {strings.totalcost}
             </Text>
             <Text
               style={[cartitemstyle.totalValue, { color: colors.colors.text }]}

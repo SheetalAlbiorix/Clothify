@@ -45,4 +45,9 @@ export const images = {
     sweatshirt: require('../assets/sweatshirt.png'),
     locationpin: require('../assets/locationpin.png'),
     boxtime: require('../assets/boxtime.png'),
+    plusIcon: require('../assets/plusIcon.png'),
+    cardIcon: require('../assets/cardIcon.png'),
+    arrowright: require('../assets/arrowright.png'),
+    paypalIcon: require('../assets/paypalIcon.png'),
+    doneIcon: require('../assets/done.png'),
 }
