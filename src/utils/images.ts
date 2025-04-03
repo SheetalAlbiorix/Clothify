@@ -50,4 +50,6 @@ export const images = {
     arrowright: require('../assets/arrowright.png'),
     paypalIcon: require('../assets/paypalIcon.png'),
     doneIcon: require('../assets/done.png'),
+    coupon: require('../assets/couponIcon.png'),
+    percentIcon: require('../assets/percentIcon.png'),
 }

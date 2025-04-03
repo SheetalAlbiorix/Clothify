@@ -35,22 +35,22 @@ const LocationMain = () => {
   const [currentLocation, setCurrentLocation] = useState<string | null>(null);
 
   const locations = [
-    "New York, USA",
-    "Los Angeles, USA",
-    "London, UK",
-    "Berlin, Germany",
-    "Tokyo, Japan",
-    "Sydney, Australia",
-    "Toronto, Canada",
-    "Mumbai, India",
-    "Paris, France",
-    "Dubai, UAE",
+    strings.newyork,
+    strings.losangeles,
+    strings.london,
+    strings.berlin,
+    strings.tokyo,
+    strings.sydney,
+    strings.toronto,
+    strings.mumbai,
+    strings.paris,
+    strings.dubai,
   ];
 
   const handleUseCurrentLocation = async () => {
     const { status } = await Location.requestForegroundPermissionsAsync();
-    if (status !== "granted") {
-      Alert.alert("Permission Denied", "Location access is required.");
+    if (status !== strings.granted) {
+      Alert.alert(strings.permissiondenied, strings.locationacessrequired);
       return;
     }
   
@@ -65,7 +65,7 @@ const LocationMain = () => {
   
       navigation.navigate("Home", { location: city });
     } else {
-      setCurrentLocation("Unknown Location");
+      setCurrentLocation(strings.unknownlocation);
     }
   };
   

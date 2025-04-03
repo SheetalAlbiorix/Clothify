@@ -113,7 +113,7 @@ const CompleteProfile = () => {
         </Text>
         <TextInput
           style={compProfileStyle.input}
-          placeholder="John Doe"
+          placeholder={strings.johndoe}
           value={name}
           onChangeText={setName}
         />
@@ -136,7 +136,7 @@ const CompleteProfile = () => {
           />
           <TextInput
             style={compProfileStyle.phoneInput}
-            placeholder="Enter Phone Number"
+            placeholder={strings.enterphonenumber}
             keyboardType="phone-pad"
             value={phone}
             onChangeText={setPhone}
@@ -147,14 +147,14 @@ const CompleteProfile = () => {
         ) : null}
 
         <Text style={[compProfileStyle.label, { color: colors.colors.text }]}>
-          Gender
+          {strings.gender}
         </Text>
         <TouchableOpacity
           style={compProfileStyle.dropdown}
           onPress={() => setGenderDropdownVisible(true)}
         >
           <Text style={compProfileStyle.dropdownText}>
-            {gender || "Select"}
+            {gender || strings.select}
           </Text>
           <Image
             style={compProfileStyle.dropdownIcon2}
@@ -203,7 +203,7 @@ const CompleteProfile = () => {
         onPress={handleCompleteProfile}
         disabled={!isValid}
       >
-        <Text style={compProfileStyle.buttonText}>Complete Profile</Text>
+        <Text style={compProfileStyle.buttonText}>{strings.completeprofile}</Text>
       </TouchableOpacity>
     </View>
   );

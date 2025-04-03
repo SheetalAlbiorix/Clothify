@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { Colors } from "../utils/Colors";
+import { View, Text } from "react-native";
 import { useColors } from "../hooks/useColors";
 import { strings } from "../utils/strings";
 import { countdownstyle } from "../styles/CountdownStyle";
@@ -38,11 +37,15 @@ const CountDownTimer = () => {
         <View style={countdownstyle.timeBox}>
           <Text style={countdownstyle.timeText}>{hours}</Text>
         </View>
-        <Text style={[countdownstyle.separator, { color: colors.colors.text }]}>:</Text>
+        <Text style={[countdownstyle.separator, { color: colors.colors.text }]}>
+          {strings.jem}
+        </Text>
         <View style={countdownstyle.timeBox}>
           <Text style={countdownstyle.timeText}>{minutes}</Text>
         </View>
-        <Text style={[countdownstyle.separator, { color: colors.colors.text }]}>:</Text>
+        <Text style={[countdownstyle.separator, { color: colors.colors.text }]}>
+          {strings.jem}
+        </Text>
         <View style={countdownstyle.timeBox}>
           <Text style={countdownstyle.timeText}>{seconds}</Text>
         </View>
@@ -50,6 +53,5 @@ const CountDownTimer = () => {
     </View>
   );
 };
-
 
 export default CountDownTimer;

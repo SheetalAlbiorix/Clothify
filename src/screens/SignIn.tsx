@@ -98,7 +98,7 @@ const SignIn = () => {
         <View style={SignInStyle.passwordInputContainer}>
           <TextInput
             style={SignInStyle.input}
-            placeholder="************"
+            placeholder={strings.starText}
             placeholderTextColor={colors.colors.textAccent}
             secureTextEntry={!passwordVisible}
             value={password}

@@ -33,10 +33,10 @@ const AddCard = () => {
 
   const detectCardType = (number: string) => {
     const cleaned = number.replace(/\D/g, "");
-    if (/^4/.test(cleaned)) return "Visa";
-    if (/^5[1-5]/.test(cleaned)) return "MasterCard";
-    if (/^3[47]/.test(cleaned)) return "American Express";
-    if (/^6(?:011|5)/.test(cleaned)) return "Discover";
+    if (/^4/.test(cleaned)) return strings.visa;
+    if (/^5[1-5]/.test(cleaned)) return strings.mastercard;
+    if (/^3[47]/.test(cleaned)) return strings.americanexpress;
+    if (/^6(?:011|5)/.test(cleaned)) return strings.discover;
     return null;
   };
 
@@ -114,23 +114,23 @@ const AddCard = () => {
         </View>
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={addcardstyles.cardPreview}>
-            <Text style={addcardstyles.visaText}>{cardType || "Card Type"}</Text>
+            <Text style={addcardstyles.visaText}>{cardType || strings.cardType}</Text>
             <Text style={addcardstyles.cardNumberPreview}>
-              {cardNumber || "4716 9627 1635 8047"}
+              {cardNumber || "**** **** **** ****"}
             </Text>
             <View style={addcardstyles.cardPreviewBottom}>
               <View>
                 <Text style={addcardstyles.cardPreviewLabel}>
-                  Card holder name
+                  {strings.cardholdername}
                 </Text>
                 <Text style={addcardstyles.cardPreviewValue}>
-                  {cardHolderName || "Esther Howard"}
+                  {cardHolderName || strings.estherhoward}
                 </Text>
               </View>
               <View>
-                <Text style={addcardstyles.cardPreviewLabel}>Expiry date</Text>
+                <Text style={addcardstyles.cardPreviewLabel}>{strings.expirydate}</Text>
                 <Text style={addcardstyles.cardPreviewValue}>
-                  {expiryDate || "02/30"}
+                  {expiryDate || strings.expire0230}
                 </Text>
               </View>
               <View style={addcardstyles.chipIcon}>
@@ -147,11 +147,11 @@ const AddCard = () => {
                   { color: colors.colors.text },
                 ]}
               >
-                Card Holder Name
+                {strings.CARDHOLDERNAME}
               </Text>
               <TextInput
                 style={[addcardstyles.input, { color: colors.colors.text }]}
-                placeholder="Esther Howard"
+                placeholder={strings.estherhoward}
                 placeholderTextColor={Colors.mediumgrey}
                 value={cardHolderName}
                 onChangeText={setCardHolderName}
@@ -165,11 +165,11 @@ const AddCard = () => {
                   { color: colors.colors.text },
                 ]}
               >
-                Card Number
+                {strings.cardnumber}
               </Text>
               <TextInput
                 style={[addcardstyles.input, { color: colors.colors.text }]}
-                placeholder="4716 9627 1635 8047"
+                placeholder={strings.placeholdercardnumber}
                 placeholderTextColor={Colors.mediumgrey}
                 value={cardNumber}
                 onChangeText={handleCardNumberChange}
@@ -186,11 +186,11 @@ const AddCard = () => {
                     { color: colors.colors.text },
                   ]}
                 >
-                  Expiry Date
+                  {strings.expireDate}
                 </Text>
                 <TextInput
                   style={[addcardstyles.input, { color: colors.colors.text }]}
-                  placeholder="02/30"
+                  placeholder={strings.expire0230}
                   placeholderTextColor={Colors.mediumgrey}
                   value={expiryDate}
                   onChangeText={handleExpiryDateChange}
@@ -205,11 +205,11 @@ const AddCard = () => {
                     { color: colors.colors.text },
                   ]}
                 >
-                  CVV
+                  {strings.cvv}
                 </Text>
                 <TextInput
                   style={[addcardstyles.input, { color: colors.colors.text }]}
-                  placeholder="000"
+                  placeholder={strings.three0}
                   placeholderTextColor={Colors.mediumgrey}
                   value={cvv}
                   onChangeText={setCvv}
@@ -230,7 +230,7 @@ const AddCard = () => {
                   saveCard && addcardstyles.checkboxChecked,
                 ]}
               >
-                {saveCard && <Text style={addcardstyles.checkmark}>✓</Text>}
+                {saveCard && <Text style={addcardstyles.checkmark}>{strings.tick}</Text>}
               </View>
               <Text
                 style={[
@@ -238,12 +238,12 @@ const AddCard = () => {
                   { color: colors.colors.text },
                 ]}
               >
-                Save Card
+                {strings.savecard}
               </Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={addcardstyles.addCardButton} onPress={handleAddCard}>
-              <Text style={addcardstyles.addCardButtonText}>Add Card</Text>
+              <Text style={addcardstyles.addCardButtonText}>{strings.addcard}</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>

@@ -1,13 +1,18 @@
 import { ImageStyle, StyleSheet } from "react-native";
 import { Colors } from "../utils/Colors";
-import { borderStyles, layout, Spacing, textStyles } from "../components/layout";
+import {
+  borderStyles,
+  layout,
+  Spacing,
+  textStyles,
+} from "../components/layout";
 import { Fonts } from "../components/fonts";
 
 export const cartitemstyle = StyleSheet.create({
   container: {
     ...layout.flex_1,
     ...Spacing.paddingHorizontal_20,
-    ...Spacing.paddingBottom_80
+    ...Spacing.paddingBottom_80,
   },
   headerContainer: {
     ...layout.row,
@@ -38,275 +43,292 @@ export const cartitemstyle = StyleSheet.create({
     ...textStyles.centerText,
     ...layout.flex_1,
   },
-backButtonText: {
-  fontSize: 22,
-  color: "#333",
-},
-// header: {
-//   fontSize: 18,
-//   fontWeight: "bold",
-//   marginLeft: 15,
-//   color: "#333",
-// },
-emptyCartContainer: {
-  flex: 1,
-  justifyContent: "center",
-  alignItems: "center",
-},
-emptyCartText: {
-  fontSize: 18,
-  fontWeight: "bold",
-  color: "#333",
-},
-cartItem: {
-  flexDirection: "row",
-  padding: 15,
-  borderBottomWidth: 1,
-  borderBottomColor: "#f0f0f0",
-  alignItems: "center",
-},
-itemImage: {
-  width: 80,
-  height: 80,
-  borderRadius: 8,
-},
-itemDetails: {
-  flex: 1,
-  marginLeft: 15,
-},
-itemName: {
-  fontSize: 16,
-  fontWeight: "600",
-  color: "#333",
-  marginBottom: 5,
-},
-itemSize: {
-  fontSize: 14,
-  color: "#666",
-  marginBottom: 5,
-},
-itemPrice: {
-  fontSize: 16,
-  fontWeight: "600",
-  color: "#333",
-},
-originalPrice: {
-  textDecorationLine: "line-through",
-  color: "#999",
-  fontSize: 14,
-},
-quantityControls: {
-  flexDirection: "row",
-  alignItems: "center",
-  marginRight: 10,
-},
-quantityButton: {
-  width: 30,
-  height: 30,
-  borderRadius: 15,
-  backgroundColor: "#f5f5f5",
-  justifyContent: "center",
-  alignItems: "center",
-},
-quantityButtonText: {
-  fontSize: 16,
-  color: "#333",
-},
-quantityText: {
-  fontSize: 16,
-  marginHorizontal: 10,
-  color: "#333",
-},
-deleteButton: {
-  padding: 8,
-},
-deleteButtonText: {
-  fontSize: 18,
-},
-promoContainer: {
-  marginVertical: 20,
-  paddingHorizontal: 15,
-},
-promoInputContainer: {
-  flexDirection: "row",
-  borderWidth: 1,
-  borderColor: "#e0e0e0",
-  borderRadius: 25,
-  overflow: "hidden",
-},
-promoInput: {
-  flex: 1,
-  height: 50,
-  paddingHorizontal: 20,
-  fontSize: 16,
-  color: "#333",
-},
-applyButton: {
-  backgroundColor: "#8B5A2B",
-  paddingHorizontal: 20,
-  justifyContent: "center",
-  alignItems: "center",
-  borderRadius: 25,
-},
-applyButtonText: {
-  color: "#fff",
-  fontSize: 16,
-  fontWeight: "600",
-},
-appliedPromoContainer: {
-  flexDirection: "row",
-  borderWidth: 1,
-  borderColor: "#8B5A2B",
-  borderRadius: 25,
-  paddingVertical: 15,
-  paddingHorizontal: 20,
-  alignItems: "center",
-  justifyContent: "space-between",
-},
-appliedPromoText: {
-  fontSize: 16,
-  color: "#8B5A2B",
-  fontWeight: "600",
-},
-removePromoButton: {
-  padding: 5,
-},
-removePromoButtonText: {
-  fontSize: 18,
-  color: "#8B5A2B",
-},
-summary: {
-  paddingHorizontal: 15,
-  marginBottom: 20,
-},
-summaryRow: {
-  flexDirection: "row",
-  justifyContent: "space-between",
-  marginBottom: 15,
-},
-summaryLabel: {
-  fontSize: 16,
-  // color: Colors.white,
-},
-summaryValue: {
-  fontSize: 16,
-  fontWeight: "600",
-  // color: Colors.white,
-},
-totalRow: {
-  borderTopWidth: 1,
-  borderTopColor: "#e0e0e0",
-  paddingTop: 15,
-  marginTop: 5,
-},
-totalLabel: {
-  fontSize: 18,
-  fontWeight: "600",
-  // color: Colors.white,
-},
-totalValue: {
-  fontSize: 18,
-  fontWeight: "bold",
-  // color: Colors.white,
-},
-checkoutButton: {
-  backgroundColor: "#8B5A2B",
-  marginHorizontal: 15,
-  marginBottom: 30,
-  paddingVertical: 15,
-  borderRadius: 25,
-  alignItems: "center",
-},
-checkoutButtonText: {
-  color: "#fff",
-  fontSize: 18,
-  fontWeight: "600",
-},
-modalOverlay: {
-  flex: 1,
-  backgroundColor: "rgba(0,0,0,0.5)",
-  justifyContent: "flex-end",
-},
-modalContent: {
-  // backgroundColor: "#fff",
-  borderTopLeftRadius: 20,
-  borderTopRightRadius: 20,
-  padding: 20,
-},
-modalTitle: {
-  fontSize: 18,
-  fontWeight: "bold",
-  marginBottom: 20,
-  textAlign: "center",
-  // color: "#333",
-},
-modalItem: {
-  flexDirection: "row",
-  alignItems: "center",
-  paddingVertical: 15,
-  borderBottomWidth: 1,
-  borderBottomColor: "#f0f0f0",
-},
-modalItemImage: {
-  width: 70,
-  height: 70,
-  borderRadius: 8,
-},
-modalItemDetails: {
-  flex: 1,
-  marginLeft: 15,
-},
-modalItemName: {
-  fontSize: 16,
-  fontWeight: "600",
-  color: "#333",
-  marginBottom: 5,
-},
-modalItemSize: {
-  fontSize: 14,
-  color: "#666",
-  marginBottom: 5,
-},
-modalItemPrice: {
-  fontSize: 16,
-  fontWeight: "600",
-  color: "#333",
-},
-modalQuantity: {
-  flexDirection: "row",
-  alignItems: "center",
-},
-modalActions: {
-  flexDirection: "row",
-  justifyContent: "space-between",
-  marginTop: 30,
-},
-cancelButton: {
-  flex: 1,
-  paddingVertical: 15,
-  marginRight: 10,
-  borderRadius: 25,
-  alignItems: "center",
-  borderWidth: 1,
-  borderColor: "#e0e0e0",
-},
-cancelButtonText: {
-  color: "#8B5A2B",
-  fontSize: 16,
-  fontWeight: "600",
-},
-confirmButton: {
-  flex: 1,
-  backgroundColor: "#8B5A2B",
-  paddingVertical: 15,
-  marginLeft: 10,
-  borderRadius: 25,
-  alignItems: "center",
-},
-confirmButtonText: {
-  color: "#fff",
-  fontSize: 16,
-  fontWeight: "600",
-}
+  backButtonText: {
+    ...Fonts.size_22,
+    color: Colors.MildBlack,
+  },
+  emptyCartContainer: {
+    ...layout.flex_1,
+    ...layout.justifyCenter,
+    ...layout.itemsCenter,
+  },
+  emptyCartText: {
+    ...Fonts.size_18,
+    ...Fonts.weight_900,
+    color: Colors.MildBlack,
+  },
+  cartItem: {
+    ...layout.row,
+    ...Spacing.padding_15,
+    ...borderStyles.wBottom_1,
+    ...borderStyles.cartItemBottomBorder,
+    ...layout.itemsCenter,
+  },
+  itemImage: {
+    ...layout.width_80,
+    ...layout.height_80,
+    ...borderStyles.rounded_8,
+  } as ImageStyle,
+  itemDetails: {
+    ...layout.flex_1,
+    ...Spacing.marginLeft_15,
+  },
+  itemName: {
+    ...Fonts.size_16,
+    ...Fonts.weight_600,
+    color: Colors.MildBlack,
+    ...Spacing.marginBottom_5,
+  },
+  itemSize: {
+    ...Fonts.size_14,
+    color: Colors.mediumBlack,
+    ...Spacing.marginBottom_5,
+  },
+  itemPrice: {
+    ...Fonts.size_16,
+    ...Fonts.weight_600,
+    color: Colors.MildBlack,
+  },
+  originalPrice: {
+    ...textStyles.textLineThrough,
+    color: Colors.zetgrey,
+    ...Fonts.size_14,
+  },
+  quantityControls: {
+    ...layout.row,
+    ...layout.itemsCenter,
+    ...Spacing.marginRight_10,
+  },
+  quantityButton: {
+    ...layout.width_30,
+    ...layout.height_30,
+    ...borderStyles.rounded_15,
+    backgroundColor: Colors.lightWhite,
+    ...layout.justifyCenter,
+    ...layout.itemsCenter,
+  },
+  quantityButtonText: {
+    ...Fonts.size_16,
+    color: Colors.MildBlack,
+  },
+  quantityText: {
+    ...Fonts.size_16,
+    color: Colors.MildBlack,
+    ...Spacing.marginHorizontal_10,
+  },
+  deleteButton: {
+    ...Spacing.padding_8,
+  },
+  deleteButtonText: {
+    ...Fonts.size_18,
+  },
+  promoContainer: {
+    ...Spacing.marginVertical_20,
+    ...Spacing.paddingHorizontal_15,
+  },
+  promoInputContainer: {
+    ...layout.row,
+    ...borderStyles.w_1,
+    ...borderStyles.promoinputBorder,
+    ...borderStyles.rounded_25,
+    ...layout.overflowHidden,
+  },
+  promoInput: {
+    ...layout.flex_1,
+    ...layout.height_small,
+    ...Spacing.paddingHorizontal_20,
+    ...Fonts.size_16,
+    color: Colors.MildBlack,
+  },
+  applyButton: {
+    backgroundColor: Colors.applypromoColor,
+    ...Spacing.paddingHorizontal_20,
+    ...layout.justifyCenter,
+    ...layout.itemsCenter,
+    ...borderStyles.rounded_25,
+  },
+  applyButtonText: {
+    color: Colors.white,
+    ...Fonts.size_16,
+    ...Fonts.weight_600,
+  },
+  appliedPromoContainer: {
+    ...layout.row,
+    ...borderStyles.w_1,
+    ...borderStyles.applypromoBorder,
+    ...borderStyles.rounded_25,
+    ...Spacing.paddingVertical_15,
+    ...Spacing.paddingHorizontal_20,
+    ...layout.itemsCenter,
+    ...layout.justifyBetween,
+  },
+  appliedPromoText: {
+    ...Fonts.size_16,
+    color: Colors.applypromoColor,
+    ...Fonts.weight_600,
+  },
+  removePromoButton: {
+    ...Spacing.padding_5,
+  },
+  removePromoButtonText: {
+    ...Fonts.size_18,
+    color: Colors.applypromoColor,
+  },
+  summary: {
+    ...Spacing.paddingHorizontal_15,
+    ...Spacing.marginBottom_20,
+  },
+  summaryRow: {
+    ...layout.row,
+    ...layout.justifyBetween,
+    ...Spacing.marginBottom_15,
+  },
+  summaryLabel: {
+    ...Fonts.size_16,
+  },
+  summaryValue: {
+    ...Fonts.size_16,
+    ...Fonts.weight_600,
+  },
+  totalRow: {
+    ...borderStyles.wTop_1,
+    ...borderStyles.totalrowTopBorder,
+    ...Spacing.paddingTop_15,
+    ...Spacing.marginTop_5,
+  },
+  totalLabel: {
+    ...Fonts.size_18,
+    ...Fonts.weight_600,
+  },
+  totalValue: {
+    ...Fonts.size_18,
+    ...Fonts.weight_900,
+  },
+  checkoutButton: {
+    backgroundColor: Colors.applypromoColor,
+    ...Spacing.marginHorizontal_15,
+    ...Spacing.marginBottom_30,
+    ...Spacing.paddingVertical_15,
+    ...borderStyles.rounded_25,
+    ...layout.itemsCenter,
+  },
+  checkoutButtonText: {
+    color: Colors.white,
+    ...Fonts.size_18,
+    ...Fonts.weight_600,
+  },
+  modalOverlay: {
+    ...layout.flex_1,
+    backgroundColor: Colors.transparentblack,
+    ...layout.justifyEnd,
+  },
+  modalContent: {
+    ...borderStyles.roundedTop_20,
+    ...Spacing.padding_20,
+  },
+  modalTitle: {
+    ...Fonts.size_18,
+    ...Fonts.weight_900,
+    ...Spacing.marginBottom_20,
+    ...textStyles.centerText,
+  },
+  modalItem: {
+    ...layout.row,
+    ...layout.itemsCenter,
+    ...Spacing.paddingVertical_15,
+    ...borderStyles.wBottom_1,
+    ...borderStyles.cartItemBottomBorder,
+  },
+  modalItemImage: {
+    ...layout.highWidth,
+    ...layout.highHeight,
+    ...borderStyles.rounded_8,
+  } as ImageStyle,
+  modalItemDetails: {
+    ...layout.flex_1,
+    ...Spacing.marginLeft_15,
+  },
+  modalItemName: {
+    ...Fonts.size_16,
+    ...Fonts.weight_600,
+    color: Colors.MildBlack,
+    ...Spacing.marginBottom_5,
+  },
+  modalItemSize: {
+    ...Fonts.size_14,
+    color: Colors.mediumBlack,
+    ...Spacing.marginBottom_5,
+  },
+  modalItemPrice: {
+    ...Fonts.size_16,
+    ...Fonts.weight_600,
+    color: Colors.MildBlack,
+  },
+  modalQuantity: {
+    ...layout.row,
+    ...layout.itemsCenter,
+  },
+  modalActions: {
+    ...layout.row,
+    ...layout.justifyBetween,
+    ...Spacing.marginTop_30,
+  },
+  cancelButton: {
+    ...layout.flex_1,
+    ...Spacing.paddingVertical_15,
+    ...Spacing.marginRight_10,
+    ...borderStyles.rounded_25,
+    ...layout.itemsCenter,
+    ...borderStyles.w_1,
+    ...borderStyles.promoinputBorder,
+  },
+  cancelButtonText: {
+    color: Colors.applypromoColor,
+    ...Fonts.size_16,
+    ...Fonts.weight_600,
+  },
+  confirmButton: {
+    ...layout.flex_1,
+    backgroundColor: Colors.applypromoColor,
+    ...Spacing.paddingVertical_15,
+    ...Spacing.marginLeft_10,
+    ...borderStyles.rounded_25,
+    ...layout.itemsCenter,
+  },
+  confirmButtonText: {
+    color: Colors.white,
+    ...Fonts.size_16,
+    ...Fonts.weight_600,
+  },
+  couponselectContainer: {
+    ...layout.col,
+    ...Spacing.gap_10,
+    ...Spacing.paddingHorizontal_20,
+    ...layout.row,
+    ...layout.justifyBetween,
+    ...layout.itemsCenter,
+    ...Spacing.marginBottom_20,
+  },
+  couponButton: {
+    ...layout.width_120,
+    ...layout.height_30,
+    backgroundColor: Colors.darkcoffee,
+    ...layout.row,
+    ...layout.justifyBetween,
+    ...layout.itemsCenter,
+    ...Spacing.paddingHorizontal_10,
+    ...borderStyles.rounded_20,
+  },
+  couponvalidorpromo: {
+    ...Fonts.size_12,
+    ...Fonts.weight_600,
+  },
+  seeallcouponText: {
+    color: Colors.white,
+    ...Fonts.size_12,
+  },
+  arrowrightImage: {
+    ...layout.width_10,
+    ...layout.height_10,
+  } as ImageStyle,
 });
-

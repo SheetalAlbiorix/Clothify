@@ -50,7 +50,6 @@ export const paymentstyles = StyleSheet.create({
     ...layout.itemsCenter,
     ...layout.col,
     ...Spacing.gap_20,
-    // transform: [{ scale: scaleAnim }]
   },
   doneIconImage: {
     ...layout.width_200,
@@ -75,7 +74,7 @@ export const paymentstyles = StyleSheet.create({
     ...layout.justifyCenter,
     ...layout.itemsCenter,
     ...shadowStyles.shadowLarge,
-    ...Spacing.paddingBottom_20
+    ...Spacing.paddingBottom_20,
   },
   paymentButton: {
     backgroundColor: Colors.darkcoffee,

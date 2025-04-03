@@ -92,10 +92,7 @@ const PROMO_CODES = {
   HAPPYNEW500: strings.happynew500,
 };
 
-type CartNavigationProp = StackNavigationProp<
-  RootStackParamList,
-  "Cart"
->;
+type CartNavigationProp = StackNavigationProp<RootStackParamList, "Cart">;
 
 const Cart = () => {
   const colors = useColors();
@@ -346,14 +343,17 @@ const Cart = () => {
                 onPress={removePromoCode}
                 style={cartitemstyle.removePromoButton}
               >
-                <Text style={cartitemstyle.removePromoButtonText}>✕</Text>
+                <Text style={cartitemstyle.removePromoButtonText}>{strings.cross}</Text>
               </TouchableOpacity>
             </View>
           ) : (
             <View style={cartitemstyle.promoInputContainer}>
               <TextInput
-                style={cartitemstyle.promoInput}
-                placeholder="Promo Code"
+                style={[
+                  cartitemstyle.promoInput,
+                  { color: colors.colors.text },
+                ]}
+                placeholder={strings.promocode}
                 placeholderTextColor={Colors.zetgrey}
                 value={promoCode}
                 onChangeText={setPromoCode}
@@ -372,6 +372,29 @@ const Cart = () => {
               </TouchableOpacity>
             </View>
           )}
+        </View>
+        <View style={cartitemstyle.couponselectContainer}>
+          <Text
+            style={[
+              cartitemstyle.couponvalidorpromo,
+              { color: colors.colors.text },
+            ]}
+          >
+            {strings.haveavalidcoupon}
+          </Text>
+          <TouchableOpacity
+            style={cartitemstyle.couponButton}
+            onPress={() => navigation.navigate("Coupons")}
+          >
+            <Text style={cartitemstyle.seeallcouponText}>{strings.seeallcoupons}</Text>
+            <Image
+              source={images.arrowright}
+              style={[
+                cartitemstyle.arrowrightImage,
+                { tintColor: colors.colors.tintColor },
+              ]}
+            />
+          </TouchableOpacity>
         </View>
 
         <View style={cartitemstyle.summary}>
@@ -448,9 +471,20 @@ const Cart = () => {
           </View>
         </View>
 
-        <TouchableOpacity style={cartitemstyle.checkoutButton} onPress={()=> navigation.navigate('Checkout')}>
+        <TouchableOpacity
+          style={cartitemstyle.checkoutButton}
+          onPress={() =>
+            navigation.navigate({
+              name: "Checkout",
+              params: {
+                selectedAddress: undefined,
+                selectedArrival: undefined,
+              },
+            })
+          }
+        >
           <Text style={cartitemstyle.checkoutButtonText}>
-            Proceed to Checkout
+            {strings.proceedtocheckout}
           </Text>
         </TouchableOpacity>
       </ScrollView>
@@ -471,7 +505,7 @@ const Cart = () => {
             <Text
               style={[cartitemstyle.modalTitle, { color: colors.colors.text }]}
             >
-              Remove from Cart?
+              {strings.removefromcart}
             </Text>
 
             {itemToRemove && (
@@ -534,14 +568,14 @@ const Cart = () => {
                 style={cartitemstyle.cancelButton}
                 onPress={() => setModalVisible(false)}
               >
-                <Text style={cartitemstyle.cancelButtonText}>Cancel</Text>
+                <Text style={cartitemstyle.cancelButtonText}>{strings.cancel}</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
                 style={cartitemstyle.confirmButton}
                 onPress={confirmRemoveItem}
               >
-                <Text style={cartitemstyle.confirmButtonText}>Yes, Remove</Text>
+                <Text style={cartitemstyle.confirmButtonText}>{strings.yesremove}</Text>
               </TouchableOpacity>
             </View>
           </View>

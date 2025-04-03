@@ -72,7 +72,7 @@ export const newpassstyle = StyleSheet.create({
     ...layout.width_20,
     ...layout.height_20,
     tintColor: Colors.footerColor,
-  },
+  } as ImageStyle,
   errorText: {
     color: Colors.red,
     ...Fonts.size_12,

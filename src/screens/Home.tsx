@@ -179,7 +179,7 @@ const HomeScreen = () => {
           <Image source={images.searchIcon} style={homeStyles.searchIcon} />
           <TextInput
             style={homeStyles.searchInput}
-            placeholder="Search"
+            placeholder={strings.search}
             placeholderTextColor={Colors.mediumgrey}
           />
         </View>

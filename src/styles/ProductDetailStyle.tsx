@@ -176,9 +176,9 @@ export const productstyle = StyleSheet.create({
     ...layout.justifyCenter
   },
   selectedIndicator: {
-    width: 20,
-    height: 20,
-    borderRadius: 10,
+    ...layout.width_20,
+    ...layout.height_20,
+    ...borderStyles.rounded_10,
     backgroundColor: Colors.white,
     ...layout.itemsCenter,
     ...layout.justifyCenter

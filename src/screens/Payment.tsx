@@ -57,7 +57,7 @@ const Payment = () => {
         <Text
           style={[paymentstyles.Paymentsuccess, { color: colors.colors.text }]}
         >
-          Payment Successful
+          {strings.paymentsuccess}
         </Text>
         <Text
           style={[
@@ -65,7 +65,7 @@ const Payment = () => {
             { color: colors.colors.textAccent },
           ]}
         >
-          Thank you for your purchase
+          {strings.thankyoupurchase}
         </Text>
       </View>
       <View

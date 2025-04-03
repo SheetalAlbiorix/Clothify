@@ -38,21 +38,24 @@ export const Fonts: Record<string, TextStyle> = {
     color: "#ff0000",
   },
   weight_200: {
-    fontWeight: 200
+    fontWeight: 200,
   },
   weight_400: {
-    fontWeight: 400
+    fontWeight: 400,
+  },
+  weight_500: {
+    fontWeight: 500,
   },
   weight_600: {
-    fontWeight: 600
+    fontWeight: 600,
   },
   weight_700: {
-    fontWeight: 700
+    fontWeight: 700,
   },
   weight_800: {
-    fontWeight: 800
+    fontWeight: 800,
   },
   weight_900: {
-    fontWeight: 900
+    fontWeight: 900,
   },
 };

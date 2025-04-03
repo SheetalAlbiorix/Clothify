@@ -116,25 +116,25 @@ const ChooseShipping = () => {
         )}
       />
       <View
-              style={[
-                chooseshippingStyle.footer,
-                {
-                  backgroundColor: colors.colors.background,
-                  borderTopColor: colors.colors.borderColor,
-                },
-              ]}
-            >
-              <TouchableOpacity
-                style={[
-                  chooseshippingStyle.applyButton,
-                  selectedArrival ? {} : { opacity: 0.5 },
-                ]}
-                onPress={handleApply}
-                disabled={!selectedArrival}
-              >
-                <Text style={chooseshippingStyle.applyText}>{strings.apply}</Text>
-              </TouchableOpacity>
-            </View>
+        style={[
+          chooseshippingStyle.footer,
+          {
+            backgroundColor: colors.colors.background,
+            borderTopColor: colors.colors.borderColor,
+          },
+        ]}
+      >
+        <TouchableOpacity
+          style={[
+            chooseshippingStyle.applyButton,
+            selectedArrival ? {} : { opacity: 0.5 },
+          ]}
+          onPress={handleApply}
+          disabled={!selectedArrival}
+        >
+          <Text style={chooseshippingStyle.applyText}>{strings.apply}</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };

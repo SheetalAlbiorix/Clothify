@@ -3,6 +3,7 @@ import { Text, View } from "react-native";
 type RootStackParamList = {
   Splash: undefined;
   Welcome: undefined;
+  Tab: undefined;
 };
 import React, { useEffect } from "react";
 import { StatusBar } from "expo-status-bar";

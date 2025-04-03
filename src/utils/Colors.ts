@@ -31,6 +31,12 @@ export const Colors = {
   lightWhite: "#F5F5F5",
   silkygrey: "#A5A5A5",
   chormeyellow: "#F4C430",
+  cardColor: "#8D6E63",
+  cardtransparent: "rgba(255,255,255,0.7)",
+  chipIconTransparent: "rgba(255,255,255,0.2)",
+  MildBlack: "#333333",
+  mediumBlack: "#666666",
+  applypromoColor: "#8B5A2B",
 };
 
 export const ColorNames: { [key: string]: string } = {

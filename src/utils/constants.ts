@@ -17,6 +17,7 @@ export type ThemeColors = {
   placeholderColor?: string;
   circlularborder: string;
   caroselText: string;
+  notchbg:string;
 };
 
 export const lightModeColors: ThemeColors = {
@@ -28,6 +29,7 @@ export const lightModeColors: ThemeColors = {
   placeholderColor: Colors.darkgray,
   circlularborder: Colors.brown,
   caroselText: Colors.white,
+  notchbg: Colors.white,
 };
 
 export const darkModeColors: ThemeColors = {
@@ -38,7 +40,8 @@ export const darkModeColors: ThemeColors = {
   tintColor: Colors.white,
   placeholderColor: Colors.white,
   circlularborder: Colors.brown,
-  caroselText: Colors.white
+  caroselText: Colors.white,
+  notchbg: Colors.black
 };
 
 const isDark = Appearance.getColorScheme() === localizedStrings.dark;

@@ -44,7 +44,7 @@ const PaymentMethod = () => {
           setSavedCards(JSON.parse(storedCards));
         }
       } catch (error) {
-        console.error("Failed to load saved cards", error);
+        console.error(strings.failedloadcards, error);
       }
     };
     loadCards();
@@ -62,7 +62,7 @@ const PaymentMethod = () => {
           
           setSavedCards(updatedCards);
         } catch (error) {
-          console.error("Error saving card:", error);
+          console.error(strings.errorsavingcard, error);
         }
       }
     };
@@ -100,7 +100,6 @@ const PaymentMethod = () => {
         </Text>
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        {/* Saved Cards  */}
         <View style={paymentmethodstyle.savedCardsContainer}>
           <Text
             style={[
@@ -134,7 +133,7 @@ const PaymentMethod = () => {
                     { color: colors.colors.text },
                   ]}
                 >
-                  CVV: {card.cvv}
+                  {strings.cvvv} {card.cvv}
                 </Text>
                 <Text
                   style={[
@@ -142,7 +141,7 @@ const PaymentMethod = () => {
                     { color: colors.colors.text },
                   ]}
                 >
-                  Expiry: {card.expiryDate}
+                  {strings.expiry} {card.expiryDate}
                 </Text>
                 <Text
                   style={[
@@ -150,7 +149,7 @@ const PaymentMethod = () => {
                     { color: colors.colors.text },
                   ]}
                 >
-                  Holder: {card.cardHolderName}
+                  {strings.holder} {card.cardHolderName}
                 </Text>
                 <TouchableOpacity
                   onPress={() => removeCard(index)}
@@ -167,11 +166,10 @@ const PaymentMethod = () => {
               </View>
             ))
           ) : (
-            <Text style={paymentmethodstyle.noCardText}>No saved cards</Text>
+            <Text style={paymentmethodstyle.noCardText}>{strings.nosavecards}</Text>
           )}
         </View>
 
-        {/* Add Card container */}
         <View style={paymentmethodstyle.mainContainer}>
           <Pressable
             style={[
@@ -204,7 +202,6 @@ const PaymentMethod = () => {
           </Pressable>
         </View>
 
-        {/* All Payment Options */}
         <View style={paymentmethodstyle.AllPaymentOption}>
           <Text
             style={[
@@ -223,7 +220,7 @@ const PaymentMethod = () => {
           >
             <Pressable
               style={paymentmethodstyle.paypalIconContainer}
-              onPress={() => setSelectedMethod("paypal")}
+              onPress={() => setSelectedMethod(strings.PAYPAL)}
             >
               <Image
                 source={images.paypalIcon}
@@ -240,9 +237,9 @@ const PaymentMethod = () => {
             </Pressable>
             <Pressable
               style={paymentmethodstyle.radioButton}
-              onPress={() => setSelectedMethod("paypal")}
+              onPress={() => setSelectedMethod(strings.PAYPAL)}
             >
-              {selectedMethod === "paypal" && (
+              {selectedMethod === strings.PAYPAL && (
                 <View style={paymentmethodstyle.selectedRadioButton} />
               )}
             </Pressable>
@@ -256,7 +253,7 @@ const PaymentMethod = () => {
           >
             <Pressable
               style={paymentmethodstyle.paypalIconContainer}
-              onPress={() => setSelectedMethod("applepay")}
+              onPress={() => setSelectedMethod(strings.APPLEPAY)}
             >
               <Image
                 source={images.appleIcon}
@@ -276,9 +273,9 @@ const PaymentMethod = () => {
             </Pressable>
             <Pressable
               style={paymentmethodstyle.radioButton}
-              onPress={() => setSelectedMethod("applepay")}
+              onPress={() => setSelectedMethod(strings.APPLEPAY)}
             >
-              {selectedMethod === "applepay" && (
+              {selectedMethod === strings.APPLEPAY && (
                 <View style={paymentmethodstyle.selectedRadioButton} />
               )}
             </Pressable>
@@ -292,7 +289,7 @@ const PaymentMethod = () => {
           >
             <Pressable
               style={paymentmethodstyle.paypalIconContainer}
-              onPress={() => setSelectedMethod("googlepay")}
+              onPress={() => setSelectedMethod(strings.GOOGLEPAY)}
             >
               <Image
                 source={images.googleIcon}
@@ -309,9 +306,9 @@ const PaymentMethod = () => {
             </Pressable>
             <Pressable
               style={paymentmethodstyle.radioButton}
-              onPress={() => setSelectedMethod("googlepay")}
+              onPress={() => setSelectedMethod(strings.GOOGLEPAY)}
             >
-              {selectedMethod === "googlepay" && (
+              {selectedMethod === strings.GOOGLEPAY && (
                 <View style={paymentmethodstyle.selectedRadioButton} />
               )}
             </Pressable>

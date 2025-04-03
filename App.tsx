@@ -22,6 +22,7 @@ import ChooseShipping, { ArrivalType } from "./src/screens/ChooseShipping";
 import PaymentMethod, { SavedCardType } from "./src/screens/PaymentMethod";
 import AddCard from "./src/screens/AddCard";
 import Payment from "./src/screens/Payment";
+import Coupons from "./src/screens/Coupons";
 
 export type RootStackParamList = {
   Splash: undefined;
@@ -40,14 +41,17 @@ export type RootStackParamList = {
   productDetail: undefined;
   whistlist: undefined;
   Cart: undefined;
-  Checkout: { selectedAddress?: AddressType, selectedArrival?: ArrivalType };
+  Checkout: { selectedAddress?: AddressType; selectedArrival?: ArrivalType };
   ShippingAddress: undefined;
   ChooseShipping: undefined;
-  PaymentMethod: {  newCard?: SavedCardType;
+  PaymentMethod: {
+    newCard?: SavedCardType;
     selectedAddress?: { label: string; address: string };
-    selectedArrival?: { label: string; arrival: string }; };
+    selectedArrival?: { label: string; arrival: string };
+  };
   AddCard: undefined;
   Payment: undefined;
+  Coupons: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -80,6 +84,7 @@ export default function App() {
         <Stack.Screen name="PaymentMethod" component={PaymentMethod} />
         <Stack.Screen name="AddCard" component={AddCard} />
         <Stack.Screen name="Payment" component={Payment} />
+        <Stack.Screen name="Coupons" component={Coupons} />
       </Stack.Navigator>
     </NavigationContainer>
   );

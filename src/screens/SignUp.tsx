@@ -131,7 +131,7 @@ const SignUp = () => {
         <View style={SignUpStyle.passwordInputContainer}>
           <TextInput
             style={SignUpStyle.input}
-            placeholder="************"
+            placeholder={strings.starText}
             placeholderTextColor={colors.colors.textAccent}
             secureTextEntry={!passwordVisible}
             value={password}

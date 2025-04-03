@@ -43,12 +43,12 @@ const NewPassword = () => {
   const validateInputs = () => {
     if (!isPasswordValid(password)) {
       setError(
-        "Password must be at least 8 characters, with a number & special character."
+        strings.passwordcharacter
       );
       return false;
     }
     if (password !== confirmPassword) {
-      setError("Passwords do not match.");
+      setError(strings.confirmPasswordError);
       return false;
     }
     return true;
@@ -57,7 +57,7 @@ const NewPassword = () => {
   const handleSubmit = () => {
     if (validateInputs()) {
       navigation.navigate('CompleteProfile')
-      console.log("Password changed successfully!");
+      console.log(strings.passwordchangedsuccess);
     }
   };
 

@@ -30,10 +30,8 @@ const ProductDetail = () => {
     images.jacket6,
   ];
 
-  // Memoize image list to avoid unnecessary re-renders
   const memoizedImageList = useMemo(() => imageList, []);
 
-  // Memoize sizes and color selection logic
   const memoizedSizeList = useMemo(
     () => [
       strings.S,

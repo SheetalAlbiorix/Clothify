@@ -85,6 +85,7 @@ export const layout: Record<string, ViewStyle | TextStyle | ImageStyle> = {
   width_500: { width: 500 },
   widths_25: { width: "25%" },
   minimumWidth: { width: "30%" },
+  width48: { width: "48%" },
   halfWidth: { width: "50%" },
   MaxWidth: { width: "60%" },
   mediumWidth: { width: "80%" },
@@ -189,6 +190,7 @@ export const layout: Record<string, ViewStyle | TextStyle | ImageStyle> = {
   z101: { zIndex: 101 },
   z1000: { zIndex: 1000 },
   borderdashed: { borderStyle: "dashed" },
+  SelfCenterView: { alignSelf: "center" },
 };
 
 export const textStyles: Styles["TextStyle"] = {
@@ -201,6 +203,8 @@ export const textStyles: Styles["TextStyle"] = {
   EndText: { alignSelf: "flex-end" },
   selfCenter: { alignSelf: "center" },
   textUnderLine: { textDecorationLine: "underline" },
+  textLineThrough: { textDecorationLine: "line-through" },
+  letterspace2: { letterSpacing: 2 },
   letterspace10: { letterSpacing: 10 },
 };
 
@@ -228,6 +232,8 @@ export const borderStyles = {
   wLeft_2: { borderLeftWidth: 2 },
 
   // Border Radius
+  rounded02: { borderWidth: 0.2 },
+  rounded_2: { borderRadius: 2 },
   rounded_4: { borderRadius: 4 },
   rounded_5: { borderRadius: 5 },
   rounded_7: { borderRadius: 7 },
@@ -249,6 +255,17 @@ export const borderStyles = {
   roundedTop_5: { borderTopLeftRadius: 5, borderTopRightRadius: 5 },
   roundedTop_10: { borderTopLeftRadius: 10, borderTopRightRadius: 10 },
   roundedTop_12: { borderTopLeftRadius: 12, borderTopRightRadius: 12 },
+  roundedTop_20: { borderTopLeftRadius: 20, borderTopRightRadius: 20 },
+
+  // Border Right and Left Top Bottom Radius
+  roundedRightTopBottom_35: {
+    borderBottomRightRadius: 35,
+    borderTopRightRadius: 35,
+  },
+  roundedLeftTopBottom_35: {
+    borderTopLeftRadius: 35,
+    borderBottomLeftRadius: 35,
+  },
 
   // Border Bottom Left Right Radius
   roundedBottom_5: { borderBottomLeftRadius: 5, borderBottomRightRadius: 5 },
@@ -270,6 +287,13 @@ export const borderStyles = {
   lightgrey: { borderColor: "#eeeeee" },
   transparent: { borderColor: "transparent" },
   bordergray: { borderColor: "#ddd" },
+  chipIconBorder: { borderColor: "rgba(255,255,255,0.5)" },
+  inputBorder: { borderColor: "#E5E5E5" },
+  checkboxBorder: { borderColor: "#8D6E63" },
+  cartItemBottomBorder: { borderBottomColor: "#f0f0f0" },
+  promoinputBorder: { borderColor: "#e0e0e0" },
+  applypromoBorder: { borderColor: "#8B5A2B" },
+  totalrowTopBorder: { borderTopColor: "#e0e0e0" },
 };
 
 export const Spacing = {
@@ -289,6 +313,8 @@ export const Spacing = {
 
   // Margin Top
   marginTopminus5: { marginTop: -5 },
+  marginTopminus12: { marginTop: -12 },
+  marginTop_2: { marginTop: 2 },
   marginTop_3: { marginTop: 3 },
   marginTop_5: { marginTop: 5 },
   marginTop_8: { marginTop: 8 },
@@ -305,6 +331,7 @@ export const Spacing = {
   // Margin Bottom
   marginBottom_0: { marginBottom: 0 },
   marginBottom_5: { marginBottom: 5 },
+  marginBottom_8: { marginBottom: 8 },
   marginBottom_10: { marginBottom: 10 },
   marginBottom_15: { marginBottom: 15 },
   marginBottom_20: { marginBottom: 20 },
@@ -320,6 +347,7 @@ export const Spacing = {
 
   // Margin Right
   marginRight_5: { marginRight: 5 },
+  marginRight_6: { marginRight: 6 },
   marginRight_10: { marginRight: 10 },
   marginRight_15: { marginRight: 15 },
   marginRight_20: { marginRight: 20 },
@@ -331,6 +359,7 @@ export const Spacing = {
   marginLeft_3: { marginLeft: 3 },
   marginLeft_5: { marginLeft: 5 },
   marginLeft_10: { marginLeft: 10 },
+  marginLeft_15: { marginLeft: 15 },
   marginLeft_20: { marginLeft: 20 },
   marginLeft_120: { marginLeft: 120 },
   marginLeft_145: { marginLeft: 130 },
@@ -341,6 +370,7 @@ export const Spacing = {
   marginVertical_4: { marginVertical: 4 },
   marginVertical_5: { marginVertical: 5 },
   marginVertical_10: { marginVertical: 10 },
+  marginVertical_15: { marginVertical: 15 },
   marginVertical_20: { marginVertical: 20 },
 
   // Margin Horizontal
@@ -348,10 +378,12 @@ export const Spacing = {
   marginHorizontal_4: { marginHorizontal: 4 },
   marginHorizontal_5: { marginHorizontal: 5 },
   marginHorizontal_10: { marginHorizontal: 10 },
+  marginHorizontal_15: { marginHorizontal: 15 },
   marginHorizontal_20: { marginHorizontal: 20 },
 
   // Padding
   padding_5: { padding: 5 },
+  padding_8: { padding: 8 },
   padding_10: { padding: 10 },
   padding_15: { padding: 15 },
   padding_16: { padding: 16 },
@@ -365,6 +397,7 @@ export const Spacing = {
   // Padding Top
   paddingTop_8: { paddingTop: 8 },
   paddingTop_10: { paddingTop: 10 },
+  paddingTop_15: { paddingTop: 15 },
   paddingTop_20: { paddingTop: 20 },
   paddingTop_30: { paddingTop: 30 },
   paddingTop_50: { paddingTop: 50 },
@@ -403,6 +436,8 @@ export const Spacing = {
   paddingVertical_200: { paddingVertical: 200 },
 
   // Padding Horizontal
+  paadingHorizontal_0: { paddingHorizontal: 0 },
+  paddingHorizontal_5: { paddingHorizontal: 5 },
   paddingHorizontal_10: { paddingHorizontal: 10 },
   paddingHorizontal_15: { paddingHorizontal: 15 },
   paddingHorizontal_20: { paddingHorizontal: 20 },
@@ -413,6 +448,9 @@ export const Spacing = {
 };
 
 export const shadowStyles = {
+  shadowColor: {
+    shadowColor: "#fff",
+  },
   shadowSmall: {
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.1,
