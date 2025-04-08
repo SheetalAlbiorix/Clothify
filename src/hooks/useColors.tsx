@@ -8,11 +8,9 @@ export function useColors() {
   const [isDarkMode, setIsDarkMode] = useState(colorScheme === localizedStrings.dark);
 
   useEffect(() => {
-    // console.log("colorScheme detected:", colorScheme);
     setIsDarkMode(colorScheme === localizedStrings.dark);
   }, [colorScheme]);
 
-  // console.log("isDarkMode state:", isDarkMode);
 
   return { colors: isDarkMode ? darkModeColors : lightModeColors };
 }

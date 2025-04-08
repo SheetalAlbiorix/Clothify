@@ -53,6 +53,6 @@ export const couponsStyle = StyleSheet.create({
   },
   couponWrapper: {
     ...Spacing.marginTop_10,
-    paddingHorizontal: 10,
+    ...Spacing.paddingHorizontal_10,
   },
 });

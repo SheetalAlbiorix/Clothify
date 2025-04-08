@@ -85,8 +85,8 @@ export const homeStyles = StyleSheet.create({
     ...Fonts.size_16,
   },
   filterIcon: {
-    ...layout.width_small,
-    ...layout.height_small,
+    ...layout.widthinsmall,
+    ...layout.height_55,
   } as ImageStyle,
   sectionSeeAllcontainer: {
     ...layout.row,

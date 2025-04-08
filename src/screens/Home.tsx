@@ -114,7 +114,12 @@ const HomeScreen = () => {
   const secondRowItems = flashSaleItems.filter((_, index) => index % 2 !== 0);
 
   const renderItem = ({ item }: any) => (
-    <TouchableOpacity onPress={()=> {navigation.navigate('productDetail')}} style={homeStyles.flashSaleItem}>
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate("productDetail");
+      }}
+      style={homeStyles.flashSaleItem}
+    >
       <TouchableOpacity style={homeStyles.bgheartContainer}>
         <Image source={item.image1} style={homeStyles.heartImage} />
       </TouchableOpacity>
@@ -146,7 +151,9 @@ const HomeScreen = () => {
         { backgroundColor: colors.colors.background },
       ]}
     >
-        <Text style={[homeStyles.locationheader, { color: colors.colors.text }]}>{strings.location}</Text>
+      <Text style={[homeStyles.locationheader, { color: colors.colors.text }]}>
+        {strings.location}
+      </Text>
       <View style={homeStyles.header}>
         <View style={homeStyles.locationContainer}>
           <Image source={images.locationIcon} style={homeStyles.locationIcon} />
@@ -163,7 +170,10 @@ const HomeScreen = () => {
             source={images.downarrow}
           />
         </View>
-        <TouchableOpacity style={homeStyles.notificationButton}>
+        <TouchableOpacity
+          style={homeStyles.notificationButton}
+          onPress={() => navigation.navigate("MyOrders")}
+        >
           <Image
             source={images.notificationIcon}
             style={[
@@ -181,38 +191,57 @@ const HomeScreen = () => {
             style={homeStyles.searchInput}
             placeholder={strings.search}
             placeholderTextColor={Colors.mediumgrey}
+            onPress={() => navigation.navigate("Search")}
           />
         </View>
-        <TouchableOpacity>
-          <Image source={images.filterIcon} style={homeStyles.filterIcon} />
+        <TouchableOpacity onPress={() => navigation.navigate("Filter")}>
+          <Image
+            source={images.filterIcon2}
+            style={[
+              homeStyles.filterIcon,
+              { tintColor: colors.colors.tintColor },
+            ]}
+          />
         </TouchableOpacity>
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{flexDirection: 'row', gap: 200, width: 1000}}>
-        <View style={homeStyles.bannerContainer}>
-          <Image style={homeStyles.ImageBanner} source={images.banner2Icon} />
-          <View style={homeStyles.bannerTitleContainer}>
-            <Text style={homeStyles.bannerTitle}>{strings.newcollection}</Text>
-            <Text style={homeStyles.bannerSubtitle}>
-              {strings.discounttext}
-            </Text>
-            <TouchableOpacity style={homeStyles.shopNowButton}>
-              <Text style={homeStyles.shopNowText}>{strings.shopnow}</Text>
-            </TouchableOpacity>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{
+            flexDirection: "row",
+            gap: 200,
+            width: 1000,
+          }}
+        >
+          <View style={homeStyles.bannerContainer}>
+            <Image style={homeStyles.ImageBanner} source={images.banner2Icon} />
+            <View style={homeStyles.bannerTitleContainer}>
+              <Text style={homeStyles.bannerTitle}>
+                {strings.newcollection}
+              </Text>
+              <Text style={homeStyles.bannerSubtitle}>
+                {strings.discounttext}
+              </Text>
+              <TouchableOpacity style={homeStyles.shopNowButton}>
+                <Text style={homeStyles.shopNowText}>{strings.shopnow}</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
-        <View style={homeStyles.bannerContainer}>
-          <Image style={homeStyles.ImageBanner} source={images.banner2Icon} />
-          <View style={homeStyles.bannerTitleContainer}>
-            <Text style={homeStyles.bannerTitle}>{strings.newcollection}</Text>
-            <Text style={homeStyles.bannerSubtitle}>
-              {strings.discounttext}
-            </Text>
-            <TouchableOpacity style={homeStyles.shopNowButton}>
-              <Text style={homeStyles.shopNowText}>{strings.shopnow}</Text>
-            </TouchableOpacity>
+          <View style={homeStyles.bannerContainer}>
+            <Image style={homeStyles.ImageBanner} source={images.banner2Icon} />
+            <View style={homeStyles.bannerTitleContainer}>
+              <Text style={homeStyles.bannerTitle}>
+                {strings.newcollection}
+              </Text>
+              <Text style={homeStyles.bannerSubtitle}>
+                {strings.discounttext}
+              </Text>
+              <TouchableOpacity style={homeStyles.shopNowButton}>
+                <Text style={homeStyles.shopNowText}>{strings.shopnow}</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
         </ScrollView>
 
         <View style={homeStyles.sectionSeeAllcontainer}>
@@ -247,7 +276,7 @@ const HomeScreen = () => {
             <CountDownTimer />
           </TouchableOpacity>
         </View>
-          <CategoryFilterCarousel/>
+        <CategoryFilterCarousel />
 
         <FlatList
           data={firstRowItems}

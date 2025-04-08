@@ -44,6 +44,7 @@ export const layout: Record<string, ViewStyle | TextStyle | ImageStyle> = {
   //Width
   width_8: { width: 8 },
   width_10: { width: 10 },
+  width_12: { width: 12 },
   width_14: { width: 14 },
   width_15: { width: 15 },
   width_16: { width: 16 },
@@ -90,6 +91,7 @@ export const layout: Record<string, ViewStyle | TextStyle | ImageStyle> = {
   MaxWidth: { width: "60%" },
   mediumWidth: { width: "80%" },
   AverageWidth: { width: "85%" },
+  MediumHighWidth: { width: "90%" },
   fullWidth: { width: "100%" },
   fullMoreWidth: { width: "110%" },
   fullMaxWidth: { width: "120%" },
@@ -99,6 +101,7 @@ export const layout: Record<string, ViewStyle | TextStyle | ImageStyle> = {
   //Height
   height_8: { height: 8 },
   height_10: { height: 10 },
+  height_12: { height: 12 },
   height_14: { height: 14 },
   height_15: { height: 15 },
   height_16: { height: 16 },
@@ -301,6 +304,11 @@ export const Spacing = {
   gap_5: { gap: 5 },
   gap_10: { gap: 10 },
   gap_20: { gap: 20 },
+  gap_25: { gap: 25 },
+  gap_30: { gap: 30 },
+  gap_50: { gap: 50 },
+  gap_60: { gap: 60 },
+  gap_70: { gap: 70 },
   gap_80: { gap: 80 },
 
   // Margin property
@@ -333,6 +341,7 @@ export const Spacing = {
   marginBottom_5: { marginBottom: 5 },
   marginBottom_8: { marginBottom: 8 },
   marginBottom_10: { marginBottom: 10 },
+  marginBottom_12: { marginBottom: 12 },
   marginBottom_15: { marginBottom: 15 },
   marginBottom_20: { marginBottom: 20 },
   marginBottom_25: { marginBottom: 25 },
@@ -361,6 +370,7 @@ export const Spacing = {
   marginLeft_10: { marginLeft: 10 },
   marginLeft_15: { marginLeft: 15 },
   marginLeft_20: { marginLeft: 20 },
+  marginLeft_60: { marginLeft: 60 },
   marginLeft_120: { marginLeft: 120 },
   marginLeft_145: { marginLeft: 130 },
   marginLeft_150: { marginLeft: 330 },
@@ -374,6 +384,7 @@ export const Spacing = {
   marginVertical_20: { marginVertical: 20 },
 
   // Margin Horizontal
+  marginHorizontal_0: { marginHorizontal: 0 },
   marginHorizontal_3: { marginHorizontal: 3 },
   marginHorizontal_4: { marginHorizontal: 4 },
   marginHorizontal_5: { marginHorizontal: 5 },
@@ -437,6 +448,7 @@ export const Spacing = {
 
   // Padding Horizontal
   paadingHorizontal_0: { paddingHorizontal: 0 },
+  paddingHorizontal_2: { paddingHorizontal: 2 },
   paddingHorizontal_5: { paddingHorizontal: 5 },
   paddingHorizontal_10: { paddingHorizontal: 10 },
   paddingHorizontal_15: { paddingHorizontal: 15 },

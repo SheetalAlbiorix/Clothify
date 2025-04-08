@@ -23,6 +23,12 @@ import PaymentMethod, { SavedCardType } from "./src/screens/PaymentMethod";
 import AddCard from "./src/screens/AddCard";
 import Payment from "./src/screens/Payment";
 import Coupons from "./src/screens/Coupons";
+import Search from "./src/components/Search";
+import { SearchProvider } from "./src/hooks/searchContext";
+import Filter from "./src/screens/Filter";
+import SearchScreen from "./src/screens/SearchScreen";
+import MyOrders from "./src/screens/MyOrders";
+import LeaveReview from "./src/screens/LeaveReview";
 
 export type RootStackParamList = {
   Splash: undefined;
@@ -37,10 +43,10 @@ export type RootStackParamList = {
   AllowLocation: undefined;
   LocationMain: undefined;
   Home: { location: string };
-  Tab: undefined;
+  Tab: { name: string };
   productDetail: undefined;
   whistlist: undefined;
-  Cart: undefined;
+  Cart: { appliedCoupon: string };
   Checkout: { selectedAddress?: AddressType; selectedArrival?: ArrivalType };
   ShippingAddress: undefined;
   ChooseShipping: undefined;
@@ -52,40 +58,55 @@ export type RootStackParamList = {
   AddCard: undefined;
   Payment: undefined;
   Coupons: undefined;
+  Search: undefined;
+  CouponCard: undefined;
+  Filter: undefined;
+  SearchScreen: { name: string };
+  MyOrders: undefined;
+  TrackOrder: { orderId: string };
+  LeaveReview: { orderId: string };
+  Reorder: { orderId: string };
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName="Splash"
-        screenOptions={{ headerShown: false }}
-      >
-        <Stack.Screen name="Splash" component={Splash} />
-        <Stack.Screen name="Welcome" component={Welcome} />
-        <Stack.Screen name="Onboarding" component={Onboarding} />
-        <Stack.Screen name="SignIn" component={SignIn} />
-        <Stack.Screen name="SignUp" component={SignUp} />
-        <Stack.Screen name="Verify" component={Verify} />
-        <Stack.Screen name="NewPass" component={NewPassword} />
-        <Stack.Screen name="CompleteProfile" component={CompleteProfile} />
-        <Stack.Screen name="AllowLocation" component={AllowLocation} />
-        <Stack.Screen name="LocationMain" component={LocationMain} />
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="productDetail" component={ProductDetail} />
-        <Stack.Screen name="Tab" component={TabBar} />
-        <Stack.Screen name="whistlist" component={Whistlist} />
-        <Stack.Screen name="Cart" component={Cart} />
-        <Stack.Screen name="Checkout" component={Checkout} />
-        <Stack.Screen name="ShippingAddress" component={ShippingAddress} />
-        <Stack.Screen name="ChooseShipping" component={ChooseShipping} />
-        <Stack.Screen name="PaymentMethod" component={PaymentMethod} />
-        <Stack.Screen name="AddCard" component={AddCard} />
-        <Stack.Screen name="Payment" component={Payment} />
-        <Stack.Screen name="Coupons" component={Coupons} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <SearchProvider>
+      <NavigationContainer>
+        <Stack.Navigator
+          initialRouteName="Splash"
+          screenOptions={{ headerShown: false }}
+        >
+          <Stack.Screen name="Splash" component={Splash} />
+          <Stack.Screen name="Welcome" component={Welcome} />
+          <Stack.Screen name="Onboarding" component={Onboarding} />
+          <Stack.Screen name="SignIn" component={SignIn} />
+          <Stack.Screen name="SignUp" component={SignUp} />
+          <Stack.Screen name="Verify" component={Verify} />
+          <Stack.Screen name="NewPass" component={NewPassword} />
+          <Stack.Screen name="CompleteProfile" component={CompleteProfile} />
+          <Stack.Screen name="AllowLocation" component={AllowLocation} />
+          <Stack.Screen name="LocationMain" component={LocationMain} />
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="productDetail" component={ProductDetail} />
+          <Stack.Screen name="Tab" component={TabBar} />
+          <Stack.Screen name="whistlist" component={Whistlist} />
+          <Stack.Screen name="Cart" component={Cart} />
+          <Stack.Screen name="Checkout" component={Checkout} />
+          <Stack.Screen name="ShippingAddress" component={ShippingAddress} />
+          <Stack.Screen name="ChooseShipping" component={ChooseShipping} />
+          <Stack.Screen name="PaymentMethod" component={PaymentMethod} />
+          <Stack.Screen name="AddCard" component={AddCard} />
+          <Stack.Screen name="Payment" component={Payment} />
+          <Stack.Screen name="Coupons" component={Coupons} />
+          <Stack.Screen name="Search" component={Search} />
+          <Stack.Screen name="Filter" component={Filter} />
+          <Stack.Screen name="SearchScreen" component={SearchScreen} />
+          <Stack.Screen name="MyOrders" component={MyOrders} />
+          <Stack.Screen name="LeaveReview" component={LeaveReview} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </SearchProvider>
   );
 }

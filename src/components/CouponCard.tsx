@@ -18,17 +18,22 @@ import {
 import { images } from "../utils/images";
 import { useColors } from "../hooks/useColors";
 import { strings } from "../utils/strings";
+import Clipboard from "@react-native-clipboard/clipboard";
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "../../App";
 
-const CouponCard = ({
-  code = strings.welcome200,
-  amountNeeded = strings.dollar2,
-  discount = "50% OFF",
-}) => {
-  const colors = useColors();
+type CouponNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  "CouponCard"
+>;
+const CouponCard = ({ code, amountNeeded, discount }: any) => {
+  const navigation = useNavigation<CouponNavigationProp>();
 
   const copyCouponCode = () => {
-    console.log('code Copied')
-  }
+    Clipboard.setString(code);
+    navigation.navigate("Cart", { appliedCoupon: code });
+  };
 
   return (
     <View style={styles.couponWrapper}>
@@ -40,13 +45,9 @@ const CouponCard = ({
               {strings.additemsworth} {amountNeeded} {strings.moretounlock}
             </Text>
             <View style={styles.discountContainer}>
-              <View style={styles.discountIcon}>
-                <Image
-                  source={images.percentIcon}
-                  style={styles.percentIconImage}
-                />
-              </View>
-              <Text style={styles.discountText}>{strings.GET} {discount}</Text>
+              <Text style={styles.discountText}>
+                {strings.GET} {discount}
+              </Text>
             </View>
           </View>
         </View>
@@ -54,12 +55,6 @@ const CouponCard = ({
           <Text style={styles.copyButtonText}>{strings.copycode}</Text>
         </TouchableOpacity>
       </View>
-      <View
-        style={[styles.leftNotch, { backgroundColor: colors.colors.notchbg }]}
-      />
-      <View
-        style={[styles.rightNotch, { backgroundColor: colors.colors.notchbg }]}
-      />
     </View>
   );
 };

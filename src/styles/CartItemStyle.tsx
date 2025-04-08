@@ -331,4 +331,15 @@ export const cartitemstyle = StyleSheet.create({
     ...layout.width_10,
     ...layout.height_10,
   } as ImageStyle,
+  pasteButton: {
+    ...Spacing.padding_10,
+    backgroundColor: Colors.mediumgrey,
+    ...borderStyles.rounded_5,
+    ...layout.itemsCenter,
+  },
+  pasteButtonText: {
+    color: Colors.white,
+    ...Fonts.size_16,
+    ...Fonts.weight_900,
+  },
 });

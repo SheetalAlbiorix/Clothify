@@ -575,7 +575,7 @@ const Cart = () => {
                 style={cartitemstyle.confirmButton}
                 onPress={confirmRemoveItem}
               >
-                <Text style={cartitemstyle.confirmButtonText}>{strings.yesremove}</Text>
+                <Text style={cartitemstyle.confirmButtonText}>Yes, Remove</Text>
               </TouchableOpacity>
             </View>
           </View>
