@@ -12,6 +12,7 @@ import {
 import * as WebBrowser from "expo-web-browser";
 import * as Google from "expo-auth-session/providers/google";
 import { makeRedirectUri } from "expo-auth-session";
+import { GOOGLE_ANDROID_CLIENT_ID, GOOGLE_CLIENT_ID, GOOGLE_IOS_CLIENT_ID } from "./config";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -40,9 +41,9 @@ export const subscribeToAuthChanges = (callback: (user: User | null) => void) =>
 
 export const useGoogleAuth = () => {
     const [request, response, promptAsync] = Google.useAuthRequest({
-        clientId: "236208483230-jetp2bi418babnrcdm54hgbou0dapcs6.apps.googleusercontent.com",
-        androidClientId: "236208483230-jetp2bi418babnrcdm54hgbou0dapcs6.apps.googleusercontent.com",
-        iosClientId: "YOUR_IOS_CLIENT_ID.apps.googleusercontent.com",
+      clientId: GOOGLE_CLIENT_ID,
+      androidClientId: GOOGLE_ANDROID_CLIENT_ID,
+      iosClientId: GOOGLE_IOS_CLIENT_ID,
         redirectUri: makeRedirectUri(),
       });
       
