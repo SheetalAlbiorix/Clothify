@@ -189,7 +189,7 @@ const Cart = () => {
         setAppliedPromoCode(code);
       }
     } else {
-      alert("Invalid promo code");
+      alert(strings.invalidpromocode);
     }
     setPromoCode("");
   }, [promoCode, cartItems.length]);
@@ -529,7 +529,7 @@ const Cart = () => {
                       { color: colors.colors.text },
                     ]}
                   >
-                    Size : {itemToRemove.size}
+                    {strings.size} {itemToRemove.size}
                   </Text>
                   <Text
                     style={[
@@ -575,7 +575,7 @@ const Cart = () => {
                 style={cartitemstyle.confirmButton}
                 onPress={confirmRemoveItem}
               >
-                <Text style={cartitemstyle.confirmButtonText}>Yes, Remove</Text>
+                <Text style={cartitemstyle.confirmButtonText}>{strings.yesremove}</Text>
               </TouchableOpacity>
             </View>
           </View>

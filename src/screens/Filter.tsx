@@ -25,7 +25,6 @@ type FilterNavigationProp = StackNavigationProp<RootStackParamList, "Filter">;
 const Filter = () => {
   const navigation = useNavigation<FilterNavigationProp>();
   const colors = useColors();
-  const [selectedValue, setSelectedValue] = useState("");
   const [selectedGender, setSelectedGender] = useState(strings.All);
   const [selectedBrand, setSelectedBrand] = useState(strings.All);
   const [selectedSort, setSelectedSort] = useState(strings.mostrecent);
@@ -48,7 +47,7 @@ const Filter = () => {
       price: priceRange,
       rating: selectedRating,
     };
-    console.log("Applied Filters: ", filters);
+    console.log(strings.appliedfilter, filters);
   };
 
   const handleRadioPress = (value: string) => {

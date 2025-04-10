@@ -132,8 +132,8 @@ export const searchscreenstyle = StyleSheet.create({
     ...layout.row,
     ...layout.justifyBetween,
     ...layout.itemsCenter,
-    height: 20,
-    width: 160,
+    ...layout.height_20,
+    ...layout.width_160,
   },
   jacketRatingContainer: {
     ...layout.row,
@@ -169,8 +169,8 @@ export const searchscreenstyle = StyleSheet.create({
     // ...layout.row,
   },
   jacketContainer: {
-    height: 200,
-    width: 200,
+    ...layout.height_200,
+    ...layout.width_200,
     ...layout.itemsStart,
     ...layout.justifyBetween,
   },

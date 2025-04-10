@@ -8,6 +8,7 @@ import { images } from "../utils/images";
 import { borderStyles, layout, shadowStyles, Spacing } from "../components/layout";
 import Whistlist from "../screens/Whistlist";
 import CartItem from "../screens/Cart";
+import ChatScreen from "../screens/ChatScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -17,7 +18,9 @@ const TabBar = () => {
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarShowLabel: false,
-        tabBarStyle: styles.tabBar,
+        tabBarStyle: route.name === strings.Message
+          ? { display: 'none' }
+          : styles.tabBar,
         tabBarActiveTintColor: Colors.white,
         tabBarInactiveTintColor: Colors.gray,
         tabBarIcon: ({ focused }) => {
@@ -63,7 +66,7 @@ const TabBar = () => {
       <Tab.Screen name={strings.Home} component={HomeScreen} />
       <Tab.Screen name={strings.Bag} component={CartItem} />
       <Tab.Screen name={strings.Whistlist} component={Whistlist} />
-      <Tab.Screen name={strings.Message} component={HomeScreen} />
+      <Tab.Screen name={strings.Message} component={ChatScreen} />
       <Tab.Screen name={strings.UserProfile} component={HomeScreen} />
     </Tab.Navigator>
   );
@@ -95,13 +98,13 @@ const styles = StyleSheet.create({
     ...layout.height_medsmall,
     ...layout.itemsCenter,
     ...layout.justifyCenter,
-    ...Spacing.marginBottom_25
+    ...Spacing.marginBottom_25,
   },
   icon: {
     ...layout.customSmallWidth,
     ...layout.customSmallHeight,
     tintColor: Colors.lightgrey,
-  }as ImageStyle,
+  } as ImageStyle,
 });
 
 export default TabBar;

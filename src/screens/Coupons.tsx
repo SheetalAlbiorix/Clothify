@@ -41,39 +41,44 @@ const Coupons = () => {
         >
           {strings.bestoffersText}
         </Text>
-        <ScrollView>   
-        <View style={[couponsStyle.couponWrapper, { backgroundColor: colors.colors.background }]}>
-          <CouponCard 
-            code={strings.welcome200} 
-            amountNeeded={strings.dollar2} 
-            discount="50% OFF" 
-          />
-          <CouponCard 
-            code={strings.cashback12} 
-            amountNeeded={strings.dollar2} 
-            discount="Up to $12.00 Cashback" 
-          />
-          <CouponCard 
-            code={strings.fest2cost} 
-            amountNeeded={strings.dollar28} 
-            discount="Get 50% OFF for Combo" 
-          />
-          <CouponCard 
-            code={strings.first100} 
-            amountNeeded={strings.dollar10} 
-            discount="GEt Flat 100% OFF on Total Amount" 
-          />
-          <CouponCard 
-            code={strings.happynew500} 
-            amountNeeded={strings.dollar350} 
-            discount="Get 500% Flat Discount" 
-          />
-          <CouponCard 
-            code={strings.freeforall} 
-            amountNeeded={strings.dollar0} 
-            discount="Get 100% OFF and Take it for free Only for new Registered User" 
-          />
-        </View>
+        <ScrollView>
+          <View
+            style={[
+              couponsStyle.couponWrapper,
+              { backgroundColor: colors.colors.background },
+            ]}
+          >
+            <CouponCard
+              code={strings.welcome200}
+              amountNeeded={strings.dollar2}
+              discount={strings.fiftyoff}
+            />
+            <CouponCard
+              code={strings.cashback12}
+              amountNeeded={strings.dollar2}
+              discount={strings.upto12offcashback}
+            />
+            <CouponCard
+              code={strings.fest2cost}
+              amountNeeded={strings.dollar28}
+              discount={strings.get50offcombo}
+            />
+            <CouponCard
+              code={strings.first100}
+              amountNeeded={strings.dollar10}
+              discount={strings.getflat100off}
+            />
+            <CouponCard
+              code={strings.happynew500}
+              amountNeeded={strings.dollar350}
+              discount={strings.get500offflat}
+            />
+            <CouponCard
+              code={strings.freeforall}
+              amountNeeded={strings.dollar0}
+              discount={strings.get100offfull}
+            />
+          </View>
         </ScrollView>
       </View>
     </View>

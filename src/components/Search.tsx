@@ -21,16 +21,16 @@ const Search = () => {
   const [name, setName] = useState<string>("");
 
   const recentsData = [
-    { id: 1, name: "T-shirt", image: images.crossIcon },
-    { id: 2, name: "Jeans", image: images.crossIcon },
-    { id: 3, name: "Shoes", image: images.crossIcon },
-    { id: 4, name: "Jacket", image: images.crossIcon },
-    { id: 5, name: "Dress", image: images.crossIcon },
-    { id: 6, name: "Hat", image: images.crossIcon },
-    { id: 7, name: "Socks", image: images.crossIcon },
-    { id: 8, name: "Sweater", image: images.crossIcon },
-    { id: 9, name: "Shorts", image: images.crossIcon },
-    { id: 10, name: "Skirt", image: images.crossIcon },
+    { id: 1, name: strings.tshirt, image: images.crossIcon },
+    { id: 2, name: strings.jeans, image: images.crossIcon },
+    { id: 3, name: strings.shoes, image: images.crossIcon },
+    { id: 4, name: strings.Jacket, image: images.crossIcon },
+    { id: 5, name: strings.Dress, image: images.crossIcon },
+    { id: 6, name: strings.hat, image: images.crossIcon },
+    { id: 7, name: strings.socks, image: images.crossIcon },
+    { id: 8, name: strings.sweater, image: images.crossIcon },
+    { id: 9, name: strings.shorts, image: images.crossIcon },
+    { id: 10, name: strings.skirt, image: images.crossIcon },
   ];
 
   const [recents, setRecents] = useState(recentsData);
@@ -42,7 +42,7 @@ const Search = () => {
     if (match) {
       navigation.navigate("SearchScreen", { name });
     } else {
-      console.log("No matching item found.");
+      console.log(strings.nomatchingitem);
     }
   };
 

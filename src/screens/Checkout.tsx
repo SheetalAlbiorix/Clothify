@@ -209,7 +209,6 @@ const Checkout = () => {
               selectedArrival,
             },
           })}
-          // *****validation left for non empty address and arrivals fields entered*****
         >
           <Text style={checkoutstyle.paymentText}>
             {strings.continuepayment}

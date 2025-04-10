@@ -208,11 +208,7 @@ const HomeScreen = () => {
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{
-            flexDirection: "row",
-            gap: 200,
-            width: 1000,
-          }}
+          contentContainerStyle={homeStyles.scrollview}
         >
           <View style={homeStyles.bannerContainer}>
             <Image style={homeStyles.ImageBanner} source={images.banner2Icon} />

@@ -66,4 +66,12 @@ export const images = {
     darkwoodshirt: require('../assets/darkwoodshirt.png'),
     brownishTreeDress: require('../assets/brownishTreeDress.png'),
     whitewoodBlazer: require('../assets/whitewoodBlazer.png'),
+    cameraIcon: require('../assets/camera.png'),
+    threedots: require('../assets/threedots.png'),
+    face1: require('../assets/face1.png'),
+    face2: require('../assets/face2.png'),
+    playIcon: require('../assets/playIcon1.png'),
+    micIcon: require('../assets/micIcon.png'),
+    sendIcon: require('../assets/sendIcon.png'),
+    chatbanner: require('../assets/chatbanner.png'),
 }

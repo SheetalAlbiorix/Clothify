@@ -27,8 +27,13 @@ import Search from "./src/components/Search";
 import { SearchProvider } from "./src/hooks/searchContext";
 import Filter from "./src/screens/Filter";
 import SearchScreen from "./src/screens/SearchScreen";
-import MyOrders from "./src/screens/MyOrders";
+import MyOrders, { ActiveOrder, CompletedOrder } from "./src/screens/MyOrders";
 import LeaveReview from "./src/screens/LeaveReview";
+import TrackOrder from "./src/screens/TrackOrder";
+import ChatScreen from "./src/screens/ChatScreen";
+import { useEffect } from "react";
+import { getFcmToken } from "./src/service/messagingToken";
+import { setupFCMListeners } from "./src/service/notificationListeners";
 
 export type RootStackParamList = {
   Splash: undefined;
@@ -63,14 +68,20 @@ export type RootStackParamList = {
   Filter: undefined;
   SearchScreen: { name: string };
   MyOrders: undefined;
-  TrackOrder: { orderId: string };
-  LeaveReview: { orderId: string };
+  TrackOrder: { orderId: string; orderData: ActiveOrder };
+  LeaveReview: { orderId: string; orderData: CompletedOrder };
   Reorder: { orderId: string };
+  Chat: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
 
 export default function App() {
+  useEffect(() => {
+    getFcmToken();
+    setupFCMListeners()
+  }, []);
+
   return (
     <SearchProvider>
       <NavigationContainer>
@@ -105,6 +116,8 @@ export default function App() {
           <Stack.Screen name="SearchScreen" component={SearchScreen} />
           <Stack.Screen name="MyOrders" component={MyOrders} />
           <Stack.Screen name="LeaveReview" component={LeaveReview} />
+          <Stack.Screen name="TrackOrder" component={TrackOrder} />
+          <Stack.Screen name="Chat" component={ChatScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </SearchProvider>

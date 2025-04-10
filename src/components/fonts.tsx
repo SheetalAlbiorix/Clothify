@@ -7,8 +7,14 @@ export const Fonts: Record<string, TextStyle> = {
   size_12: {
     fontSize: 12,
   },
+  size_13: {
+    fontSize: 13,
+  },
   size_14: {
     fontSize: 14,
+  },
+  size_15: {
+    fontSize: 15,
   },
   size_16: {
     fontSize: 16,

@@ -39,17 +39,17 @@ const CompleteProfile = () => {
       let newErrors = { name: "", phone: "", gender: "" };
 
       if (!name.trim()) {
-        newErrors.name = "Name is required";
+        newErrors.name = strings.namerequired;
         valid = false;
       }
 
       if (!/^\d{10}$/.test(phone)) {
-        newErrors.phone = "Enter a valid 10-digit phone number";
+        newErrors.phone = strings.enteravalidnumber;
         valid = false;
       }
 
       if (!gender) {
-        newErrors.gender = "Please select a gender";
+        newErrors.gender = strings.pleaseselectgender;
         valid = false;
       }
 
@@ -62,7 +62,7 @@ const CompleteProfile = () => {
   const handleCompleteProfile = () => {
     if (isValid) {
       navigation.navigate('AllowLocation')
-      console.log("Profile completed successfully");
+      console.log(strings.profilecompleted);
     }
   };
 

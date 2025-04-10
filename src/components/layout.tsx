@@ -42,6 +42,7 @@ export const layout: Record<string, ViewStyle | TextStyle | ImageStyle> = {
   resizeContain: { resizeMode: "contain" },
 
   //Width
+  width_3: { width: 3 },
   width_8: { width: 8 },
   width_10: { width: 10 },
   width_12: { width: 12 },
@@ -70,6 +71,7 @@ export const layout: Record<string, ViewStyle | TextStyle | ImageStyle> = {
   width_120: { width: 120 },
   width_140: { width: 140 },
   width_150: { width: 150 },
+  width_160: { width: 160 },
   width_175: { width: 175 },
   width_180: { width: 180 },
   width_185: { width: 185 },
@@ -84,6 +86,7 @@ export const layout: Record<string, ViewStyle | TextStyle | ImageStyle> = {
   width_420: { width: 420 },
   width_450: { width: 450 },
   width_500: { width: 500 },
+  width_1000: { width: 1000 },
   widths_25: { width: "25%" },
   minimumWidth: { width: "30%" },
   width48: { width: "48%" },
@@ -99,6 +102,8 @@ export const layout: Record<string, ViewStyle | TextStyle | ImageStyle> = {
   fullMaximizeWidth: { width: "180%" },
 
   //Height
+  height_05: { height: 0.5 },
+  height_1: { height: 1 },
   height_8: { height: 8 },
   height_10: { height: 10 },
   height_12: { height: 12 },
@@ -143,6 +148,7 @@ export const layout: Record<string, ViewStyle | TextStyle | ImageStyle> = {
   fullHeight: { height: "100%" },
   fullMoreHeight: { height: "110%" },
   fullMaxHeight: { height: "120%" },
+  MinHeight_150: { minHeight: 150 },
 
   // Position
   absolute: { position: "absolute" },
@@ -172,6 +178,7 @@ export const layout: Record<string, ViewStyle | TextStyle | ImageStyle> = {
   top0: { top: 0 },
   top5: { top: 5 },
   top10: { top: 10 },
+  top24: { top: 24 },
   top30: { top: 30 },
   top35: { top: 35 },
   top40: { top: 40 },
@@ -209,6 +216,7 @@ export const textStyles: Styles["TextStyle"] = {
   textLineThrough: { textDecorationLine: "line-through" },
   letterspace2: { letterSpacing: 2 },
   letterspace10: { letterSpacing: 10 },
+  textAlignVerticalTop: { textAlignVertical: "top" },
 };
 
 export const borderStyles = {
@@ -310,6 +318,7 @@ export const Spacing = {
   gap_60: { gap: 60 },
   gap_70: { gap: 70 },
   gap_80: { gap: 80 },
+  gap_200: { gap: 200 },
 
   // Margin property
   margin_auto: { margin: "auto" },
@@ -324,10 +333,12 @@ export const Spacing = {
   marginTopminus12: { marginTop: -12 },
   marginTop_2: { marginTop: 2 },
   marginTop_3: { marginTop: 3 },
+  marginTop_4: { marginTop: 4 },
   marginTop_5: { marginTop: 5 },
   marginTop_8: { marginTop: 8 },
   marginTop_10: { marginTop: 10 },
   marginTop_15: { marginTop: 15 },
+  marginTop_16: { marginTop: 16 },
   marginTop_20: { marginTop: 20 },
   marginTop_30: { marginTop: 30 },
   marginTop_40: { marginTop: 40 },
@@ -338,13 +349,16 @@ export const Spacing = {
 
   // Margin Bottom
   marginBottom_0: { marginBottom: 0 },
+  marginBottom_4: { marginBottom: 4 },
   marginBottom_5: { marginBottom: 5 },
   marginBottom_8: { marginBottom: 8 },
   marginBottom_10: { marginBottom: 10 },
   marginBottom_12: { marginBottom: 12 },
   marginBottom_15: { marginBottom: 15 },
+  marginBottom_16: { marginBottom: 16 },
   marginBottom_20: { marginBottom: 20 },
   marginBottom_25: { marginBottom: 25 },
+  marginBottom_24: { marginBottom: 24 },
   marginBottom_30: { marginBottom: 30 },
   marginBottom_40: { marginBottom: 40 },
   marginBottom_50: { marginBottom: 50 },
@@ -368,6 +382,7 @@ export const Spacing = {
   marginLeft_3: { marginLeft: 3 },
   marginLeft_5: { marginLeft: 5 },
   marginLeft_10: { marginLeft: 10 },
+  marginLeft_11: { marginLeft: 11 },
   marginLeft_15: { marginLeft: 15 },
   marginLeft_20: { marginLeft: 20 },
   marginLeft_60: { marginLeft: 60 },
@@ -379,6 +394,7 @@ export const Spacing = {
   // Margin Vertical
   marginVertical_4: { marginVertical: 4 },
   marginVertical_5: { marginVertical: 5 },
+  marginVertical_8: { marginVertical: 8 },
   marginVertical_10: { marginVertical: 10 },
   marginVertical_15: { marginVertical: 15 },
   marginVertical_20: { marginVertical: 20 },
@@ -453,6 +469,7 @@ export const Spacing = {
   paddingHorizontal_10: { paddingHorizontal: 10 },
   paddingHorizontal_15: { paddingHorizontal: 15 },
   paddingHorizontal_20: { paddingHorizontal: 20 },
+  paddingHorizontal_24: { paddingHorizontal: 24 },
   paddingHorizontal_25: { paddingHorizontal: 25 },
   paddingHorizontal_30: { paddingHorizontal: 30 },
   paddingHorizontal_40: { paddingHorizontal: 40 },

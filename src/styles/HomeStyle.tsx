@@ -48,7 +48,7 @@ export const homeStyles = StyleSheet.create({
     backgroundColor: Colors.footerColor,
     ...layout.width_40,
     ...layout.height_40,
-    ...borderStyles.rounded_20
+    ...borderStyles.rounded_20,
   },
   notificationIcon: {
     ...layout.customSmallWidth,
@@ -233,4 +233,9 @@ export const homeStyles = StyleSheet.create({
     ...layout.z101,
     tintColor: Colors.darkcoffee,
   } as ImageStyle,
+  scrollview: {
+    ...layout.row,
+    ...Spacing.gap_200,
+    ...layout.width_1000,
+  },
 });

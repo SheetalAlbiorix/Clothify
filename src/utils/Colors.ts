@@ -31,12 +31,23 @@ export const Colors = {
   lightWhite: "#F5F5F5",
   silkygrey: "#A5A5A5",
   chormeyellow: "#F4C430",
+  starColor: "#FFD700",
   cardColor: "#8D6E63",
   cardtransparent: "rgba(255,255,255,0.7)",
   chipIconTransparent: "rgba(255,255,255,0.2)",
   MildBlack: "#333333",
   mediumBlack: "#666666",
   applypromoColor: "#8B5A2B",
+  trackingColor: "#C0C0C0",
+  lightred: "#FEE2E2",
+  darkishred: "#B91C1C",
+  averagebrown: "#af7c74",
+  lightbrown: "#d9b7a5",
+  iconColor: "#795548",
+  darkmocha: "#6D4C41",
+  dullChocolate: "#3E2723",
+  dullcoffee: "#4E342E",
+  lightmocha: "#D7CCC8",
 };
 
 export const ColorNames: { [key: string]: string } = {

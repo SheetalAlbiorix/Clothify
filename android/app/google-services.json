@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "236208483230",
+    "project_id": "clothifyapp-33fa7",
+    "storage_bucket": "clothifyapp-33fa7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:236208483230:android:9ba1a4fd25a34098efc48f",
+        "android_client_info": {
+          "package_name": "com.anonymous.clothify"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "236208483230-jetp2bi418babnrcdm54hgbou0dapcs6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXCZq5L3nA2sxAGIxKqfpeB_MZ6pve2G0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "236208483230-jetp2bi418babnrcdm54hgbou0dapcs6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

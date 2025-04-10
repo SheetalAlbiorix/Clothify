@@ -2,22 +2,15 @@ import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React from "react";
 import { borderStyles, layout, Spacing } from "./layout";
 import { Colors } from "../utils/Colors";
+import { Fonts } from "./fonts";
 
 const ReusableRadioButton = ({ label, value, selectedValue, onPress }: any) => {
   return (
-    <TouchableOpacity
-      onPress={() => onPress(value)}
-      style={{
-        flexDirection: "row",
-        padding: 10,
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
+    <TouchableOpacity onPress={() => onPress(value)} style={styles.button}>
       <View style={styles.radio}>
         {selectedValue === value && <View style={styles.selectedRadio}></View>}
       </View>
-      <Text style={{ flex: 1, fontSize: 16 }}>{label}</Text>
+      <Text style={styles.label}>{label}</Text>
     </TouchableOpacity>
   );
 };
@@ -25,6 +18,12 @@ const ReusableRadioButton = ({ label, value, selectedValue, onPress }: any) => {
 export default ReusableRadioButton;
 
 const styles = StyleSheet.create({
+  button: {
+    ...layout.row,
+    ...Spacing.padding_10,
+    ...layout.itemsCenter,
+    ...layout.justifyCenter,
+  },
   radio: {
     ...layout.width_20,
     ...layout.height_20,
@@ -42,5 +41,9 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.darkcoffee,
     ...borderStyles.w_1,
     ...borderStyles.black,
+  },
+  label: {
+    ...layout.flex_1,
+    ...Fonts.size_16,
   },
 });
