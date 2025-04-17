@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "835898821076-s2b480evk6jkkoo2js4qr6n0q3vdtogq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.anonymous.clothify",
+            "certificate_hash": "f280a0760355042c9a07abdcde31a04a5f39e151"
+          }
+        },
+        {
           "client_id": "835898821076-hui713qd0n5rqdp1j25hjekvq1r1ts4t.apps.googleusercontent.com",
           "client_type": 3
         }
