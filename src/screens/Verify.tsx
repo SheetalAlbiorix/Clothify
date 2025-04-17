@@ -1,29 +1,50 @@
-import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
-import React, { useRef, useState } from "react";
+import { View, Text, TextInput, TouchableOpacity, Image, Alert } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
 import { verifystyle } from "../styles/VerifyStyle";
 import { StatusBar } from "expo-status-bar";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { useTheme } from "../themes/theme";
 import { useColors } from "../hooks/useColors";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../App";
 import { strings } from "../utils/strings";
 import { images } from "../utils/images";
+import { generateOtp } from "../service/generateOtp";
 
-type VerifyNavigationProp = StackNavigationProp<RootStackParamList, "SignUp">;
+type VerifyNavigationProp = StackNavigationProp<RootStackParamList, "Verify">;
 
 const OTP_LENGTH = 4;
 
 const Verify = () => {
   const navigation = useNavigation<VerifyNavigationProp>();
+  const route = useRoute<any>();
   const { statusBarStyle } = useTheme();
   const colors = useColors();
 
   const [otp, setOtp] = useState(["", "", "", ""]);
+  const [generatedOtp, setGeneratedOtp] = useState(route.params.otp);
+  const [email] = useState(route.params.email);
+  const [timer, setTimer] = useState(30);
+
   const inputRefs = useRef<Array<TextInput | null>>([]);
 
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (timer > 0) {
+      interval = setInterval(() => setTimer((prev) => prev - 1), 1000);
+    }
+    return () => clearInterval(interval);
+  }, [timer]);
+
   const handleChange = (text: string, index: number) => {
-    if (!/^\d?$/.test(text)) return;
+    if (!/^\d*$/.test(text)) return;
+
+    const digits = text.split("");
+    if (digits.length === OTP_LENGTH) {
+      setOtp(digits);
+      handleVerify(digits.join(""));
+      return;
+    }
 
     const newOtp = [...otp];
     newOtp[index] = text;
@@ -45,37 +66,41 @@ const Verify = () => {
   };
 
   const handleVerify = (otpValue: string) => {
-    navigation.navigate('CompleteProfile')
-    console.log(strings.otpentered, otpValue);
+    if (otpValue === generatedOtp) {
+      navigation.navigate("CompleteProfile");
+      console.log(strings.otpentered, otpValue);
+    } else {
+      Alert.alert("Invalid OTP", "The code you entered is incorrect.");
+    }
+  };
+
+  const handleResendOtp = () => {
+    const newOtp = generateOtp();
+    setGeneratedOtp(newOtp);
+    setTimer(30);
+    console.log("New OTP sent to email:", newOtp);
+    Alert.alert("OTP Sent", `A new OTP has been sent to ${email}`);
   };
 
   return (
-    <View
-      style={[
-        verifystyle.container,
-        { backgroundColor: colors.colors.background },
-      ]}
-    >
+    <View style={[verifystyle.container, { backgroundColor: colors.colors.background }]}>
       <StatusBar style={statusBarStyle} />
-        <TouchableOpacity style={[verifystyle.backButton, { backgroundColor: colors.colors.background}]} onPress={() => navigation.navigate("SignUp")}>
-          <Image
-            style={[verifystyle.leftarrowImage, {tintColor: colors.colors.tintColor}]}
-            source={images.leftarrow}
-          />
-        </TouchableOpacity>
+      <TouchableOpacity
+        style={[verifystyle.backButton, { backgroundColor: colors.colors.background }]}
+        onPress={() => navigation.navigate("SignUp")}
+      >
+        <Image
+          style={[verifystyle.leftarrowImage, { tintColor: colors.colors.tintColor }]}
+          source={images.leftarrow}
+        />
+      </TouchableOpacity>
+
       <View style={verifystyle.verifyTextContainer}>
-        <Text style={[verifystyle.heading, { color: colors.colors.text }]}>
-          {strings.verify}
-        </Text>
-        <Text
-          style={[
-            verifystyle.VerifytextSecondary,
-            { color: colors.colors.textAccent },
-          ]}
-        >
+        <Text style={[verifystyle.heading, { color: colors.colors.text }]}>{strings.verify}</Text>
+        <Text style={[verifystyle.VerifytextSecondary, { color: colors.colors.textAccent }]}>
           {strings.enterthecode}
         </Text>
-        <Text style={verifystyle.emailtextdemo}>{strings.emailTextdemo}</Text>
+        <Text style={verifystyle.emailtextdemo}>{email}</Text>
       </View>
 
       <View style={verifystyle.OtpInputContainer}>
@@ -101,11 +126,16 @@ const Verify = () => {
       </View>
 
       <View style={verifystyle.Otpreceivecontainer}>
-        <Text style={verifystyle.didntreceiveotp}>
-          {strings.didntreceiveotp}
-        </Text>
-        <TouchableOpacity>
-          <Text style={verifystyle.resendcode}>{strings.resendCode}</Text>
+        <Text style={verifystyle.didntreceiveotp}>{strings.didntreceiveotp}</Text>
+        <TouchableOpacity disabled={timer > 0} onPress={handleResendOtp}>
+          <Text
+            style={[
+              verifystyle.resendcode,
+              { opacity: timer > 0 ? 0.5 : 1 },
+            ]}
+          >
+            {timer > 0 ? `Resend in ${timer}s` : strings.resendCode}
+          </Text>
         </TouchableOpacity>
       </View>
 

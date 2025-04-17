@@ -89,6 +89,7 @@ export const layout: Record<string, ViewStyle | TextStyle | ImageStyle> = {
   width_1000: { width: 1000 },
   widths_25: { width: "25%" },
   minimumWidth: { width: "30%" },
+  minWidth_35: { minWidth: "35%" },
   width48: { width: "48%" },
   halfWidth: { width: "50%" },
   MaxWidth: { width: "60%" },
@@ -217,6 +218,7 @@ export const textStyles: Styles["TextStyle"] = {
   letterspace2: { letterSpacing: 2 },
   letterspace10: { letterSpacing: 10 },
   textAlignVerticalTop: { textAlignVertical: "top" },
+  lineheight20: { lineHeight: 20 },
 };
 
 export const borderStyles = {
@@ -237,6 +239,7 @@ export const borderStyles = {
   // Border Bottom Width
   wBottom_1: { borderBottomWidth: 1 },
   wBottom_2: { borderBottomWidth: 2 },
+  wBottom_3: { borderBottomWidth: 3 },
 
   // Border Left Width
   wLeft_1: { borderLeftWidth: 1 },
@@ -311,6 +314,7 @@ export const Spacing = {
   // Gap
   gap_5: { gap: 5 },
   gap_10: { gap: 10 },
+  gap_15: { gap: 15 },
   gap_20: { gap: 20 },
   gap_25: { gap: 25 },
   gap_30: { gap: 30 },
@@ -371,6 +375,7 @@ export const Spacing = {
   // Margin Right
   marginRight_5: { marginRight: 5 },
   marginRight_6: { marginRight: 6 },
+  marginRight_8: { marginRight: 8 },
   marginRight_10: { marginRight: 10 },
   marginRight_15: { marginRight: 15 },
   marginRight_20: { marginRight: 20 },
@@ -414,6 +419,7 @@ export const Spacing = {
   padding_10: { padding: 10 },
   padding_15: { padding: 15 },
   padding_16: { padding: 16 },
+  padding_18: { padding: 18 },
   padding_20: { padding: 20 },
   padding_25: { padding: 25 },
   padding_30: { padding: 30 },
@@ -477,6 +483,9 @@ export const Spacing = {
 };
 
 export const shadowStyles = {
+  elevation: {
+    elevation: 2,
+  },
   shadowColor: {
     shadowColor: "#fff",
   },

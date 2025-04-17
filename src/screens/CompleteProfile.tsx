@@ -18,7 +18,7 @@ import { strings } from "../utils/strings";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../App";
 
-const genderOptions = ["Male", "Female"];
+const genderOptions = [strings.male, strings.female];
 type completeprofileNavigationProp = StackNavigationProp<RootStackParamList, "CompleteProfile">;
 
 const CompleteProfile = () => {

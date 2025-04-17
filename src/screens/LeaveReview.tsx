@@ -175,7 +175,7 @@ const LeaveReviewScreen = () => {
           numberOfLines={4}
           value={reviewText}
           onChangeText={setReviewText}
-          placeholder="Enter here..."
+          placeholder={strings.enterhere}
           placeholderTextColor={Colors.footerColor}
         />
         <TouchableOpacity

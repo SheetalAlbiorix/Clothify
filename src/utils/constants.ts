@@ -20,6 +20,7 @@ export type ThemeColors = {
   notchbg:string;
   active: string;
   chatinput: string;
+  iconColor: string;
 };
 
 export const lightModeColors: ThemeColors = {
@@ -33,7 +34,8 @@ export const lightModeColors: ThemeColors = {
   caroselText: Colors.white,
   notchbg: Colors.white,
   active: Colors.brown,
-  chatinput: Colors.lightWhite
+  chatinput: Colors.lightWhite,
+  iconColor: Colors.darkcoffee,
 };
 
 export const darkModeColors: ThemeColors = {
@@ -47,7 +49,8 @@ export const darkModeColors: ThemeColors = {
   caroselText: Colors.white,
   notchbg: Colors.black,
   active: Colors.brown,
-  chatinput: Colors.dullChocolate
+  chatinput: Colors.dullChocolate,
+  iconColor: Colors.white
 };
 
 const isDark = Appearance.getColorScheme() === localizedStrings.dark;

@@ -9,6 +9,7 @@ import { borderStyles, layout, shadowStyles, Spacing } from "../components/layou
 import Whistlist from "../screens/Whistlist";
 import CartItem from "../screens/Cart";
 import ChatScreen from "../screens/ChatScreen";
+import ProfileScreen from "../screens/ProfileScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -67,7 +68,7 @@ const TabBar = () => {
       <Tab.Screen name={strings.Bag} component={CartItem} />
       <Tab.Screen name={strings.Whistlist} component={Whistlist} />
       <Tab.Screen name={strings.Message} component={ChatScreen} />
-      <Tab.Screen name={strings.UserProfile} component={HomeScreen} />
+      <Tab.Screen name={strings.UserProfile} component={ProfileScreen} />
     </Tab.Navigator>
   );
 };

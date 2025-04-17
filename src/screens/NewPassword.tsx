@@ -75,7 +75,7 @@ const NewPassword = () => {
           newpassstyle.backButton,
           { backgroundColor: colors.colors.background },
         ]}
-        onPress={() => navigation.navigate("Verify")}
+        onPress={() => navigation.navigate("Verify", { otp: "", email: "" })}
       >
         <Image
           style={[

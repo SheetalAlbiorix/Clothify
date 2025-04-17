@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, Image, FlatList } from "react-native";
-import React, { useState } from "react";
+import React from "react";
 import { checkoutstyle } from "../styles/CheckoutStyle";
 import { strings } from "../utils/strings";
 import { images } from "../utils/images";

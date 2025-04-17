@@ -102,7 +102,7 @@ const HomeScreen = () => {
   const route = useRoute<HomeScreenRouteProp>();
   const navigation = useNavigation<HomeScreenNavigationProp>();
   const colors = useColors();
-  const [location, setLocation] = useState("Select Location");
+  const [location, setLocation] = useState(strings.selectlocation);
 
   useEffect(() => {
     if (route.params?.location) {

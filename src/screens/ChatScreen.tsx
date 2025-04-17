@@ -123,7 +123,7 @@ const ChatScreen = () => {
               <View style={chatstyle.waveformContainer}>
                 <View style={chatstyle.waveform} />
               </View>
-              <Text style={chatstyle.audioDuration}>0:13</Text>
+              <Text style={chatstyle.audioDuration}>{strings.audiotime}</Text>
             </View>
           </View>
         )}
@@ -209,7 +209,7 @@ const ChatScreen = () => {
           <TextInput
             placeholder={strings.typemessagehere}
             style={chatstyle.input}
-            placeholderTextColor="#BCAAA4"
+            placeholderTextColor={Colors.creamywhite}
           />
           <View style={chatstyle.actionButtons}>
             <TouchableOpacity style={chatstyle.micButton}>

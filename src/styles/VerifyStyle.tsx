@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { ImageStyle, StyleSheet } from "react-native";
 import { Colors } from "../utils/Colors";
 import {
   borderStyles,
@@ -109,5 +109,5 @@ export const verifystyle = StyleSheet.create({
     ...layout.customSmallWidth,
     ...layout.customSmallHeight,
     tintColor: Colors.black,
-  },
+  } as ImageStyle,
 });

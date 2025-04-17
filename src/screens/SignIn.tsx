@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  Image
-} from "react-native";
+import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
 import { SignInStyle } from "../styles/SignInStyle";
 import { useColors } from "../hooks/useColors";
 import { useTheme } from "../themes/theme";
@@ -16,6 +10,10 @@ import { strings } from "../utils/strings";
 import { Ionicons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 import { images } from "../utils/images";
+import { auth, signInWithEmail } from "../service/auth";
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
+import { GoogleAuthProvider, signInWithCredential } from "firebase/auth";
+import { useUser } from "../hooks/userContext";
 
 type SignInNavigationProp = StackNavigationProp<RootStackParamList, "SignIn">;
 
@@ -23,6 +21,7 @@ const SignIn = () => {
   const navigation = useNavigation<SignInNavigationProp>();
   const { statusBarStyle } = useTheme();
   const colors = useColors();
+  const { setName } = useUser(); // Get setName from context
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -54,12 +53,69 @@ const SignIn = () => {
 
   const isFormValid = !emailError && !passwordError && email && password;
 
+  const handleSignIn = async () => {
+    try {
+      const userCredential = await signInWithEmail(email, password);
+      const user = userCredential.user;
+      console.log("User signed in:", user.uid);
+
+      setName(user.displayName);
+
+      navigation.navigate("Tab", { name: "Home" });
+    } catch (error: any) {
+      if (error.code === "auth/user-not-found") {
+        console.log("No account found", "Please sign up to create an account.");
+      } else if (error.code === "auth/wrong-password") {
+        console.log("Incorrect password", "Please check your password.");
+      } else if (error.code === "auth/invalid-email") {
+        console.log("Invalid email", "Please enter a valid email address.");
+      } else {
+        console.log("Sign in failed", error.message);
+      }
+    }
+  };
+
+  const handleGoogleSignin = async () => {
+    try {
+      const userInfo = await GoogleSignin.signInSilently();
+
+      if (userInfo) {
+        console.log("User is already signed in with Google:", userInfo);
+        const { idToken } = await GoogleSignin.getTokens();
+        const credential = GoogleAuthProvider.credential(idToken);
+        await signInWithCredential(auth, credential);
+
+        // Update the user's name in the context after Google sign-in
+        setName(userInfo.user.name); // Set Google user's name
+
+        console.log("Signed in with Firebase!");
+        navigation.navigate("Tab", { name: "Home" });
+      }
+    } catch (error) {
+      console.log("User is not signed in with Google. Show account picker.");
+
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+
+      if (userInfo) {
+        const { idToken } = await GoogleSignin.getTokens();
+        const credential = GoogleAuthProvider.credential(idToken);
+        await signInWithCredential(auth, credential);
+
+        // Update the user's name in the context after Google sign-in
+        setName(userInfo.user.name); // Set Google user's name
+
+        console.log("Signed in with Firebase after selecting account!");
+        navigation.navigate("Tab", { name: "Home" });
+      } else {
+        console.log("Google Sign-in failed or cancelled.");
+      }
+    }
+  };
+
   return (
     <View
-      style={[
-        SignInStyle.container,
-        { backgroundColor: colors.colors.background },
-      ]}
+      style={[SignInStyle.container, { backgroundColor: colors.colors.background }]}
     >
       <StatusBar style={statusBarStyle} />
       <View style={SignInStyle.singinTextContainer}>
@@ -67,22 +123,18 @@ const SignIn = () => {
           {strings.signIn}
         </Text>
         <Text
-          style={[
-            SignInStyle.SignIntextSecondary,
-            { color: colors.colors.textAccent },
-          ]}
+          style={[SignInStyle.SignIntextSecondary, { color: colors.colors.textAccent }]}
         >
           {strings.Hiwelcometextmissed}
         </Text>
       </View>
 
       <View
-        style={[
-          SignInStyle.inputContainer,
-          { backgroundColor: colors.colors.background },
-        ]}
+        style={[SignInStyle.inputContainer, { backgroundColor: colors.colors.background }]}
       >
-        <Text style={[SignInStyle.label, {color: colors.colors.text}]}>{strings.email}</Text>
+        <Text style={[SignInStyle.label, { color: colors.colors.text }]}>
+          {strings.email}
+        </Text>
         <TextInput
           style={SignInStyle.input}
           placeholder={strings.emailTextdemo}
@@ -94,7 +146,9 @@ const SignIn = () => {
         />
         {emailError ? <Text style={SignInStyle.errorText}>{emailError}</Text> : null}
 
-        <Text style={[SignInStyle.label, {color: colors.colors.text}]}>{strings.password}</Text>
+        <Text style={[SignInStyle.label, { color: colors.colors.text }]}>
+          {strings.password}
+        </Text>
         <View style={SignInStyle.passwordInputContainer}>
           <TextInput
             style={SignInStyle.input}
@@ -122,35 +176,35 @@ const SignIn = () => {
         <Text style={SignInStyle.forgotPassword}>{strings.forgotPassword}</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity 
-        style={[
-          SignInStyle.signInButton, 
-          { opacity: isFormValid ? 1 : 0.5 }
-        ]}
+      <TouchableOpacity
+        style={[SignInStyle.signInButton, { opacity: isFormValid ? 1 : 0.5 }]}
         disabled={!isFormValid}
+        onPress={handleSignIn}
       >
         <Text style={SignInStyle.signInButtonText}>{strings.signIn}</Text>
       </TouchableOpacity>
 
-      <Text style={[SignInStyle.orSignInWith, {color: colors.colors.text}]}>{strings.orSignInWith}</Text>
-      <View style={[SignInStyle.socialContainer, {backgroundColor: colors.colors.background}]}>
+      <Text style={[SignInStyle.orSignInWith, { color: colors.colors.text }]}>
+        {strings.orSignInWith}
+      </Text>
+
+      <View
+        style={[SignInStyle.socialContainer, { backgroundColor: colors.colors.background }]}
+      >
         <TouchableOpacity style={SignInStyle.socialButton}>
           <Image
             source={images.appleIcon}
-            style={[SignInStyle.socialIcon, {tintColor: colors.colors.tintColor}]}
+            style={[SignInStyle.socialIcon, { tintColor: colors.colors.tintColor }]}
           />
         </TouchableOpacity>
-        <TouchableOpacity style={SignInStyle.socialButton}>
-          <Image
-            source={images.googleIcon}
-            style={SignInStyle.socialIcon}
-          />
+        <TouchableOpacity
+          style={SignInStyle.socialButton}
+          onPress={handleGoogleSignin}
+        >
+          <Image source={images.googleIcon} style={SignInStyle.socialIcon} />
         </TouchableOpacity>
         <TouchableOpacity style={SignInStyle.socialButton}>
-          <Image
-            source={images.metaIcon}
-            style={SignInStyle.socialIcon}
-          />
+          <Image source={images.metaIcon} style={SignInStyle.socialIcon} />
         </TouchableOpacity>
       </View>
 

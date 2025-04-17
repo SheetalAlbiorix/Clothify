@@ -116,7 +116,7 @@ const AddCard = () => {
           <View style={addcardstyles.cardPreview}>
             <Text style={addcardstyles.visaText}>{cardType || strings.cardType}</Text>
             <Text style={addcardstyles.cardNumberPreview}>
-              {cardNumber || "**** **** **** ****"}
+              {cardNumber || strings.hiddenText}
             </Text>
             <View style={addcardstyles.cardPreviewBottom}>
               <View>

@@ -1,65 +1,112 @@
-import { initializeApp } from "firebase/app";
+import { initializeApp, getApps } from "firebase/app";
 import {
   getAuth,
   signInWithCredential,
   GoogleAuthProvider,
-  onAuthStateChanged,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
+  onAuthStateChanged,
   User,
+  UserCredential,
 } from "firebase/auth";
-import * as WebBrowser from "expo-web-browser";
-import * as Google from "expo-auth-session/providers/google";
-import { makeRedirectUri } from "expo-auth-session";
-import { GOOGLE_ANDROID_CLIENT_ID, GOOGLE_CLIENT_ID, GOOGLE_IOS_CLIENT_ID } from "./config";
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  getDoc,
+} from "firebase/firestore";
+import { GOOGLE_CLIENT_ID } from "./config";
 
-WebBrowser.maybeCompleteAuthSession();
-
+// 🔧 Firebase config
 const firebaseConfig = {
-  apiKey: "AIzaSyCXCZq5L3nA2sxAGIxKqfpeB_MZ6pve2G0",
-  authDomain: "clothifyapp-33fa7.firebaseapp.com",
-  projectId: "clothifyapp-33fa7",
-  storageBucket: "clothifyapp-33fa7.firebasestorage.app",
-  messagingSenderId: "236208483230",
-  appId: "1:236208483230:android:9ba1a4fd25a34098efc48f",
+  apiKey: "AIzaSyASMCGg54xQDH6c0ZYa_IsrdzIXWoCcKdc",
+  authDomain: "clothify-8295c.firebaseapp.com",
+  projectId: "clothify-8295c",
+  storageBucket: "clothify-8295c.appspot.com",
+  messagingSenderId: "835898821076",
+  appId: "1:835898821076:android:2ac36995fa4429b5b2ee41",
 };
 
-const app = initializeApp(firebaseConfig);
+// ✅ Prevent duplicate initialization
+const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
+
 const auth = getAuth(app);
+const db = getFirestore(app);
 
-export const signUpWithEmail = (email: string, password: string) =>
-  createUserWithEmailAndPassword(auth, email, password);
+// 🧠 Configure Google Signin
+GoogleSignin.configure({
+  webClientId: GOOGLE_CLIENT_ID,
+  offlineAccess: true,
+  forceCodeForRefreshToken: true,
+});
 
-export const signInWithEmail = (email: string, password: string) =>
-  signInWithEmailAndPassword(auth, email, password);
+// 🧠 Sign in/up with Google
+export const signInWithGoogleNative = async (): Promise<UserCredential> => {
+  try {
+    await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
 
+    const userInfo = await GoogleSignin.signIn(); // This returns user info
+    const { idToken } = await GoogleSignin.getTokens(); // Get tokens separately
+    console.log("Before Google SignIn");
+    console.log("Signed in:", userInfo);
+    
+    if (!idToken) throw new Error("Google ID token not available.");
+
+    const credential = GoogleAuthProvider.credential(idToken);
+    const userCredential = await signInWithCredential(auth, credential);
+
+    // Save user to Firestore if not exists
+    const uid = userCredential.user.uid;
+    const userDocRef = doc(db, "users", uid);
+    const userDoc = await getDoc(userDocRef);
+
+    if (!userDoc.exists()) {
+      await setDoc(userDocRef, {
+        uid,
+        email: userCredential.user.email,
+        name: userCredential.user.displayName,
+        provider: "google",
+        createdAt: new Date().toISOString(),
+      });
+    }
+
+    return userCredential;
+  } catch (error) {
+    console.error("Google Sign-In Error:", error);
+    throw error;
+  }
+};
+
+
+// 🧠 Email Sign Up + Firestore user creation
+export const signUpWithEmail = async (email: string, password: string, name: string): Promise<UserCredential> => {
+  const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+
+  const uid = userCredential.user.uid;
+  await setDoc(doc(db, "users", uid), {
+    uid,
+    email,
+    name,
+    provider: "email",
+    createdAt: new Date().toISOString(),
+  });
+
+  return userCredential;
+};
+
+// 🧠 Email Sign In
+export const signInWithEmail = (email: string, password: string): Promise<UserCredential> => {
+  return signInWithEmailAndPassword(auth, email, password);
+};
+
+// 🔁 Logout
 export const logout = () => signOut(auth);
 
+// 👥 Listen to auth state
 export const subscribeToAuthChanges = (callback: (user: User | null) => void) =>
   onAuthStateChanged(auth, callback);
 
-export const useGoogleAuth = () => {
-    const [request, response, promptAsync] = Google.useAuthRequest({
-      clientId: GOOGLE_CLIENT_ID,
-      androidClientId: GOOGLE_ANDROID_CLIENT_ID,
-      iosClientId: GOOGLE_IOS_CLIENT_ID,
-        redirectUri: makeRedirectUri(),
-      });
-      
-
-  const signInWithGoogle = async () => {
-    const result = await promptAsync();
-    if (result?.type === "success") {
-      const idToken = result.params.id_token;
-      const credential = GoogleAuthProvider.credential(idToken);
-      return signInWithCredential(auth, credential);
-    } else {
-      throw new Error("Google sign-in failed.");
-    }
-  };
-
-  return { request, response, signInWithGoogle };
-};
-
-export { auth };
+// Export auth and db for other uses
+export { auth, db };

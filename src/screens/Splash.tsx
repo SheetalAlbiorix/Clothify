@@ -26,7 +26,7 @@ const Splash = () => {
   const navigation = useNavigation<SplashScreenNavigationProp>();
   useEffect(() => {
     setTimeout(() => {
-      navigation.navigate("Tab");
+      navigation.navigate("SignIn");
     }, 2000);
   }, [navigation]);
 

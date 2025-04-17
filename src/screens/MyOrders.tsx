@@ -280,7 +280,7 @@ const MyOrders = () => {
                 });
               } else if (activeTab === strings.cancelled) {
                 // navigation.navigate("Reorder", { orderId: item.id });
-                Alert.alert('Coming Soon')
+                Alert.alert(strings.comingsoon)
               }
             }}
           >

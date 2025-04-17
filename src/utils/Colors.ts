@@ -48,6 +48,7 @@ export const Colors = {
   dullChocolate: "#3E2723",
   dullcoffee: "#4E342E",
   lightmocha: "#D7CCC8",
+  creamywhite: "#BCAAA4",
 };
 
 export const ColorNames: { [key: string]: string } = {
