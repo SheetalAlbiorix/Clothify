@@ -53,22 +53,21 @@ const LocationMain = () => {
       Alert.alert(strings.permissiondenied, strings.locationacessrequired);
       return;
     }
-  
+
     const location = await Location.getCurrentPositionAsync({});
     const { latitude, longitude } = location.coords;
 
     const geocode = await Location.reverseGeocodeAsync({ latitude, longitude });
-  
+
     if (geocode.length > 0) {
       const city = `${geocode[0].city}, ${geocode[0].country}`;
       setCurrentLocation(city);
-  
-      navigation.navigate("Home", { location: city });
+
+      navigation.navigate("Tab", { location: city });
     } else {
       setCurrentLocation(strings.unknownlocation);
     }
   };
-  
 
   const handleSearch = (text: string) => {
     setSearchText(text);
@@ -93,7 +92,10 @@ const LocationMain = () => {
     >
       <StatusBar style={statusBarStyle} />
       <View style={locationmainstyle.maincontainer}>
-        <TouchableOpacity style={locationmainstyle.backButton}>
+        <TouchableOpacity
+          style={locationmainstyle.backButton}
+          onPress={() => navigation.navigate("AllowLocation")}
+        >
           <Image
             source={images.leftarrow}
             style={[
@@ -109,7 +111,10 @@ const LocationMain = () => {
       </View>
 
       <View style={locationmainstyle.searchContainer}>
-        <Image source={images.searchIcon} style={locationmainstyle.searchIcon} />
+        <Image
+          source={images.searchIcon}
+          style={locationmainstyle.searchIcon}
+        />
         <TextInput
           style={locationmainstyle.searchInput}
           placeholder={strings.searchLocation}
@@ -118,7 +123,10 @@ const LocationMain = () => {
           onChangeText={handleSearch}
         />
         <TouchableOpacity onPress={() => setSearchText("")}>
-          <Image source={images.crossIcon} style={locationmainstyle.closeIcon} />
+          <Image
+            source={images.crossIcon}
+            style={locationmainstyle.closeIcon}
+          />
         </TouchableOpacity>
       </View>
 
@@ -126,7 +134,10 @@ const LocationMain = () => {
         style={locationmainstyle.currentLocationContainer}
         onPress={handleUseCurrentLocation}
       >
-        <Image source={images.locationarrow} style={locationmainstyle.locationIcon} />
+        <Image
+          source={images.locationarrow}
+          style={locationmainstyle.locationIcon}
+        />
         <Text
           style={[
             locationmainstyle.currentLocationText,
@@ -141,18 +152,43 @@ const LocationMain = () => {
         {strings.searchresult}
       </Text>
 
-      <FlatList
-        data={searchResults}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item }) => (
-          <View style={locationmainstyle.searchResultItem}>
-            <Image source={images.locationarrow} style={locationmainstyle.resultIcon} />
-            <Text style={[locationmainstyle.resultTitle, { color: colors.colors.text }]}>
-              {item}
-            </Text>
-          </View>
-        )}
-      />
+      {searchResults.length > 0 ? (
+        <FlatList
+          data={searchResults}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              style={locationmainstyle.searchResultItem}
+              onPress={() => {
+                setCurrentLocation(item);
+                navigation.navigate("Tab", { location: item });
+              }}
+            >
+              <Image
+                source={images.locationarrow}
+                style={locationmainstyle.resultIcon}
+              />
+              <Text
+                style={[
+                  locationmainstyle.resultTitle,
+                  { color: colors.colors.text },
+                ]}
+              >
+                {item}
+              </Text>
+            </TouchableOpacity>
+          )}
+        />
+      ) : (
+        <Text
+          style={[
+            locationmainstyle.noResultsText,
+            { color: colors.colors.text },
+          ]}
+        >
+          {strings.noresultsfound}
+        </Text>
+      )}
     </View>
   );
 };

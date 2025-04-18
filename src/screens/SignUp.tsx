@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -20,18 +20,12 @@ import CustomCheckbox from "../components/CheckBox";
 import { images } from "../utils/images";
 
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
-import { auth, db } from "../service/auth";
+import { auth, db, signUpWithGoogle } from "../service/auth";
 import {
   createUserWithEmailAndPassword,
   updateProfile,
-  GoogleAuthProvider,
-  signInWithCredential,
 } from "firebase/auth";
 import { generateOtp } from "../service/generateOtp";
-import * as WebBrowser from "expo-web-browser";
-import * as Google from "expo-auth-session/providers/google";
-
-WebBrowser.maybeCompleteAuthSession();
 
 type SignUpNavigationProp = StackNavigationProp<RootStackParamList, "SignUp">;
 
@@ -48,34 +42,6 @@ const SignUp = () => {
   const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-
-  const [request, response, promptAsync] = Google.useAuthRequest({
-    // clientId: "835898821076-1cibieq77hja0m5ninpm1jru8oh6spqd.apps.googleusercontent.com",
-    // androidClientId: "835898821076-s2b480evk6jkkoo2js4qr6n0q3vdtogq.apps.googleusercontent.com"
-  });
-
-  useEffect(() => {
-    const authenticateWithFirebase = async () => {
-      if (response?.type === "success") {
-        const id_token = response.authentication?.idToken;
-        const credential = GoogleAuthProvider.credential(id_token);
-        const userCredential = await signInWithCredential(auth, credential);
-
-        const user = userCredential.user;
-
-        await setDoc(doc(db, "users", user.uid), {
-          uid: user.uid,
-          name: user.displayName,
-          email: user.email,
-          createdAt: serverTimestamp(),
-        });
-
-        navigation.navigate("Verify", { otp: "", email: "" });
-      }
-    };
-
-    authenticateWithFirebase();
-  }, [response]);
 
   const validateName = (input: string) => {
     if (!input) return strings.namerequired;
@@ -159,10 +125,27 @@ const SignUp = () => {
       setLoading(false);
     }
   };
+  
+  const handleGooglePress = async () => {
+    try {
+      const userCredential = await signUpWithGoogle(); 
+      console.log('✅ Google sign-in success:', userCredential.user.email);
+      const otp = generateOtp();
+      console.log("Generated OTP:", otp);
+      navigation.navigate("Verify", { otp, email });
+    } catch (error: any) {
+      console.error('❌ Google Sign-In Failed:', error);
+      Alert.alert('Google Sign-In Failed', error.message || 'Something went wrong.');
+    }
+  };
+  
 
   return (
     <View
-      style={[SignUpStyle.container, { backgroundColor: colors.colors.background }]}
+      style={[
+        SignUpStyle.container,
+        { backgroundColor: colors.colors.background },
+      ]}
     >
       <StatusBar style={statusBarStyle} />
       <View style={SignUpStyle.singinTextContainer}>
@@ -180,9 +163,14 @@ const SignUp = () => {
       </View>
 
       <View
-        style={[SignUpStyle.inputContainer, { backgroundColor: colors.colors.background }]}
+        style={[
+          SignUpStyle.inputContainer,
+          { backgroundColor: colors.colors.background },
+        ]}
       >
-        <Text style={[SignUpStyle.label, { color: colors.colors.text }]}>{strings.name}</Text>
+        <Text style={[SignUpStyle.label, { color: colors.colors.text }]}>
+          {strings.name}
+        </Text>
         <TextInput
           style={SignUpStyle.input}
           placeholder={strings.johndoe}
@@ -190,9 +178,13 @@ const SignUp = () => {
           value={name}
           onChangeText={handleNameChange}
         />
-        {nameError ? <Text style={SignUpStyle.errorText}>{nameError}</Text> : null}
+        {nameError ? (
+          <Text style={SignUpStyle.errorText}>{nameError}</Text>
+        ) : null}
 
-        <Text style={[SignUpStyle.label, { color: colors.colors.text }]}>{strings.email}</Text>
+        <Text style={[SignUpStyle.label, { color: colors.colors.text }]}>
+          {strings.email}
+        </Text>
         <TextInput
           style={SignUpStyle.input}
           placeholder={strings.emailTextdemo}
@@ -202,9 +194,13 @@ const SignUp = () => {
           keyboardType="email-address"
           autoCapitalize="none"
         />
-        {emailError ? <Text style={SignUpStyle.errorText}>{emailError}</Text> : null}
+        {emailError ? (
+          <Text style={SignUpStyle.errorText}>{emailError}</Text>
+        ) : null}
 
-        <Text style={[SignUpStyle.label, { color: colors.colors.text }]}>{strings.password}</Text>
+        <Text style={[SignUpStyle.label, { color: colors.colors.text }]}>
+          {strings.password}
+        </Text>
         <View style={SignUpStyle.passwordInputContainer}>
           <TextInput
             style={SignUpStyle.input}
@@ -225,7 +221,9 @@ const SignUp = () => {
             />
           </TouchableOpacity>
         </View>
-        {passwordError ? <Text style={SignUpStyle.errorText}>{passwordError}</Text> : null}
+        {passwordError ? (
+          <Text style={SignUpStyle.errorText}>{passwordError}</Text>
+        ) : null}
       </View>
 
       <TouchableOpacity
@@ -240,12 +238,17 @@ const SignUp = () => {
           <Text style={[SignUpStyle.AgreeTerms, { color: colors.colors.text }]}>
             {strings.agreewith}
           </Text>
-          <Text style={SignUpStyle.termscondition}>{strings.termscondition}</Text>
+          <Text style={SignUpStyle.termscondition}>
+            {strings.termscondition}
+          </Text>
         </View>
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={[SignUpStyle.signInButton, { opacity: isFormValid && !loading ? 1 : 0.5 }]}
+        style={[
+          SignUpStyle.signInButton,
+          { opacity: isFormValid && !loading ? 1 : 0.5 },
+        ]}
         onPress={isFormValid && !loading ? handleSignUp : undefined}
         disabled={!isFormValid || loading}
       >
@@ -258,17 +261,23 @@ const SignUp = () => {
         {strings.orSignUpWith}
       </Text>
       <View
-        style={[SignUpStyle.socialContainer, { backgroundColor: colors.colors.background }]}
+        style={[
+          SignUpStyle.socialContainer,
+          { backgroundColor: colors.colors.background },
+        ]}
       >
         <TouchableOpacity style={SignUpStyle.socialButton}>
           <Image
             source={images.appleIcon}
-            style={[SignUpStyle.socialIcon, { tintColor: colors.colors.tintColor }]}
+            style={[
+              SignUpStyle.socialIcon,
+              { tintColor: colors.colors.tintColor },
+            ]}
           />
         </TouchableOpacity>
         <TouchableOpacity
           style={SignUpStyle.socialButton}
-          onPress={() => promptAsync()}
+          onPress={handleGooglePress}
         >
           <Image source={images.googleIcon} style={SignUpStyle.socialIcon} />
         </TouchableOpacity>

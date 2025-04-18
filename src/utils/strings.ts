@@ -422,6 +422,11 @@ export const strings = {
   general: "General",
   account: "Account",
   phone: "(480) 555-0103",
+  noresultsfound: "No Results Found",
+  notification: "Notification",
+  new2Text: "2 New",
+  markallasread: "Mark All as Read",
+  yesterday: "YESTERDAY",
 }
 
 export const localizedStrings = {

@@ -1,3 +1,4 @@
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { initializeApp, getApps } from "firebase/app";
 import {
   getAuth,
@@ -18,45 +19,51 @@ import {
 } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyASMCGg54xQDH6c0ZYa_IsrdzIXWoCcKdc",
-  authDomain: "clothify-8295c.firebaseapp.com",
-  projectId: "clothify-8295c",
-  storageBucket: "clothify-8295c.appspot.com",
-  messagingSenderId: "835898821076",
-  appId: "1:835898821076:android:2ac36995fa4429b5b2ee41",
+  apiKey: "AIzaSyBZrPvX_yTC8rp8iMAkpl_BgEapcXnHwo4",
+  authDomain: "clothify-app-4e38e.firebaseapp.com",
+  projectId: "clothify-app-4e38e",
+  storageBucket: "clothify-app-4e38e.appspot.com",
+  messagingSenderId: "46897939889",
+  appId: "1:46897939889:android:5193134377f62e7e41a990",
 };
+
+
+GoogleSignin.configure({
+  webClientId: process.env.GOOGLE_CLIENT_ID,
+});
+
 
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
 
 const auth = getAuth(app);
 const db = getFirestore(app);
 
+export const signUpWithGoogle = async () => {
+  try {
+    await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+
+    const userInfo = await GoogleSignin.signIn();
+    console.log("🧪 userInfo:", userInfo);
+
+    const { idToken } = await GoogleSignin.getTokens();
+    return await signInWithGoogleFirebase(idToken);
+  } catch (error) {
+    console.error("Google Sign-In Error:", error);
+    throw error;
+  }
+};
 
 export const signInWithGoogleFirebase = async (idToken: string): Promise<UserCredential> => {
   try {
     const credential = GoogleAuthProvider.credential(idToken);
     const userCredential = await signInWithCredential(auth, credential);
-
-    const uid = userCredential.user.uid;
-    const userDocRef = doc(db, "users", uid);
-    const userDoc = await getDoc(userDocRef);
-
-    if (!userDoc.exists()) {
-      await setDoc(userDocRef, {
-        uid,
-        email: userCredential.user.email,
-        name: userCredential.user.displayName,
-        provider: "google",
-        createdAt: new Date().toISOString(),
-      });
-    }
-
     return userCredential;
   } catch (error) {
     console.error("Firebase Google Sign-In Error:", error);
     throw error;
   }
 };
+
 
 export const signUpWithEmail = async (
   email: string,

@@ -24,6 +24,7 @@ type ProfileScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
   "Profile"
 >;
+
 const ProfileScreen = () => {
   const colors = useColors();
   const navigation = useNavigation<ProfileScreenNavigationProp>();
@@ -43,7 +44,6 @@ const ProfileScreen = () => {
     setLogoutModalVisible(false);
     try {
       await logout();
-      await GoogleSignin.signOut();
       console.log(strings.logoutsuccess);
       navigation.navigate("SignIn");
     } catch (error) {
@@ -88,7 +88,7 @@ const ProfileScreen = () => {
           </Text>
         </View>
         <View style={profilestyle.MainListContainer}>
-          <TouchableOpacity style={profilestyle.profileholder}>
+          <TouchableOpacity style={profilestyle.profileholder} onPress={()=> navigation.navigate('CompleteProfile')}>
             <View style={profilestyle.profilefirstView}>
               <Image
                 source={images.notifiprofileIcon}

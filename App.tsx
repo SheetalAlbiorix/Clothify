@@ -24,8 +24,8 @@ export type RootStackParamList = {
   CompleteProfile: undefined;
   AllowLocation: undefined;
   LocationMain: undefined;
-  Home: { location: string };
-  Tab: { name?: string };
+  Home: {location: string};
+  Tab: { name?: string; location: string };
   productDetail: undefined;
   whistlist: undefined;
   Cart: { appliedCoupon: string };
@@ -55,9 +55,15 @@ export type RootStackParamList = {
   helpcenter: undefined;
   privacy: undefined;
   invite: undefined;
+  notification: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
+
+type ScreenConfig<K extends keyof RootStackParamList> = {
+  name: K;
+  component: React.ComponentType<any>;
+};
 
 const App = () => {
   useEffect(() => {
@@ -66,7 +72,7 @@ const App = () => {
     auth;
   }, []);
 
-  const authScreens = [
+  const authScreens: ScreenConfig<keyof RootStackParamList>[] = [
     { name: "Splash", component: Screens.Splash },
     { name: "Welcome", component: Screens.Welcome },
     { name: "Onboarding", component: Screens.Onboarding },
@@ -77,7 +83,7 @@ const App = () => {
     { name: "passwordmanager", component: Screens.PasswordManager },
   ];
 
-  const mainScreens = [
+  const mainScreens: ScreenConfig<keyof RootStackParamList>[] = [
     { name: "CompleteProfile", component: Screens.CompleteProfile },
     { name: "AllowLocation", component: Screens.AllowLocation },
     { name: "LocationMain", component: Screens.LocationMain },
@@ -100,15 +106,16 @@ const App = () => {
     { name: "helpcenter", component: Screens.HelpCenter },
     { name: "privacy", component: Screens.PrivacyPolicy },
     { name: "invite", component: Screens.inviteFriends },
+    { name: "notification", component: Screens.Notification },
   ];
 
-  const orderScreens = [
+  const orderScreens: ScreenConfig<keyof RootStackParamList>[] = [
     { name: "MyOrders", component: Screens.MyOrders },
     { name: "LeaveReview", component: Screens.LeaveReview },
     { name: "TrackOrder", component: Screens.TrackOrder },
   ];
 
-  const chatScreens = [
+  const chatScreens: ScreenConfig<keyof RootStackParamList>[] = [
     { name: "Chat", component: Screens.ChatScreen },
     { name: "Profile", component: Screens.ProfileScreen },
   ];
@@ -116,24 +123,24 @@ const App = () => {
   return (
     <SearchProvider>
       <NavigationContainer>
-      <UserProvider>
-        <Stack.Navigator
-          initialRouteName="Splash"
-          screenOptions={{ headerShown: false }}
-        >
-          {[
-            ...authScreens,
-            ...mainScreens,
-            ...orderScreens,
-            ...chatScreens,
-          ].map((screen) => (
-            <Stack.Screen
-              key={screen.name}
-              name={screen.name as keyof RootStackParamList}
-              component={screen.component}
-            />
-          ))}
-        </Stack.Navigator>
+        <UserProvider>
+          <Stack.Navigator
+            initialRouteName="Splash"
+            screenOptions={{ headerShown: false }}
+          >
+            {[
+              ...authScreens,
+              ...mainScreens,
+              ...orderScreens,
+              ...chatScreens,
+            ].map((screen) => (
+              <Stack.Screen
+                key={screen.name}
+                name={screen.name}
+                component={screen.component}
+              />
+            ))}
+          </Stack.Navigator>
         </UserProvider>
       </NavigationContainer>
     </SearchProvider>

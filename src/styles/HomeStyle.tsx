@@ -238,4 +238,21 @@ export const homeStyles = StyleSheet.create({
     ...Spacing.gap_200,
     ...layout.width_1000,
   },
+ 
+  notificationBubble: {
+    position: "absolute",
+    top: -5,
+    right: -5,
+    backgroundColor: "red",
+    borderRadius: 50,
+    width: 18,
+    height: 18,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  notificationBubbleText: {
+    color: "white",
+    fontSize: 12,
+    fontWeight: "bold",
+  },
 });

@@ -11,8 +11,6 @@ import { Ionicons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 import { images } from "../utils/images";
 import { auth, signInWithEmail } from "../service/auth";
-import { GoogleSignin } from "@react-native-google-signin/google-signin";
-import { GoogleAuthProvider, signInWithCredential } from "firebase/auth";
 import { useUser } from "../hooks/userContext";
 
 type SignInNavigationProp = StackNavigationProp<RootStackParamList, "SignIn">;
@@ -21,7 +19,7 @@ const SignIn = () => {
   const navigation = useNavigation<SignInNavigationProp>();
   const { statusBarStyle } = useTheme();
   const colors = useColors();
-  const { setName } = useUser(); // Get setName from context
+  const { setName } = useUser();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -61,7 +59,7 @@ const SignIn = () => {
 
       setName(user.displayName);
 
-      navigation.navigate("Tab", { name: "Home" });
+      navigation.navigate("Tab", { name: "Home", location: "" });
     } catch (error: any) {
       if (error.code === "auth/user-not-found") {
         console.log("No account found", "Please sign up to create an account.");
@@ -75,43 +73,7 @@ const SignIn = () => {
     }
   };
 
-  const handleGoogleSignin = async () => {
-    try {
-      const userInfo = await GoogleSignin.signInSilently();
 
-      if (userInfo) {
-        console.log("User is already signed in with Google:", userInfo);
-        const { idToken } = await GoogleSignin.getTokens();
-        const credential = GoogleAuthProvider.credential(idToken);
-        await signInWithCredential(auth, credential);
-
-        // Update the user's name in the context after Google sign-in
-        setName(userInfo.user.name); // Set Google user's name
-
-        console.log("Signed in with Firebase!");
-        navigation.navigate("Tab", { name: "Home" });
-      }
-    } catch (error) {
-      console.log("User is not signed in with Google. Show account picker.");
-
-      await GoogleSignin.hasPlayServices();
-      const userInfo = await GoogleSignin.signIn();
-
-      if (userInfo) {
-        const { idToken } = await GoogleSignin.getTokens();
-        const credential = GoogleAuthProvider.credential(idToken);
-        await signInWithCredential(auth, credential);
-
-        // Update the user's name in the context after Google sign-in
-        setName(userInfo.user.name); // Set Google user's name
-
-        console.log("Signed in with Firebase after selecting account!");
-        navigation.navigate("Tab", { name: "Home" });
-      } else {
-        console.log("Google Sign-in failed or cancelled.");
-      }
-    }
-  };
 
   return (
     <View
@@ -199,7 +161,7 @@ const SignIn = () => {
         </TouchableOpacity>
         <TouchableOpacity
           style={SignInStyle.socialButton}
-          onPress={handleGoogleSignin}
+          // onPress={}
         >
           <Image source={images.googleIcon} style={SignInStyle.socialIcon} />
         </TouchableOpacity>

@@ -104,4 +104,8 @@ export const locationmainstyle = StyleSheet.create({
     ...Fonts.size_14,
     color: Colors.footerColor,
   },
+  noResultsText: {
+    textAlign: 'center',
+    color: Colors.mediumbrown
+  }
 });

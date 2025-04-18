@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import {
   View,
   Text,
@@ -103,12 +103,21 @@ const HomeScreen = () => {
   const navigation = useNavigation<HomeScreenNavigationProp>();
   const colors = useColors();
   const [location, setLocation] = useState(strings.selectlocation);
+  const [unreadCount, setUnreadCount] = useState(5);
 
   useEffect(() => {
     if (route.params?.location) {
       setLocation(route.params.location);
     }
   }, [route.params?.location]);
+
+  useLayoutEffect(() => {
+    if (location) {
+      navigation.setOptions({
+        headerTitle: location,
+      });
+    }
+  }, [navigation, location]);
 
   const firstRowItems = flashSaleItems.filter((_, index) => index % 2 === 0);
   const secondRowItems = flashSaleItems.filter((_, index) => index % 2 !== 0);
@@ -155,7 +164,10 @@ const HomeScreen = () => {
         {strings.location}
       </Text>
       <View style={homeStyles.header}>
-        <View style={homeStyles.locationContainer}>
+        <TouchableOpacity
+          style={homeStyles.locationContainer}
+          onPress={() => navigation.navigate("AllowLocation")}
+        >
           <Image source={images.locationIcon} style={homeStyles.locationIcon} />
           <Text
             style={[homeStyles.locationText, { color: colors.colors.text }]}
@@ -169,10 +181,11 @@ const HomeScreen = () => {
             ]}
             source={images.downarrow}
           />
-        </View>
+        </TouchableOpacity>
+
         <TouchableOpacity
           style={homeStyles.notificationButton}
-          onPress={() => navigation.navigate("MyOrders")}
+          onPress={() => navigation.navigate("notification")}
         >
           <Image
             source={images.notificationIcon}
@@ -181,6 +194,13 @@ const HomeScreen = () => {
               { tintColor: colors.colors.tintColor },
             ]}
           />
+          {unreadCount > 0 && (
+            <View style={homeStyles.notificationBubble}>
+              <Text style={homeStyles.notificationBubbleText}>
+                {unreadCount}
+              </Text>
+            </View>
+          )}
         </TouchableOpacity>
       </View>
 

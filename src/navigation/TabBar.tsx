@@ -10,18 +10,26 @@ import Whistlist from "../screens/Whistlist";
 import CartItem from "../screens/Cart";
 import ChatScreen from "../screens/ChatScreen";
 import ProfileScreen from "../screens/ProfileScreen";
+import { RouteProp, useRoute } from "@react-navigation/native";
+import { RootStackParamList } from "../../App";
+import { StackScreenProps } from "@react-navigation/stack";
 
 const Tab = createBottomTabNavigator();
 
-const TabBar = () => {
+type TabBarProps = StackScreenProps<RootStackParamList, "Tab">;
+
+const TabBar = ({ route }: TabBarProps) => {
+  const location = route.params?.location;
+
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarShowLabel: false,
-        tabBarStyle: route.name === strings.Message
-          ? { display: 'none' }
-          : styles.tabBar,
+        tabBarStyle:
+          route.name === strings.Message
+            ? { display: "none" }
+            : styles.tabBar,
         tabBarActiveTintColor: Colors.white,
         tabBarInactiveTintColor: Colors.gray,
         tabBarIcon: ({ focused }) => {
@@ -54,7 +62,9 @@ const TabBar = () => {
                 style={[
                   styles.icon,
                   {
-                    tintColor: focused ? Colors.darkChoclate : Colors.lightgrey,
+                    tintColor: focused
+                      ? Colors.darkChoclate
+                      : Colors.lightgrey,
                   },
                 ]}
                 resizeMode="contain"
@@ -64,7 +74,11 @@ const TabBar = () => {
         },
       })}
     >
-      <Tab.Screen name={strings.Home} component={HomeScreen} />
+      <Tab.Screen
+        name={strings.Home}
+        component={HomeScreen}
+        initialParams={{ location }}
+      />
       <Tab.Screen name={strings.Bag} component={CartItem} />
       <Tab.Screen name={strings.Whistlist} component={Whistlist} />
       <Tab.Screen name={strings.Message} component={ChatScreen} />
@@ -72,6 +86,7 @@ const TabBar = () => {
     </Tab.Navigator>
   );
 };
+
 
 const styles = StyleSheet.create({
   tabBar: {

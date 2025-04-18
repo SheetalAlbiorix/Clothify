@@ -1,66 +1,76 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
-  StyleSheet,
   Image,
   TextInput,
   TouchableOpacity,
   FlatList,
-  SafeAreaView,
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 import { images } from "../utils/images";
 import { chatstyle } from "../styles/ChatStyle";
 import { Colors } from "../utils/Colors";
 import { strings } from "../utils/strings";
 import { useColors } from "../hooks/useColors";
+import { useUser } from "../hooks/userContext"; // User context hook
+import { collection, query, orderBy, onSnapshot, addDoc, Timestamp } from "firebase/firestore";
+import { db } from "../service/auth";
 
 interface Message {
-  id: number;
+  id: string;
   type: "text" | "image" | "audio";
   sender: string;
-  content?: string | any;
+  content?: string;
   time: string;
   isMe: boolean;
+  createdAt?: Timestamp;
 }
-
-const messages: Message[] = [
-  {
-    id: 1,
-    type: "text",
-    sender: strings.username,
-    content: strings.messageText,
-    time: strings.time804,
-    isMe: false,
-  },
-  {
-    id: 2,
-    type: "text",
-    sender: strings.estherhoward,
-    content: strings.messageText,
-    time: strings.time804,
-    isMe: true,
-  },
-  {
-    id: 3,
-    type: "image",
-    sender: strings.username,
-    content: images.face1,
-    time: strings.time804,
-    isMe: false,
-  },
-  {
-    id: 4,
-    type: "audio",
-    sender: strings.estherhoward,
-    time: strings.time804,
-    isMe: true,
-  },
-];
 
 const ChatScreen = () => {
   const colors = useColors();
+  const { name: currentUserName } = useUser();
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [inputText, setInputText] = useState("");
+  const [otherUserName, setOtherUserName] = useState<string | null>(null);
+
+  const mockUsers = ["Jane Smith", "Alice Brown"];
+
+  useEffect(() => {
+    const q = query(collection(db, "messages"), orderBy("createdAt", "asc"));
+
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const fetchedMessages: Message[] = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      })) as Message[];
+
+      setMessages(fetchedMessages);
+
+      if (!otherUserName) {
+        const randomUser =
+          mockUsers[Math.floor(Math.random() * mockUsers.length)];
+        setOtherUserName(randomUser);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [currentUserName, otherUserName]); 
+
+  const handleSendMessage = async () => {
+    if (!inputText.trim()) return;
+
+    await addDoc(collection(db, "messages"), {
+      type: "text",
+      sender: currentUserName ?? strings.username,
+      content: inputText,
+      time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+      isMe: true,
+      createdAt: Timestamp.now(),
+    });
+
+    setInputText("");
+  };
+
   const renderMessage = ({ item }: { item: Message }) => {
     const messageStyle = item.isMe
       ? chatstyle.myMessage
@@ -79,17 +89,12 @@ const ChatScreen = () => {
             <View style={chatstyle.avatarNameContainer}>
               <Image source={images.face1} style={chatstyle.senderAvatar} />
               <Text
-                style={[
-                  chatstyle.senderName,
-                  { color: colors.colors.textAccent },
-                ]}
+                style={[chatstyle.senderName, { color: colors.colors.textAccent }]}
               >
                 {item.sender}
               </Text>
             </View>
-            <Text
-              style={[chatstyle.timeText, { color: colors.colors.textAccent }]}
-            >
+            <Text style={[chatstyle.timeText, { color: colors.colors.textAccent }]}>
               {item.time}
             </Text>
           </View>
@@ -97,15 +102,13 @@ const ChatScreen = () => {
 
         {item.type === "text" && (
           <View style={messageStyle}>
-            <Text style={[chatstyle.messageText, textColor]}>
-              {item.content}
-            </Text>
+            <Text style={[chatstyle.messageText, textColor]}>{item.content}</Text>
           </View>
         )}
 
-        {item.type === "image" && (
+        {item.type === "image" && item.content && (
           <View style={chatstyle.imageContainer}>
-            <Image source={images.chatbanner} style={chatstyle.messageImage} />
+            <Image source={{ uri: item.content }} style={chatstyle.messageImage} />
           </View>
         )}
 
@@ -130,17 +133,12 @@ const ChatScreen = () => {
 
         {item.isMe && (
           <View style={chatstyle.senderInfoRow}>
-            <Text
-              style={[chatstyle.timeText, { color: colors.colors.textAccent }]}
-            >
+            <Text style={[chatstyle.timeText, { color: colors.colors.textAccent }]}>
               {item.time}
             </Text>
             <View style={chatstyle.avatarNameContainer}>
               <Text
-                style={[
-                  chatstyle.senderName,
-                  { color: colors.colors.textAccent },
-                ]}
+                style={[chatstyle.senderName, { color: colors.colors.textAccent }]}
               >
                 {item.sender}
               </Text>
@@ -162,7 +160,7 @@ const ChatScreen = () => {
           <View style={chatstyle.headerTextContainer}>
             <Image source={images.face1} style={chatstyle.avatar} />
             <View>
-              <Text style={chatstyle.name}>{strings.username}</Text>
+              <Text style={chatstyle.name}>{otherUserName}</Text>
               <Text style={chatstyle.status}>{strings.online}</Text>
             </View>
           </View>
@@ -174,16 +172,10 @@ const ChatScreen = () => {
         </View>
       </View>
 
-      <View
-        style={[
-          chatstyle.chatContainer,
-          { backgroundColor: colors.colors.background },
-        ]}
-      >
+      {/* Chat Section */}
+      <View style={[chatstyle.chatContainer, { backgroundColor: colors.colors.background }]}>
         <View style={chatstyle.todayContainer}>
-          <Text
-            style={[chatstyle.todayLabel, { color: colors.colors.textAccent }]}
-          >
+          <Text style={[chatstyle.todayLabel, { color: colors.colors.textAccent }]}>
             {strings.today}
           </Text>
         </View>
@@ -192,21 +184,19 @@ const ChatScreen = () => {
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
           data={messages}
-          keyExtractor={(item) => item.id.toString()}
+          keyExtractor={(item) => item.id}
           renderItem={renderMessage}
           contentContainerStyle={chatstyle.messagesList}
         />
 
-        <View
-          style={[
-            chatstyle.inputContainer,
-            { backgroundColor: colors.colors.chatinput },
-          ]}
-        >
+        {/* Message Input */}
+        <View style={[chatstyle.inputContainer, { backgroundColor: colors.colors.chatinput }]}>
           <TouchableOpacity style={chatstyle.addButton}>
             <Image source={images.plusIcon} style={chatstyle.plusIcon} />
           </TouchableOpacity>
           <TextInput
+            value={inputText}
+            onChangeText={setInputText}
             placeholder={strings.typemessagehere}
             style={chatstyle.input}
             placeholderTextColor={Colors.creamywhite}
@@ -215,7 +205,7 @@ const ChatScreen = () => {
             <TouchableOpacity style={chatstyle.micButton}>
               <Image source={images.micIcon} style={chatstyle.micIcon} />
             </TouchableOpacity>
-            <TouchableOpacity style={chatstyle.sendButton}>
+            <TouchableOpacity style={chatstyle.sendButton} onPress={handleSendMessage}>
               <Image source={images.sendIcon} style={chatstyle.sendIcon} />
             </TouchableOpacity>
           </View>

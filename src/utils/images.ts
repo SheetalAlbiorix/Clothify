@@ -105,4 +105,9 @@ export const images = {
     avatar13: require('../assets/avatar13.png'),
     avatar14: require('../assets/avatar14.png'),
     avatar15: require('../assets/avatar15.png'),
+    shippingtruck: require('../assets/shippingtruck.png'),
+    star2: require('../assets/star2.png'),
+    wallet: require('../assets/wallet.png'),
+    flashsale: require('../assets/flashsale.png'),
+    cartIcon: require('../assets/cartIcon.png'),
 }

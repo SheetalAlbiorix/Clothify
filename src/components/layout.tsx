@@ -447,6 +447,8 @@ export const Spacing = {
   // Padding Right
   paddingRight_10: { paddingRight: 10 },
   paddingRight_20: { paddingRight: 20 },
+  paddingRight_30: { paddingRight: 30 },
+  paddingRight_40: { paddingRight: 40 },
   paddingRight_80: { paddingRight: 80 },
 
   // Padding Left
