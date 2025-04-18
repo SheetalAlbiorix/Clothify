@@ -7,6 +7,7 @@ const extraData = Constants.expoConfig?.extra || Constants.manifest?.extra || {}
 export const GOOGLE_CLIENT_ID = extraData.GOOGLE_CLIENT_ID || '';
 export const GOOGLE_ANDROID_CLIENT_ID = extraData.GOOGLE_ANDROID_CLIENT_ID || '';
 export const GOOGLE_IOS_CLIENT_ID = extraData.GOOGLE_IOS_CLIENT_ID || '';
+export const API_KEY = extraData.API_KEY || '';
 
 // Debug log (remove in production)
 console.log('Config values:', {

@@ -17,9 +17,10 @@ import {
   setDoc,
   getDoc,
 } from "firebase/firestore";
+import { API_KEY } from "./config";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBZrPvX_yTC8rp8iMAkpl_BgEapcXnHwo4",
+  apiKey: API_KEY,
   authDomain: "clothify-app-4e38e.firebaseapp.com",
   projectId: "clothify-app-4e38e",
   storageBucket: "clothify-app-4e38e.appspot.com",
