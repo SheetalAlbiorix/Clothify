@@ -44,10 +44,12 @@ export const profilestyle = StyleSheet.create({
   },
   profileImageContainer: {
     ...layout.itemsCenter,
+    ...Spacing.paddingBottom_10
   },
   profileImage: {
     ...layout.height_150,
     ...layout.width_150,
+    ...borderStyles.rounded_100,
   } as ImageStyle,
   nameText: {
     ...Fonts.size_20,
@@ -60,7 +62,7 @@ export const profilestyle = StyleSheet.create({
   },
   MainListContainer: {
     ...Spacing.paddingHorizontal_20,
-    ...Spacing.paddingBottom_100,
+    ...Spacing.paddingBottom_140,
   },
   profileIconImage: {
     ...layout.width_30,
@@ -87,4 +89,14 @@ export const profilestyle = StyleSheet.create({
     ...layout.itemsCenter,
     ...Spacing.gap_10,
   },
+  editIcon: {
+    ...layout.absolute,
+    ...layout.bottom5,
+    ...layout.right20,
+    backgroundColor: Colors.white,
+    ...layout.width_30,
+    ...layout.height_30,
+    ...borderStyles.rounded_15,
+    ...layout.padding_5,
+  } as ImageStyle,
 });

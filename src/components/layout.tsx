@@ -42,6 +42,7 @@ export const layout: Record<string, ViewStyle | TextStyle | ImageStyle> = {
   resizeContain: { resizeMode: "contain" },
 
   //Width
+  width_auto: { width: "auto" },
   width_3: { width: 3 },
   width_8: { width: 8 },
   width_10: { width: 10 },
@@ -55,9 +56,11 @@ export const layout: Record<string, ViewStyle | TextStyle | ImageStyle> = {
   width_25: { width: 25 },
   width_28: { width: 28 },
   width_30: { width: 30 },
+  width_32: { width: 32 },
   width_35: { width: 35 },
   width_40: { width: 40 },
   widthinsmall: { width: 45 },
+  width_48: { width: 48 },
   width_small: { width: 50 },
   width_55: { width: 55 },
   width_medsmall: { width: 60 },
@@ -86,6 +89,7 @@ export const layout: Record<string, ViewStyle | TextStyle | ImageStyle> = {
   width_420: { width: 420 },
   width_450: { width: 450 },
   width_500: { width: 500 },
+  width_800: { width: 800 },
   width_1000: { width: 1000 },
   widths_25: { width: "25%" },
   minimumWidth: { width: "30%" },
@@ -95,6 +99,7 @@ export const layout: Record<string, ViewStyle | TextStyle | ImageStyle> = {
   MaxWidth: { width: "60%" },
   mediumWidth: { width: "80%" },
   AverageWidth: { width: "85%" },
+  maxWidth85: { maxWidth: "85%" },
   MediumHighWidth: { width: "90%" },
   fullWidth: { width: "100%" },
   fullMoreWidth: { width: "110%" },
@@ -117,9 +122,11 @@ export const layout: Record<string, ViewStyle | TextStyle | ImageStyle> = {
   height_25: { height: 25 },
   height_28: { height: 28 },
   height_30: { height: 30 },
+  height_32: { height: 32 },
   height_35: { height: 35 },
   height_40: { height: 40 },
   heightinsmall: { height: 45 },
+  height_48: { height: 48 },
   height_small: { height: 50 },
   height_55: { height: 55 },
   height_medsmall: { height: 60 },
@@ -168,6 +175,7 @@ export const layout: Record<string, ViewStyle | TextStyle | ImageStyle> = {
   left50: { left: "50%" },
 
   // Right
+  rightminus5: { right: -5 },
   right0: { right: 0 },
   right10: { right: 10 },
   right15: { right: 15 },
@@ -176,6 +184,7 @@ export const layout: Record<string, ViewStyle | TextStyle | ImageStyle> = {
   right70: { right: 70 },
 
   // Top
+  topminus5: { top: -5 },
   top0: { top: 0 },
   top5: { top: 5 },
   top10: { top: 10 },
@@ -202,6 +211,7 @@ export const layout: Record<string, ViewStyle | TextStyle | ImageStyle> = {
   z1000: { zIndex: 1000 },
   borderdashed: { borderStyle: "dashed" },
   SelfCenterView: { alignSelf: "center" },
+  SelfFlexStart: { alignSelf: "flex-start" },
 };
 
 export const textStyles: Styles["TextStyle"] = {
@@ -212,6 +222,7 @@ export const textStyles: Styles["TextStyle"] = {
   centerText: { textAlign: "center" },
   leftText: { textAlign: "left" },
   EndText: { alignSelf: "flex-end" },
+  StartText: { alignSelf: "flex-start" },
   selfCenter: { alignSelf: "center" },
   textUnderLine: { textDecorationLine: "underline" },
   textLineThrough: { textDecorationLine: "line-through" },
@@ -255,6 +266,7 @@ export const borderStyles = {
   rounded_10: { borderRadius: 10 },
   rounded_12: { borderRadius: 12 },
   rounded_15: { borderRadius: 15 },
+  rounded_16: { borderRadius: 16 },
   rounded_18: { borderRadius: 18 },
   rounded_20: { borderRadius: 20 },
   rounded_25: { borderRadius: 25 },
@@ -286,6 +298,8 @@ export const borderStyles = {
   roundedBottom_10: { borderBottomLeftRadius: 10, borderBottomRightRadius: 10 },
 
   // Border Top End Start Radius
+  roundedTopStatRadius_20: { borderTopStartRadius: 20 },
+  roundedTopEndRadius_20: { borderTopEndRadius: 20 },
   roundedTopEndRadius_30: { borderTopEndRadius: 30 },
   roundedTopStartRadius_30: { borderTopStartRadius: 30 },
 
@@ -335,6 +349,7 @@ export const Spacing = {
   // Margin Top
   marginTopminus5: { marginTop: -5 },
   marginTopminus12: { marginTop: -12 },
+  marginTopminus30: { marginTop: -30 },
   marginTop_2: { marginTop: 2 },
   marginTop_3: { marginTop: 3 },
   marginTop_4: { marginTop: 4 },
@@ -409,6 +424,7 @@ export const Spacing = {
   marginHorizontal_3: { marginHorizontal: 3 },
   marginHorizontal_4: { marginHorizontal: 4 },
   marginHorizontal_5: { marginHorizontal: 5 },
+  marginHorizontal_8: { marginHorizontal: 8 },
   marginHorizontal_10: { marginHorizontal: 10 },
   marginHorizontal_15: { marginHorizontal: 15 },
   marginHorizontal_20: { marginHorizontal: 20 },
@@ -417,6 +433,7 @@ export const Spacing = {
   padding_5: { padding: 5 },
   padding_8: { padding: 8 },
   padding_10: { padding: 10 },
+  padding_12: { padding: 12 },
   padding_15: { padding: 15 },
   padding_16: { padding: 16 },
   padding_18: { padding: 18 },
@@ -436,6 +453,8 @@ export const Spacing = {
   paddingTop_50: { paddingTop: 50 },
   paddingTop_60: { paddingTop: 60 },
   paddingTop_70: { paddingTop: 70 },
+  paddingTop_250: { paddingTop: 250 },
+  paddingTop_280: { paddingTop: 280 },
 
   // Padding Bottom
   paddingBottom_10: { paddingBottom: 10 },
@@ -443,6 +462,8 @@ export const Spacing = {
   paddingBottom_30: { paddingBottom: 30 },
   paddingBottom_80: { paddingBottom: 80 },
   paddingBottom_100: { paddingBottom: 100 },
+  paddingBottom_120: { paddingBottom: 120 },
+  paddingBottom_140: { paddingBottom: 140 },
 
   // Padding Right
   paddingRight_10: { paddingRight: 10 },

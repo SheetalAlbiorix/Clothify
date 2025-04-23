@@ -64,4 +64,7 @@ export const Fonts: Record<string, TextStyle> = {
   weight_900: {
     fontWeight: 900,
   },
+  lineheight_22: {
+    lineHeight: 22
+  }
 };

@@ -1,10 +1,12 @@
 import 'dotenv/config';
+import { API_KEY } from './src/service/config';
 
 // Add this debug line to verify environment variables are loading
 console.log('Environment variables in app.config.js:', {
   GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID ? 'Present' : 'Missing',
   GOOGLE_ANDROID_CLIENT_ID: process.env.GOOGLE_ANDROID_CLIENT_ID ? 'Present' : 'Missing',
   GOOGLE_IOS_CLIENT_ID: process.env.GOOGLE_IOS_CLIENT_ID ? 'Present' : 'Missing',
+  API_KEY: process.env.API_KEY ? 'Present' : 'Missing',
 });
 
 export default {
@@ -13,7 +15,7 @@ export default {
     slug: "clothify",
     version: "1.0.0",
     orientation: "portrait",
-    icon: "./src/assets/icon.png",
+    icon: "./src/assets/logo4.png",
     userInterfaceStyle: "light",
     newArchEnabled: true,
     splash: {
@@ -27,7 +29,7 @@ export default {
     },
     android: {
       adaptiveIcon: {
-        foregroundImage: "./src/assets/adaptive-icon.png",
+        foregroundImage: "./src/assets/logo4.png",
         backgroundColor: "#ffffff"
       },
       softwareKeyboardLayoutMode: "pan",
@@ -56,6 +58,12 @@ export default {
       GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
       GOOGLE_ANDROID_CLIENT_ID: process.env.GOOGLE_ANDROID_CLIENT_ID,
       GOOGLE_IOS_CLIENT_ID: process.env.GOOGLE_IOS_CLIENT_ID,
+      API_KEY: process.env.API_KEY,
+      AUTHDOMAIN: process.env.AUTHDOMAIN,
+      PROJECTID: process.env.PROJECTID,
+      STORAGEBUCKET: process.env.STORAGEBUCKET,
+      MESSAGINGSENDERID: process.env.MESSAGINGSENDERID,
+      APPID: process.env.APPID,
       eas: {
         projectId: '98988d6f-fd53-4fcd-979d-9b4153dc005d',
       },

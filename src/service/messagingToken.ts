@@ -1,6 +1,7 @@
 import { getToken, requestPermission, getMessaging, AuthorizationStatus } from '@react-native-firebase/messaging';
 import isDeviceSupported from '@react-native-firebase/messaging';
 import { PermissionsAndroid, Platform } from 'react-native';
+import { strings } from '../utils/strings';
 
 export async function getFcmToken() {
   try {
@@ -8,7 +9,7 @@ export async function getFcmToken() {
 
     const isSupported = await isDeviceSupported();
     if (!isSupported) {
-      console.log('FCM not supported on this device');
+      console.log(strings.fcmnotsupported);
       return null;
     }
 
@@ -23,21 +24,21 @@ export async function getFcmToken() {
       );
 
       if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
-        console.log('POST_NOTIFICATIONS permission denied');
+        console.log(strings.notificationpermissiondenied);
         return null;
       }
     }
 
     if (enabled) {
       const fcmToken = await getToken(messaging);
-      console.log('FCM Token:', fcmToken);
+      console.log(strings.fcmtoken, fcmToken);
       return fcmToken;
     } else {
-      console.log('Notification permissions not granted');
+      console.log(strings.notificationpermissionnotgranted);
       return null;
     }
   } catch (error) {
-    console.error('Error fetching FCM token:', error);
+    console.error(strings.errorfetchingfcmtoken, error);
     return null;
   }
 }

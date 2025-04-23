@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, Image, Alert } from "react-native";
 import { SignInStyle } from "../styles/SignInStyle";
 import { useColors } from "../hooks/useColors";
 import { useTheme } from "../themes/theme";
@@ -10,8 +10,9 @@ import { strings } from "../utils/strings";
 import { Ionicons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 import { images } from "../utils/images";
-import { auth, signInWithEmail } from "../service/auth";
+import { auth, signInWithEmail, signInWithGoogle } from "../service/auth";
 import { useUser } from "../hooks/userContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type SignInNavigationProp = StackNavigationProp<RootStackParamList, "SignIn">;
 
@@ -19,7 +20,7 @@ const SignIn = () => {
   const navigation = useNavigation<SignInNavigationProp>();
   const { statusBarStyle } = useTheme();
   const colors = useColors();
-  const { setName } = useUser();
+  const { setName, setPhotoUrl } = useUser();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -28,7 +29,7 @@ const SignIn = () => {
 
   const validateEmail = (input: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!input) return "Email is required";
+    if (!input) return strings.emailrequired;
     if (!emailRegex.test(input)) return strings.entervalidemail;
     return "";
   };
@@ -51,28 +52,63 @@ const SignIn = () => {
 
   const isFormValid = !emailError && !passwordError && email && password;
 
-  const handleSignIn = async () => {
+
+const handleSignIn = async () => {
+  try {
+    const userCredential = await signInWithEmail(email, password);
+    const user = userCredential.user;
+    console.log(strings.usersignedin, user.uid);
+
+    const defaultPhotoUri = Image.resolveAssetSource(images.profileIcon).uri;
+
+    const nameToSet = user.displayName || "Guest";
+    const photoToSet = user.photoURL || defaultPhotoUri;
+
+    setName(nameToSet);
+    setPhotoUrl(photoToSet);
+
+    await AsyncStorage.setItem("userName", nameToSet);
+    await AsyncStorage.setItem("userPhotoUrl", photoToSet);
+
+    navigation.navigate("Tab", { name: "Home", location: "" });
+  } catch (error: any) {
+    if (error.code === strings.authusernotfound) {
+      console.log(strings.noaccountfound);
+    } else if (error.code === strings.authwrongpassword) {
+      console.log(strings.incorrectpassword);
+    } else if (error.code === strings.authinvalidemail) {
+      console.log(strings.invalidemail);
+    } else {
+      Alert.alert(strings.signinFailed, error.message);
+    }
+  }
+};
+
+  
+  
+
+
+  const handleGooglePress = async () => {
     try {
-      const userCredential = await signInWithEmail(email, password);
+      const userCredential = await signInWithGoogle();
       const user = userCredential.user;
-      console.log("User signed in:", user.uid);
-
-      setName(user.displayName);
-
+  
+      if (!user) {
+        throw new Error(strings.nouserreturned);
+      }
+  
+      console.log(strings.googleusersignedin, user.uid);
+  
+      setName(user.displayName || "Guest");
+      setPhotoUrl(user.photoURL || null);
+  
       navigation.navigate("Tab", { name: "Home", location: "" });
     } catch (error: any) {
-      if (error.code === "auth/user-not-found") {
-        console.log("No account found", "Please sign up to create an account.");
-      } else if (error.code === "auth/wrong-password") {
-        console.log("Incorrect password", "Please check your password.");
-      } else if (error.code === "auth/invalid-email") {
-        console.log("Invalid email", "Please enter a valid email address.");
-      } else {
-        console.log("Sign in failed", error.message);
-      }
+      console.error(strings.googlesigninerror, error);
+      Alert.alert(strings.googlesigninfailed, error.message);
     }
   };
-
+  
 
 
   return (
@@ -161,7 +197,7 @@ const SignIn = () => {
         </TouchableOpacity>
         <TouchableOpacity
           style={SignInStyle.socialButton}
-          // onPress={}
+          onPress={handleGooglePress}
         >
           <Image source={images.googleIcon} style={SignInStyle.socialIcon} />
         </TouchableOpacity>

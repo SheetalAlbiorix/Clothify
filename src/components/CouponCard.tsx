@@ -27,12 +27,20 @@ type CouponNavigationProp = StackNavigationProp<
   RootStackParamList,
   "CouponCard"
 >;
-const CouponCard = ({ code, amountNeeded, discount }: any) => {
+type CouponCardProps = {
+  code: string;
+  amountNeeded: string;
+  discount: string;
+  onApplyCoupon?: (code: string) => void;
+};
+
+const CouponCard = ({ code, amountNeeded, discount, onApplyCoupon }: CouponCardProps) => {
   const navigation = useNavigation<CouponNavigationProp>();
 
   const copyCouponCode = () => {
     Clipboard.setString(code);
-    navigation.navigate("Cart", { appliedCoupon: code });
+    onApplyCoupon?.(code);
+    navigation.goBack();
   };
 
   return (

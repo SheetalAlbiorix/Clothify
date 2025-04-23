@@ -20,6 +20,8 @@ import { RootStackParamList } from "../../App";
 import { strings } from "../utils/strings";
 import CountDownTimer from "../components/CountDownTimer";
 import CategoryFilterCarousel from "../components/CategoryFilter";
+import { StatusBar } from "expo-status-bar";
+import { useTheme } from "../themes/theme";
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, "Home">;
 type HomeScreenRouteProp = RouteProp<RootStackParamList, "Home">;
@@ -103,7 +105,8 @@ const HomeScreen = () => {
   const navigation = useNavigation<HomeScreenNavigationProp>();
   const colors = useColors();
   const [location, setLocation] = useState(strings.selectlocation);
-  const [unreadCount, setUnreadCount] = useState(5);
+  const [unreadCount, setUnreadCount] = useState(0);
+  const { statusBarStyle } = useTheme();
 
   useEffect(() => {
     if (route.params?.location) {
@@ -160,13 +163,14 @@ const HomeScreen = () => {
         { backgroundColor: colors.colors.background },
       ]}
     >
+      <StatusBar style={statusBarStyle}/>
       <Text style={[homeStyles.locationheader, { color: colors.colors.text }]}>
         {strings.location}
       </Text>
       <View style={homeStyles.header}>
         <TouchableOpacity
           style={homeStyles.locationContainer}
-          onPress={() => navigation.navigate("AllowLocation")}
+          onPress={() => navigation.navigate("LocationMain")}
         >
           <Image source={images.locationIcon} style={homeStyles.locationIcon} />
           <Text
@@ -245,8 +249,8 @@ const HomeScreen = () => {
             </View>
           </View>
           <View style={homeStyles.bannerContainer}>
-            <Image style={homeStyles.ImageBanner} source={images.banner2Icon} />
-            <View style={homeStyles.bannerTitleContainer}>
+            <Image style={homeStyles.ImageBanner} source={images.bannerIcon} />
+            {/* <View style={homeStyles.bannerTitleContainer}>
               <Text style={homeStyles.bannerTitle}>
                 {strings.newcollection}
               </Text>
@@ -256,7 +260,7 @@ const HomeScreen = () => {
               <TouchableOpacity style={homeStyles.shopNowButton}>
                 <Text style={homeStyles.shopNowText}>{strings.shopnow}</Text>
               </TouchableOpacity>
-            </View>
+            </View> */}
           </View>
         </ScrollView>
 

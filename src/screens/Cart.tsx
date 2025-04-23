@@ -90,6 +90,8 @@ const PROMO_CODES = {
   FREEFORALL: strings.freeforall,
   FIRST100: strings.first100,
   HAPPYNEW500: strings.happynew500,
+  WELCOME200: strings.welcome200,
+  CASHBACK12: strings.cashback12
 };
 
 type CartNavigationProp = StackNavigationProp<RootStackParamList, "Cart">;
@@ -188,7 +190,35 @@ const Cart = () => {
         setDiscount(-35);
         setAppliedPromoCode(code);
       }
-    } else {
+    }else if (code === PROMO_CODES.WELCOME200) {
+      const itemCount = cartItems.length;
+      if (itemCount > 0) {
+        const discountPerItem = 100 / itemCount;
+        setCartItems((prevItems) =>
+          prevItems.map((item) => ({
+            ...item,
+            price: Math.max(item.originalPrice - discountPerItem, 0),
+          }))
+        );
+        setDiscount(-35);
+        setAppliedPromoCode(code);
+      }
+    }
+    else if (code === PROMO_CODES.CASHBACK12) {
+      const itemCount = cartItems.length;
+      if (itemCount > 0) {
+        const discountPerItem = 100 / itemCount;
+        setCartItems((prevItems) =>
+          prevItems.map((item) => ({
+            ...item,
+            price: Math.max(item.originalPrice - discountPerItem, 0),
+          }))
+        );
+        setDiscount(-35);
+        setAppliedPromoCode(code);
+      }
+    }  
+    else {
       alert(strings.invalidpromocode);
     }
     setPromoCode("");

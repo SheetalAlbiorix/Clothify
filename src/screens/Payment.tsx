@@ -35,7 +35,7 @@ const Payment = () => {
       <View style={paymentstyles.headerContainer}>
         <TouchableOpacity
           style={paymentstyles.backButton}
-          onPress={() => navigation.goBack()}
+          onPress={() => navigation.navigate('Tab', { name: "Home", location: ""  })}
         >
           <Image
             source={images.leftarrow}
@@ -77,7 +77,7 @@ const Payment = () => {
           },
         ]}
       >
-        <TouchableOpacity style={paymentstyles.paymentButton}>
+        <TouchableOpacity style={paymentstyles.paymentButton} onPress={() => navigation.navigate('TrackOrder', { orderId: '12345', orderData: { id: '12345', name: 'Sample Item', size: 'M', price: 49.99, image: 'sample-image-url' } })}>
           <Text style={paymentstyles.paymentText}>{strings.vieworder}</Text>
         </TouchableOpacity>
         <TouchableOpacity

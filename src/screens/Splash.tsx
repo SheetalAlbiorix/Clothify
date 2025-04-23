@@ -1,12 +1,5 @@
 import { Text, View } from "react-native";
-
-type RootStackParamList = {
-  Splash: undefined;
-  // Welcome: undefined;
-  Tab: undefined;
-  SignIn: undefined;
-};
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -14,34 +7,46 @@ import { SplashStyle } from "../styles/SplashStyle";
 import { useTheme } from "../themes/theme";
 import { useColors } from "../hooks/useColors";
 import { strings } from "../utils/strings";
+import { auth } from "../service/auth";
 
-type SplashScreenNavigationProp = StackNavigationProp<
-  RootStackParamList,
-  "Splash"
->;
+type RootStackParamList = {
+  Splash: undefined;
+  Welcome: undefined;
+  SignIn: undefined;
+  Tab: undefined;
+};
+
+type SplashScreenNavigationProp = StackNavigationProp<RootStackParamList, "Splash">;
 
 const Splash = () => {
   const { statusBarStyle } = useTheme();
   const colors = useColors();
   const navigation = useNavigation<SplashScreenNavigationProp>();
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    setTimeout(() => {
-      navigation.navigate("Tab");
-    }, 2000);
+    const unsubscribe = auth().onAuthStateChanged((user) => {
+      if (user) {
+        navigation.navigate("Tab");
+      } else {
+        navigation.navigate("Welcome");
+      }
+      setLoading(false);
+    });
+
+    return unsubscribe;
   }, [navigation]);
+
+  if (loading) {
+    return null;
+  }
 
   return (
     <View
-      style={[
-        SplashStyle.container,
-        { backgroundColor: colors.colors.background },
-      ]}
+      style={[SplashStyle.container, { backgroundColor: colors.colors.background }]}
     >
       <View
-        style={[
-          SplashStyle.UpperCircle,
-          { borderColor: colors.colors.circlularborder },
-        ]}
+        style={[SplashStyle.UpperCircle, { borderColor: colors.colors.circlularborder }]}
       />
       <StatusBar style={statusBarStyle} />
       <View style={SplashStyle.splashTextContainer}>
@@ -53,10 +58,7 @@ const Splash = () => {
         </Text>
       </View>
       <View
-        style={[
-          SplashStyle.LowerCircle,
-          { borderColor: colors.colors.circlularborder },
-        ]}
+        style={[SplashStyle.LowerCircle, { borderColor: colors.colors.circlularborder }]}
       />
     </View>
   );

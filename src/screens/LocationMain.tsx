@@ -180,6 +180,7 @@ const LocationMain = () => {
           )}
         />
       ) : (
+        <View style={locationmainstyle.noResultsContainer}>
         <Text
           style={[
             locationmainstyle.noResultsText,
@@ -188,6 +189,7 @@ const LocationMain = () => {
         >
           {strings.noresultsfound}
         </Text>
+        </View>
       )}
     </View>
   );

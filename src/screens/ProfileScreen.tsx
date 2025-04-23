@@ -1,24 +1,19 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  Modal,
-  Image,
-  ScrollView,
-} from "react-native";
+import { View, Text, TouchableOpacity, Image, ScrollView } from "react-native";
 import { useColors } from "../hooks/useColors";
 import { useNavigation } from "@react-navigation/native";
 import { profilestyle } from "../styles/ProfileStyle";
 import { images } from "../utils/images";
 import { strings } from "../utils/strings";
-import { GoogleSignin } from "@react-native-google-signin/google-signin";
-import { logout } from "../service/auth";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../App";
 import { LogoutModal } from "../components/LogoutModal";
 import { useUser } from "../hooks/userContext";
+import { logout } from "../service/auth";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import MediaPickerModal from "../components/MediaPicker";
+import { useTheme } from "../themes/theme";
+import { StatusBar } from "expo-status-bar";
 
 type ProfileScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -29,8 +24,11 @@ const ProfileScreen = () => {
   const colors = useColors();
   const navigation = useNavigation<ProfileScreenNavigationProp>();
   const [isLogoutModalVisible, setLogoutModalVisible] = useState(false);
-
-  const { name } = useUser();
+  const [modalVisible, setModalVisible] = useState(false);
+  const { name, photoUrl } = useUser();
+  const { setName, setPhotoUrl } = useUser();
+  const [mediaUri, setMediaUri] = useState<string | null>(null);
+  const { statusBarStyle } = useTheme();
 
   const handleLogoutPress = () => {
     setLogoutModalVisible(true);
@@ -43,12 +41,23 @@ const ProfileScreen = () => {
   const handleConfirmLogout = async () => {
     setLogoutModalVisible(false);
     try {
+      await setName(null);
+      await setPhotoUrl(null);
+
+      await AsyncStorage.removeItem("userName");
+      await AsyncStorage.removeItem("userPhotoUrl");
+
       await logout();
       console.log(strings.logoutsuccess);
-      navigation.navigate("SignIn");
+      navigation.navigate("Welcome");
     } catch (error) {
       console.error(strings.logouterror, error);
     }
+  };
+
+  const handleMediaSelected = (uri: string, type: string) => {
+    console.log(strings.mediaselected, uri);
+    setMediaUri(uri);
   };
 
   return (
@@ -72,23 +81,36 @@ const ProfileScreen = () => {
           {strings.profile}
         </Text>
       </View>
+      <MediaPickerModal
+        visible={modalVisible}
+        onClose={() => setModalVisible(false)}
+        onMediaSelected={handleMediaSelected}
+      />
+      <StatusBar style={statusBarStyle} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={profilestyle.MainImageContainer}>
-          <TouchableOpacity style={profilestyle.profileImageContainer}>
+          <TouchableOpacity
+            style={profilestyle.profileImageContainer}
+            onPress={() => setModalVisible(true)}
+          >
             <Image
-              source={images.profileIcon}
+              source={photoUrl ? { uri: photoUrl } : images.profileIcon}
               style={[
                 profilestyle.profileImage,
-                { tintColor: colors.colors.tintColor },
+                !photoUrl && { tintColor: colors.colors.tintColor },
               ]}
             />
+            <Image source={images.editIcon} style={profilestyle.editIcon} />
           </TouchableOpacity>
           <Text style={[profilestyle.nameText, { color: colors.colors.text }]}>
-          {name ? name : "Guest"}
+            {name ? name : "Guest"}
           </Text>
         </View>
         <View style={profilestyle.MainListContainer}>
-          <TouchableOpacity style={profilestyle.profileholder} onPress={()=> navigation.navigate('CompleteProfile')}>
+          <TouchableOpacity
+            style={profilestyle.profileholder}
+            onPress={() => navigation.navigate("CompleteProfile")}
+          >
             <View style={profilestyle.profilefirstView}>
               <Image
                 source={images.notifiprofileIcon}

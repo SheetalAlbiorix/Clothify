@@ -1,4 +1,11 @@
-import { View, Text, TextInput, TouchableOpacity, Image, Alert } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Image,
+  Alert,
+} from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { verifystyle } from "../styles/VerifyStyle";
 import { StatusBar } from "expo-status-bar";
@@ -70,7 +77,7 @@ const Verify = () => {
       navigation.navigate("CompleteProfile");
       console.log(strings.otpentered, otpValue);
     } else {
-      Alert.alert("Invalid OTP", "The code you entered is incorrect.");
+      Alert.alert(strings.invalidOtp);
     }
   };
 
@@ -78,29 +85,51 @@ const Verify = () => {
     const newOtp = generateOtp();
     setGeneratedOtp(newOtp);
     setTimer(30);
-    console.log("New OTP sent to email:", newOtp);
-    Alert.alert("OTP Sent", `A new OTP has been sent to ${email}`);
+    console.log(strings.newemailsenttoemail, newOtp);
+    Alert.alert(strings.otpsent, `${strings.newotphasbeensent} ${email}`);
   };
 
   return (
-    <View style={[verifystyle.container, { backgroundColor: colors.colors.background }]}>
+    <View
+      style={[
+        verifystyle.container,
+        { backgroundColor: colors.colors.background },
+      ]}
+    >
       <StatusBar style={statusBarStyle} />
       <TouchableOpacity
-        style={[verifystyle.backButton, { backgroundColor: colors.colors.background }]}
+        style={[
+          verifystyle.backButton,
+          { backgroundColor: colors.colors.background },
+        ]}
         onPress={() => navigation.navigate("SignUp")}
       >
         <Image
-          style={[verifystyle.leftarrowImage, { tintColor: colors.colors.tintColor }]}
+          style={[
+            verifystyle.leftarrowImage,
+            { tintColor: colors.colors.tintColor },
+          ]}
           source={images.leftarrow}
         />
       </TouchableOpacity>
 
       <View style={verifystyle.verifyTextContainer}>
-        <Text style={[verifystyle.heading, { color: colors.colors.text }]}>{strings.verify}</Text>
-        <Text style={[verifystyle.VerifytextSecondary, { color: colors.colors.textAccent }]}>
+        <Text style={[verifystyle.heading, { color: colors.colors.text }]}>
+          {strings.verify}
+        </Text>
+        <Text
+          style={[
+            verifystyle.VerifytextSecondary,
+            { color: colors.colors.textAccent },
+          ]}
+        >
           {strings.enterthecode}
         </Text>
-        <Text style={verifystyle.emailtextdemo}>{email}</Text>
+        <Text
+          style={[verifystyle.emailtextdemo, { color: colors.colors.text }]}
+        >
+          {email}
+        </Text>
       </View>
 
       <View style={verifystyle.OtpInputContainer}>
@@ -126,13 +155,12 @@ const Verify = () => {
       </View>
 
       <View style={verifystyle.Otpreceivecontainer}>
-        <Text style={verifystyle.didntreceiveotp}>{strings.didntreceiveotp}</Text>
+        <Text style={verifystyle.didntreceiveotp}>
+          {strings.didntreceiveotp}
+        </Text>
         <TouchableOpacity disabled={timer > 0} onPress={handleResendOtp}>
           <Text
-            style={[
-              verifystyle.resendcode,
-              { opacity: timer > 0 ? 0.5 : 1 },
-            ]}
+            style={[verifystyle.resendcode, { opacity: timer > 0 ? 0.5 : 1 }]}
           >
             {timer > 0 ? `Resend in ${timer}s` : strings.resendCode}
           </Text>

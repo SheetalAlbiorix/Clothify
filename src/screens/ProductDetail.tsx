@@ -198,7 +198,10 @@ const ProductDetail = () => {
               {strings.pricejacket}
             </Text>
           </View>
-          <TouchableOpacity style={productstyle.addToCartButton} onPress={() => navigation.navigate("Cart")}>
+          <TouchableOpacity
+            style={productstyle.addToCartButton}
+            onPress={() => navigation.navigate("Cart", { appliedCoupon: "" })}
+          >
             <Image source={images.bagIcon} style={productstyle.bagIcon} />
             <Text style={productstyle.addToCartText}>{strings.addtocart}</Text>
           </TouchableOpacity>

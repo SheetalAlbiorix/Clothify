@@ -1,16 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { SearchProvider } from "./src/hooks/searchContext";
 import { getFcmToken } from "./src/service/messagingToken";
 import { setupFCMListeners } from "./src/service/notificationListeners";
 import * as Screens from "./src/screens";
-import { ActiveOrder, CompletedOrder } from "./src/screens/MyOrders";
+import { auth } from "./src/service/auth";
+import { UserProvider } from "./src/hooks/userContext";
+import { ActiveOrder } from "./src/screens/MyOrders";
 import { SavedCardType } from "./src/screens/PaymentMethod";
 import { AddressType } from "./src/screens/ShippingAddress";
 import { ArrivalType } from "./src/screens/ChooseShipping";
-import { auth } from "./src/service/auth";
-import { UserProvider } from "./src/hooks/userContext";
+import { LogBox } from "react-native";
 
 export type RootStackParamList = {
   Splash: undefined;
@@ -24,7 +25,7 @@ export type RootStackParamList = {
   CompleteProfile: undefined;
   AllowLocation: undefined;
   LocationMain: undefined;
-  Home: {location: string};
+  Home: { location: string };
   Tab: { name?: string; location: string };
   productDetail: undefined;
   whistlist: undefined;
@@ -45,9 +46,8 @@ export type RootStackParamList = {
   Filter: undefined;
   SearchScreen: { name: string };
   MyOrders: undefined;
-  TrackOrder: { orderId: string; orderData: ActiveOrder };
-  LeaveReview: { orderId: string; orderData: CompletedOrder };
-  Reorder: { orderId: string };
+  TrackOrder: { orderId: string; orderData: OrderItem };
+  LeaveReview: { orderId: string; orderData: OrderItem };
   Chat: undefined;
   Profile: undefined;
   settings: undefined;
@@ -60,19 +60,31 @@ export type RootStackParamList = {
 
 const Stack = createStackNavigator<RootStackParamList>();
 
-type ScreenConfig<K extends keyof RootStackParamList> = {
-  name: K;
-  component: React.ComponentType<any>;
-};
-
 const App = () => {
+  const [user, setUser] = useState<any>(null);
+  const [initializing, setInitializing] = useState(true);
+
+  LogBox.ignoreLogs(['Open debugger to view warnings']);
+
   useEffect(() => {
+    const unsubscribe = auth().onAuthStateChanged((user) => {
+      setUser(user);
+      if (initializing) setInitializing(false);
+    });
+
     getFcmToken();
     setupFCMListeners();
-    auth;
-  }, []);
 
-  const authScreens: ScreenConfig<keyof RootStackParamList>[] = [
+    return () => {
+      unsubscribe();
+    };
+  }, [initializing]);
+
+  if (initializing) {
+    return null;
+  }
+
+  const authScreens = [
     { name: "Splash", component: Screens.Splash },
     { name: "Welcome", component: Screens.Welcome },
     { name: "Onboarding", component: Screens.Onboarding },
@@ -83,7 +95,7 @@ const App = () => {
     { name: "passwordmanager", component: Screens.PasswordManager },
   ];
 
-  const mainScreens: ScreenConfig<keyof RootStackParamList>[] = [
+  const mainScreens = [
     { name: "CompleteProfile", component: Screens.CompleteProfile },
     { name: "AllowLocation", component: Screens.AllowLocation },
     { name: "LocationMain", component: Screens.LocationMain },
@@ -105,17 +117,17 @@ const App = () => {
     { name: "settings", component: Screens.Settings },
     { name: "helpcenter", component: Screens.HelpCenter },
     { name: "privacy", component: Screens.PrivacyPolicy },
-    { name: "invite", component: Screens.inviteFriends },
+    { name: "invite", component: Screens.InviteFriends },
     { name: "notification", component: Screens.Notification },
   ];
 
-  const orderScreens: ScreenConfig<keyof RootStackParamList>[] = [
+  const orderScreens = [
     { name: "MyOrders", component: Screens.MyOrders },
     { name: "LeaveReview", component: Screens.LeaveReview },
     { name: "TrackOrder", component: Screens.TrackOrder },
   ];
 
-  const chatScreens: ScreenConfig<keyof RootStackParamList>[] = [
+  const chatScreens = [
     { name: "Chat", component: Screens.ChatScreen },
     { name: "Profile", component: Screens.ProfileScreen },
   ];
@@ -125,21 +137,19 @@ const App = () => {
       <NavigationContainer>
         <UserProvider>
           <Stack.Navigator
-            initialRouteName="Splash"
+            initialRouteName={user ? "Tab" : "Splash"}
             screenOptions={{ headerShown: false }}
           >
-            {[
-              ...authScreens,
-              ...mainScreens,
-              ...orderScreens,
-              ...chatScreens,
-            ].map((screen) => (
-              <Stack.Screen
-                key={screen.name}
-                name={screen.name}
-                component={screen.component}
-              />
-            ))}
+            {[...authScreens, ...mainScreens, ...orderScreens, ...chatScreens].map((screen) => {
+              const screenName = screen.name as keyof RootStackParamList;
+              return (
+                <Stack.Screen
+                  key={screenName}
+                  name={screenName as any}
+                  component={screen.component}
+                />
+              );
+            })}
           </Stack.Navigator>
         </UserProvider>
       </NavigationContainer>

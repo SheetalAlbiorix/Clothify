@@ -56,131 +56,131 @@ export const notificationstyle = StyleSheet.create({
     ...borderStyles.rounded_20,
   },
   daymarkreadContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingHorizontal: 30,
-    paddingVertical: 10,
+    ...layout.row,
+    ...layout.justifyBetween,
+    ...layout.itemsCenter,
+    ...Spacing.paddingHorizontal_30,
+    ...Spacing.paddingVertical_10,
   },
   dayText: {
-    fontSize: 16,
-    fontWeight: 600,
+    ...Fonts.size_16,
+    ...Fonts.weight_600,
   },
   markasreadText: {
-    fontSize: 16,
-    fontWeight: 600,
+    ...Fonts.size_16,
+    ...Fonts.weight_600,
   },
   shippingtruckIcon: {
-    width: 40,
-    height: 40,
+    ...layout.width_40,
+    ...layout.height_40,
     tintColor: Colors.darkcoffee
   },
   imagecontainer: {
     backgroundColor: Colors.lightgrey,
-    borderRadius: 35,
-    height: 70,
-    width: 70,
-    justifyContent: "center",
-    alignItems: "center",
+    ...borderStyles.rounded_35,
+    ...layout.highHeight,
+    ...layout.highWidth,
+    ...layout.justifyCenter,
+    ...layout.itemsCenter,
   },
   notificationcontainer: {
-    paddingHorizontal: 10,
+    ...Spacing.paddingHorizontal_10,
   },
 
   messageContainer: {
-    flexDirection: "row",
-    alignItems: "flex-start",
-    gap: 15,
+    ...layout.row,
+    ...layout.itemsStart,
+    ...Spacing.gap_15,
   },
 
   messageTextContainer: {
-    flex: 1,
-    flexDirection: "column",
+    ...layout.flex_1,
+    ...layout.col,
   },
 
   shippedTimeText: {
-    fontSize: 16,
-    fontWeight: "600",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 5,
+    ...Fonts.size_16,
+    ...Fonts.weight_600,
+    ...layout.row,
+    ...layout.justifyBetween,
+    ...Spacing.marginBottom_5,
   },
   notificationItem: {
-    borderRadius: 12,
-    padding: 15,
-    marginVertical: 8,
+    ...borderStyles.rounded_12,
+    ...Spacing.padding_15,
+    ...Spacing.marginVertical_8,
   },
   ordershippedText: {
-    fontWeight: "600",
-    fontSize: 16,
+    ...Fonts.weight_600,
+    ...Fonts.size_16,
   },
   timeText: {
-    fontSize: 14,
-    fontWeight: 600,
+    ...Fonts.size_14,
+    ...Fonts.weight_600,
     color: Colors.zetgrey
   },
   yourorderpara: {
-    fontSize: 14,
+    ...Fonts.size_14,
   },
   notification2container: {
-    paddingHorizontal: 10,
+    ...Spacing.paddingHorizontal_10,
   },
 
   message2Container: {
-    flexDirection: "row",
-    alignItems: "flex-start",
-    gap: 15,
+    ...layout.row,
+    ...layout.itemsStart,
+    ...Spacing.gap_15,
   },
 
   messageText2Container: {
-    flex: 1,
-    flexDirection: "column",
+    ...layout.flex_1,
+    ...layout.col,
   },
 
   shippedTime2Text: {
-    fontSize: 16,
-    fontWeight: "600",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 5,
+    ...Fonts.size_16,
+    ...Fonts.weight_600,
+    ...layout.row,
+    ...layout.justifyBetween,
+    ...Spacing.marginBottom_5,
   },
   notification2Item: {
-    borderRadius: 12,
-    padding: 15,
-    marginVertical: 8,
+    ...borderStyles.rounded_12,
+    ...Spacing.padding_15,
+    ...Spacing.marginVertical_8,
   },
   ordershipped2Text: {
-    fontWeight: "600",
-    fontSize: 16,
+    ...Fonts.weight_600,
+    ...Fonts.size_16,
   },
   timeText2: {
-    fontSize: 14,
+    ...Fonts.size_14,
     color: Colors.zetgrey
   },
   yourorderpara2: {
-    fontSize: 14,
+    ...Fonts.size_16,
   },
   shippingtruckIcon2: {
-    width: 40,
-    height: 40,
+    ...layout.width_40,
+    ...layout.height_40,
     tintColor: Colors.darkcoffee
   },
   imagecontainer2: {
     backgroundColor: Colors.white,
-    borderRadius: 35,
-    height: 70,
-    width: 70,
-    justifyContent: "center",
-    alignItems: "center",
+    ...borderStyles.rounded_35,
+    ...layout.highHeight,
+    ...layout.highWidth,
+    ...layout.justifyCenter,
+    ...layout.itemsCenter,
   },
   walletIcon: {
-    width: 60,
-    height: 60,
+    ...layout.width_medsmall,
+    ...layout.height_medsmall,
     tintColor: Colors.darkcoffee
   },
   cartIcon: {
-    width: 50,
-    height: 50,
+    ...layout.width_small,
+    ...layout.height_small,
     tintColor: Colors.darkcoffee
   },
 });

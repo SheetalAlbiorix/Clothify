@@ -19,13 +19,13 @@ const Notification = () => {
   const navigation = useNavigation<NotificationNavigationProp>();
 
   const [notifications, setNotifications] = useState([
-    { id: 1, title: "Order Shipped", subtitle: "Your order #13456 has been shipped.", time: "2 hr", read: false, image: images.shippingtruck },
-    { id: 2, title: "Flash Sale Alert", subtitle: "Hurry! Prices are melting for the next 2 hours.", time: "3 hr", read: false, image: images.flashsale },
-    { id: 3, title: "Product Review Request", subtitle: "Tell us what you think about your recent purchase!", time: "4 hr", read: false, image: images.star2 },
-    { id: 4, title: "Order Shipped", subtitle: "Your order #13456 has been shipped.", time: "1 d", read: true, image: images.shippingtruck },
-    { id: 5, title: "New PayPal Added", subtitle: "You successfully linked a new PayPal account.", time: "1 d", read: false, image: images.wallet },
-    { id: 6, title: "Flash Sale Alert", subtitle: "Everything you love, now at steal-deals!", time: "1 d", read: false, image: images.flashsale },
-    { id: 7, title: "Left items in your cart", subtitle: "Your cart misses you! Checkout now!", time: "1 d", read: true, image: images.cartIcon },
+    { id: 1, title: strings.ordershipped, subtitle: strings.yourorderhasbeenshipped, time: strings.hour2, read: false, image: images.shippingtruck },
+    { id: 2, title: strings.flashsalealert, subtitle: strings.hurrypricesmelting2hours, time: strings.hour3, read: false, image: images.flashsale },
+    { id: 3, title: strings.productreviewrequest, subtitle: strings.tellusaboutrecentpurchase, time: strings.hour4, read: false, image: images.star2 },
+    { id: 4, title: strings.ordershipped, subtitle: strings.yourorderhasbeenshipped, time: strings.d1, read: true, image: images.shippingtruck },
+    { id: 5, title: strings.newpaypaladded, subtitle: strings.succeslinkpaypal, time: strings.d1, read: false, image: images.wallet },
+    { id: 6, title: strings.flashsalealert, subtitle: strings.stealdealyoulove, time: strings.d1, read: false, image: images.flashsale },
+    { id: 7, title: strings.leftiteminyourcart, subtitle: strings.cartmissesyou, time: strings.d1, read: true, image: images.cartIcon },
   ]);
 
   const unreadCount = notifications.filter(notification => !notification.read).length;
@@ -52,9 +52,7 @@ const Notification = () => {
         </TouchableOpacity>
       </View>
 
-      {/* Notifications */}
       <ScrollView showsVerticalScrollIndicator={false}>
-        {/* Section: Today */}
         <View style={notificationstyle.daymarkreadContainer}>
           <Text style={[notificationstyle.dayText, { color: colors.colors.textAccent }]}>
             {strings.today}
@@ -66,7 +64,6 @@ const Notification = () => {
           </TouchableOpacity>
         </View>
 
-        {/* Today's Notifications */}
         {notifications.slice(0, 3).map(notification => (
           <NotificationCard
             key={notification.id}
@@ -79,7 +76,6 @@ const Notification = () => {
           />
         ))}
 
-        {/* Section: Yesterday */}
         <View style={notificationstyle.daymarkreadContainer}>
           <Text style={[notificationstyle.dayText, { color: colors.colors.textAccent }]}>
             {strings.yesterday}
@@ -91,7 +87,6 @@ const Notification = () => {
           </TouchableOpacity>
         </View>
 
-        {/* Yesterday's Notifications */}
         {notifications.slice(3).map(notification => (
           <NotificationCard
             key={notification.id}

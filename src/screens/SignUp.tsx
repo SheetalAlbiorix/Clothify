@@ -21,10 +21,7 @@ import { images } from "../utils/images";
 
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 import { auth, db, signUpWithGoogle } from "../service/auth";
-import {
-  createUserWithEmailAndPassword,
-  updateProfile,
-} from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { generateOtp } from "../service/generateOtp";
 
 type SignUpNavigationProp = StackNavigationProp<RootStackParamList, "SignUp">;
@@ -88,57 +85,36 @@ const SignUp = () => {
 
   const handleSignUp = async () => {
     try {
-      setLoading(true);
-      const nameErr = validateName(name);
-      const emailErr = validateEmail(email);
-      const passwordErr = validatePassword(password);
-      setNameError(nameErr);
-      setEmailError(emailErr);
-      setPasswordError(passwordErr);
-
-      if (nameErr || emailErr || passwordErr || !isChecked) {
-        setLoading(false);
-        return;
-      }
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
+      const userCredential = await auth().createUserWithEmailAndPassword(
         email,
         password
       );
-      const user = userCredential.user;
-      await updateProfile(user, {
-        displayName: name,
-      });
-      await setDoc(doc(db, "users", user.uid), {
-        uid: user.uid,
-        name: user.displayName,
-        email: user.email,
-        createdAt: serverTimestamp(),
-      });
 
-      const otp = generateOtp();
-      console.log("Generated OTP:", otp);
-      navigation.navigate("Verify", { otp, email });
-    } catch (error: any) {
-      console.log("Signup Error", error.message || "Something went wrong.");
-    } finally {
-      setLoading(false);
+      const user = userCredential.user;
+
+      await user.updateProfile({ displayName: name });
+
+      console.log(strings.usersignedup, user);
+    } catch (error) {
+      console.error(strings.signuperror, error);
     }
   };
-  
+
   const handleGooglePress = async () => {
     try {
-      const userCredential = await signUpWithGoogle(); 
-      console.log('✅ Google sign-in success:', userCredential.user.email);
+      const userCredential = await signUpWithGoogle();
+      console.log(strings.googlesigninsuccess, userCredential.user.email);
       const otp = generateOtp();
-      console.log("Generated OTP:", otp);
+      console.log(strings.generatedotp, otp);
       navigation.navigate("Verify", { otp, email });
     } catch (error: any) {
-      console.error('❌ Google Sign-In Failed:', error);
-      Alert.alert('Google Sign-In Failed', error.message || 'Something went wrong.');
+      console.error(strings.googlesigninfailed, error);
+      Alert.alert(
+        strings.googlesigninfailed,
+        error.message || strings.somethingwentwrong
+      );
     }
   };
-  
 
   return (
     <View

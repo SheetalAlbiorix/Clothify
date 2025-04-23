@@ -7,6 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 import { strings } from "../utils/strings";
 import { images } from "../utils/images";
 import { invitestyle } from "../styles/inviteStyle";
+import { InviteCard } from "../components/InviteCard";
 
 type InviteNavigationProp = StackNavigationProp<RootStackParamList, "invite">;
 
@@ -73,36 +74,7 @@ const contacts = [
   },
 ];
 
-const InviteCard = ({
-  name,
-  number,
-  images,
-  colors,
-}: {
-  name: string;
-  number: string;
-  images: any;
-  colors: any;
-}) => (
-  <View style={invitestyle.inviteContainer}>
-    <View style={invitestyle.mainInvite}>
-      <Image source={images} style={invitestyle.profileIcon} />
-      <View style={invitestyle.namenumber}>
-        <Text style={[invitestyle.profilenameText, { color: colors.text }]}>
-          {name}
-        </Text>
-        <Text
-          style={[invitestyle.profilenumberText, { color: colors.textAccent }]}
-        >
-          {number}
-        </Text>
-      </View>
-    </View>
-    <TouchableOpacity style={invitestyle.invitebutton}>
-      <Text style={invitestyle.inviteText}>{strings.invite}</Text>
-    </TouchableOpacity>
-  </View>
-);
+
 
 const InviteFriends = () => {
   const { colors } = useColors();

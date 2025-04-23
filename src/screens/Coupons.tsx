@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, Image, ScrollView } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { couponsStyle } from "../styles/CouponsStyle";
 import { strings } from "../utils/strings";
 import { images } from "../utils/images";
@@ -14,6 +14,8 @@ type CouponNavigationProp = StackNavigationProp<RootStackParamList, "Coupons">;
 const Coupons = () => {
   const colors = useColors();
   const navigation = useNavigation<CouponNavigationProp>();
+  const [appliedCoupon, setAppliedCoupon] = useState<string | null>(null);
+
   return (
     <View
       style={[
@@ -52,31 +54,49 @@ const Coupons = () => {
               code={strings.welcome200}
               amountNeeded={strings.dollar2}
               discount={strings.fiftyoff}
+              onApplyCoupon={(appliedCode) => {
+                setAppliedCoupon(appliedCode);
+              }}
             />
             <CouponCard
               code={strings.cashback12}
               amountNeeded={strings.dollar2}
               discount={strings.upto12offcashback}
+              onApplyCoupon={(appliedCode) => {
+                setAppliedCoupon(appliedCode);
+              }}
             />
             <CouponCard
               code={strings.fest2cost}
               amountNeeded={strings.dollar28}
               discount={strings.get50offcombo}
+              onApplyCoupon={(appliedCode) => {
+                setAppliedCoupon(appliedCode);
+              }}
             />
             <CouponCard
               code={strings.first100}
               amountNeeded={strings.dollar10}
               discount={strings.getflat100off}
+              onApplyCoupon={(appliedCode) => {
+                setAppliedCoupon(appliedCode);
+              }}
             />
             <CouponCard
               code={strings.happynew500}
               amountNeeded={strings.dollar350}
               discount={strings.get500offflat}
+              onApplyCoupon={(appliedCode) => {
+                setAppliedCoupon(appliedCode);
+              }}
             />
             <CouponCard
               code={strings.freeforall}
               amountNeeded={strings.dollar0}
               discount={strings.get100offfull}
+              onApplyCoupon={(appliedCode) => {
+                setAppliedCoupon(appliedCode);
+              }}
             />
           </View>
         </ScrollView>

@@ -50,7 +50,7 @@ const Settings = () => {
             <Text
               style={[settingsstyle.profileText, { color: colors.colors.text }]}
             >
-              Notification Settings
+              {strings.notificationsettings}
             </Text>
           </View>
 
@@ -77,7 +77,7 @@ const Settings = () => {
             <Text
               style={[settingsstyle.profileText, { color: colors.colors.text }]}
             >
-              Password Manager
+              {strings.passwordmanager}
             </Text>
           </View>
 
@@ -101,7 +101,7 @@ const Settings = () => {
             <Text
               style={[settingsstyle.profileText, { color: colors.colors.text }]}
             >
-              Delete Account
+              {strings.deleteaccount}
             </Text>
           </View>
 

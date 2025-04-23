@@ -30,9 +30,9 @@ const AllowLocation = () => {
 
     const location = await Location.getCurrentPositionAsync({});
     console.log(strings.locationlog, location);
-    Alert.alert(
+    console.log(
       strings.locationaccessed,
-      `Latitude: ${location.coords.latitude}, Longitude: ${location.coords.longitude}`
+      `${strings.latitude} ${location.coords.latitude}${strings.longitude} ${location.coords.longitude}`
     );
   };
 

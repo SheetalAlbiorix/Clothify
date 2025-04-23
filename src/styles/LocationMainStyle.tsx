@@ -105,7 +105,10 @@ export const locationmainstyle = StyleSheet.create({
     color: Colors.footerColor,
   },
   noResultsText: {
-    textAlign: 'center',
-    color: Colors.mediumbrown
-  }
+    color: Colors.mediumbrown,
+  },
+  noResultsContainer: {
+    ...layout.itemsCenter,
+    ...Spacing.paddingTop_280,
+  },
 });

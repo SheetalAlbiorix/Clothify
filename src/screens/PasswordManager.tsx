@@ -51,47 +51,47 @@ const PasswordManager = () => {
     const newPassError = validatePassword(newPassword);
     const confirmPassError =
       newPassword !== confirmNewPassword ? "Passwords do not match." : "";
-  
+
     if (newPassError || confirmPassError) {
       setPasswordError(newPassError || confirmPassError);
       return;
     }
-  
+
     try {
       const user = auth.currentUser;
-  
+
       if (!user || !user.email) {
-        console.log("Error", "No user is currently logged in.");
+        console.log(strings.errornouserloggedIn);
         return;
       }
-  
+
       const userDocRef = doc(db, "users", user.email);
       const userDocSnap = await getDoc(userDocRef);
-  
+
       if (!userDocSnap.exists()) {
-        console.log("Error", "User document not found.");
+        console.log(strings.erroruserdocumentnotfound);
         return;
       }
-  
+
       const storedHashedPassword = userDocSnap.data()?.password;
       const inputHashedPassword = await hashPassword(currentPassword);
-  
+
       if (inputHashedPassword !== storedHashedPassword) {
-        setPasswordError("Current password is incorrect.");
+        setPasswordError(strings.currentpasswordisincorrect);
         return;
       }
-  
+
       const newHashedPassword = await hashPassword(newPassword);
-  
+
       await updateDoc(userDocRef, {
         password: newHashedPassword,
       });
-  
-      console.log("Success", "Password updated successfully.");
+
+      console.log(strings.successpasswordupdatesuccess);
       navigation.goBack();
     } catch (error) {
-      console.error("Password update failed:", error);
-      console.log("Error", "Something went wrong while updating password.");
+      console.error(strings.passwordupdatefailed, error);
+      console.log(strings.errorsomethingwentwrongpasswordupdate);
     }
   };
 
@@ -219,7 +219,7 @@ const PasswordManager = () => {
           style={passmanagerstyle.changebutton}
           onPress={handlePasswordChange}
         >
-          <Text style={passmanagerstyle.changepassText}>Change Password</Text>
+          <Text style={passmanagerstyle.changepassText}>{strings.changepassword}</Text>
         </TouchableOpacity>
       </View>
     </View>

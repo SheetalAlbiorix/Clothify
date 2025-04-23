@@ -22,6 +22,7 @@ export type ThemeColors = {
   chatinput: string;
   iconColor: string;
   notificationColor: string;
+  chatbg: string;
 };
 
 export const lightModeColors: ThemeColors = {
@@ -38,6 +39,7 @@ export const lightModeColors: ThemeColors = {
   chatinput: Colors.lightWhite,
   iconColor: Colors.darkcoffee,
   notificationColor: Colors.lightgrey,
+  chatbg: Colors.averagebrown
 };
 
 export const darkModeColors: ThemeColors = {
@@ -53,7 +55,8 @@ export const darkModeColors: ThemeColors = {
   active: Colors.brown,
   chatinput: Colors.dullChocolate,
   iconColor: Colors.white,
-  notificationColor: Colors.mediumgrey
+  notificationColor: Colors.mediumgrey,
+  chatbg: Colors.lightmocha
 };
 
 const isDark = Appearance.getColorScheme() === localizedStrings.dark;

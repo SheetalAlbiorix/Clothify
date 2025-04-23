@@ -32,5 +32,5 @@ export { default as Settings } from '../screens/Settings';
 export { default as PasswordManager } from '../screens/PasswordManager';
 export { default as HelpCenter } from '../screens/HelpCenter';
 export { default as PrivacyPolicy } from '../screens/PrivacyPolicy';
-export { default as inviteFriends } from '../screens/InviteFriends';
+export { default as InviteFriends } from '../screens/InviteFriends';
 export { default as Notification } from '../screens/Notification';
