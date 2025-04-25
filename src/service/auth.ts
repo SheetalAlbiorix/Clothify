@@ -127,22 +127,44 @@ GoogleSignin.configure({
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+// export const signUpWithEmail = async (email: string, password: string) => {
+//   try {
+//     const userCredential = await auth().createUserWithEmailAndPassword(email, password);
+//     const user = userCredential.user;
+//     if (!user.displayName) {
+//       const userName = prompt("Please enter your name:");
+//       if (userName) {
+//         await user.updateProfile({ displayName: userName });
+//         await saveUserProfile(user);
+//       }
+//     } else {
+//       await saveUserProfile(user);
+//     }
+//     return userCredential;
+//   } catch (error) {
+//     console.error(strings.errorduringsignup, error);
+//     throw error;
+//   }
+// };
+
 export const signUpWithEmail = async (email: string, password: string) => {
   try {
     const userCredential = await auth().createUserWithEmailAndPassword(email, password);
     const user = userCredential.user;
+    
     if (!user.displayName) {
+      // Prompt the user to enter a name if not already set
       const userName = prompt("Please enter your name:");
       if (userName) {
         await user.updateProfile({ displayName: userName });
         await saveUserProfile(user);
       }
     } else {
-      await saveUserProfile(user);
+      await saveUserProfile(user); // Save the profile info to Firestore
     }
     return userCredential;
   } catch (error) {
-    console.error(strings.errorduringsignup, error);
+    console.error("Error during signup:", error);
     throw error;
   }
 };
@@ -167,13 +189,29 @@ export const signInWithEmail = async (email: string, password: string) => {
   }
 };
 
+// export const logout = async () => {
+//   try {
+//     await auth().signOut();
+//     await GoogleSignin.signOut();
+//     console.log(strings.usersuccesslogout);
+//   } catch (error) {
+//     console.error(strings.errorduringlogout, error);
+//     throw error;
+//   }
+// };
+
 export const logout = async () => {
   try {
-    await auth().signOut();
-    await GoogleSignin.signOut();
-    console.log(strings.usersuccesslogout);
+    const currentUser = auth().currentUser;
+    if (currentUser) {
+      await auth().signOut();
+      await GoogleSignin.signOut();
+      console.log("User logged out from Firebase Auth");
+    } else {
+      console.log("No user currently signed in.");
+    }
   } catch (error) {
-    console.error(strings.errorduringlogout, error);
+    console.error("Logout error in auth service:", error);
     throw error;
   }
 };
@@ -220,11 +258,32 @@ export const signUpWithGoogle = async () => {
   }
 };
 
+// export const saveUserProfile = async (user: any) => {
+//   try {
+//     const userRef = doc(db, "users", user.uid);
+
+//     const userDoc = await getDoc(userRef);
+//     if (!userDoc.exists()) {
+//       await setDoc(userRef, {
+//         name: user.displayName || "Unnamed User",
+//         email: user.email,
+//         photoUrl: user.photoURL || "",
+//       });
+//       console.log("User profile saved to Firestore");
+//     } else {
+//       console.log("User profile already exists in Firestore");
+//     }
+//   } catch (error) {
+//     console.error("Error saving user profile:", error);
+//     throw error;
+//   }
+// };
+
 export const saveUserProfile = async (user: any) => {
   try {
     const userRef = doc(db, "users", user.uid);
-
     const userDoc = await getDoc(userRef);
+    
     if (!userDoc.exists()) {
       await setDoc(userRef, {
         name: user.displayName || "Unnamed User",
@@ -232,8 +291,6 @@ export const saveUserProfile = async (user: any) => {
         photoUrl: user.photoURL || "",
       });
       console.log("User profile saved to Firestore");
-    } else {
-      console.log("User profile already exists in Firestore");
     }
   } catch (error) {
     console.error("Error saving user profile:", error);

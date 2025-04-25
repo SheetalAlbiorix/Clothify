@@ -24,6 +24,7 @@ import { db, signUpWithGoogle } from "../service/auth";
 const auth = getAuth();
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { generateOtp } from "../service/generateOtp";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type SignUpNavigationProp = StackNavigationProp<RootStackParamList, "SignUp">;
 
@@ -84,37 +85,24 @@ const SignUp = () => {
     password &&
     isChecked;
 
-  // const handleSignUp = async () => {
-  //   try {
-  //     const userCredential = await auth().createUserWithEmailAndPassword(
-  //       email,
-  //       password
-  //     );
-
-  //     const user = userCredential.user;
-
-  //     await user.updateProfile({ displayName: name });
-
-  //     console.log(strings.usersignedup, user);
-  //   } catch (error) {
-  //     console.error(strings.signuperror, error);
-  //   }
-  // };
-
   const handleSignUp = async () => {
     try {
       setLoading(true);
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
   
-      await updateProfile(user, { displayName: name });
+      await updateProfile(user, {
+        displayName: name,
+        photoURL: "",
+      });
+  
+      await AsyncStorage.setItem('userName', name);
+      await AsyncStorage.setItem('userPhotoUrl', "");
   
       const otp = generateOtp();
-      console.log(strings.generatedotp, otp);
-  
-      navigation.navigate("Verify", { otp, email });
-  
       console.log(strings.usersignedup, user);
+      Alert.alert(strings.generatedotp, otp);
+      navigation.navigate("Verify", { otp, email });
     } catch (error) {
       console.error(strings.signuperror, error);
       const errorMessage = error instanceof Error ? error.message : strings.somethingwentwrong;
@@ -129,7 +117,7 @@ const SignUp = () => {
       const userCredential = await signUpWithGoogle();
       console.log(strings.googlesigninsuccess, userCredential.user.email);
       const otp = generateOtp();
-      console.log(strings.generatedotp, otp);
+      Alert.alert(strings.generatedotp, otp);
       navigation.navigate("Verify", { otp, email });
     } catch (error: any) {
       console.error(strings.googlesigninfailed, error);
