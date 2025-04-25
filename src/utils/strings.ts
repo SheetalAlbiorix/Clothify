@@ -507,6 +507,13 @@ export const strings = {
   errorfetchingmessage: "Error fetching messages:",
   otherusername: "Other user name:",
   firestoreerror: "Firestore error:",
+  pleaseenteryourname: "Please enter your name:",
+  userloggedoutfromfirebase: "User logged out from Firebase Auth",
+  nousercurrentlysignedin: "No user currently signed in.",
+  logouterrorinauthservice: "Logout error in auth service:",
+  userprofilesavedtofirebase: "User profile saved to Firestore",
+  errorsavinguserprofile: "Error saving user profile:",
+  unameduser: "Unnamed User",
 }
 
 export const localizedStrings = {

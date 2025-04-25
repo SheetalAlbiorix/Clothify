@@ -28,7 +28,7 @@ export const signUpWithEmail = async (email: string, password: string) => {
     const user = userCredential.user;
     
     if (!user.displayName) {
-      const userName = prompt("Please enter your name:");
+      const userName = prompt(strings.pleaseenteryourname);
       if (userName) {
         await user.updateProfile({ displayName: userName });
         await saveUserProfile(user);
@@ -38,7 +38,7 @@ export const signUpWithEmail = async (email: string, password: string) => {
     }
     return userCredential;
   } catch (error) {
-    console.error("Error during signup:", error);
+    console.error(strings.errorduringsignup, error);
     throw error;
   }
 };
@@ -48,7 +48,7 @@ export const signInWithEmail = async (email: string, password: string) => {
     const userCredential = await auth().signInWithEmailAndPassword(email, password);
     const user = userCredential.user;
     if (!user.displayName) {
-      const userName = prompt("Please enter your name:");
+      const userName = prompt(strings.pleaseenteryourname);
       if (userName) {
         await user.updateProfile({ displayName: userName });
         await saveUserProfile(user);
@@ -69,12 +69,12 @@ export const logout = async () => {
     if (currentUser) {
       await auth().signOut();
       await GoogleSignin.signOut();
-      console.log("User logged out from Firebase Auth");
+      console.log(strings.userloggedoutfromfirebase);
     } else {
-      console.log("No user currently signed in.");
+      console.log(strings.nousercurrentlysignedin);
     }
   } catch (error) {
-    console.error("Logout error in auth service:", error);
+    console.error(strings.logouterrorinauthservice, error);
     throw error;
   }
 };
@@ -128,14 +128,14 @@ export const saveUserProfile = async (user: any) => {
     
     if (!userDoc.exists()) {
       await setDoc(userRef, {
-        name: user.displayName || "Unnamed User",
+        name: user.displayName || strings.unameduser,
         email: user.email,
         photoUrl: user.photoURL || "",
       });
-      console.log("User profile saved to Firestore");
+      console.log(strings.userprofilesavedtofirebase);
     }
   } catch (error) {
-    console.error("Error saving user profile:", error);
+    console.error(strings.errorsavinguserprofile, error);
     throw error;
   }
 };

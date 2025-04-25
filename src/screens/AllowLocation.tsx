@@ -34,6 +34,7 @@ const AllowLocation = () => {
       strings.locationaccessed,
       `${strings.latitude} ${location.coords.latitude}${strings.longitude} ${location.coords.longitude}`
     );
+    navigation.navigate('Tab', { name: "Home", location: ""})
   };
 
   return (

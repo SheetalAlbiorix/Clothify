@@ -5,7 +5,7 @@ import { layout } from "../components/layout";
 
 export const transparent = {
   ...layout.flex_1,
-  backgroundColor: 'rgba(0,0,0,0.5)',
+  backgroundColor: Colors.transparentblack,
 };
 
 export type ThemeColors = {
