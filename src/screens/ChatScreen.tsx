@@ -20,6 +20,8 @@ import {
   onSnapshot,
   addDoc,
   Timestamp,
+  getDoc,
+  doc,
 } from "firebase/firestore";
 import { db } from "../service/auth";
 import { useNavigation } from "@react-navigation/native";
@@ -29,7 +31,9 @@ import { useTheme } from "../themes/theme";
 interface Message {
   id: string;
   type: "text" | "image" | "audio";
+  senderName: string;
   sender: string;
+  photoUrl?: string;
   content?: string;
   time: string;
   isMe: boolean;
@@ -39,56 +43,122 @@ interface Message {
 const ChatScreen = () => {
   const colors = useColors();
   const navigation = useNavigation();
-  const { name: currentUserName } = useUser();
+  const { name: currentUserName, photoUrl: currentUserPhotoUrl } = useUser();
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputText, setInputText] = useState("");
   const [otherUserName, setOtherUserName] = useState<string | null>(null);
   const { statusBarStyle } = useTheme();
+  const [otherUserPhotoUrl, setOtherUserPhotoUrl] = useState<string | null>(
+    null
+  );
 
-  const mockUsers = [strings.janesmith, strings.alicebrown];
+  const defaultAvatar = images.face1;
+
+  const getUserProfile = async (uid: string): Promise<string | null> => {
+    try {
+      const userDocRef = doc(db, "users", uid);
+      const userDoc = await getDoc(userDocRef);
+
+      if (userDoc.exists()) {
+        const data = userDoc.data();
+        return data.photoUrl || null;
+      } else {
+        console.log(strings.nouserfoundUID, uid);
+      }
+    } catch (error) {
+      console.error(strings.errorfetchinguserprofile, error);
+    }
+    return null;
+  };
 
   useEffect(() => {
+    let fetchedPhoto = false;
+
     const messagesQuery = query(
-      collection(db, "messages"),
+      collection(db, "chats", "chatId", "messages"),
       orderBy("createdAt", "asc")
     );
 
-    const unsubscribe = onSnapshot(messagesQuery, (snapshot) => {
-      const fetchedMessages: Message[] = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...(doc.data() as Omit<Message, "id">),
-      }));
-      setMessages(fetchedMessages);
+    const unsubscribe = onSnapshot(messagesQuery, async (snapshot) => {
+      try {
+        const fetchedMessages: Message[] = snapshot.docs.map((doc) => {
+          const data = doc.data() as Omit<Message, "id" | "isMe">;
 
-      if (!otherUserName) {
-        const randomUser =
-          mockUsers[Math.floor(Math.random() * mockUsers.length)];
-        setOtherUserName(randomUser);
+          if (!data.createdAt) {
+            console.warn(
+              `${strings.messagewithID} ${doc.id} ${strings.ismissingcreateat}`
+            );
+          }
+
+          return {
+            id: doc.id,
+            ...data,
+            isMe: data.sender === currentUserName,
+          };
+        });
+
+        setMessages(fetchedMessages);
+
+        if (!fetchedPhoto) {
+          const otherMessage = fetchedMessages.find(
+            (msg) => msg.sender !== currentUserName
+          );
+
+          if (otherMessage) {
+            const userId = otherMessage.sender;
+            setOtherUserName(userId);
+            const photoUrl = await getUserProfile(userId);
+            if (photoUrl) {
+              setOtherUserPhotoUrl(photoUrl);
+            }
+            fetchedPhoto = true;
+          }
+        }
+      } catch (error) {
+        console.error(strings.errorfetchingmessage, error);
       }
     });
 
     return () => unsubscribe();
-  }, [currentUserName, otherUserName]);
+  }, [currentUserName]);
 
-  const handleSendMessage = async () => {
+  useEffect(() => {
+    console.log(strings.otherusername, otherUserName);
+    if (otherUserName) {
+    }
+  }, [otherUserName]);
+
+  const handleSendMessage = async (chatId: string) => {
     if (!inputText.trim()) return;
 
-    await addDoc(collection(db, "messages"), {
-      type: "text",
-      sender: currentUserName ?? strings.username,
-      content: inputText,
-      time: new Date().toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit",
-      }),
-      isMe: true,
-      createdAt: Timestamp.now(),
-    });
+    try {
+      const messagesRef = collection(db, "chats", chatId, "messages");
 
-    setInputText("");
+      await addDoc(messagesRef, {
+        type: "text",
+        sender: currentUserName,
+        senderName: currentUserName,
+        photoUrl: currentUserPhotoUrl ?? null,
+        content: inputText,
+        time: new Date().toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
+        isMe: true,
+        createdAt: Timestamp.now(),
+      });
+
+      setInputText("");
+    } catch (error) {
+      console.error(strings.firestoreerror, error);
+    }
   };
 
   const renderMessage = ({ item }: { item: Message }) => {
+    if (!item.content) {
+      return null;
+    }
+
     const messageStyle = item.isMe
       ? chatstyle.myMessage
       : chatstyle.otherMessage;
@@ -104,18 +174,24 @@ const ChatScreen = () => {
         {!item.isMe && (
           <View style={chatstyle.senderInfoRow}>
             <View style={chatstyle.avatarNameContainer}>
-              <Image source={images.face1} style={chatstyle.senderAvatar} />
+              <Image
+                source={item.photoUrl ? { uri: item.photoUrl } : defaultAvatar}
+                style={chatstyle.senderAvatar}
+              />
               <Text
                 style={[
                   chatstyle.senderName,
-                  { color: colors.colors.textAccent },
+                  { color: colors.colors.timenamechat },
                 ]}
               >
-                {item.sender}
+                {item.senderName}
               </Text>
             </View>
             <Text
-              style={[chatstyle.timeText, { color: colors.colors.textAccent }]}
+              style={[
+                chatstyle.timeText,
+                { color: colors.colors.timenamechat },
+              ]}
             >
               {item.time}
             </Text>
@@ -161,7 +237,10 @@ const ChatScreen = () => {
         {item.isMe && (
           <View style={chatstyle.senderInfoRow}>
             <Text
-              style={[chatstyle.timeText, { color: colors.colors.textAccent }]}
+              style={[
+                chatstyle.timeText,
+                { color: colors.colors.timenamechat },
+              ]}
             >
               {item.time}
             </Text>
@@ -169,12 +248,19 @@ const ChatScreen = () => {
               <Text
                 style={[
                   chatstyle.senderName,
-                  { color: colors.colors.textAccent },
+                  { color: colors.colors.timenamechat },
                 ]}
               >
-                {item.sender}
+                {item.senderName}
               </Text>
-              <Image source={images.face2} style={chatstyle.senderAvatar} />
+              <Image
+                source={
+                  currentUserPhotoUrl
+                    ? { uri: currentUserPhotoUrl }
+                    : images.face2
+                }
+                style={chatstyle.senderAvatar}
+              />
             </View>
           </View>
         )}
@@ -196,7 +282,14 @@ const ChatScreen = () => {
             <Image source={images.leftarrow} style={chatstyle.leftarrowIcon} />
           </TouchableOpacity>
           <View style={chatstyle.headerTextContainer}>
-            <Image source={images.face1} style={chatstyle.avatar} />
+            <Image
+              source={
+                otherUserPhotoUrl
+                  ? { uri: `${otherUserPhotoUrl}?t=${new Date().getTime()}` }
+                  : images.face1
+              }
+              style={chatstyle.avatar}
+            />
             <View>
               <Text style={chatstyle.name}>{otherUserName}</Text>
               <Text style={chatstyle.status}>{strings.online}</Text>
@@ -255,7 +348,7 @@ const ChatScreen = () => {
             </TouchableOpacity>
             <TouchableOpacity
               style={chatstyle.sendButton}
-              onPress={handleSendMessage}
+              onPress={() => handleSendMessage("chatId")}
             >
               <Image source={images.sendIcon} style={chatstyle.sendIcon} />
             </TouchableOpacity>

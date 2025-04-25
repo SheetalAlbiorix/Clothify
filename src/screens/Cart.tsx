@@ -18,6 +18,8 @@ import { useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "../../App";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { Colors } from "../utils/Colors";
+import { useTheme } from "../themes/theme";
+import { StatusBar } from "expo-status-bar";
 
 interface CartItem {
   id: number;
@@ -98,6 +100,7 @@ type CartNavigationProp = StackNavigationProp<RootStackParamList, "Cart">;
 
 const Cart = () => {
   const colors = useColors();
+  const { statusBarStyle } = useTheme();
   const navigation = useNavigation<CartNavigationProp>();
   const [cartItems, setCartItems] = useState<CartItem[]>(initialCartItems);
   const [promoCode, setPromoCode] = useState<string>("");
@@ -244,6 +247,7 @@ const Cart = () => {
           { backgroundColor: colors.colors.background },
         ]}
       >
+        <StatusBar style={statusBarStyle}/>
         <View
           style={[
             cartitemstyle.headerContainer,

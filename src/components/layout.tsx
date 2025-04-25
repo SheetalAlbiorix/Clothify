@@ -166,6 +166,7 @@ export const layout: Record<string, ViewStyle | TextStyle | ImageStyle> = {
   bottom0: { bottom: 0 },
   bottom5: { bottom: 5 },
   bottom20: { bottom: 20 },
+  bottom25: { bottom: 25 },
   bottom90: { bottom: 90 },
   bottom80: { bottom: 80 },
 
@@ -180,6 +181,7 @@ export const layout: Record<string, ViewStyle | TextStyle | ImageStyle> = {
   right10: { right: 10 },
   right15: { right: 15 },
   right20: { right: 20 },
+  right45: { right: 45 },
   right60: { right: 60 },
   right70: { right: 70 },
 
@@ -457,6 +459,7 @@ export const Spacing = {
   paddingTop_280: { paddingTop: 280 },
 
   // Padding Bottom
+  paddingBottom_5: { paddingBottom: 5 },
   paddingBottom_10: { paddingBottom: 10 },
   paddingBottom_20: { paddingBottom: 20 },
   paddingBottom_30: { paddingBottom: 30 },

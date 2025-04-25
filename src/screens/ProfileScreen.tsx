@@ -95,10 +95,7 @@ const ProfileScreen = () => {
           >
             <Image
               source={photoUrl ? { uri: photoUrl } : images.profileIcon}
-              style={[
-                profilestyle.profileImage,
-                !photoUrl && { tintColor: colors.colors.tintColor },
-              ]}
+              style={[profilestyle.profileImage]}
             />
             <Image source={images.editIcon} style={profilestyle.editIcon} />
           </TouchableOpacity>

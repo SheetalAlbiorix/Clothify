@@ -15,6 +15,8 @@ import { images } from "../utils/images";
 import { strings } from "../utils/strings";
 import { Colors } from "../utils/Colors";
 import MediaPickerModal from "../components/MediaPicker";
+import { useTheme } from "../themes/theme";
+import { StatusBar } from "expo-status-bar";
 
 type OrderDataType = {
   id: string;
@@ -37,6 +39,7 @@ const LeaveReviewScreen = () => {
 
   const orderData = route.params?.orderData;
   const colors = useColors();
+  const { statusBarStyle } = useTheme();
   const [rating, setRating] = useState(5);
   const [reviewText, setReviewText] = useState("");
   const [mediaUri, setMediaUri] = useState<string | null>(null);
@@ -72,6 +75,7 @@ const LeaveReviewScreen = () => {
           { backgroundColor: colors.colors.background },
         ]}
       >
+        <StatusBar style={statusBarStyle} />
         <Text style={leavereviewstyle.headerorderdata}>
           {strings.noorderfound}
         </Text>
@@ -92,6 +96,7 @@ const LeaveReviewScreen = () => {
         { backgroundColor: colors.colors.background },
       ]}
     >
+      <StatusBar style={statusBarStyle} />
       <View style={leavereviewstyle.headerContainer}>
         <TouchableOpacity
           style={leavereviewstyle.backButton}

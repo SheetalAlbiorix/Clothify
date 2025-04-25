@@ -8,6 +8,8 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../App";
 import { Colors } from "../utils/Colors";
+import { useTheme } from "../themes/theme";
+import { StatusBar } from "expo-status-bar";
 
 const showingResultsFor = [
   {
@@ -84,6 +86,7 @@ type searchscreenNavigationProp = StackNavigationProp<
 
 const SearchScreen = () => {
   const colors = useColors();
+  const { statusBarStyle } = useTheme();
   const navigation = useNavigation<searchscreenNavigationProp>();
    const [name, setName] = useState<string>("");
   
@@ -120,6 +123,7 @@ const SearchScreen = () => {
         { backgroundColor: colors.colors.background },
       ]}
     >
+      <StatusBar style={statusBarStyle} />
       <View style={searchscreenstyle.headerContainer}>
         <TouchableOpacity
           style={searchscreenstyle.backButton}

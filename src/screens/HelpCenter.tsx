@@ -16,6 +16,8 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../App";
 import { Colors } from "../utils/Colors";
+import { useTheme } from "../themes/theme";
+import { StatusBar } from "expo-status-bar";
 
 type HelpcenterNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -131,6 +133,7 @@ const FAQ_CATEGORIES = [strings.All, strings.services, strings.general, strings.
 
 const HelpCenter = () => {
   const colors = useColors();
+  const { statusBarStyle } = useTheme();
   const navigation = useNavigation<HelpcenterNavigationProp>();
   const [activeTab, setActiveTab] = useState(TABS.FAQ);
   const [activeCategory, setActiveCategory] = useState(strings.All);
@@ -268,6 +271,7 @@ const HelpCenter = () => {
         { backgroundColor: colors.colors.background },
       ]}
     >
+      <StatusBar style={statusBarStyle} />
       <View style={helpcenterstyle.headerContainer}>
         <TouchableOpacity
           style={helpcenterstyle.backButton}

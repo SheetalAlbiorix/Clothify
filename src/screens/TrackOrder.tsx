@@ -6,6 +6,8 @@ import { trackorderstyle } from "../styles/TrackOrderStyle";
 import { images } from "../utils/images";
 import { strings } from "../utils/strings";
 import OrderStatusView from "../components/OrderStatus";
+import { useTheme } from "../themes/theme";
+import { StatusBar } from "expo-status-bar";
 
 type OrderDataType = {
   id: string;
@@ -27,6 +29,7 @@ const TrackOrder = () => {
   const navigation = useNavigation();
   const orderData = route.params?.orderData;
   const colors = useColors();
+  const { statusBarStyle } = useTheme();
   return (
     <View
       style={[
@@ -34,6 +37,7 @@ const TrackOrder = () => {
         { backgroundColor: colors.colors.background },
       ]}
     >
+      <StatusBar style={statusBarStyle} />
       <View style={trackorderstyle.headerContainer}>
         <TouchableOpacity
           style={trackorderstyle.backButton}

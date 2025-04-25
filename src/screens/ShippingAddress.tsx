@@ -14,6 +14,8 @@ import { images } from "../utils/images";
 import { useColors } from "../hooks/useColors";
 import { shippingAddressStyle } from "../styles/ShippingAdressStyle";
 import { strings } from "../utils/strings";
+import { useTheme } from "../themes/theme";
+import { StatusBar } from "expo-status-bar";
 
 type ShippingAddressNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -35,6 +37,7 @@ const addresses: AddressType[] = [
 
 const ShippingAddress = () => {
   const colors = useColors();
+  const { statusBarStyle } = useTheme();
   const navigation = useNavigation<ShippingAddressNavigationProp>();
   const [selectedAddress, setSelectedAddress] = useState<AddressType | null>(
     null
@@ -62,6 +65,7 @@ const ShippingAddress = () => {
         { backgroundColor: colors.colors.background },
       ]}
     >
+      <StatusBar style={statusBarStyle} />
       <View style={shippingAddressStyle.headerContainer}>
         <TouchableOpacity
           style={shippingAddressStyle.backButton}

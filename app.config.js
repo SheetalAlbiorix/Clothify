@@ -60,7 +60,7 @@ export default {
       GOOGLE_IOS_CLIENT_ID: process.env.GOOGLE_IOS_CLIENT_ID,
       API_KEY: process.env.API_KEY,
       AUTHDOMAIN: process.env.AUTHDOMAIN,
-      PROJECTID: process.env.PROJECTID,
+      PROJECTID: process.env.PROJECTID?.replace(/["',]/g, "").trim(),
       STORAGEBUCKET: process.env.STORAGEBUCKET,
       MESSAGINGSENDERID: process.env.MESSAGINGSENDERID,
       APPID: process.env.APPID,

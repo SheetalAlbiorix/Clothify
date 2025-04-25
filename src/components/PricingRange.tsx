@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 import MultiSlider from "@ptomasroos/react-native-multi-slider";
 import { Colors } from "../utils/Colors";

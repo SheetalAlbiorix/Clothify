@@ -8,6 +8,8 @@ import { ColorNames, Colors } from "../utils/Colors";
 import { productstyle } from "../styles/ProductDetailStyle";
 import { strings } from "../utils/strings";
 import { useColors } from "../hooks/useColors";
+import { StatusBar } from "expo-status-bar";
+import { useTheme } from "../themes/theme";
 
 type ProductDetailNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -17,7 +19,7 @@ type ProductDetailNavigationProp = StackNavigationProp<
 const ProductDetail = () => {
   const colors = useColors();
   const navigation = useNavigation<ProductDetailNavigationProp>();
-
+  const { statusBarStyle } = useTheme();
   const [selectedColor, setSelectedColor] = useState("Dark Brown");
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [selectedImage, setSelectedImage] = useState(images.jacket1);
@@ -56,6 +58,7 @@ const ProductDetail = () => {
         { backgroundColor: colors.colors.background },
       ]}
     >
+      <StatusBar style={statusBarStyle} />
       <View style={productstyle.headerContainer}>
         <TouchableOpacity
           style={productstyle.backButton}

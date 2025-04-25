@@ -7,11 +7,14 @@ import { RootStackParamList } from "../../App";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { images } from "../utils/images";
 import { strings } from "../utils/strings";
+import { useTheme } from "../themes/theme";
+import { StatusBar } from "expo-status-bar";
 
 type PaymentNavigationProp = StackNavigationProp<RootStackParamList, "Payment">;
 
 const Payment = () => {
   const colors = useColors();
+  const { statusBarStyle } = useTheme();
   const navigation = useNavigation<PaymentNavigationProp>();
 
   const scaleAnim = useRef(new Animated.Value(0)).current;
@@ -32,6 +35,7 @@ const Payment = () => {
         { backgroundColor: colors.colors.background },
       ]}
     >
+      <StatusBar style={statusBarStyle} />
       <View style={paymentstyles.headerContainer}>
         <TouchableOpacity
           style={paymentstyles.backButton}

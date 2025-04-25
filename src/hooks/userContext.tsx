@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { auth } from '../service/auth';
 
 type UserContextType = {
   name: string | null;
@@ -30,7 +31,19 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (storedPhoto) setPhotoUrlState(storedPhoto);
     };
 
+    const unsubscribe = auth().onAuthStateChanged((user) => {
+      if (user) {
+        setNameState(user.displayName);
+        setPhotoUrlState(user.photoURL);
+      } else {
+        setNameState(null);
+        setPhotoUrlState(null);
+      }
+    });
+
     loadUserData();
+
+    return () => unsubscribe();
   }, []);
 
   const setName = async (newName: string | null) => {

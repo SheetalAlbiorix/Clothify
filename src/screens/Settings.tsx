@@ -7,6 +7,8 @@ import { useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "../../App";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { settingsstyle } from "../styles/Settingsstyle";
+import { useTheme } from "../themes/theme";
+import { StatusBar } from "expo-status-bar";
 
 type SettingsNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -15,6 +17,7 @@ type SettingsNavigationProp = StackNavigationProp<
 
 const Settings = () => {
   const colors = useColors();
+  const { statusBarStyle } = useTheme();
   const navigation = useNavigation<SettingsNavigationProp>();
   return (
     <View
@@ -23,6 +26,7 @@ const Settings = () => {
         { backgroundColor: colors.colors.background },
       ]}
     >
+      <StatusBar style={statusBarStyle} />
       <View style={settingsstyle.headerContainer}>
         <TouchableOpacity
           style={settingsstyle.backButton}

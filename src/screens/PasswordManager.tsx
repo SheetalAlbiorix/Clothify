@@ -4,7 +4,6 @@ import {
   Image,
   TouchableOpacity,
   TextInput,
-  Alert,
 } from "react-native";
 import React, { useState } from "react";
 import { strings } from "../utils/strings";
@@ -18,6 +17,8 @@ import { Ionicons } from "@expo/vector-icons";
 import * as Crypto from "expo-crypto";
 import { auth, db } from "../service/auth";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { useTheme } from "../themes/theme";
+import { StatusBar } from "expo-status-bar";
 
 type PassmanagerNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -27,7 +28,7 @@ type PassmanagerNavigationProp = StackNavigationProp<
 const PasswordManager = () => {
   const colors = useColors();
   const navigation = useNavigation<PassmanagerNavigationProp>();
-
+  const { statusBarStyle } = useTheme();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -102,6 +103,7 @@ const PasswordManager = () => {
         { backgroundColor: colors.colors.background },
       ]}
     >
+      <StatusBar style={statusBarStyle} />
       <View style={passmanagerstyle.headerContainer}>
         <TouchableOpacity
           style={passmanagerstyle.backButton}

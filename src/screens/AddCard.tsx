@@ -18,6 +18,8 @@ import { useColors } from "../hooks/useColors";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../App";
 import { Colors } from "../utils/Colors";
+import { StatusBar } from "expo-status-bar";
+import { useTheme } from "../themes/theme";
 
 type AddCardNavigationProp = StackNavigationProp<RootStackParamList, "AddCard">;
 
@@ -30,6 +32,7 @@ const AddCard = () => {
   const [cvv, setCvv] = useState("");
   const [saveCard, setSaveCard] = useState(false);
   const [cardType, setCardType] = useState<string | null>(null);
+  const { statusBarStyle } = useTheme();
 
   const detectCardType = (number: string) => {
     const cleaned = number.replace(/\D/g, "");
@@ -94,6 +97,7 @@ const AddCard = () => {
         { backgroundColor: colors.colors.background },
       ]}
     >
+      <StatusBar style={statusBarStyle} />
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={addcardstyles.keyboardAvoidView}

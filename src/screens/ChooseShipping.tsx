@@ -14,6 +14,8 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../App";
 import { images } from "../utils/images";
 import { strings } from "../utils/strings";
+import { useTheme } from "../themes/theme";
+import { StatusBar } from "expo-status-bar";
 
 type ChooseShippingNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -35,6 +37,7 @@ const arrivals: ArrivalType[] = [
 
 const ChooseShipping = () => {
   const colors = useColors();
+  const { statusBarStyle } = useTheme();
   const navigation = useNavigation<ChooseShippingNavigationProp>();
   const [selectedArrival, setSelectedArrival] = useState<ArrivalType | null>(
     null
@@ -57,6 +60,7 @@ const ChooseShipping = () => {
         { backgroundColor: colors.colors.background },
       ]}
     >
+      <StatusBar style={statusBarStyle} />
       <View style={chooseshippingStyle.headerContainer}>
         <TouchableOpacity
           style={chooseshippingStyle.backButton}

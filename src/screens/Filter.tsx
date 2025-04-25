@@ -19,12 +19,15 @@ import GenderFilter from "../components/GenderFilter";
 import SortByFilter from "../components/SortByFilter";
 import PricingRange from "../components/PricingRange";
 import ReusableRadioButton from "../components/ReusableRadioButton";
+import { useTheme } from "../themes/theme";
+import { StatusBar } from "expo-status-bar";
 
 type FilterNavigationProp = StackNavigationProp<RootStackParamList, "Filter">;
 
 const Filter = () => {
   const navigation = useNavigation<FilterNavigationProp>();
   const colors = useColors();
+  const { statusBarStyle } = useTheme();
   const [selectedGender, setSelectedGender] = useState(strings.All);
   const [selectedBrand, setSelectedBrand] = useState(strings.All);
   const [selectedSort, setSelectedSort] = useState(strings.mostrecent);
@@ -48,6 +51,7 @@ const Filter = () => {
       rating: selectedRating,
     };
     console.log(strings.appliedfilter, filters);
+    navigation.navigate('Tab', {name: 'Home', location: ''})
   };
 
   const handleRadioPress = (value: string) => {
@@ -100,6 +104,7 @@ const Filter = () => {
         { backgroundColor: colors.colors.background },
       ]}
     >
+      <StatusBar style={statusBarStyle}/>
       <View style={filterstyle.headerContainer}>
         <TouchableOpacity
           style={filterstyle.backButton}

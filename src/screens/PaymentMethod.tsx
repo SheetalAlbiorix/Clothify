@@ -15,6 +15,8 @@ import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { RootStackParamList } from "../../App";
+import { useTheme } from "../themes/theme";
+import { StatusBar } from "expo-status-bar";
 
 type PaymentMethodNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -31,6 +33,7 @@ export type SavedCardType = {
 
 const PaymentMethod = () => {
   const colors = useColors();
+  const { statusBarStyle } = useTheme();
   const route = useRoute<RouteProp<RootStackParamList, "PaymentMethod">>();
   const navigation = useNavigation<PaymentMethodNavigationProp>();
   const [selectedMethod, setSelectedMethod] = useState<string | null>(null);
@@ -83,6 +86,7 @@ const PaymentMethod = () => {
         { backgroundColor: colors.colors.background },
       ]}
     >
+      <StatusBar style={statusBarStyle} />
       <View style={paymentmethodstyle.headerContainer}>
         <TouchableOpacity
           style={paymentmethodstyle.backButton}

@@ -15,6 +15,8 @@ import { useColors } from "../hooks/useColors";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../App";
+import { useTheme } from "../themes/theme";
+import { StatusBar } from "expo-status-bar";
 
 type MyorderNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -214,6 +216,7 @@ const cancelledOrders = [
 
 const MyOrders = () => {
   const colors = useColors();
+  const { statusBarStyle } = useTheme();
   const navigation = useNavigation<MyorderNavigationProp>();
   const [activeTab, setActiveTab] = useState(strings.active);
 
@@ -312,6 +315,7 @@ const MyOrders = () => {
         { backgroundColor: colors.colors.background },
       ]}
     >
+      <StatusBar style={statusBarStyle} />
       <View style={myorderstyles.headerContainer}>
         <TouchableOpacity
           style={myorderstyles.backButton}

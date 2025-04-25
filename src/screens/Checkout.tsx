@@ -8,6 +8,8 @@ import { useColors } from "../hooks/useColors";
 import { RootStackParamList } from "../../App";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { Spacing } from "../components/layout";
+import { useTheme } from "../themes/theme";
+import { StatusBar } from "expo-status-bar";
 
 type CheckoutNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -40,6 +42,7 @@ const orderList = [
 
 const Checkout = () => {
   const colors = useColors();
+  const { statusBarStyle } = useTheme();
   const navigation = useNavigation<CheckoutNavigationProp>();
   const route = useRoute<
     RouteProp<{
@@ -59,6 +62,7 @@ const Checkout = () => {
         { backgroundColor: colors.colors.background },
       ]}
     >
+      <StatusBar style={statusBarStyle}/>
       <View style={checkoutstyle.headerContainer}>
         <TouchableOpacity
           style={checkoutstyle.backButton}

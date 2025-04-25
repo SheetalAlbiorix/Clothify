@@ -115,11 +115,9 @@ export const chatstyle = StyleSheet.create({
     ...borderStyles.rounded_15,
   },
   otherMessage: {
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.lightred,
     ...Spacing.padding_15,
     ...borderStyles.rounded_15,
-    ...borderStyles.w_1,
-    ...borderStyles.totalrowTopBorder,
   },
   messageText: {
     ...Fonts.size_15,

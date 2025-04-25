@@ -8,6 +8,8 @@ import { images } from "../utils/images";
 import { useColors } from "../hooks/useColors";
 import { privacystyle } from "../styles/PrivacypolicyStyle";
 import { RootStackParamList } from "../../App";
+import { useTheme } from "../themes/theme";
+import { StatusBar } from "expo-status-bar";
 
 type PrivacyNavigationProp = StackNavigationProp<RootStackParamList, "privacy">;
 
@@ -24,6 +26,7 @@ const PrivacyTextBlock = ({ content }: { content: string }) => {
 
 const PrivacyPolicy = () => {
   const colors = useColors();
+  const { statusBarStyle } = useTheme();
   const navigation = useNavigation<PrivacyNavigationProp>();
 
   const renderRepeatedText = (count: number, content: string) =>
@@ -38,6 +41,7 @@ const PrivacyPolicy = () => {
         { backgroundColor: colors.colors.background },
       ]}
     >
+      <StatusBar style={statusBarStyle} />
       <View style={privacystyle.headerContainer}>
         <TouchableOpacity
           style={privacystyle.backButton}

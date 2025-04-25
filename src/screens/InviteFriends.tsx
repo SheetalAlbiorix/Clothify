@@ -8,6 +8,8 @@ import { strings } from "../utils/strings";
 import { images } from "../utils/images";
 import { invitestyle } from "../styles/inviteStyle";
 import { InviteCard } from "../components/InviteCard";
+import { useTheme } from "../themes/theme";
+import { StatusBar } from "expo-status-bar";
 
 type InviteNavigationProp = StackNavigationProp<RootStackParamList, "invite">;
 
@@ -78,12 +80,14 @@ const contacts = [
 
 const InviteFriends = () => {
   const { colors } = useColors();
+  const { statusBarStyle } = useTheme();
   const navigation = useNavigation<InviteNavigationProp>();
 
   return (
     <View
       style={[invitestyle.container, { backgroundColor: colors.background }]}
     >
+      <StatusBar style={statusBarStyle} />
       <View style={invitestyle.headerContainer}>
         <TouchableOpacity
           style={invitestyle.backButton}

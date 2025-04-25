@@ -500,6 +500,13 @@ export const strings = {
   appopenedBG: "App opened from background by notification:",
   appopenQUIT: "App opened from quit by notification:",
   backgroundfcmtoken: "Background FCM Message:",
+  nouserfoundUID: "No such user found with UID:",
+  errorfetchinguserprofile: "Error fetching user profile:",
+  messagewithID: "Message with ID",
+  ismissingcreateat: "is missing the CREATEDAT field.",
+  errorfetchingmessage: "Error fetching messages:",
+  otherusername: "Other user name:",
+  firestoreerror: "Firestore error:",
 }
 
 export const localizedStrings = {

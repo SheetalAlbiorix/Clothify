@@ -44,11 +44,11 @@ export const profilestyle = StyleSheet.create({
   },
   profileImageContainer: {
     ...layout.itemsCenter,
-    ...Spacing.paddingBottom_10
+    ...Spacing.paddingBottom_5,
   },
   profileImage: {
-    ...layout.height_150,
-    ...layout.width_150,
+    ...layout.height_180,
+    ...layout.width_180,
     ...borderStyles.rounded_100,
   } as ImageStyle,
   nameText: {
@@ -92,7 +92,7 @@ export const profilestyle = StyleSheet.create({
   editIcon: {
     ...layout.absolute,
     ...layout.bottom5,
-    ...layout.right20,
+    ...layout.right45,
     backgroundColor: Colors.white,
     ...layout.width_30,
     ...layout.height_30,

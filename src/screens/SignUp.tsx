@@ -18,9 +18,10 @@ import { Ionicons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 import CustomCheckbox from "../components/CheckBox";
 import { images } from "../utils/images";
+import { getAuth } from "firebase/auth";
+import { db, signUpWithGoogle } from "../service/auth";
 
-import { doc, setDoc, serverTimestamp } from "firebase/firestore";
-import { auth, db, signUpWithGoogle } from "../service/auth";
+const auth = getAuth();
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { generateOtp } from "../service/generateOtp";
 
@@ -83,23 +84,46 @@ const SignUp = () => {
     password &&
     isChecked;
 
+  // const handleSignUp = async () => {
+  //   try {
+  //     const userCredential = await auth().createUserWithEmailAndPassword(
+  //       email,
+  //       password
+  //     );
+
+  //     const user = userCredential.user;
+
+  //     await user.updateProfile({ displayName: name });
+
+  //     console.log(strings.usersignedup, user);
+  //   } catch (error) {
+  //     console.error(strings.signuperror, error);
+  //   }
+  // };
+
   const handleSignUp = async () => {
     try {
-      const userCredential = await auth().createUserWithEmailAndPassword(
-        email,
-        password
-      );
-
+      setLoading(true);
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-
-      await user.updateProfile({ displayName: name });
-
+  
+      await updateProfile(user, { displayName: name });
+  
+      const otp = generateOtp();
+      console.log(strings.generatedotp, otp);
+  
+      navigation.navigate("Verify", { otp, email });
+  
       console.log(strings.usersignedup, user);
     } catch (error) {
       console.error(strings.signuperror, error);
+      const errorMessage = error instanceof Error ? error.message : strings.somethingwentwrong;
+      Alert.alert(strings.signuperror, errorMessage);
+    } finally {
+      setLoading(false);
     }
   };
-
+  
   const handleGooglePress = async () => {
     try {
       const userCredential = await signUpWithGoogle();

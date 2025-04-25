@@ -8,11 +8,14 @@ import { useColors } from "../hooks/useColors";
 import { RootStackParamList } from "../../App";
 import { StackNavigationProp } from "@react-navigation/stack";
 import CouponCard from "../components/CouponCard";
+import { useTheme } from "../themes/theme";
+import { StatusBar } from "expo-status-bar";
 
 type CouponNavigationProp = StackNavigationProp<RootStackParamList, "Coupons">;
 
 const Coupons = () => {
   const colors = useColors();
+  const { statusBarStyle } = useTheme();
   const navigation = useNavigation<CouponNavigationProp>();
   const [appliedCoupon, setAppliedCoupon] = useState<string | null>(null);
 
@@ -23,6 +26,7 @@ const Coupons = () => {
         { backgroundColor: colors.colors.background },
       ]}
     >
+      <StatusBar style={statusBarStyle} />
       <View style={couponsStyle.headerContainer}>
         <TouchableOpacity
           style={couponsStyle.backButton}

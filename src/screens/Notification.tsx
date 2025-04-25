@@ -8,6 +8,8 @@ import { strings } from "../utils/strings";
 import { images } from "../utils/images";
 import { notificationstyle } from "../styles/NotificationStyle";
 import NotificationCard from "../components/NotificationCard";
+import { useTheme } from "../themes/theme";
+import { StatusBar } from "expo-status-bar";
 
 type NotificationNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -16,6 +18,7 @@ type NotificationNavigationProp = StackNavigationProp<
 
 const Notification = () => {
   const colors = useColors();
+  const { statusBarStyle } = useTheme();
   const navigation = useNavigation<NotificationNavigationProp>();
 
   const [notifications, setNotifications] = useState([
@@ -38,6 +41,7 @@ const Notification = () => {
 
   return (
     <View style={[notificationstyle.container, { backgroundColor: colors.colors.background }]}>
+      <StatusBar style={statusBarStyle} />
       <View style={notificationstyle.headerContainer}>
         <TouchableOpacity style={notificationstyle.backButton} onPress={() => navigation.goBack()}>
           <Image source={images.leftarrow} style={notificationstyle.leftarrowImage} />
