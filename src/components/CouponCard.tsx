@@ -34,7 +34,12 @@ type CouponCardProps = {
   onApplyCoupon?: (code: string) => void;
 };
 
-const CouponCard = ({ code, amountNeeded, discount, onApplyCoupon }: CouponCardProps) => {
+const CouponCard = ({
+  code,
+  amountNeeded,
+  discount,
+  onApplyCoupon,
+}: CouponCardProps) => {
   const navigation = useNavigation<CouponNavigationProp>();
 
   const copyCouponCode = () => {
@@ -45,6 +50,7 @@ const CouponCard = ({ code, amountNeeded, discount, onApplyCoupon }: CouponCardP
 
   return (
     <View style={styles.couponWrapper}>
+      <View style={styles.rightNotch} />
       <View style={styles.couponContainer}>
         <View style={styles.couponContent}>
           <View style={styles.topContent}>
@@ -59,6 +65,7 @@ const CouponCard = ({ code, amountNeeded, discount, onApplyCoupon }: CouponCardP
             </View>
           </View>
         </View>
+        <View style={styles.leftNotch} />
         <TouchableOpacity style={styles.copyButton} onPress={copyCouponCode}>
           <Text style={styles.copyButtonText}>{strings.copycode}</Text>
         </TouchableOpacity>
