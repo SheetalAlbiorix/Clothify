@@ -79,6 +79,7 @@ export const productstyle = StyleSheet.create({
     ...Fonts.size_18,
     ...Fonts.weight_900,
     ...Spacing.marginTop_15,
+    ...Spacing.marginHorizontal_20
   },
   description: {
     ...Fonts.size_14,
@@ -91,6 +92,7 @@ export const productstyle = StyleSheet.create({
   sizeContainer: {
     ...layout.row,
     ...Spacing.marginTop_10,
+    ...Spacing.marginHorizontal_20
   },
   sizeBox: {
     ...Spacing.paddingVertical_8,
@@ -104,6 +106,7 @@ export const productstyle = StyleSheet.create({
     ...Fonts.weight_900,
   },
   colorContainer: {
+    ...Spacing.marginHorizontal_20,
     ...layout.row,
     ...layout.justifyBetween,
     ...Spacing.marginTop_10,
@@ -112,6 +115,7 @@ export const productstyle = StyleSheet.create({
     ...borderStyles.rounded_100,
     ...layout.width_175,
     backgroundColor: Colors.white,
+    ...Spacing.marginBottom_20
   },
   footerContainer: {
     ...layout.row,
