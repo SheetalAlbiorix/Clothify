@@ -1,4 +1,11 @@
-import { View, Text, TouchableOpacity, Image, Easing, Animated } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  Easing,
+  Animated,
+} from "react-native";
 import React, { useEffect, useRef } from "react";
 import { paymentstyles } from "../styles/PaymentStyle";
 import { useColors } from "../hooks/useColors";
@@ -21,7 +28,7 @@ const Payment = () => {
 
   useEffect(() => {
     Animated.timing(scaleAnim, {
-      toValue: 1, 
+      toValue: 1,
       duration: 1000,
       easing: Easing.elastic(2),
       useNativeDriver: true,
@@ -39,7 +46,9 @@ const Payment = () => {
       <View style={paymentstyles.headerContainer}>
         <TouchableOpacity
           style={paymentstyles.backButton}
-          onPress={() => navigation.navigate('Tab', { name: "Home", location: ""  })}
+          onPress={() =>
+            navigation.navigate("Tab", { name: "Home", location: "" })
+          }
         >
           <Image
             source={images.leftarrow}
@@ -51,12 +60,12 @@ const Payment = () => {
         </Text>
       </View>
       <View style={paymentstyles.paymenttextIconContainer}>
-        <Animated.Image 
-          source={images.doneIcon} 
+        <Animated.Image
+          source={images.doneIcon}
           style={[
-            paymentstyles.doneIconImage, 
-            { transform: [{ scale: scaleAnim }] }
-          ]} 
+            paymentstyles.doneIconImage,
+            { transform: [{ scale: scaleAnim }] },
+          ]}
         />
         <Text
           style={[paymentstyles.Paymentsuccess, { color: colors.colors.text }]}
@@ -81,7 +90,21 @@ const Payment = () => {
           },
         ]}
       >
-        <TouchableOpacity style={paymentstyles.paymentButton} onPress={() => navigation.navigate('TrackOrder', { orderId: '12345', orderData: { id: '12345', name: 'Sample Item', size: 'M', price: 49.99, image: 'sample-image-url' } })}>
+        <TouchableOpacity
+          style={paymentstyles.paymentButton}
+          onPress={() =>
+            navigation.navigate("TrackOrder", {
+              orderId: strings.numbers,
+              orderData: {
+                id: strings.numbers,
+                name: strings.brownshirt,
+                size: strings.M,
+                price: strings.fotynine,
+                image: images.creamyshirt,
+              },
+            })
+          }
+        >
           <Text style={paymentstyles.paymentText}>{strings.vieworder}</Text>
         </TouchableOpacity>
         <TouchableOpacity

@@ -1,4 +1,11 @@
-import { View, Text, FlatList, TouchableOpacity, Image, TextInput } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  TouchableOpacity,
+  Image,
+  TextInput,
+} from "react-native";
 import React, { useState } from "react";
 import { strings } from "../utils/strings";
 import { images } from "../utils/images";
@@ -83,38 +90,37 @@ type searchscreenNavigationProp = StackNavigationProp<
   "SearchScreen"
 >;
 
-
 const SearchScreen = () => {
   const colors = useColors();
   const { statusBarStyle } = useTheme();
   const navigation = useNavigation<searchscreenNavigationProp>();
-   const [name, setName] = useState<string>("");
-  
-    const recentsData = [
-      { id: 1, name: strings.tshirt, image: images.crossIcon },
-      { id: 2, name: strings.jeans, image: images.crossIcon },
-      { id: 3, name: strings.shoes,  image: images.crossIcon },
-      { id: 4, name: strings.Jacket, image: images.crossIcon },
-      { id: 5, name: strings.Dress, image: images.crossIcon },
-      { id: 6, name: strings.hat, image: images.crossIcon },
-      { id: 7, name: strings.socks, image: images.crossIcon },
-      { id: 8, name: strings.sweater, image: images.crossIcon },
-      { id: 9, name: strings.shorts, image: images.crossIcon },
-      { id: 10, name: strings.skirt, image: images.crossIcon },
-    ];
-  
-    const [recents, setRecents] = useState(recentsData);
+  const [name, setName] = useState<string>("");
 
-    const handleSearch = () => {
-      const match = recentsData.find(
-        (item) => item.name.toLowerCase() === name.toLowerCase()
-      );
-      if (match) {
-        navigation.navigate("SearchScreen", { name });
-      } else {
-        console.log(strings.nomatchingaccount);
-      }
-    };
+  const recentsData = [
+    { id: 1, name: strings.tshirt, image: images.crossIcon },
+    { id: 2, name: strings.jeans, image: images.crossIcon },
+    { id: 3, name: strings.shoes, image: images.crossIcon },
+    { id: 4, name: strings.Jacket, image: images.crossIcon },
+    { id: 5, name: strings.Dress, image: images.crossIcon },
+    { id: 6, name: strings.hat, image: images.crossIcon },
+    { id: 7, name: strings.socks, image: images.crossIcon },
+    { id: 8, name: strings.sweater, image: images.crossIcon },
+    { id: 9, name: strings.shorts, image: images.crossIcon },
+    { id: 10, name: strings.skirt, image: images.crossIcon },
+  ];
+
+  const [recents, setRecents] = useState(recentsData);
+
+  const handleSearch = () => {
+    const match = recentsData.find(
+      (item) => item.name.toLowerCase() === name.toLowerCase()
+    );
+    if (match) {
+      navigation.navigate("SearchScreen", { name });
+    } else {
+      console.log(strings.nomatchingaccount);
+    }
+  };
 
   return (
     <View
@@ -140,7 +146,10 @@ const SearchScreen = () => {
       </View>
       <View style={searchscreenstyle.searchMainView}>
         <View style={searchscreenstyle.searchContainer}>
-          <Image source={images.searchIcon} style={searchscreenstyle.searchIcon} />
+          <Image
+            source={images.searchIcon}
+            style={searchscreenstyle.searchIcon}
+          />
           <TextInput
             style={searchscreenstyle.searchInput}
             placeholder={strings.search}
@@ -168,12 +177,12 @@ const SearchScreen = () => {
             { color: colors.colors.text },
           ]}
         >
-          Results for "jacket"
+          {strings.resultsforjacket}
         </Text>
         <Text
           style={[searchscreenstyle.foundText, { color: colors.colors.text }]}
         >
-          6,245 Found
+          {strings.s6245found}
         </Text>
       </View>
 

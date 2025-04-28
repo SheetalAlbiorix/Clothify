@@ -250,6 +250,7 @@ export const borderStyles = {
   wRight_2: { borderRightWidth: 2 },
 
   // Border Bottom Width
+  wBottom_05: { borderBottomWidth: 0.5 },
   wBottom_1: { borderBottomWidth: 1 },
   wBottom_2: { borderBottomWidth: 2 },
   wBottom_3: { borderBottomWidth: 3 },
@@ -405,6 +406,7 @@ export const Spacing = {
   marginLeft_5: { marginLeft: 5 },
   marginLeft_10: { marginLeft: 10 },
   marginLeft_11: { marginLeft: 11 },
+  marginLeft_12: { marginLeft: 12 },
   marginLeft_15: { marginLeft: 15 },
   marginLeft_20: { marginLeft: 20 },
   marginLeft_60: { marginLeft: 60 },
@@ -463,6 +465,7 @@ export const Spacing = {
   paddingBottom_10: { paddingBottom: 10 },
   paddingBottom_20: { paddingBottom: 20 },
   paddingBottom_30: { paddingBottom: 30 },
+  paddingBottom_50: { paddingBottom: 50 },
   paddingBottom_80: { paddingBottom: 80 },
   paddingBottom_100: { paddingBottom: 100 },
   paddingBottom_120: { paddingBottom: 120 },

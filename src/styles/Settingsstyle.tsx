@@ -62,7 +62,7 @@ export const settingsstyle = StyleSheet.create({
     ...layout.height_medsmall,
     ...layout.width_380,
     ...Spacing.paddingHorizontal_10,
-    borderBottomWidth: 0.5,
+    ...borderStyles.wBottom_05,
     borderBottomColor: Colors.mediumgrey,
   },
   profilefirstView: {

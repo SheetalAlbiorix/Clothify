@@ -5,7 +5,12 @@ import HomeScreen from "../screens/Home";
 import { Colors } from "../utils/Colors";
 import { strings } from "../utils/strings";
 import { images } from "../utils/images";
-import { borderStyles, layout, shadowStyles, Spacing } from "../components/layout";
+import {
+  borderStyles,
+  layout,
+  shadowStyles,
+  Spacing,
+} from "../components/layout";
 import Whistlist from "../screens/Whistlist";
 import CartItem from "../screens/Cart";
 import ChatScreen from "../screens/ChatScreen";
@@ -27,9 +32,7 @@ const TabBar = ({ route }: TabBarProps) => {
         headerShown: false,
         tabBarShowLabel: false,
         tabBarStyle:
-          route.name === strings.Message
-            ? { display: "none" }
-            : styles.tabBar,
+          route.name === strings.Message ? { display: "none" } : styles.tabBar,
         tabBarActiveTintColor: Colors.white,
         tabBarInactiveTintColor: Colors.gray,
         tabBarIcon: ({ focused }) => {
@@ -62,9 +65,7 @@ const TabBar = ({ route }: TabBarProps) => {
                 style={[
                   styles.icon,
                   {
-                    tintColor: focused
-                      ? Colors.darkChoclate
-                      : Colors.lightgrey,
+                    tintColor: focused ? Colors.darkChoclate : Colors.lightgrey,
                   },
                 ]}
                 resizeMode="contain"
@@ -86,7 +87,6 @@ const TabBar = ({ route }: TabBarProps) => {
     </Tab.Navigator>
   );
 };
-
 
 const styles = StyleSheet.create({
   tabBar: {
@@ -120,6 +120,7 @@ const styles = StyleSheet.create({
     ...layout.customSmallWidth,
     ...layout.customSmallHeight,
     tintColor: Colors.lightgrey,
+    ...layout.resizeContain,
   } as ImageStyle,
 });
 

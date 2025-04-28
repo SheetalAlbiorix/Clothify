@@ -166,7 +166,6 @@ export const searchscreenstyle = StyleSheet.create({
   },
   mainResultContainer: {
     ...Spacing.marginBottom_10,
-    // ...layout.row,
   },
   jacketContainer: {
     ...layout.height_200,

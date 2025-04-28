@@ -19,9 +19,7 @@ import { StatusBar } from "expo-status-bar";
 import CustomCheckbox from "../components/CheckBox";
 import { images } from "../utils/images";
 import { getAuth } from "firebase/auth";
-import { db, signUpWithGoogle } from "../service/auth";
-
-const auth = getAuth();
+import { signUpWithGoogle } from "../service/auth";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { generateOtp } from "../service/generateOtp";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -29,6 +27,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 type SignUpNavigationProp = StackNavigationProp<RootStackParamList, "SignUp">;
 
 const SignUp = () => {
+  const auth = getAuth();
   const navigation = useNavigation<SignUpNavigationProp>();
   const { statusBarStyle } = useTheme();
   const colors = useColors();
@@ -88,30 +87,35 @@ const SignUp = () => {
   const handleSignUp = async () => {
     try {
       setLoading(true);
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       const user = userCredential.user;
-  
+
       await updateProfile(user, {
         displayName: name,
         photoURL: "",
       });
-  
-      await AsyncStorage.setItem('userName', name);
-      await AsyncStorage.setItem('userPhotoUrl', "");
-  
+
+      await AsyncStorage.setItem("userName", name);
+      await AsyncStorage.setItem("userPhotoUrl", "");
+
       const otp = generateOtp();
       console.log(strings.usersignedup, user);
       Alert.alert(strings.generatedotp, otp);
       navigation.navigate("Verify", { otp, email });
     } catch (error) {
       console.error(strings.signuperror, error);
-      const errorMessage = error instanceof Error ? error.message : strings.somethingwentwrong;
+      const errorMessage =
+        error instanceof Error ? error.message : strings.somethingwentwrong;
       Alert.alert(strings.signuperror, errorMessage);
     } finally {
       setLoading(false);
     }
   };
-  
+
   const handleGooglePress = async () => {
     try {
       const userCredential = await signUpWithGoogle();

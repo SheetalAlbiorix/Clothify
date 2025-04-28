@@ -27,7 +27,6 @@ const Verify = () => {
   const route = useRoute<any>();
   const { statusBarStyle } = useTheme();
   const colors = useColors();
-
   const [otp, setOtp] = useState(["", "", "", ""]);
   const [generatedOtp, setGeneratedOtp] = useState(route.params.otp);
   const [email] = useState(route.params.email);
@@ -162,7 +161,9 @@ const Verify = () => {
           <Text
             style={[verifystyle.resendcode, { opacity: timer > 0 ? 0.5 : 1 }]}
           >
-            {timer > 0 ? `Resend in ${timer}s` : strings.resendCode}
+            {timer > 0
+              ? `${strings.resendin} ${timer}${strings.s}`
+              : strings.resendCode}
           </Text>
         </TouchableOpacity>
       </View>

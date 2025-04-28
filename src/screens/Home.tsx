@@ -22,6 +22,7 @@ import CountDownTimer from "../components/CountDownTimer";
 import CategoryFilterCarousel from "../components/CategoryFilter";
 import { StatusBar } from "expo-status-bar";
 import { useTheme } from "../themes/theme";
+import { BannerContainer } from "../components/BannerContainer";
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, "Home">;
 type HomeScreenRouteProp = RouteProp<RootStackParamList, "Home">;
@@ -163,7 +164,7 @@ const HomeScreen = () => {
         { backgroundColor: colors.colors.background },
       ]}
     >
-      <StatusBar style={statusBarStyle}/>
+      <StatusBar style={statusBarStyle} />
       <Text style={[homeStyles.locationheader, { color: colors.colors.text }]}>
         {strings.location}
       </Text>
@@ -229,50 +230,20 @@ const HomeScreen = () => {
         </TouchableOpacity>
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={homeStyles.scrollview}
-        >
-          <View style={homeStyles.bannerContainer}>
-            <Image style={homeStyles.ImageBanner} source={images.banner2Icon} />
-            <View style={homeStyles.bannerTitleContainer}>
-              <Text style={homeStyles.bannerTitle}>
-                {strings.newcollection}
-              </Text>
-              <Text style={homeStyles.bannerSubtitle}>
-                {strings.discounttext}
-              </Text>
-              <TouchableOpacity style={homeStyles.shopNowButton}>
-                <Text style={homeStyles.shopNowText}>{strings.shopnow}</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-          <View style={homeStyles.bannerContainer}>
-            <Image style={homeStyles.ImageBanner} source={images.bannerIcon} />
-            {/* <View style={homeStyles.bannerTitleContainer}>
-              <Text style={homeStyles.bannerTitle}>
-                {strings.newcollection}
-              </Text>
-              <Text style={homeStyles.bannerSubtitle}>
-                {strings.discounttext}
-              </Text>
-              <TouchableOpacity style={homeStyles.shopNowButton}>
-                <Text style={homeStyles.shopNowText}>{strings.shopnow}</Text>
-              </TouchableOpacity>
-            </View> */}
-          </View>
-        </ScrollView>
-
+        <BannerContainer />
         <View style={homeStyles.sectionSeeAllcontainer}>
           <Text
             style={[homeStyles.sectionTitle, { color: colors.colors.text }]}
           >
             {strings.category}
           </Text>
-          <Text style={[homeStyles.seeAllText, { color: colors.colors.text }]}>
-            {strings.seeAll}
-          </Text>
+          <TouchableOpacity>
+            <Text
+              style={[homeStyles.seeAllText, { color: colors.colors.text }]}
+            >
+              {strings.seeAll}
+            </Text>
+          </TouchableOpacity>
         </View>
         <FlatList
           data={categories}

@@ -12,8 +12,8 @@ export const chatstyle = StyleSheet.create({
     ...layout.justifyBetween,
     backgroundColor: Colors.iconColor,
     ...Spacing.paddingHorizontal_15,
-    paddingTop: 50,
-    paddingBottom: 50,
+    ...Spacing.paddingTop_50,
+    ...Spacing.paddingBottom_50,
   },
   header: {
     ...layout.row,

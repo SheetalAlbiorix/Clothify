@@ -514,6 +514,17 @@ export const strings = {
   userprofilesavedtofirebase: "User profile saved to Firestore",
   errorsavinguserprofile: "Error saving user profile:",
   unameduser: "Unnamed User",
+  errorloadingfromasynstorage: "Error loading user data from AsyncStorage",
+  userlogoutsuccess: "User logged out successfully",
+  resultsforjacket: "Results for 'jacket'",
+  s6245found: "6,245 Found",
+  settings: "settings",
+  resendin: "Resend in",
+  s: "s",
+  savedcards: "savedCards",
+  numbers: "12345",
+  sampleItems: "Sample Item",
+  fotynine: "49.99",
 }
 
 export const localizedStrings = {

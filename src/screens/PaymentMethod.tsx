@@ -42,7 +42,7 @@ const PaymentMethod = () => {
   useEffect(() => {
     const loadCards = async () => {
       try {
-        const storedCards = await AsyncStorage.getItem("savedCards");
+        const storedCards = await AsyncStorage.getItem(strings.savedcards);
         if (storedCards) {
           setSavedCards(JSON.parse(storedCards));
         }
@@ -57,12 +57,20 @@ const PaymentMethod = () => {
     const addNewCard = async () => {
       if (route.params?.newCard) {
         try {
-          const storedCards = await AsyncStorage.getItem("savedCards");
-          const existingCards: SavedCardType[] = storedCards ? JSON.parse(storedCards) : [];
-          
-          const updatedCards = [...existingCards, route.params.newCard as SavedCardType];
-          await AsyncStorage.setItem("savedCards", JSON.stringify(updatedCards));
-          
+          const storedCards = await AsyncStorage.getItem(strings.savedcards);
+          const existingCards: SavedCardType[] = storedCards
+            ? JSON.parse(storedCards)
+            : [];
+
+          const updatedCards = [
+            ...existingCards,
+            route.params.newCard as SavedCardType,
+          ];
+          await AsyncStorage.setItem(
+            strings.savedcards,
+            JSON.stringify(updatedCards)
+          );
+
           setSavedCards(updatedCards);
         } catch (error) {
           console.error(strings.errorsavingcard, error);
@@ -71,12 +79,14 @@ const PaymentMethod = () => {
     };
     addNewCard();
   }, [route.params?.newCard]);
-  
 
   const removeCard = async (index: number) => {
     const updatedCards = savedCards.filter((_, i) => i !== index);
     setSavedCards(updatedCards);
-    await AsyncStorage.setItem("savedCards", JSON.stringify(updatedCards));
+    await AsyncStorage.setItem(
+      strings.savedcards,
+      JSON.stringify(updatedCards)
+    );
   };
 
   return (
@@ -170,7 +180,9 @@ const PaymentMethod = () => {
               </View>
             ))
           ) : (
-            <Text style={paymentmethodstyle.noCardText}>{strings.nosavecards}</Text>
+            <Text style={paymentmethodstyle.noCardText}>
+              {strings.nosavecards}
+            </Text>
           )}
         </View>
 
@@ -328,7 +340,10 @@ const PaymentMethod = () => {
           },
         ]}
       >
-        <TouchableOpacity style={paymentmethodstyle.paymentButton} onPress={()=> navigation.navigate('Payment')}>
+        <TouchableOpacity
+          style={paymentmethodstyle.paymentButton}
+          onPress={() => navigation.navigate("Payment")}
+        >
           <Text style={paymentmethodstyle.paymentText}>
             {strings.confirmpayment}
           </Text>

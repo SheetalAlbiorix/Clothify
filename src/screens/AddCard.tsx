@@ -1,38 +1,39 @@
 import React, { useState } from "react";
 import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
   SafeAreaView,
-  Image,
+  ScrollView,
   KeyboardAvoidingView,
   Platform,
-  ScrollView,
+  View,
+  TouchableOpacity,
+  Image,
+  Text,
 } from "react-native";
-import { addcardstyles } from "../styles/AddCardStyle";
-import { strings } from "../utils/strings";
-import { images } from "../utils/images";
+import { StatusBar } from "expo-status-bar";
 import { useNavigation } from "@react-navigation/native";
-import { useColors } from "../hooks/useColors";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../App";
-import { Colors } from "../utils/Colors";
-import { StatusBar } from "expo-status-bar";
+import { useColors } from "../hooks/useColors";
 import { useTheme } from "../themes/theme";
+import { strings } from "../utils/strings";
+import { images } from "../utils/images";
+import { addcardstyles } from "../styles/AddCardStyle";
+import CardPreview from "../components/CardPreview";
+import InputField from "../components/InputField";
+import LabelCheck from "../components/LabelCheck";
 
 type AddCardNavigationProp = StackNavigationProp<RootStackParamList, "AddCard">;
 
 const AddCard = () => {
-  const colors = useColors();
   const navigation = useNavigation<AddCardNavigationProp>();
+  const colors = useColors();
+  const { statusBarStyle } = useTheme();
   const [cardNumber, setCardNumber] = useState("");
   const [cardHolderName, setCardHolderName] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
   const [cvv, setCvv] = useState("");
   const [saveCard, setSaveCard] = useState(false);
   const [cardType, setCardType] = useState<string | null>(null);
-  const { statusBarStyle } = useTheme();
 
   const detectCardType = (number: string) => {
     const cleaned = number.replace(/\D/g, "");
@@ -44,38 +45,26 @@ const AddCard = () => {
   };
 
   const formatCardNumber = (text: string) => {
-    const cleaned = text.replace(/\D/g, "");
-    const truncated = cleaned.substring(0, 16);
-    let formatted = "";
-    for (let i = 0; i < truncated.length; i++) {
-      if (i > 0 && i % 4 === 0) {
-        formatted += " ";
-      }
-      formatted += truncated[i];
-    }
-    return formatted;
+    const cleaned = text.replace(/\D/g, "").substring(0, 16);
+    return cleaned.match(/.{1,4}/g)?.join(" ") ?? "";
   };
 
   const formatExpiryDate = (text: string) => {
-    const cleaned = text.replace(/\D/g, "");
-    const truncated = cleaned.substring(0, 4);
-    if (truncated.length > 2) {
-      return truncated.substring(0, 2) + "/" + truncated.substring(2);
-    }
-    return truncated;
+    const cleaned = text.replace(/\D/g, "").substring(0, 4);
+    return cleaned.length > 2
+      ? `${cleaned.substring(0, 2)}/${cleaned.substring(2)}`
+      : cleaned;
   };
 
   const handleCardNumberChange = (text: string) => {
-    const formatted = formatCardNumber(text);
-    setCardNumber(formatted);
+    setCardNumber(formatCardNumber(text));
     setCardType(detectCardType(text));
   };
 
   const handleExpiryDateChange = (text: string) => {
-    const formatted = formatExpiryDate(text);
-    setExpiryDate(formatted);
+    setExpiryDate(formatExpiryDate(text));
   };
-  
+
   const handleAddCard = () => {
     if (saveCard && cardNumber.length >= 4) {
       navigation.navigate("PaymentMethod", {
@@ -87,8 +76,8 @@ const AddCard = () => {
           type: cardType,
         },
       });
-    }  
-  };  
+    }
+  };
 
   return (
     <SafeAreaView
@@ -117,137 +106,60 @@ const AddCard = () => {
           </Text>
         </View>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <View style={addcardstyles.cardPreview}>
-            <Text style={addcardstyles.visaText}>{cardType || strings.cardType}</Text>
-            <Text style={addcardstyles.cardNumberPreview}>
-              {cardNumber || strings.hiddenText}
-            </Text>
-            <View style={addcardstyles.cardPreviewBottom}>
-              <View>
-                <Text style={addcardstyles.cardPreviewLabel}>
-                  {strings.cardholdername}
-                </Text>
-                <Text style={addcardstyles.cardPreviewValue}>
-                  {cardHolderName || strings.estherhoward}
-                </Text>
-              </View>
-              <View>
-                <Text style={addcardstyles.cardPreviewLabel}>{strings.expirydate}</Text>
-                <Text style={addcardstyles.cardPreviewValue}>
-                  {expiryDate || strings.expire0230}
-                </Text>
-              </View>
-              <View style={addcardstyles.chipIcon}>
-                <View style={addcardstyles.chipLines}></View>
-              </View>
-            </View>
-          </View>
-
+          <CardPreview
+            cardType={cardType}
+            cardNumber={cardNumber}
+            cardHolderName={cardHolderName}
+            expiryDate={expiryDate}
+          />
           <View style={addcardstyles.formContainer}>
-            <View style={addcardstyles.inputGroup}>
-              <Text
-                style={[
-                  addcardstyles.inputLabel,
-                  { color: colors.colors.text },
-                ]}
-              >
-                {strings.CARDHOLDERNAME}
-              </Text>
-              <TextInput
-                style={[addcardstyles.input, { color: colors.colors.text }]}
-                placeholder={strings.estherhoward}
-                placeholderTextColor={Colors.mediumgrey}
-                value={cardHolderName}
-                onChangeText={setCardHolderName}
-              />
-            </View>
-
-            <View style={addcardstyles.inputGroup}>
-              <Text
-                style={[
-                  addcardstyles.inputLabel,
-                  { color: colors.colors.text },
-                ]}
-              >
-                {strings.cardnumber}
-              </Text>
-              <TextInput
-                style={[addcardstyles.input, { color: colors.colors.text }]}
-                placeholder={strings.placeholdercardnumber}
-                placeholderTextColor={Colors.mediumgrey}
-                value={cardNumber}
-                onChangeText={handleCardNumberChange}
-                keyboardType="numeric"
-                maxLength={19}
-              />
-            </View>
-
+            <InputField
+              label={strings.CARDHOLDERNAME}
+              value={cardHolderName}
+              onChangeText={setCardHolderName}
+              placeholder={strings.estherhoward}
+            />
+            <InputField
+              label={strings.cardnumber}
+              value={cardNumber}
+              onChangeText={handleCardNumberChange}
+              placeholder={strings.placeholdercardnumber}
+              keyboardType="numeric"
+              maxLength={19}
+            />
             <View style={addcardstyles.row}>
-              <View style={[addcardstyles.inputGroup, addcardstyles.halfWidth]}>
-                <Text
-                  style={[
-                    addcardstyles.inputLabel,
-                    { color: colors.colors.text },
-                  ]}
-                >
-                  {strings.expireDate}
-                </Text>
-                <TextInput
-                  style={[addcardstyles.input, { color: colors.colors.text }]}
-                  placeholder={strings.expire0230}
-                  placeholderTextColor={Colors.mediumgrey}
-                  value={expiryDate}
-                  onChangeText={handleExpiryDateChange}
-                  keyboardType="numeric"
-                  maxLength={5}
-                />
-              </View>
-              <View style={[addcardstyles.inputGroup, addcardstyles.halfWidth]}>
-                <Text
-                  style={[
-                    addcardstyles.inputLabel,
-                    { color: colors.colors.text },
-                  ]}
-                >
-                  {strings.cvv}
-                </Text>
-                <TextInput
-                  style={[addcardstyles.input, { color: colors.colors.text }]}
-                  placeholder={strings.three0}
-                  placeholderTextColor={Colors.mediumgrey}
-                  value={cvv}
-                  onChangeText={setCvv}
-                  keyboardType="numeric"
-                  maxLength={3}
-                  secureTextEntry={true}
-                />
-              </View>
+              <InputField
+                label={strings.expireDate}
+                value={expiryDate}
+                onChangeText={handleExpiryDateChange}
+                placeholder={strings.expire0230}
+                keyboardType="numeric"
+                maxLength={5}
+                style={addcardstyles.halfWidth}
+              />
+              <InputField
+                label={strings.cvv}
+                value={cvv}
+                onChangeText={setCvv}
+                placeholder={strings.three0}
+                keyboardType="numeric"
+                maxLength={3}
+                secureTextEntry
+                style={addcardstyles.halfWidth}
+              />
             </View>
-
-            <TouchableOpacity
-              style={addcardstyles.checkboxContainer}
+            <LabelCheck
+              checked={saveCard}
+              label={strings.savecard}
               onPress={() => setSaveCard(!saveCard)}
+            />
+            <TouchableOpacity
+              style={addcardstyles.addCardButton}
+              onPress={handleAddCard}
             >
-              <View
-                style={[
-                  addcardstyles.checkbox,
-                  saveCard && addcardstyles.checkboxChecked,
-                ]}
-              >
-                {saveCard && <Text style={addcardstyles.checkmark}>{strings.tick}</Text>}
-              </View>
-              <Text
-                style={[
-                  addcardstyles.checkboxLabel,
-                  { color: colors.colors.text },
-                ]}
-              >
-                {strings.savecard}
+              <Text style={addcardstyles.addCardButtonText}>
+                {strings.addcard}
               </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={addcardstyles.addCardButton} onPress={handleAddCard}>
-              <Text style={addcardstyles.addCardButtonText}>{strings.addcard}</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>

@@ -59,7 +59,7 @@ const PasswordManager = () => {
     }
 
     try {
-      const user = auth.currentUser;
+      const user = auth().currentUser;
 
       if (!user || !user.email) {
         console.log(strings.errornouserloggedIn);

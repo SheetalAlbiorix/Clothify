@@ -54,7 +54,6 @@ const ShippingAddress = () => {
   };
 
   const addNewShippingAddress = () => {
-    // *******Form addition left for adding shipping address *******///
     console.log('clicked')
   }
  

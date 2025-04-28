@@ -89,7 +89,6 @@ export const helpcenterstyle = StyleSheet.create({
     color: Colors.brown,
     ...Fonts.weight_600,
   },
-  // FAQ Styles
   faqContainer: {
     ...layout.flex_1,
   },
@@ -152,7 +151,6 @@ export const helpcenterstyle = StyleSheet.create({
     ...layout.height_15,
     tintColor: Colors.brown,
   } as ImageStyle,
-  // Contact Us Styles
   contactContainer: {
     ...layout.flex_1,
   },

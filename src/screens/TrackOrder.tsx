@@ -8,6 +8,8 @@ import { strings } from "../utils/strings";
 import OrderStatusView from "../components/OrderStatus";
 import { useTheme } from "../themes/theme";
 import { StatusBar } from "expo-status-bar";
+import TrackProductRow from "../components/TrackProductRow";
+import TrackDetail from "../components/TrackDetail";
 
 type OrderDataType = {
   id: string;
@@ -25,9 +27,7 @@ type RouteParams = {
 };
 
 const TrackOrder = () => {
-  const route = useRoute<RouteProp<RouteParams, "TrackOrder">>();
   const navigation = useNavigation();
-  const orderData = route.params?.orderData;
   const colors = useColors();
   const { statusBarStyle } = useTheme();
   return (
@@ -54,77 +54,9 @@ const TrackOrder = () => {
       </View>
       <View style={trackorderstyle.flexcontainer}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <View style={trackorderstyle.productRow}>
-            <Image source={orderData.image} style={trackorderstyle.image} />
-            <View style={trackorderstyle.productInfo}>
-              <Text
-                style={[trackorderstyle.title, { color: colors.colors.text }]}
-              >
-                {orderData.name}
-              </Text>
-              <Text
-                style={[
-                  trackorderstyle.text,
-                  { color: colors.colors.textAccent },
-                ]}
-              >
-                {strings.size} {orderData.size} {strings.QTY} {orderData.qty}
-              </Text>
-              <Text
-                style={[trackorderstyle.price, { color: colors.colors.text }]}
-              >
-                {strings.$}
-                {orderData.price}
-              </Text>
-            </View>
-          </View>
+          <TrackProductRow />
           <View style={trackorderstyle.divider} />
-          <View style={trackorderstyle.orderDetailsContainer}>
-            <Text
-              style={[
-                trackorderstyle.orderDetailText,
-                { color: colors.colors.text },
-              ]}
-            >
-              {strings.orderdetails}
-            </Text>
-            <View style={trackorderstyle.deliverycontainer}>
-              <Text
-                style={[
-                  trackorderstyle.expectedDateText,
-                  { color: colors.colors.textAccent },
-                ]}
-              >
-                {strings.expecteddeliverydate}
-              </Text>
-              <Text
-                style={[
-                  trackorderstyle.deliverdateText,
-                  { color: colors.colors.text },
-                ]}
-              >
-                {strings.date3sep23}
-              </Text>
-            </View>
-            <View style={trackorderstyle.trackingcontainer}>
-              <Text
-                style={[
-                  trackorderstyle.expectedDateText,
-                  { color: colors.colors.textAccent },
-                ]}
-              >
-                {strings.trackingid}
-              </Text>
-              <Text
-                style={[
-                  trackorderstyle.deliverdateText,
-                  { color: colors.colors.text },
-                ]}
-              >
-                {strings.trackingidnumber}
-              </Text>
-            </View>
-          </View>
+          <TrackDetail />
           <View style={trackorderstyle.divider} />
           <OrderStatusView />
         </ScrollView>

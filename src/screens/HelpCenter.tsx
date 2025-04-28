@@ -1,28 +1,19 @@
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  TextInput,
-  ScrollView,
-  FlatList,
-} from "react-native";
 import React, { useState } from "react";
+import { View, FlatList } from "react-native";
+import { FaqItem } from "../components/FaqItem";
+import { ContactItem } from "../components/ContactItem";
+import { CategoryTabs } from "../components/CategoryTabs";
+import { TabsHelp } from "../components/TabsHelp";
+import { HelpCenterHeader } from "../components/HelpcenterHeader";
+import { SearchBar } from "../components/SearchBar";
 import { helpcenterstyle } from "../styles/HelpCenterStyle";
-import { strings } from "../utils/strings";
-import { images } from "../utils/images";
 import { useColors } from "../hooks/useColors";
-import { useNavigation } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "../../App";
-import { Colors } from "../utils/Colors";
 import { useTheme } from "../themes/theme";
 import { StatusBar } from "expo-status-bar";
+import { strings } from "../utils/strings";
+import { images } from "../utils/images";
 
-type HelpcenterNavigationProp = StackNavigationProp<
-  RootStackParamList,
-  "helpcenter"
->;
+const TABS = { FAQ: "FAQ", CONTACT_US: "Contact Us" };
 
 interface FaqItem {
   id: string;
@@ -124,144 +115,75 @@ const contactOptions: ContactItem[] = [
   },
 ];
 
-const TABS = {
-  FAQ: "FAQ",
-  CONTACT_US: "Contact Us",
-};
-
-const FAQ_CATEGORIES = [strings.All, strings.services, strings.general, strings.account];
+const FAQ_CATEGORIES = [
+  strings.All,
+  strings.services,
+  strings.general,
+  strings.account,
+];
 
 const HelpCenter = () => {
   const colors = useColors();
   const { statusBarStyle } = useTheme();
-  const navigation = useNavigation<HelpcenterNavigationProp>();
+
   const [activeTab, setActiveTab] = useState(TABS.FAQ);
   const [activeCategory, setActiveCategory] = useState(strings.All);
-  const [faqs, setFaqs] = useState<FaqItem[]>(faqData);
-  const [contacts, setContacts] = useState<ContactItem[]>(contactOptions);
+  const [faqs, setFaqs] = useState(faqData);
+  const [contacts, setContacts] = useState(contactOptions);
 
   const toggleFaqExpanded = (id: string) => {
-    const updatedFaqs = faqs.map((faq) => ({
-      ...faq,
-      expanded: faq.id === id ? !faq.expanded : faq.expanded,
-    }));
-    setFaqs(updatedFaqs);
+    setFaqs((prev) =>
+      prev.map((faq) => ({
+        ...faq,
+        expanded: faq.id === id ? !faq.expanded : faq.expanded,
+      }))
+    );
   };
 
   const toggleContactExpanded = (id: string) => {
-    const updatedContacts = contacts.map((contact) => ({
-      ...contact,
-      expanded: contact.id === id ? !contact.expanded : contact.expanded,
-    }));
-    setContacts(updatedContacts);
+    setContacts((prev) =>
+      prev.map((contact) => ({
+        ...contact,
+        expanded: contact.id === id ? !contact.expanded : contact.expanded,
+      }))
+    );
   };
-
-  type RenderItemInfo = {
-    item: FaqItem;
-  };
-
-  type RenderContactInfo = {
-    item: ContactItem;
-  };
-
-  const renderFaqItem = ({ item }: RenderItemInfo) => (
-    <TouchableOpacity
-      style={helpcenterstyle.faqItem}
-      onPress={() => toggleFaqExpanded(item.id)}
-    >
-      <View style={helpcenterstyle.faqQuestion}>
-        <Text style={helpcenterstyle.questionText}>{item.question}</Text>
-        <Image
-          source={item.expanded ? images.arrowUp : images.downarrow}
-          style={helpcenterstyle.arrowIcon}
-        />
-      </View>
-      {item.expanded && (
-        <Text style={helpcenterstyle.answerText}>{item.answer}</Text>
-      )}
-    </TouchableOpacity>
-  );
-
-  const renderContactItem = ({ item }: RenderContactInfo) => (
-    <TouchableOpacity
-      style={helpcenterstyle.contactItem}
-      onPress={() => toggleContactExpanded(item.id)}
-    >
-      <View style={helpcenterstyle.contactHeader}>
-        <Image source={item.icon} style={helpcenterstyle.contactIcon} />
-        <Text style={helpcenterstyle.contactTitle}>{item.title}</Text>
-        <Image
-          source={item.expanded ? images.arrowUp : images.downarrow}
-          style={helpcenterstyle.arrowIcon}
-        />
-      </View>
-      {item.expanded && item.phone && (
-        <View style={helpcenterstyle.contactDetail}>
-          <View style={helpcenterstyle.contactPhoneContainer}>
-            <View style={helpcenterstyle.contactBullet} />
-            <Text style={helpcenterstyle.contactPhone}>{item.phone}</Text>
-          </View>
-        </View>
-      )}
-    </TouchableOpacity>
-  );
 
   const renderContent = () => {
-    switch (activeTab) {
-      case TABS.FAQ:
-        return (
-          <View style={helpcenterstyle.faqContainer}>
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              style={helpcenterstyle.categoriesContainer}
-            >
-              {FAQ_CATEGORIES.map((category) => (
-                <TouchableOpacity
-                  key={category}
-                  style={[
-                    helpcenterstyle.categoryButton,
-                    activeCategory === category &&
-                      helpcenterstyle.activeCategoryButton,
-                  ]}
-                  onPress={() => setActiveCategory(category)}
-                >
-                  <Text
-                    style={[
-                      helpcenterstyle.categoryText,
-                      activeCategory === category &&
-                        helpcenterstyle.activeCategoryText,
-                    ]}
-                  >
-                    {category}
-                  </Text>
-                </TouchableOpacity>
-              ))}
-            </ScrollView>
-            <FlatList
-              data={faqs}
-              renderItem={renderFaqItem}
-              keyExtractor={(item) => item.id}
-              contentContainerStyle={helpcenterstyle.faqList}
-              showsVerticalScrollIndicator={false}
-            />
-          </View>
-        );
-      case TABS.CONTACT_US:
-        return (
-          <View style={helpcenterstyle.contactContainer}>
-            <FlatList
-              data={contacts}
-              renderItem={renderContactItem}
-              keyExtractor={(item) => item.id}
-              contentContainerStyle={helpcenterstyle.contactList}
-              showsVerticalScrollIndicator={false}
-            />
-          </View>
-        );
-      default:
-        return null;
+    if (activeTab === TABS.FAQ) {
+      return (
+        <View style={helpcenterstyle.faqContainer}>
+          <CategoryTabs
+            categories={FAQ_CATEGORIES}
+            activeCategory={activeCategory}
+            onSelect={setActiveCategory}
+          />
+          <FlatList
+            data={faqs}
+            renderItem={({ item }) => (
+              <FaqItem {...item} onToggle={toggleFaqExpanded} />
+            )}
+            keyExtractor={(item) => item.id}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={helpcenterstyle.faqList}
+          />
+        </View>
+      );
     }
+    if (activeTab === TABS.CONTACT_US) {
+      return (
+        <FlatList
+          data={contacts}
+          renderItem={({ item }) => (
+            <ContactItem {...item} onToggle={toggleContactExpanded} />
+          )}
+          keyExtractor={(item) => item.id}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={helpcenterstyle.contactList}
+        />
+      );
+    }
+    return null;
   };
 
   return (
@@ -272,70 +194,19 @@ const HelpCenter = () => {
       ]}
     >
       <StatusBar style={statusBarStyle} />
-      <View style={helpcenterstyle.headerContainer}>
-        <TouchableOpacity
-          style={helpcenterstyle.backButton}
-          onPress={() => navigation.goBack()}
-        >
-          <Image
-            source={images.leftarrow}
-            style={helpcenterstyle.leftarrowImage}
-          />
-        </TouchableOpacity>
-        <Text style={[helpcenterstyle.header, { color: colors.colors.text }]}>
-          {strings.helpcenter}
-        </Text>
-      </View>
-
-      <View style={helpcenterstyle.searchContainer}>
-        <View style={helpcenterstyle.searchview}>
-          <Image
-            source={images.searchIcon}
-            style={helpcenterstyle.searchIcon}
-          />
-          <TextInput
-            style={helpcenterstyle.input}
-            placeholder={strings.search}
-            placeholderTextColor={Colors.mediumgrey}
-          />
-        </View>
-      </View>
-
-      <View style={helpcenterstyle.tabContainer}>
-        <TouchableOpacity
-          style={[
-            helpcenterstyle.tabButton,
-            activeTab === TABS.FAQ && helpcenterstyle.activeTabButton,
-          ]}
-          onPress={() => setActiveTab(TABS.FAQ)}
-        >
-          <Text
-            style={[
-              helpcenterstyle.tabText,
-              activeTab === TABS.FAQ && helpcenterstyle.activeTabText,
-            ]}
-          >
-            {TABS.FAQ}
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[
-            helpcenterstyle.tabButton,
-            activeTab === TABS.CONTACT_US && helpcenterstyle.activeTabButton,
-          ]}
-          onPress={() => setActiveTab(TABS.CONTACT_US)}
-        >
-          <Text
-            style={[
-              helpcenterstyle.tabText,
-              activeTab === TABS.CONTACT_US && helpcenterstyle.activeTabText,
-            ]}
-          >
-            {TABS.CONTACT_US}
-          </Text>
-        </TouchableOpacity>
-      </View>
-
+      <HelpCenterHeader
+        title={strings.helpcenter}
+        textColor={colors.colors.text}
+      />
+      <SearchBar />
+      <TabsHelp
+        activeTab={activeTab}
+        tabs={[
+          { key: TABS.FAQ, label: "FAQ" },
+          { key: TABS.CONTACT_US, label: "Contact Us" },
+        ]}
+        onTabSelect={setActiveTab}
+      />
       {renderContent()}
     </View>
   );

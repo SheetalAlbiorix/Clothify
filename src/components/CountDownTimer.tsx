@@ -5,7 +5,7 @@ import { strings } from "../utils/strings";
 import { countdownstyle } from "../styles/CountdownStyle";
 
 const CountDownTimer = () => {
-  const [timeLeft, setTimeLeft] = useState(2 * 60 * 60 + 12 * 60 + 56);
+  const [timeLeft, setTimeLeft] = useState(3 * 60 * 72 + 12 * 60 + 90);
   const colors = useColors();
 
   useEffect(() => {

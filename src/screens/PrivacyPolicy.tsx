@@ -10,29 +10,17 @@ import { privacystyle } from "../styles/PrivacypolicyStyle";
 import { RootStackParamList } from "../../App";
 import { useTheme } from "../themes/theme";
 import { StatusBar } from "expo-status-bar";
+import {
+  PrivacyTextBlock,
+  renderRepeatedText,
+} from "../components/PrivacyTextBlock";
 
 type PrivacyNavigationProp = StackNavigationProp<RootStackParamList, "privacy">;
-
-const PrivacyTextBlock = ({ content }: { content: string }) => {
-  const { colors } = useColors();
-  return (
-    <Text
-      style={[privacystyle.termsConditiontext, { color: colors.textAccent }]}
-    >
-      {content}
-    </Text>
-  );
-};
 
 const PrivacyPolicy = () => {
   const colors = useColors();
   const { statusBarStyle } = useTheme();
   const navigation = useNavigation<PrivacyNavigationProp>();
-
-  const renderRepeatedText = (count: number, content: string) =>
-    Array.from({ length: count }, (_, i) => (
-      <PrivacyTextBlock key={i} content={content} />
-    ));
 
   return (
     <View

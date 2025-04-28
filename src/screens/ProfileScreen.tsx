@@ -14,6 +14,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import MediaPickerModal from "../components/MediaPicker";
 import { useTheme } from "../themes/theme";
 import { StatusBar } from "expo-status-bar";
+import { ProfileOption } from "../components/ProfileOption";
 
 type ProfileScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -43,7 +44,7 @@ const ProfileScreen = () => {
           setPhotoUrl(storedPhotoUrl);
         }
       } catch (error) {
-        console.error("Error loading user data from AsyncStorage", error);
+        console.error(strings.errorloadingfromasynstorage, error);
       }
     };
 
@@ -65,14 +66,14 @@ const ProfileScreen = () => {
       await setPhotoUrl(null);
       await AsyncStorage.multiRemove(["userName", "userPhotoUrl"]);
       await logout();
-      console.log("User logged out successfully");
+      console.log(strings.userlogoutsuccess);
 
       navigation.reset({
         index: 0,
         routes: [{ name: "Welcome" }],
       });
     } catch (error) {
-      console.error("Logout error:", error);
+      console.error(strings.logouterror, error);
     }
   };
 
@@ -194,35 +195,5 @@ const ProfileScreen = () => {
     </View>
   );
 };
-
-const ProfileOption = ({
-  icon,
-  text,
-  onPress,
-  colors,
-}: {
-  icon: any;
-  text: string;
-  onPress: () => void;
-  colors: ReturnType<typeof useColors>;
-}) => (
-  <TouchableOpacity style={profilestyle.profileholder} onPress={onPress}>
-    <View style={profilestyle.profilefirstView}>
-      <Image
-        source={icon}
-        style={[profilestyle.profileIconImage, { tintColor: colors.colors.iconColor }]}
-      />
-      <Text
-        style={[profilestyle.profileText, { color: colors.colors.text }]}
-      >
-        {text}
-      </Text>
-    </View>
-    <Image
-      source={images.arrowright}
-      style={[profilestyle.profileIconImage, { tintColor: colors.colors.iconColor }]}
-    />
-  </TouchableOpacity>
-);
 
 export default ProfileScreen;

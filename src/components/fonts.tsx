@@ -1,4 +1,5 @@
 import { TextStyle } from "react-native";
+import { Colors } from "../utils/Colors";
 
 export const Fonts: Record<string, TextStyle> = {
   size_10: {
@@ -41,7 +42,7 @@ export const Fonts: Record<string, TextStyle> = {
     fontSize: 30,
   },
   red: {
-    color: "#ff0000",
+    color: Colors.red,
   },
   weight_200: {
     fontWeight: 200,
@@ -65,6 +66,6 @@ export const Fonts: Record<string, TextStyle> = {
     fontWeight: 900,
   },
   lineheight_22: {
-    lineHeight: 22
-  }
+    lineHeight: 22,
+  },
 };

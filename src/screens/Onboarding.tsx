@@ -1,15 +1,17 @@
-import React, { useState } from "react";
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import React, { useState, useRef } from "react";
+import { View } from "react-native";
+import { StatusBar } from "expo-status-bar";
 import Swiper from "react-native-swiper";
-import { useTheme } from "../themes/theme";
-import { useColors } from "../hooks/useColors";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { useTheme } from "../themes/theme";
+import { useColors } from "../hooks/useColors";
+import { Onboardstyles } from "../styles/OnboradStyle";
 import { RootStackParamList } from "../../App";
 import { strings } from "../utils/strings";
-import { StatusBar } from "expo-status-bar";
-import { Onboardstyles } from "../styles/OnboradStyle";
 import { images } from "../utils/images";
+import OnboardingSwiper from "../components/OnboardingSwiper";
+import NavigationButtons from "../components/NavigationButtons";
 
 type OnboardNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -21,7 +23,7 @@ const OnboardingScreen = () => {
   const colors = useColors();
   const navigation = useNavigation<OnboardNavigationProp>();
   const [activeIndex, setActiveIndex] = useState(0);
-  let swiperRef: Swiper | null = null;
+  const swiperRef = useRef<Swiper>(null);
 
   const slides = [
     {
@@ -46,79 +48,24 @@ const OnboardingScreen = () => {
 
   return (
     <View
-      style={[Onboardstyles.container, { backgroundColor: colors.colors.background }]}
+      style={[
+        Onboardstyles.container,
+        { backgroundColor: colors.colors.background },
+      ]}
     >
       <StatusBar style={statusBarStyle} />
-      <Swiper
-        loop={false}
-        ref={(ref) => (swiperRef = ref)}
-        onIndexChanged={(index) => setActiveIndex(index)}
-        showsPagination={false}
-      >
-        {slides.map((slide, index) => (
-          <View
-            key={slide.id}
-            style={[
-              Onboardstyles.slide,
-              { backgroundColor: colors.colors.background },
-            ]}
-          >
-            <Image
-              source={slide.image}
-              style={Onboardstyles.image}
-            />
-            <Text style={[Onboardstyles.text, { color: colors.colors.text }]}>
-              {slide.text}
-            </Text>
-            <Text style={[Onboardstyles.text2, { color: colors.colors.text }]}>
-              {slide.text2}
-            </Text>
-            {index === slides.length - 1 && (
-              <TouchableOpacity
-                style={Onboardstyles.getStartedButton}
-                onPress={() => navigation.navigate("SignIn")}
-              >
-                <Text style={Onboardstyles.buttonText}>{strings.GetStartedOnly}</Text>
-              </TouchableOpacity>
-            )}
-          </View>
-        ))}
-      </Swiper>
-
-      <View style={Onboardstyles.navigationContainer}>
-        {activeIndex !== 0 && (
-          <TouchableOpacity
-            style={[Onboardstyles.arrowButton, Onboardstyles.leftButton]}
-            onPress={() => swiperRef?.scrollBy(-1)}
-          >
-            <Image
-              style={Onboardstyles.arrowIcon}
-              source={images.leftarrow}
-            />
-          </TouchableOpacity>
-        )}
-
-        <View style={Onboardstyles.dotContainer}>
-          {slides.map((_, index) => (
-            <View
-              key={index}
-              style={[Onboardstyles.dot, activeIndex === index && Onboardstyles.activeDot]}
-            />
-          ))}
-        </View>
-
-        {activeIndex !== slides.length - 1 && (
-          <TouchableOpacity
-            style={[Onboardstyles.arrowButton, Onboardstyles.rightButton]}
-            onPress={() => swiperRef?.scrollBy(1)}
-          >
-            <Image
-              style={Onboardstyles.rightarrowIcon}
-              source={images.rightarrow}
-            />
-          </TouchableOpacity>
-        )}
-      </View>
+      <OnboardingSwiper
+        swiperRef={swiperRef}
+        slides={slides}
+        activeIndex={activeIndex}
+        setActiveIndex={setActiveIndex}
+        navigation={navigation}
+      />
+      <NavigationButtons
+        swiperRef={swiperRef}
+        slides={slides}
+        activeIndex={activeIndex}
+      />
     </View>
   );
 };

@@ -1,25 +1,22 @@
 import React, { useState, useCallback, useMemo } from "react";
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  TextInput,
-  ScrollView,
-  Modal,
-  SafeAreaView,
-  ImageSourcePropType,
-} from "react-native";
+import { View, ScrollView, ImageSourcePropType } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { StatusBar } from "expo-status-bar";
+import { RootStackParamList } from "../../App";
+import { useColors } from "../hooks/useColors";
+import { useTheme } from "../themes/theme";
+import { cartitemstyle } from "../styles/CartItemStyle";
 import { images } from "../utils/images";
 import { strings } from "../utils/strings";
-import { useColors } from "../hooks/useColors";
-import { cartitemstyle } from "../styles/CartItemStyle";
-import { useNavigation } from "@react-navigation/native";
-import { RootStackParamList } from "../../App";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { Colors } from "../utils/Colors";
-import { useTheme } from "../themes/theme";
-import { StatusBar } from "expo-status-bar";
+import { CartHeader } from "../components/CartHeader";
+import { NoCartItems } from "../components/NoCartItems";
+import { CartItemComponent } from "../components/CartItem";
+import { PromoCodeSection } from "../components/PromoCodeSection";
+import { OrderSummary } from "../components/OrderSummary";
+import { CheckoutButton } from "../components/CheckoutButton";
+import { RemoveItemModal } from "../components/RemoveItemModal";
+import { CouponSelector } from "../components/CouponSelector";
 
 interface CartItem {
   id: number;
@@ -31,13 +28,7 @@ interface CartItem {
   originalPrice: number;
 }
 
-interface NavigationProps {
-  goBack: () => void;
-}
-
-interface CartProps {
-  navigation: NavigationProps;
-}
+type CartNavigationProp = StackNavigationProp<RootStackParamList, "Cart">;
 
 const initialCartItems: CartItem[] = [
   {
@@ -93,10 +84,8 @@ const PROMO_CODES = {
   FIRST100: strings.first100,
   HAPPYNEW500: strings.happynew500,
   WELCOME200: strings.welcome200,
-  CASHBACK12: strings.cashback12
+  CASHBACK12: strings.cashback12,
 };
-
-type CartNavigationProp = StackNavigationProp<RootStackParamList, "Cart">;
 
 const Cart = () => {
   const colors = useColors();
@@ -167,7 +156,11 @@ const Cart = () => {
       setDeliveryFee(0);
       setDiscount(0);
       setAppliedPromoCode(code);
-    } else if (code === PROMO_CODES.FIRST100) {
+    } else if (
+      code === PROMO_CODES.FIRST100 ||
+      code === PROMO_CODES.WELCOME200 ||
+      code === PROMO_CODES.CASHBACK12
+    ) {
       const itemCount = cartItems.length;
       if (itemCount > 0) {
         const discountPerItem = 100 / itemCount;
@@ -193,35 +186,7 @@ const Cart = () => {
         setDiscount(-35);
         setAppliedPromoCode(code);
       }
-    }else if (code === PROMO_CODES.WELCOME200) {
-      const itemCount = cartItems.length;
-      if (itemCount > 0) {
-        const discountPerItem = 100 / itemCount;
-        setCartItems((prevItems) =>
-          prevItems.map((item) => ({
-            ...item,
-            price: Math.max(item.originalPrice - discountPerItem, 0),
-          }))
-        );
-        setDiscount(-35);
-        setAppliedPromoCode(code);
-      }
-    }
-    else if (code === PROMO_CODES.CASHBACK12) {
-      const itemCount = cartItems.length;
-      if (itemCount > 0) {
-        const discountPerItem = 100 / itemCount;
-        setCartItems((prevItems) =>
-          prevItems.map((item) => ({
-            ...item,
-            price: Math.max(item.originalPrice - discountPerItem, 0),
-          }))
-        );
-        setDiscount(-35);
-        setAppliedPromoCode(code);
-      }
-    }  
-    else {
+    } else {
       alert(strings.invalidpromocode);
     }
     setPromoCode("");
@@ -240,42 +205,7 @@ const Cart = () => {
   }, []);
 
   if (cartItems.length === 0) {
-    return (
-      <SafeAreaView
-        style={[
-          cartitemstyle.container,
-          { backgroundColor: colors.colors.background },
-        ]}
-      >
-        <StatusBar style={statusBarStyle}/>
-        <View
-          style={[
-            cartitemstyle.headerContainer,
-            { backgroundColor: colors.colors.background },
-          ]}
-        >
-          <TouchableOpacity
-            style={cartitemstyle.backButton}
-            onPress={() => navigation.goBack()}
-          >
-            <Image
-              source={images.leftarrow}
-              style={cartitemstyle.leftarrowImage}
-            />
-          </TouchableOpacity>
-          <Text style={[cartitemstyle.header, { color: colors.colors.text }]}>
-            {strings.mycart}
-          </Text>
-        </View>
-        <View style={cartitemstyle.emptyCartContainer}>
-          <Text
-            style={[cartitemstyle.emptyCartText, { color: colors.colors.text }]}
-          >
-            {strings.yourcartempty}
-          </Text>
-        </View>
-      </SafeAreaView>
-    );
+    return <NoCartItems onBack={() => navigation.goBack()} />;
   }
 
   return (
@@ -285,336 +215,46 @@ const Cart = () => {
         { backgroundColor: colors.colors.background },
       ]}
     >
-      <View style={cartitemstyle.headerContainer}>
-        <TouchableOpacity
-          style={cartitemstyle.backButton}
-          onPress={() => navigation.goBack()}
-        >
-          <Image
-            source={images.leftarrow}
-            style={cartitemstyle.leftarrowImage}
-          />
-        </TouchableOpacity>
-        <Text style={[cartitemstyle.header, { color: colors.colors.text }]}>
-          {strings.mycart}
-        </Text>
-      </View>
+      <StatusBar style={statusBarStyle} />
+      <CartHeader onBack={() => navigation.goBack()} />
 
       <ScrollView showsVerticalScrollIndicator={false}>
         {cartItems.map((item) => (
-          <View key={item.id} style={cartitemstyle.cartItem}>
-            <Image source={item.image} style={cartitemstyle.itemImage} />
-
-            <View style={cartitemstyle.itemDetails}>
-              <Text
-                style={[cartitemstyle.itemName, { color: colors.colors.text }]}
-              >
-                {item.name}
-              </Text>
-              <Text
-                style={[cartitemstyle.itemSize, { color: colors.colors.text }]}
-              >
-                {strings.size} {item.size}
-              </Text>
-              <Text
-                style={[cartitemstyle.itemPrice, { color: colors.colors.text }]}
-              >
-                ${item.price.toFixed(2)}
-                {item.price < item.originalPrice && (
-                  <Text style={cartitemstyle.originalPrice}>
-                    {" "}
-                    ${item.originalPrice.toFixed(2)}
-                  </Text>
-                )}
-              </Text>
-            </View>
-
-            <View style={cartitemstyle.quantityControls}>
-              <TouchableOpacity
-                style={cartitemstyle.quantityButton}
-                onPress={() => handleDecrementQuantity(item.id)}
-              >
-                <Text style={cartitemstyle.quantityButtonText}>
-                  {strings.minus}
-                </Text>
-              </TouchableOpacity>
-
-              <Text
-                style={[
-                  cartitemstyle.quantityText,
-                  { color: colors.colors.text },
-                ]}
-              >
-                {item.quantity}
-              </Text>
-
-              <TouchableOpacity
-                style={cartitemstyle.quantityButton}
-                onPress={() => handleIncrementQuantity(item.id)}
-              >
-                <Text style={cartitemstyle.quantityButtonText}>
-                  {strings.plus}
-                </Text>
-              </TouchableOpacity>
-            </View>
-
-            <TouchableOpacity
-              style={cartitemstyle.deleteButton}
-              onPress={() => showRemoveConfirmation(item)}
-            >
-              <Text style={cartitemstyle.deleteButtonText}>🗑️</Text>
-            </TouchableOpacity>
-          </View>
+          <CartItemComponent
+            key={item.id}
+            item={item}
+            onIncrement={handleIncrementQuantity}
+            onDecrement={handleDecrementQuantity}
+            onRemove={showRemoveConfirmation}
+          />
         ))}
 
-        <View style={cartitemstyle.promoContainer}>
-          {appliedPromoCode ? (
-            <View style={cartitemstyle.appliedPromoContainer}>
-              <Text style={cartitemstyle.appliedPromoText}>
-                {appliedPromoCode}
-              </Text>
-              <TouchableOpacity
-                onPress={removePromoCode}
-                style={cartitemstyle.removePromoButton}
-              >
-                <Text style={cartitemstyle.removePromoButtonText}>{strings.cross}</Text>
-              </TouchableOpacity>
-            </View>
-          ) : (
-            <View style={cartitemstyle.promoInputContainer}>
-              <TextInput
-                style={[
-                  cartitemstyle.promoInput,
-                  { color: colors.colors.text },
-                ]}
-                placeholder={strings.promocode}
-                placeholderTextColor={Colors.zetgrey}
-                value={promoCode}
-                onChangeText={setPromoCode}
-              />
-              <TouchableOpacity
-                style={[
-                  cartitemstyle.applyButton,
-                  !promoCode.trim() && { opacity: 0.7 },
-                ]}
-                onPress={applyPromoCode}
-                disabled={!promoCode.trim()}
-              >
-                <Text style={cartitemstyle.applyButtonText}>
-                  {strings.apply}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          )}
-        </View>
-        <View style={cartitemstyle.couponselectContainer}>
-          <Text
-            style={[
-              cartitemstyle.couponvalidorpromo,
-              { color: colors.colors.text },
-            ]}
-          >
-            {strings.haveavalidcoupon}
-          </Text>
-          <TouchableOpacity
-            style={cartitemstyle.couponButton}
-            onPress={() => navigation.navigate("Coupons")}
-          >
-            <Text style={cartitemstyle.seeallcouponText}>{strings.seeallcoupons}</Text>
-            <Image
-              source={images.arrowright}
-              style={[
-                cartitemstyle.arrowrightImage,
-                { tintColor: colors.colors.tintColor },
-              ]}
-            />
-          </TouchableOpacity>
-        </View>
+        <PromoCodeSection
+          promoCode={promoCode}
+          appliedPromoCode={appliedPromoCode}
+          onChangePromoCode={setPromoCode}
+          onApplyPromoCode={applyPromoCode}
+          onRemovePromoCode={removePromoCode}
+        />
 
-        <View style={cartitemstyle.summary}>
-          <View style={cartitemstyle.summaryRow}>
-            <Text
-              style={[
-                cartitemstyle.summaryLabel,
-                { color: colors.colors.text },
-              ]}
-            >
-              {strings.subtotal}
-            </Text>
-            <Text
-              style={[
-                cartitemstyle.summaryValue,
-                { color: colors.colors.text },
-              ]}
-            >
-              ${subTotal.toFixed(2)}
-            </Text>
-          </View>
+        <CouponSelector />
 
-          <View style={cartitemstyle.summaryRow}>
-            <Text
-              style={[
-                cartitemstyle.summaryLabel,
-                { color: colors.colors.text },
-              ]}
-            >
-              {strings.deliveryfee}
-            </Text>
-            <Text
-              style={[
-                cartitemstyle.summaryValue,
-                { color: colors.colors.text },
-              ]}
-            >
-              ${deliveryFee.toFixed(2)}
-            </Text>
-          </View>
+        <OrderSummary
+          subTotal={subTotal}
+          deliveryFee={deliveryFee}
+          discount={discount}
+          totalCost={totalCost}
+        />
 
-          {discount !== 0 && (
-            <View style={cartitemstyle.summaryRow}>
-              <Text
-                style={[
-                  cartitemstyle.summaryLabel,
-                  { color: colors.colors.text },
-                ]}
-              >
-                {strings.discount}
-              </Text>
-              <Text
-                style={[
-                  cartitemstyle.summaryValue,
-                  { color: colors.colors.text },
-                ]}
-              >
-                ${discount.toFixed(2)}
-              </Text>
-            </View>
-          )}
-
-          <View style={[cartitemstyle.summaryRow, cartitemstyle.totalRow]}>
-            <Text
-              style={[cartitemstyle.totalLabel, { color: colors.colors.text }]}
-            >
-              {strings.totalcost}
-            </Text>
-            <Text
-              style={[cartitemstyle.totalValue, { color: colors.colors.text }]}
-            >
-              ${totalCost.toFixed(2)}
-            </Text>
-          </View>
-        </View>
-
-        <TouchableOpacity
-          style={cartitemstyle.checkoutButton}
-          onPress={() =>
-            navigation.navigate({
-              name: "Checkout",
-              params: {
-                selectedAddress: undefined,
-                selectedArrival: undefined,
-              },
-            })
-          }
-        >
-          <Text style={cartitemstyle.checkoutButtonText}>
-            {strings.proceedtocheckout}
-          </Text>
-        </TouchableOpacity>
+        <CheckoutButton />
       </ScrollView>
 
-      <Modal
-        animationType="slide"
-        transparent={true}
+      <RemoveItemModal
         visible={modalVisible}
-        onRequestClose={() => setModalVisible(false)}
-      >
-        <View style={cartitemstyle.modalOverlay}>
-          <View
-            style={[
-              cartitemstyle.modalContent,
-              { backgroundColor: colors.colors.background },
-            ]}
-          >
-            <Text
-              style={[cartitemstyle.modalTitle, { color: colors.colors.text }]}
-            >
-              {strings.removefromcart}
-            </Text>
-
-            {itemToRemove && (
-              <View style={cartitemstyle.modalItem}>
-                <Image
-                  source={itemToRemove.image}
-                  style={cartitemstyle.modalItemImage}
-                />
-                <View style={cartitemstyle.modalItemDetails}>
-                  <Text
-                    style={[
-                      cartitemstyle.modalItemName,
-                      { color: colors.colors.text },
-                    ]}
-                  >
-                    {itemToRemove.name}
-                  </Text>
-                  <Text
-                    style={[
-                      cartitemstyle.modalItemSize,
-                      { color: colors.colors.text },
-                    ]}
-                  >
-                    {strings.size} {itemToRemove.size}
-                  </Text>
-                  <Text
-                    style={[
-                      cartitemstyle.modalItemPrice,
-                      { color: colors.colors.text },
-                    ]}
-                  >
-                    ${itemToRemove.price.toFixed(2)}
-                  </Text>
-                </View>
-                <View style={cartitemstyle.modalQuantity}>
-                  <TouchableOpacity style={cartitemstyle.quantityButton}>
-                    <Text style={cartitemstyle.quantityButtonText}>
-                      {strings.minus}
-                    </Text>
-                  </TouchableOpacity>
-                  <Text
-                    style={[
-                      cartitemstyle.quantityText,
-                      { color: colors.colors.text },
-                    ]}
-                  >
-                    {itemToRemove.quantity}
-                  </Text>
-                  <TouchableOpacity style={cartitemstyle.quantityButton}>
-                    <Text style={cartitemstyle.quantityButtonText}>
-                      {strings.plus}
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-            )}
-
-            <View style={cartitemstyle.modalActions}>
-              <TouchableOpacity
-                style={cartitemstyle.cancelButton}
-                onPress={() => setModalVisible(false)}
-              >
-                <Text style={cartitemstyle.cancelButtonText}>{strings.cancel}</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                style={cartitemstyle.confirmButton}
-                onPress={confirmRemoveItem}
-              >
-                <Text style={cartitemstyle.confirmButtonText}>{strings.yesremove}</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-      </Modal>
+        item={itemToRemove}
+        onClose={() => setModalVisible(false)}
+        onConfirm={confirmRemoveItem}
+      />
     </View>
   );
 };
