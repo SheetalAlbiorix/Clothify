@@ -1,41 +1,41 @@
 {
   "project_info": {
-    "project_number": "46897939889",
-    "project_id": "clothify-app-4e38e",
-    "storage_bucket": "clothify-app-4e38e.firebasestorage.app"
+    "project_number": "20621500130",
+    "project_id": "clothifyapp-feacf",
+    "storage_bucket": "clothifyapp-feacf.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:46897939889:android:5193134377f62e7e41a990",
+        "mobilesdk_app_id": "1:20621500130:android:bdee6ceb7eb5bfbab508bb",
         "android_client_info": {
           "package_name": "com.anonymous.clothify"
         }
       },
       "oauth_client": [
         {
-          "client_id": "46897939889-c60ncrkschrls9uli56dftlc5nr7gfri.apps.googleusercontent.com",
+          "client_id": "20621500130-jl9rti5oer9ioubv5qieul72lou26k73.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.anonymous.clothify",
-            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+            "certificate_hash": "a0605ef04d277feb86286fbb95bd7fcd5c50f6d7"
           }
         },
         {
-          "client_id": "46897939889-qr0qibu4q1esbbdsbviet23vcnbcirsr.apps.googleusercontent.com",
+          "client_id": "20621500130-uovdvml6o4a161t62qr5fcr81837kjra.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBZrPvX_yTC8rp8iMAkpl_BgEapcXnHwo4"
+          "current_key": "AIzaSyBPy-rcA4SbsoMzYg0-BSTAxDVqhELT3GQ"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "46897939889-qr0qibu4q1esbbdsbviet23vcnbcirsr.apps.googleusercontent.com",
+              "client_id": "20621500130-uovdvml6o4a161t62qr5fcr81837kjra.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
