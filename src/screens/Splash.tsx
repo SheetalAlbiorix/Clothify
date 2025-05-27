@@ -25,43 +25,47 @@ const Splash = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = auth().onAuthStateChanged((user) => {
-      if (user) {
-        navigation.navigate("Tab");
-      } else {
-        navigation.navigate("Welcome");
-      }
-      setLoading(false);
-    });
+    const timeoutId = setTimeout(() => {
+      const unsubscribe = auth().onAuthStateChanged((user) => {
+        if (user) {
+          navigation.navigate("Tab");
+        } else {
+          navigation.navigate("Welcome");
+        }
+        setLoading(false);
+      });
 
-    return unsubscribe;
+      return () => unsubscribe();
+    }, 2000);
+
+    return () => clearTimeout(timeoutId);
   }, [navigation]);
 
   if (loading) {
-    return null;
+    return (
+      <View
+        style={[SplashStyle.container, { backgroundColor: colors.colors.background }]}
+      >
+        <View
+          style={[SplashStyle.UpperCircle, { borderColor: colors.colors.circlularborder }]}
+        />
+        <StatusBar style={statusBarStyle} />
+        <View style={SplashStyle.splashTextContainer}>
+          <View style={SplashStyle.circle}>
+            <Text style={SplashStyle.textF}>{strings.c}</Text>
+          </View>
+          <Text style={[SplashStyle.text, { color: colors.colors.text }]}>
+            {strings.clothify}
+          </Text>
+        </View>
+        <View
+          style={[SplashStyle.LowerCircle, { borderColor: colors.colors.circlularborder }]}
+        />
+      </View>
+    );
   }
 
-  return (
-    <View
-      style={[SplashStyle.container, { backgroundColor: colors.colors.background }]}
-    >
-      <View
-        style={[SplashStyle.UpperCircle, { borderColor: colors.colors.circlularborder }]}
-      />
-      <StatusBar style={statusBarStyle} />
-      <View style={SplashStyle.splashTextContainer}>
-        <View style={SplashStyle.circle}>
-          <Text style={SplashStyle.textF}>{strings.c}</Text>
-        </View>
-        <Text style={[SplashStyle.text, { color: colors.colors.text }]}>
-          {strings.clothify}
-        </Text>
-      </View>
-      <View
-        style={[SplashStyle.LowerCircle, { borderColor: colors.colors.circlularborder }]}
-      />
-    </View>
-  );
+  return null;
 };
 
 export default Splash;
