@@ -7,7 +7,7 @@ import { setupFCMListeners } from "./src/service/notificationListeners";
 import * as Screens from "./src/screens";
 import { auth } from "./src/service/auth";
 import { UserProvider } from "./src/hooks/userContext";
-import { ActiveOrder } from "./src/screens/MyOrders";
+import { ActiveOrder, OrderItem } from "./src/screens/MyOrders";
 import { SavedCardType } from "./src/screens/PaymentMethod";
 import { AddressType } from "./src/screens/ShippingAddress";
 import { ArrivalType } from "./src/screens/ChooseShipping";

@@ -4,8 +4,6 @@ import { MaterialIcons, FontAwesome5 } from "@expo/vector-icons";
 import { strings } from "../utils/strings";
 import { useColors } from "../hooks/useColors";
 import { Colors } from "../utils/Colors";
-import { borderStyles, layout, Spacing } from "./layout";
-import { Fonts } from "./fonts";
 import { orderstatusstyle } from "../styles/OrderStatusStyle";
 
 interface OrderStatus {
@@ -51,7 +49,12 @@ const OrderStatusTimeline = ({
           </View>
 
           <View style={orderstatusstyle.statusDetails}>
-            <Text style={[orderstatusstyle.statusTitle, { color: colors.colors.text }]}>
+            <Text
+              style={[
+                orderstatusstyle.statusTitle,
+                { color: colors.colors.text },
+              ]}
+            >
               {status.title}
             </Text>
             <Text style={orderstatusstyle.statusDate}>{status.date}</Text>
@@ -105,13 +108,14 @@ const OrderStatusView = () => {
 
   return (
     <View style={orderstatusstyle.orderstatusContainer}>
-      <Text style={[orderstatusstyle.headerText, { color: colors.colors.text }]}>
+      <Text
+        style={[orderstatusstyle.headerText, { color: colors.colors.text }]}
+      >
         {strings.orderstatus}
       </Text>
       <OrderStatusTimeline orderStatuses={orderStatuses} />
     </View>
   );
 };
-
 
 export default OrderStatusView;

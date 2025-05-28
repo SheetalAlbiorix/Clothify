@@ -1,10 +1,4 @@
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  TextInput,
-} from "react-native";
+import { View, Text, Image, TouchableOpacity, TextInput } from "react-native";
 import React, { useState } from "react";
 import { strings } from "../utils/strings";
 import { images } from "../utils/images";
@@ -221,7 +215,9 @@ const PasswordManager = () => {
           style={passmanagerstyle.changebutton}
           onPress={handlePasswordChange}
         >
-          <Text style={passmanagerstyle.changepassText}>{strings.changepassword}</Text>
+          <Text style={passmanagerstyle.changepassText}>
+            {strings.changepassword}
+          </Text>
         </TouchableOpacity>
       </View>
     </View>

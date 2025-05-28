@@ -46,14 +46,14 @@ export const productstyle = StyleSheet.create({
     ...layout.customSmallWidth,
     ...layout.customSmallHeight,
     tintColor: Colors.black,
-  }as ImageStyle,
+  } as ImageStyle,
   icon1: {
     ...layout.customSmallWidth,
     ...layout.customSmallHeight,
     tintColor: Colors.mediumbrown,
-  }as ImageStyle,
+  } as ImageStyle,
   headerText: {
-    ...Fonts.size_18,
+    ...Fonts.size_24,
     ...Fonts.weight_900,
     ...textStyles.centerText,
     ...layout.flex_1,
@@ -62,7 +62,7 @@ export const productstyle = StyleSheet.create({
     ...layout.width_420,
     ...layout.height_400,
     ...layout.resizeCover,
-  }as ImageStyle,
+  } as ImageStyle,
   infoContainer: {
     ...Spacing.paddingHorizontal_20,
     ...Spacing.paddingBottom_30,
@@ -79,7 +79,7 @@ export const productstyle = StyleSheet.create({
     ...Fonts.size_18,
     ...Fonts.weight_900,
     ...Spacing.marginTop_15,
-    ...Spacing.marginHorizontal_20
+    ...Spacing.marginHorizontal_20,
   },
   description: {
     ...Fonts.size_14,
@@ -92,7 +92,7 @@ export const productstyle = StyleSheet.create({
   sizeContainer: {
     ...layout.row,
     ...Spacing.marginTop_10,
-    ...Spacing.marginHorizontal_20
+    ...Spacing.marginHorizontal_20,
   },
   sizeBox: {
     ...Spacing.paddingVertical_8,
@@ -115,7 +115,7 @@ export const productstyle = StyleSheet.create({
     ...borderStyles.rounded_100,
     ...layout.width_175,
     backgroundColor: Colors.white,
-    ...Spacing.marginBottom_20
+    ...Spacing.marginBottom_20,
   },
   footerContainer: {
     ...layout.row,
@@ -154,7 +154,7 @@ export const productstyle = StyleSheet.create({
   starIcon: {
     ...layout.height_30,
     ...layout.width_30,
-  }as ImageStyle,
+  } as ImageStyle,
   icontextContainer: {
     ...layout.row,
     ...layout.justifyBetween,
@@ -177,7 +177,7 @@ export const productstyle = StyleSheet.create({
     ...borderStyles.w_2,
     ...borderStyles.transparent,
     ...layout.itemsCenter,
-    ...layout.justifyCenter
+    ...layout.justifyCenter,
   },
   selectedIndicator: {
     ...layout.width_20,
@@ -185,8 +185,8 @@ export const productstyle = StyleSheet.create({
     ...borderStyles.rounded_10,
     backgroundColor: Colors.white,
     ...layout.itemsCenter,
-    ...layout.justifyCenter
-  },  
+    ...layout.justifyCenter,
+  },
   selectedColorBox: {
     borderColor: Colors.lightgrey,
   },
@@ -220,7 +220,7 @@ export const productstyle = StyleSheet.create({
     ...layout.fullWidth,
     ...layout.fullHeight,
     ...layout.resizeCover,
-  }as ImageStyle,
+  } as ImageStyle,
 
   selectedThumbnail: {
     borderColor: Colors.brown,
@@ -231,5 +231,5 @@ export const productstyle = StyleSheet.create({
     ...layout.width_30,
     ...Spacing.margin_10,
     tintColor: Colors.white,
-  }as ImageStyle,
+  } as ImageStyle,
 });

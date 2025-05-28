@@ -2,7 +2,6 @@ import React from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { leavereviewstyle } from "../styles/LeaveReviewStyle";
 import { strings } from "../utils/strings";
-import { Colors } from "../utils/Colors";
 import { useColors } from "../hooks/useColors";
 
 type ProductInfoProps = {

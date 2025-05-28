@@ -32,4 +32,3 @@ export const NoOrderFound = () => {
     </View>
   );
 };
-

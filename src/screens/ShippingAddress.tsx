@@ -54,9 +54,9 @@ const ShippingAddress = () => {
   };
 
   const addNewShippingAddress = () => {
-    console.log('clicked')
-  }
- 
+    console.log("clicked");
+  };
+
   return (
     <View
       style={[
@@ -125,7 +125,10 @@ const ShippingAddress = () => {
         )}
       />
       <View style={shippingAddressStyle.addnewshipping}>
-        <TouchableOpacity style={shippingAddressStyle.addnewshippingbutton} onPress={addNewShippingAddress}>
+        <TouchableOpacity
+          style={shippingAddressStyle.addnewshippingbutton}
+          onPress={addNewShippingAddress}
+        >
           <Image
             source={images.plusIcon}
             style={shippingAddressStyle.plusIcon}

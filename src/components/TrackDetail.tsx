@@ -5,7 +5,7 @@ import { trackorderstyle } from "../styles/TrackOrderStyle";
 import { useColors } from "../hooks/useColors";
 
 const TrackDetail = () => {
-    const colors = useColors();
+  const colors = useColors();
   return (
     <View>
       <View style={trackorderstyle.orderDetailsContainer}>

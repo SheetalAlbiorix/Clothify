@@ -19,10 +19,13 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../App";
 
 const genderOptions = [strings.male, strings.female];
-type completeprofileNavigationProp = StackNavigationProp<RootStackParamList, "CompleteProfile">;
+type completeprofileNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  "CompleteProfile"
+>;
 
 const CompleteProfile = () => {
-   const navigation = useNavigation<completeprofileNavigationProp>();
+  const navigation = useNavigation<completeprofileNavigationProp>();
   const { statusBarStyle } = useTheme();
   const colors = useColors();
 
@@ -61,7 +64,7 @@ const CompleteProfile = () => {
 
   const handleCompleteProfile = () => {
     if (isValid) {
-      navigation.navigate('AllowLocation')
+      navigation.navigate("AllowLocation");
       console.log(strings.profilecompleted);
     }
   };
@@ -203,7 +206,9 @@ const CompleteProfile = () => {
         onPress={handleCompleteProfile}
         disabled={!isValid}
       >
-        <Text style={compProfileStyle.buttonText}>{strings.completeprofile}</Text>
+        <Text style={compProfileStyle.buttonText}>
+          {strings.completeprofile}
+        </Text>
       </TouchableOpacity>
     </View>
   );

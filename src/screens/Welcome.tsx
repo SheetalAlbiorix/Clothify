@@ -28,20 +28,11 @@ const Welcome = () => {
 
       <View style={welcomestyle.imageContainer}>
         <View style={welcomestyle.largeImageWrapper}>
-          <Image
-            source={images.photo3}
-            style={welcomestyle.largeImage}
-          />
+          <Image source={images.photo3} style={welcomestyle.largeImage} />
         </View>
         <View style={welcomestyle.smallImagesWrapper}>
-          <Image
-            source={images.photo2}
-            style={welcomestyle.smallImage1}
-          />
-          <Image
-            source={images.photo1}
-            style={welcomestyle.smallImage2}
-          />
+          <Image source={images.photo2} style={welcomestyle.smallImage1} />
+          <Image source={images.photo1} style={welcomestyle.smallImage2} />
         </View>
       </View>
 

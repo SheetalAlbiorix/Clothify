@@ -525,6 +525,7 @@ export const strings = {
   numbers: "12345",
   sampleItems: "Sample Item",
   fotynine: "49.99",
+  deleteIcon: "🗑️",
 }
 
 export const localizedStrings = {

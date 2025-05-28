@@ -4,7 +4,14 @@ import { categoryfilterstyle } from "../styles/CategoryFilterStyle";
 import { strings } from "../utils/strings";
 import { useColors } from "../hooks/useColors";
 
-const categories = [strings.All, strings.Newest, strings.Popular, strings.Man, strings.Women, strings.Kids];
+const categories = [
+  strings.All,
+  strings.Newest,
+  strings.Popular,
+  strings.Man,
+  strings.Women,
+  strings.Kids,
+];
 
 const CategoryFilterCarousel = () => {
   const [selected, setSelected] = useState(strings.All);
@@ -14,10 +21,21 @@ const CategoryFilterCarousel = () => {
     const isSelected = item === selected;
     return (
       <TouchableOpacity
-        style={[categoryfilterstyle.button, isSelected && categoryfilterstyle.selectedButton]}
+        style={[
+          categoryfilterstyle.button,
+          isSelected && categoryfilterstyle.selectedButton,
+        ]}
         onPress={() => setSelected(item)}
       >
-        <Text style={[[categoryfilterstyle.buttonText, {color: colors.colors.text}], isSelected && [categoryfilterstyle.selectedText, {color: colors.colors.caroselText}]]}>
+        <Text
+          style={[
+            [categoryfilterstyle.buttonText, { color: colors.colors.text }],
+            isSelected && [
+              categoryfilterstyle.selectedText,
+              { color: colors.colors.caroselText },
+            ],
+          ]}
+        >
           {item}
         </Text>
       </TouchableOpacity>

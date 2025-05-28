@@ -1,7 +1,6 @@
 import React from "react";
 import { View, TouchableOpacity, Image } from "react-native";
 import Swiper from "react-native-swiper";
-
 import { Onboardstyles } from "../styles/OnboradStyle";
 import { images } from "../utils/images";
 

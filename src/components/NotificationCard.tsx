@@ -109,7 +109,7 @@ const NotificationCard = ({
                 { color: colors.colors.text },
               ]}
             >
-              {subtitle} 
+              {subtitle}
             </Text>
           </View>
         </View>

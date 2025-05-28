@@ -1,5 +1,11 @@
 import React from "react";
-import { View, Text, SafeAreaView, TouchableOpacity, Image } from "react-native";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  TouchableOpacity,
+  Image,
+} from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { images } from "../utils/images";
 import { strings } from "../utils/strings";
@@ -14,7 +20,7 @@ interface NoCartItemsProps {
 export const NoCartItems = React.memo(({ onBack }: NoCartItemsProps) => {
   const colors = useColors();
   const { statusBarStyle } = useTheme();
-  
+
   return (
     <SafeAreaView
       style={[
@@ -22,17 +28,14 @@ export const NoCartItems = React.memo(({ onBack }: NoCartItemsProps) => {
         { backgroundColor: colors.colors.background },
       ]}
     >
-      <StatusBar style={statusBarStyle}/>
+      <StatusBar style={statusBarStyle} />
       <View
         style={[
           cartitemstyle.headerContainer,
           { backgroundColor: colors.colors.background },
         ]}
       >
-        <TouchableOpacity
-          style={cartitemstyle.backButton}
-          onPress={onBack}
-        >
+        <TouchableOpacity style={cartitemstyle.backButton} onPress={onBack}>
           <Image
             source={images.leftarrow}
             style={cartitemstyle.leftarrowImage}

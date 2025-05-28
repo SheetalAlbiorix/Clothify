@@ -8,7 +8,10 @@ type LeaveFooterButtonsProps = {
   onSubmit: () => void;
 };
 
-const LeaveFooterButtons: React.FC<LeaveFooterButtonsProps> = ({ onCancel, onSubmit }) => (
+const LeaveFooterButtons: React.FC<LeaveFooterButtonsProps> = ({
+  onCancel,
+  onSubmit,
+}) => (
   <View style={leavereviewstyle.footer}>
     <TouchableOpacity style={leavereviewstyle.cancelButton} onPress={onCancel}>
       <Text style={leavereviewstyle.cancelText}>{strings.cancel}</Text>

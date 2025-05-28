@@ -3,6 +3,7 @@ import { useColors } from "../hooks/useColors";
 import { productstyle } from "../styles/ProductDetailStyle";
 import { images } from "../utils/images";
 import { strings } from "../utils/strings";
+import React from "react";
 
 const ProductHeader = ({ navigation }: any) => {
   const colors = useColors();

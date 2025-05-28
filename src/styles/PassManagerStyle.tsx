@@ -45,7 +45,7 @@ export const passmanagerstyle = StyleSheet.create({
   },
   mainContainer: {
     ...Spacing.paddingHorizontal_20,
-    ...layout.flex_1
+    ...layout.flex_1,
   },
   input: {
     ...layout.fullWidth,
@@ -78,7 +78,7 @@ export const passmanagerstyle = StyleSheet.create({
     ...Spacing.marginLeft_5,
   },
   forgotpasscontainer: {
-    ...Spacing.paddingTop_15
+    ...Spacing.paddingTop_15,
   },
   forgotpass: {
     ...textStyles.EndText,

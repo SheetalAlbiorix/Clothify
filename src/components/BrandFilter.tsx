@@ -4,22 +4,41 @@ import { categoryfilterstyle } from "../styles/CategoryFilterStyle";
 import { strings } from "../utils/strings";
 import { useColors } from "../hooks/useColors";
 
-const categories = [strings.All, strings.Nike, strings.Puma, strings.Adidas, strings.Jordans, strings.Reebok];
+const categories = [
+  strings.All,
+  strings.Nike,
+  strings.Puma,
+  strings.Adidas,
+  strings.Jordans,
+  strings.Reebok,
+];
 
 type BrandFilterProps = {
   selected: string;
   onSelect: (value: string) => void;
 };
 
-const BrandFilter: React.FC<BrandFilterProps> = ({ selected, onSelect }) => {  const colors = useColors();
+const BrandFilter: React.FC<BrandFilterProps> = ({ selected, onSelect }) => {
+  const colors = useColors();
   const renderItem = ({ item }: { item: string }) => {
     const isSelected = item === selected;
     return (
       <TouchableOpacity
-        style={[categoryfilterstyle.button, isSelected && categoryfilterstyle.selectedButton]}
+        style={[
+          categoryfilterstyle.button,
+          isSelected && categoryfilterstyle.selectedButton,
+        ]}
         onPress={() => onSelect(item)}
       >
-        <Text style={[[categoryfilterstyle.buttonText, {color: colors.colors.text}], isSelected && [categoryfilterstyle.selectedText, {color: colors.colors.caroselText}]]}>
+        <Text
+          style={[
+            [categoryfilterstyle.buttonText, { color: colors.colors.text }],
+            isSelected && [
+              categoryfilterstyle.selectedText,
+              { color: colors.colors.caroselText },
+            ],
+          ]}
+        >
           {item}
         </Text>
       </TouchableOpacity>

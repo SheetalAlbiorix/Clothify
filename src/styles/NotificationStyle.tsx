@@ -73,8 +73,8 @@ export const notificationstyle = StyleSheet.create({
   shippingtruckIcon: {
     ...layout.width_40,
     ...layout.height_40,
-    tintColor: Colors.darkcoffee
-  },
+    tintColor: Colors.darkcoffee,
+  } as ImageStyle,
   imagecontainer: {
     backgroundColor: Colors.lightgrey,
     ...borderStyles.rounded_35,
@@ -117,7 +117,7 @@ export const notificationstyle = StyleSheet.create({
   timeText: {
     ...Fonts.size_14,
     ...Fonts.weight_600,
-    color: Colors.zetgrey
+    color: Colors.zetgrey,
   },
   yourorderpara: {
     ...Fonts.size_14,
@@ -155,7 +155,7 @@ export const notificationstyle = StyleSheet.create({
   },
   timeText2: {
     ...Fonts.size_14,
-    color: Colors.zetgrey
+    color: Colors.zetgrey,
   },
   yourorderpara2: {
     ...Fonts.size_16,
@@ -163,8 +163,8 @@ export const notificationstyle = StyleSheet.create({
   shippingtruckIcon2: {
     ...layout.width_40,
     ...layout.height_40,
-    tintColor: Colors.darkcoffee
-  },
+    tintColor: Colors.darkcoffee,
+  } as ImageStyle,
   imagecontainer2: {
     backgroundColor: Colors.white,
     ...borderStyles.rounded_35,
@@ -176,11 +176,11 @@ export const notificationstyle = StyleSheet.create({
   walletIcon: {
     ...layout.width_medsmall,
     ...layout.height_medsmall,
-    tintColor: Colors.darkcoffee
+    tintColor: Colors.darkcoffee,
   },
   cartIcon: {
     ...layout.width_small,
     ...layout.height_small,
-    tintColor: Colors.darkcoffee
+    tintColor: Colors.darkcoffee,
   },
 });

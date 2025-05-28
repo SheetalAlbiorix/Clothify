@@ -36,7 +36,10 @@ const PricingRange: React.FC<PricingRangeProps> = ({ value, onChange }) => {
 
       <View style={styles.labelsContainer}>
         {[2, 7, 22, 50, 100, "150+"].map((label, index) => (
-          <Text key={index} style={[styles.label, { color: colors.colors.text }]}>
+          <Text
+            key={index}
+            style={[styles.label, { color: colors.colors.text }]}
+          >
             {label}
           </Text>
         ))}

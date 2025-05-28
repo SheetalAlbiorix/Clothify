@@ -8,6 +8,8 @@ import { Colors } from "../utils/Colors";
 import PasswordInput from "../components/PasswordInput";
 import ErrorMessage from "../components/ErrorMessage";
 import PasswordSubmitButton from "../components/PasswordSubmitButton";
+import { StatusBar } from "expo-status-bar";
+import { useTheme } from "../themes/theme";
 
 type RootStackParamList = {
   CompleteProfile: undefined;
@@ -16,7 +18,7 @@ type RootStackParamList = {
 const NewPassword = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const colors = useColors();
-
+  const { statusBarStyle } = useTheme();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [securePassword, setSecurePassword] = useState(true);
@@ -55,6 +57,7 @@ const NewPassword = () => {
         { backgroundColor: colors.colors.background },
       ]}
     >
+      <StatusBar style={statusBarStyle} />
       <View style={newpassstyle.verifyTextContainer}>
         <Text style={[newpassstyle.heading, { color: colors.colors.text }]}>
           {strings.newPassword}

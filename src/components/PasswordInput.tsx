@@ -1,7 +1,7 @@
-import React from 'react';
-import { TextInput, TouchableOpacity, Image, View, Text } from 'react-native';
-import { images } from '../utils/images';
-import { newpassstyle } from '../styles/NewPassStyle';
+import React from "react";
+import { TextInput, TouchableOpacity, Image, View, Text } from "react-native";
+import { images } from "../utils/images";
+import { newpassstyle } from "../styles/NewPassStyle";
 
 interface PasswordInputProps {
   label: string;
@@ -20,7 +20,7 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
   secureTextEntry,
   toggleSecureTextEntry,
   placeholder,
-  placeholderTextColor
+  placeholderTextColor,
 }) => {
   return (
     <View style={newpassstyle.inputContainer}>

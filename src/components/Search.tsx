@@ -109,7 +109,9 @@ const Search = () => {
           style={searchstyle.clearAllButton}
           onPress={() => setRecents([])}
         >
-          <Text style={[searchstyle.clearAllText, { color: colors.colors.text }]}>
+          <Text
+            style={[searchstyle.clearAllText, { color: colors.colors.text }]}
+          >
             {strings.ClearAll}
           </Text>
         </TouchableOpacity>
@@ -126,7 +128,9 @@ const Search = () => {
               style={searchstyle.clearAllButton}
               onPress={() => handleRecentPress(item.name)}
             >
-              <Text style={[searchstyle.searchname, { color: colors.colors.text }]}>
+              <Text
+                style={[searchstyle.searchname, { color: colors.colors.text }]}
+              >
                 {item.name}
               </Text>
             </TouchableOpacity>

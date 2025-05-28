@@ -4,7 +4,13 @@ import { categoryfilterstyle } from "../styles/CategoryFilterStyle";
 import { strings } from "../utils/strings";
 import { useColors } from "../hooks/useColors";
 
-const gender = [strings.mostrecent, strings.Popular, strings.pricehigh, strings.pricelow, strings.trending];
+const gender = [
+  strings.mostrecent,
+  strings.Popular,
+  strings.pricehigh,
+  strings.pricelow,
+  strings.trending,
+];
 type SortByFilterProps = {
   selected: string;
   onSelect: (value: string) => void;

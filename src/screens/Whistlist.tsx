@@ -1,11 +1,4 @@
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  FlatList,
-  ScrollView,
-} from "react-native";
+import { View, Text, Image, TouchableOpacity, FlatList } from "react-native";
 import React from "react";
 import { whistliststyle } from "../styles/WhistlistStyle";
 import { images } from "../utils/images";
@@ -16,7 +9,6 @@ import { useTheme } from "../themes/theme";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../App";
 import { strings } from "../utils/strings";
-import CategoryFilterCarousel from "../components/CategoryFilter";
 import WhistlistCategory from "../components/WhistlistCategory";
 
 type WhistListNavigationProp = StackNavigationProp<

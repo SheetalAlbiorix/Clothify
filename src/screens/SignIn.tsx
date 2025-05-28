@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, Image, Alert } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Image,
+  Alert,
+} from "react-native";
 import { SignInStyle } from "../styles/SignInStyle";
 import { useColors } from "../hooks/useColors";
 import { useTheme } from "../themes/theme";
@@ -10,7 +17,7 @@ import { strings } from "../utils/strings";
 import { Ionicons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 import { images } from "../utils/images";
-import { auth, signInWithEmail, signInWithGoogle } from "../service/auth";
+import { signInWithEmail, signInWithGoogle } from "../service/auth";
 import { useUser } from "../hooks/userContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -52,68 +59,64 @@ const SignIn = () => {
 
   const isFormValid = !emailError && !passwordError && email && password;
 
+  const handleSignIn = async () => {
+    try {
+      const userCredential = await signInWithEmail(email, password);
+      const user = userCredential.user;
+      console.log(strings.usersignedin, user.uid);
 
-const handleSignIn = async () => {
-  try {
-    const userCredential = await signInWithEmail(email, password);
-    const user = userCredential.user;
-    console.log(strings.usersignedin, user.uid);
+      const defaultPhotoUri = Image.resolveAssetSource(images.profileIcon).uri;
 
-    const defaultPhotoUri = Image.resolveAssetSource(images.profileIcon).uri;
+      const nameToSet = user.displayName || "Guest";
+      const photoToSet = user.photoURL || defaultPhotoUri;
 
-    const nameToSet = user.displayName || "Guest";
-    const photoToSet = user.photoURL || defaultPhotoUri;
+      setName(nameToSet);
+      setPhotoUrl(photoToSet);
 
-    setName(nameToSet);
-    setPhotoUrl(photoToSet);
+      await AsyncStorage.setItem("userName", nameToSet);
+      await AsyncStorage.setItem("userPhotoUrl", photoToSet);
 
-    await AsyncStorage.setItem("userName", nameToSet);
-    await AsyncStorage.setItem("userPhotoUrl", photoToSet);
-
-    navigation.navigate("Tab", { name: "Home", location: "" });
-  } catch (error: any) {
-    if (error.code === strings.authusernotfound) {
-      console.log(strings.noaccountfound);
-    } else if (error.code === strings.authwrongpassword) {
-      console.log(strings.incorrectpassword);
-    } else if (error.code === strings.authinvalidemail) {
-      console.log(strings.invalidemail);
-    } else {
-      Alert.alert(strings.signinFailed, error.message);
+      navigation.navigate("Tab", { name: "Home", location: "" });
+    } catch (error: any) {
+      if (error.code === strings.authusernotfound) {
+        console.log(strings.noaccountfound);
+      } else if (error.code === strings.authwrongpassword) {
+        console.log(strings.incorrectpassword);
+      } else if (error.code === strings.authinvalidemail) {
+        console.log(strings.invalidemail);
+      } else {
+        Alert.alert(strings.signinFailed, error.message);
+      }
     }
-  }
-};
-
-  
-  
-
+  };
 
   const handleGooglePress = async () => {
     try {
       const userCredential = await signInWithGoogle();
       const user = userCredential.user;
-  
+
       if (!user) {
         throw new Error(strings.nouserreturned);
       }
-  
+
       console.log(strings.googleusersignedin, user.uid);
-  
+
       setName(user.displayName || "Guest");
       setPhotoUrl(user.photoURL || null);
-  
+
       navigation.navigate("Tab", { name: "Home", location: "" });
     } catch (error: any) {
       console.error(strings.googlesigninerror, error);
       Alert.alert(strings.googlesigninfailed, error.message);
     }
   };
-  
-
 
   return (
     <View
-      style={[SignInStyle.container, { backgroundColor: colors.colors.background }]}
+      style={[
+        SignInStyle.container,
+        { backgroundColor: colors.colors.background },
+      ]}
     >
       <StatusBar style={statusBarStyle} />
       <View style={SignInStyle.singinTextContainer}>
@@ -121,14 +124,20 @@ const handleSignIn = async () => {
           {strings.signIn}
         </Text>
         <Text
-          style={[SignInStyle.SignIntextSecondary, { color: colors.colors.textAccent }]}
+          style={[
+            SignInStyle.SignIntextSecondary,
+            { color: colors.colors.textAccent },
+          ]}
         >
           {strings.Hiwelcometextmissed}
         </Text>
       </View>
 
       <View
-        style={[SignInStyle.inputContainer, { backgroundColor: colors.colors.background }]}
+        style={[
+          SignInStyle.inputContainer,
+          { backgroundColor: colors.colors.background },
+        ]}
       >
         <Text style={[SignInStyle.label, { color: colors.colors.text }]}>
           {strings.email}
@@ -142,7 +151,9 @@ const handleSignIn = async () => {
           keyboardType="email-address"
           autoCapitalize="none"
         />
-        {emailError ? <Text style={SignInStyle.errorText}>{emailError}</Text> : null}
+        {emailError ? (
+          <Text style={SignInStyle.errorText}>{emailError}</Text>
+        ) : null}
 
         <Text style={[SignInStyle.label, { color: colors.colors.text }]}>
           {strings.password}
@@ -167,7 +178,9 @@ const handleSignIn = async () => {
             />
           </TouchableOpacity>
         </View>
-        {passwordError ? <Text style={SignInStyle.errorText}>{passwordError}</Text> : null}
+        {passwordError ? (
+          <Text style={SignInStyle.errorText}>{passwordError}</Text>
+        ) : null}
       </View>
 
       <TouchableOpacity onPress={() => navigation.navigate("NewPass")}>
@@ -187,12 +200,18 @@ const handleSignIn = async () => {
       </Text>
 
       <View
-        style={[SignInStyle.socialContainer, { backgroundColor: colors.colors.background }]}
+        style={[
+          SignInStyle.socialContainer,
+          { backgroundColor: colors.colors.background },
+        ]}
       >
         <TouchableOpacity style={SignInStyle.socialButton}>
           <Image
             source={images.appleIcon}
-            style={[SignInStyle.socialIcon, { tintColor: colors.colors.tintColor }]}
+            style={[
+              SignInStyle.socialIcon,
+              { tintColor: colors.colors.tintColor },
+            ]}
           />
         </TouchableOpacity>
         <TouchableOpacity

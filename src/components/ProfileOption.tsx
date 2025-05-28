@@ -2,6 +2,7 @@ import { Image, Text, TouchableOpacity, View } from "react-native";
 import { useColors } from "../hooks/useColors";
 import { profilestyle } from "../styles/ProfileStyle";
 import { images } from "../utils/images";
+import React from "react";
 
 export const ProfileOption = ({
   icon,

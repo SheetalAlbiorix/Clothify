@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Colors } from "../utils/Colors";
 import { Fonts } from "./fonts";
 import { borderStyles, layout, Spacing } from "./layout";
+import { strings } from "../utils/strings";
 
 interface CheckboxLabelProps {
   checked: boolean;
@@ -18,7 +19,7 @@ const LabelCheck: React.FC<CheckboxLabelProps> = ({
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={onPress} style={styles.checkbox}>
-        {checked && <Text style={styles.checkmark}>✓</Text>}
+        {checked && <Text style={styles.checkmark}>{strings.tick}</Text>}
       </TouchableOpacity>
       <TouchableOpacity onPress={onPress}>
         <Text style={styles.label}>{label}</Text>

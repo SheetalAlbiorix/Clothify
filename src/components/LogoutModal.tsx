@@ -4,6 +4,7 @@ import { Colors } from "../utils/Colors";
 import { borderStyles, layout, shadowStyles, Spacing } from "./layout";
 import { Fonts } from "./fonts";
 import { strings } from "../utils/strings";
+import React from "react";
 
 export const LogoutModal = ({ isVisible, onCancel, onLogout }: any) => {
   const colors = useColors();

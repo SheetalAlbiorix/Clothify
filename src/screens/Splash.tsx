@@ -16,7 +16,10 @@ type RootStackParamList = {
   Tab: undefined;
 };
 
-type SplashScreenNavigationProp = StackNavigationProp<RootStackParamList, "Splash">;
+type SplashScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  "Splash"
+>;
 
 const Splash = () => {
   const { statusBarStyle } = useTheme();
@@ -44,10 +47,16 @@ const Splash = () => {
   if (loading) {
     return (
       <View
-        style={[SplashStyle.container, { backgroundColor: colors.colors.background }]}
+        style={[
+          SplashStyle.container,
+          { backgroundColor: colors.colors.background },
+        ]}
       >
         <View
-          style={[SplashStyle.UpperCircle, { borderColor: colors.colors.circlularborder }]}
+          style={[
+            SplashStyle.UpperCircle,
+            { borderColor: colors.colors.circlularborder },
+          ]}
         />
         <StatusBar style={statusBarStyle} />
         <View style={SplashStyle.splashTextContainer}>
@@ -59,7 +68,10 @@ const Splash = () => {
           </Text>
         </View>
         <View
-          style={[SplashStyle.LowerCircle, { borderColor: colors.colors.circlularborder }]}
+          style={[
+            SplashStyle.LowerCircle,
+            { borderColor: colors.colors.circlularborder },
+          ]}
         />
       </View>
     );

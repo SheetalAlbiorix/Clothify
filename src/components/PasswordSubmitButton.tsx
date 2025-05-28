@@ -1,6 +1,6 @@
-import React from 'react';
-import { TouchableOpacity, Text } from 'react-native';
-import { newpassstyle } from '../styles/NewPassStyle';
+import React from "react";
+import { TouchableOpacity, Text } from "react-native";
+import { newpassstyle } from "../styles/NewPassStyle";
 
 interface PasswordSubmitButtonProps {
   isEnabled: boolean;
@@ -13,7 +13,7 @@ const PasswordSubmitButton: React.FC<PasswordSubmitButtonProps> = ({
   isEnabled,
   onPress,
   buttonText,
-  backgroundColor
+  backgroundColor,
 }) => {
   return (
     <TouchableOpacity

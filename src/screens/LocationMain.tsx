@@ -181,14 +181,14 @@ const LocationMain = () => {
         />
       ) : (
         <View style={locationmainstyle.noResultsContainer}>
-        <Text
-          style={[
-            locationmainstyle.noResultsText,
-            { color: colors.colors.text },
-          ]}
-        >
-          {strings.noresultsfound}
-        </Text>
+          <Text
+            style={[
+              locationmainstyle.noResultsText,
+              { color: colors.colors.text },
+            ]}
+          >
+            {strings.noresultsfound}
+          </Text>
         </View>
       )}
     </View>

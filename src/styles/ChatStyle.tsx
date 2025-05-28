@@ -1,6 +1,11 @@
 import { ImageStyle, StyleSheet } from "react-native";
 import { Colors } from "../utils/Colors";
-import { borderStyles, layout, Spacing, textStyles } from "../components/layout";
+import {
+  borderStyles,
+  layout,
+  Spacing,
+  textStyles,
+} from "../components/layout";
 import { Fonts } from "../components/fonts";
 
 export const chatstyle = StyleSheet.create({

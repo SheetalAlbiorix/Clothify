@@ -21,7 +21,7 @@ export const Onboardstyles = StyleSheet.create({
   image: {
     ...layout.mediumWidth,
     ...layout.AverageHeight,
-    ...layout.resizeContain
+    ...layout.resizeContain,
   } as ImageStyle,
   text: {
     ...Fonts.size_20,
@@ -102,10 +102,10 @@ export const Onboardstyles = StyleSheet.create({
     ...layout.width_30,
     ...layout.height_30,
     tintColor: Colors.darkbrown,
-  }as ImageStyle,
+  } as ImageStyle,
   rightarrowIcon: {
     ...layout.width_30,
     ...layout.height_30,
     tintColor: Colors.white,
-  }as ImageStyle,
+  } as ImageStyle,
 });

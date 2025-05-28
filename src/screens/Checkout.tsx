@@ -62,7 +62,7 @@ const Checkout = () => {
         { backgroundColor: colors.colors.background },
       ]}
     >
-      <StatusBar style={statusBarStyle}/>
+      <StatusBar style={statusBarStyle} />
       <View style={checkoutstyle.headerContainer}>
         <TouchableOpacity
           style={checkoutstyle.backButton}
@@ -206,13 +206,15 @@ const Checkout = () => {
       >
         <TouchableOpacity
           style={checkoutstyle.paymentButton}
-          onPress={() => navigation.navigate({
-            name: "PaymentMethod",
-            params: {
-              selectedAddress,
-              selectedArrival,
-            },
-          })}
+          onPress={() =>
+            navigation.navigate({
+              name: "PaymentMethod",
+              params: {
+                selectedAddress,
+                selectedArrival,
+              },
+            })
+          }
         >
           <Text style={checkoutstyle.paymentText}>
             {strings.continuepayment}

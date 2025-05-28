@@ -3,6 +3,7 @@ import { useColors } from "../hooks/useColors";
 import { productstyle } from "../styles/ProductDetailStyle";
 import { strings } from "../utils/strings";
 import { Colors } from "../utils/Colors";
+import React from "react";
 
 const ProductSizeSelector = ({
   selectedSize,

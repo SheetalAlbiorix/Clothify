@@ -76,8 +76,6 @@ const contacts = [
   },
 ];
 
-
-
 const InviteFriends = () => {
   const { colors } = useColors();
   const { statusBarStyle } = useTheme();

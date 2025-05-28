@@ -32,7 +32,9 @@ const CardPreview: React.FC<CardPreviewProps> = ({
           </Text>
         </View>
         <View>
-          <Text style={addcardstyles.cardPreviewLabel}>{strings.expirydate}</Text>
+          <Text style={addcardstyles.cardPreviewLabel}>
+            {strings.expirydate}
+          </Text>
           <Text style={addcardstyles.cardPreviewValue}>
             {expiryDate || strings.expire0230}
           </Text>

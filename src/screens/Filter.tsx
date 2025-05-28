@@ -41,7 +41,7 @@ const Filter = () => {
     setPriceRange([7, 100]);
     setSelectedRating("");
   };
-  
+
   const handleApply = () => {
     const filters = {
       gender: selectedGender,
@@ -51,13 +51,12 @@ const Filter = () => {
       rating: selectedRating,
     };
     console.log(strings.appliedfilter, filters);
-    navigation.navigate('Tab', {name: 'Home', location: ''})
+    navigation.navigate("Tab", { name: "Home", location: "" });
   };
 
   const handleRadioPress = (value: string) => {
     setSelectedRating(value);
   };
-  
 
   const ratingData = [
     { id: "1", stars: 5, label: strings.star1 },
@@ -104,7 +103,7 @@ const Filter = () => {
         { backgroundColor: colors.colors.background },
       ]}
     >
-      <StatusBar style={statusBarStyle}/>
+      <StatusBar style={statusBarStyle} />
       <View style={filterstyle.headerContainer}>
         <TouchableOpacity
           style={filterstyle.backButton}
@@ -127,13 +126,16 @@ const Filter = () => {
           >
             {strings.Brands}
           </Text>
-          <BrandFilter selected={selectedBrand} onSelect={setSelectedBrand}/>
+          <BrandFilter selected={selectedBrand} onSelect={setSelectedBrand} />
         </View>
         <View style={filterstyle.genderContainer}>
           <Text style={[filterstyle.genderText, { color: colors.colors.text }]}>
             {strings.gender}
           </Text>
-          <GenderFilter selected={selectedGender} onSelect={setSelectedGender}/>
+          <GenderFilter
+            selected={selectedGender}
+            onSelect={setSelectedGender}
+          />
         </View>
         <View style={filterstyle.sortbyContainer}>
           <Text style={[filterstyle.sortbyText, { color: colors.colors.text }]}>
@@ -147,7 +149,7 @@ const Filter = () => {
           >
             {strings.pricerange}
           </Text>
-          <PricingRange value={priceRange} onChange={setPriceRange}/>
+          <PricingRange value={priceRange} onChange={setPriceRange} />
         </View>
         <View style={filterstyle.reviewcontainer}>
           <Text style={[filterstyle.reviewText, { color: colors.colors.text }]}>

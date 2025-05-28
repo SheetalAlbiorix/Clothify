@@ -13,7 +13,13 @@ interface OnboardingSwiperProps {
   navigation: any;
 }
 
-const OnboardingSwiper: React.FC<OnboardingSwiperProps> = ({ swiperRef, slides, activeIndex, setActiveIndex, navigation }) => {
+const OnboardingSwiper: React.FC<OnboardingSwiperProps> = ({
+  swiperRef,
+  slides,
+  activeIndex,
+  setActiveIndex,
+  navigation,
+}) => {
   const colors = useColors();
 
   return (
@@ -24,13 +30,28 @@ const OnboardingSwiper: React.FC<OnboardingSwiperProps> = ({ swiperRef, slides, 
       showsPagination={false}
     >
       {slides.map((slide, index) => (
-        <View key={slide.id} style={[Onboardstyles.slide, { backgroundColor: colors.colors.background }]}>
+        <View
+          key={slide.id}
+          style={[
+            Onboardstyles.slide,
+            { backgroundColor: colors.colors.background },
+          ]}
+        >
           <Image source={slide.image} style={Onboardstyles.image} />
-          <Text style={[Onboardstyles.text, { color: colors.colors.text }]}>{slide.text}</Text>
-          <Text style={[Onboardstyles.text2, { color: colors.colors.text }]}>{slide.text2}</Text>
+          <Text style={[Onboardstyles.text, { color: colors.colors.text }]}>
+            {slide.text}
+          </Text>
+          <Text style={[Onboardstyles.text2, { color: colors.colors.text }]}>
+            {slide.text2}
+          </Text>
           {index === slides.length - 1 && (
-            <TouchableOpacity style={Onboardstyles.getStartedButton} onPress={() => navigation.navigate("SignIn")}>
-              <Text style={Onboardstyles.buttonText}>{strings.GetStartedOnly}</Text>
+            <TouchableOpacity
+              style={Onboardstyles.getStartedButton}
+              onPress={() => navigation.navigate("SignIn")}
+            >
+              <Text style={Onboardstyles.buttonText}>
+                {strings.GetStartedOnly}
+              </Text>
             </TouchableOpacity>
           )}
         </View>

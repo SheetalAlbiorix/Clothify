@@ -1,6 +1,11 @@
 import { ImageStyle, StyleSheet } from "react-native";
 import { Colors } from "../utils/Colors";
-import { layout, Spacing, textStyles, borderStyles } from "../components/layout";
+import {
+  layout,
+  Spacing,
+  textStyles,
+  borderStyles,
+} from "../components/layout";
 import { Fonts } from "../components/fonts";
 
 export const compProfileStyle = StyleSheet.create({
@@ -21,12 +26,12 @@ export const compProfileStyle = StyleSheet.create({
     ...borderStyles.mediumBrown,
     ...layout.itemsCenter,
     ...layout.justifyCenter,
-    ...Spacing.marginBottom_70
+    ...Spacing.marginBottom_70,
   },
   arrowIcon: {
     ...layout.width_20,
     ...layout.height_20,
-  }as ImageStyle,
+  } as ImageStyle,
   heading: {
     ...Fonts.size_22,
     ...Fonts.weight_900,
@@ -51,7 +56,7 @@ export const compProfileStyle = StyleSheet.create({
   profileImage: {
     ...layout.width_150,
     ...layout.height_150,
-  }as ImageStyle,
+  } as ImageStyle,
   editIcon: {
     ...layout.absolute,
     ...layout.bottom0,
@@ -61,7 +66,7 @@ export const compProfileStyle = StyleSheet.create({
     ...layout.height_30,
     ...borderStyles.rounded_15,
     ...layout.padding_5,
-  }as ImageStyle,
+  } as ImageStyle,
   inputContainer: {
     ...layout.fullWidth,
   },
@@ -99,7 +104,7 @@ export const compProfileStyle = StyleSheet.create({
     ...layout.height_small,
     ...Fonts.size_16,
     color: Colors.black,
-    backgroundColor: Colors.white
+    backgroundColor: Colors.white,
   },
   dropdown: {
     ...layout.height_small,
@@ -121,12 +126,12 @@ export const compProfileStyle = StyleSheet.create({
     ...layout.height_10,
     ...Spacing.marginRight_15,
     tintColor: Colors.darkgray,
-  }as ImageStyle,
+  } as ImageStyle,
   dropdownIcon2: {
     ...layout.width_15,
     ...layout.height_15,
     tintColor: Colors.darkgray,
-  }as ImageStyle,
+  } as ImageStyle,
   completeProfileButton: {
     ...layout.fullWidth,
     ...layout.height_small,
@@ -146,7 +151,7 @@ export const compProfileStyle = StyleSheet.create({
     ...layout.justifyCenter,
     backgroundColor: Colors.transparentblack,
   },
-  
+
   modalContainer: {
     backgroundColor: Colors.white,
     ...layout.mediumWidth,
@@ -154,19 +159,19 @@ export const compProfileStyle = StyleSheet.create({
     ...Spacing.paddingVertical_10,
     ...Spacing.paddingHorizontal_15,
   },
-  
+
   modalItem: {
     ...Spacing.paddingVertical_12,
     ...borderStyles.wBottom_1,
     ...borderStyles.borderBottomgrayish,
   },
-  
+
   modalText: {
     ...Fonts.size_16,
     ...textStyles.centerText,
     color: Colors.black,
   },
-  
+
   errorText: {
     color: Colors.red,
     ...Fonts.size_12,

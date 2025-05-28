@@ -32,13 +32,22 @@ export type CompletedOrder = {
 };
 
 export type ActiveOrder = {
-    id: string;
-    name: string;
-    size: string;
-    qty?: string;
-    price: number;
-    image: any;
-  };
+  id: string;
+  name: string;
+  size: string;
+  qty?: string;
+  price: number;
+  image: any;
+};
+
+export type OrderItem = {
+  id: string;
+  name: string;
+  size: string;
+  qty?: string;
+  price: number;
+  image: any;
+};
 
 const activeOrders = [
   {
@@ -233,15 +242,6 @@ const MyOrders = () => {
     }
   };
 
-  type OrderItem = {
-    id: string;
-    name: string;
-    size: string;
-    qty?: string;
-    price: number;
-    image: any;
-  };
-
   const renderOrderItem = ({ item }: { item: OrderItem }) => (
     <View style={myorderstyles.orderItemContainer}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -275,7 +275,10 @@ const MyOrders = () => {
             ]}
             onPress={() => {
               if (activeTab === strings.active) {
-                navigation.navigate("TrackOrder", { orderId: item.id, orderData: item });
+                navigation.navigate("TrackOrder", {
+                  orderId: item.id,
+                  orderData: item,
+                });
               } else if (activeTab === strings.completed) {
                 navigation.navigate("LeaveReview", {
                   orderId: item.id,
@@ -283,7 +286,7 @@ const MyOrders = () => {
                 });
               } else if (activeTab === strings.cancelled) {
                 // navigation.navigate("Reorder", { orderId: item.id });
-                Alert.alert(strings.comingsoon)
+                Alert.alert(strings.comingsoon);
               }
             }}
           >

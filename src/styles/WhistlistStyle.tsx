@@ -36,8 +36,8 @@ export const whistliststyle = StyleSheet.create({
     ...layout.customSmallHeight,
   } as ImageStyle,
   headerText: {
-    ...Fonts.size_20,
-    ...Fonts.weight_600,
+   ...Fonts.size_24,
+    ...Fonts.weight_900,
     ...Spacing.marginLeft_10,
   },
   listContent: {
@@ -72,7 +72,7 @@ export const whistliststyle = StyleSheet.create({
     ...layout.width_20,
     ...layout.height_20,
     tintColor: Colors.silkygrey,
-  }as ImageStyle,
+  } as ImageStyle,
   ratingnamecontainer: {
     ...layout.row,
     ...layout.justifyBetween,
@@ -93,7 +93,7 @@ export const whistliststyle = StyleSheet.create({
     ...layout.width_14,
     ...layout.height_14,
     tintColor: Colors.chormeyellow,
-  }as ImageStyle,
+  } as ImageStyle,
   ratingText: {
     ...Fonts.size_12,
     ...Fonts.weight_600,

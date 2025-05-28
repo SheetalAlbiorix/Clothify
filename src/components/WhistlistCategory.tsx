@@ -4,7 +4,14 @@ import { strings } from "../utils/strings";
 import { useColors } from "../hooks/useColors";
 import { whistlistcategorystyle } from "../styles/WhistlistCategoryStyle";
 
-const categories = [strings.All, strings.Jacket, strings.Shirt, strings.pant, strings.tshirt, strings.Man];
+const categories = [
+  strings.All,
+  strings.Jacket,
+  strings.Shirt,
+  strings.pant,
+  strings.tshirt,
+  strings.Man,
+];
 
 const WhistlistCategory = () => {
   const [selected, setSelected] = useState(strings.All);
@@ -14,10 +21,21 @@ const WhistlistCategory = () => {
     const isSelected = item === selected;
     return (
       <TouchableOpacity
-        style={[whistlistcategorystyle.button, isSelected && whistlistcategorystyle.selectedButton]}
+        style={[
+          whistlistcategorystyle.button,
+          isSelected && whistlistcategorystyle.selectedButton,
+        ]}
         onPress={() => setSelected(item)}
       >
-        <Text style={[[whistlistcategorystyle.buttonText, {color: colors.colors.text}], isSelected && [whistlistcategorystyle.selectedText, {color: colors.colors.caroselText}]]}>
+        <Text
+          style={[
+            [whistlistcategorystyle.buttonText, { color: colors.colors.text }],
+            isSelected && [
+              whistlistcategorystyle.selectedText,
+              { color: colors.colors.caroselText },
+            ],
+          ]}
+        >
           {item}
         </Text>
       </TouchableOpacity>

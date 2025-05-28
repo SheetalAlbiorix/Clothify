@@ -1,6 +1,6 @@
-import React from 'react';
-import { Text } from 'react-native';
-import { newpassstyle } from '../styles/NewPassStyle';
+import React from "react";
+import { Text } from "react-native";
+import { newpassstyle } from "../styles/NewPassStyle";
 
 interface ErrorMessageProps {
   message: string;

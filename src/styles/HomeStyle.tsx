@@ -238,7 +238,7 @@ export const homeStyles = StyleSheet.create({
     ...Spacing.gap_200,
     ...layout.width_800,
   },
- 
+
   notificationBubble: {
     ...layout.absolute,
     ...layout.topminus5,

@@ -3,6 +3,7 @@ import { useColors } from "../hooks/useColors";
 import { productstyle } from "../styles/ProductDetailStyle";
 import { strings } from "../utils/strings";
 import { images } from "../utils/images";
+import React from "react";
 
 const ProductDetailInfo = () => {
   const colors = useColors();

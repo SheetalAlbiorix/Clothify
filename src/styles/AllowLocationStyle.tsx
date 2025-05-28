@@ -35,7 +35,7 @@ export const allowlocationstyle = StyleSheet.create({
     ...Fonts.size_16,
     ...Fonts.weight_600,
     color: Colors.footerColor,
-    ...textStyles.centerText
+    ...textStyles.centerText,
   },
   accessbutton: {
     ...layout.height_small,
@@ -49,19 +49,19 @@ export const allowlocationstyle = StyleSheet.create({
   accessText: {
     ...Fonts.size_16,
     ...Fonts.weight_900,
-    color: Colors.white
+    color: Colors.white,
   },
   accessbuttonContainer: {
-    ...Spacing.margin_20
+    ...Spacing.margin_20,
   },
   headinfotext: {
     ...layout.itemsCenter,
     ...layout.justifyCenter,
     ...Spacing.margin_10,
-    ...Spacing.paddingHorizontal_20
+    ...Spacing.paddingHorizontal_20,
   },
   manualButtonContainer: {
-    ...Spacing.margin_5
+    ...Spacing.margin_5,
   },
   manualButton: {
     ...layout.height_small,
@@ -73,6 +73,6 @@ export const allowlocationstyle = StyleSheet.create({
   manuallocationtext: {
     ...Fonts.size_20,
     ...Fonts.weight_900,
-    color: Colors.mediumbrown
-  }
+    color: Colors.mediumbrown,
+  },
 });

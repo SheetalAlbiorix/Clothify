@@ -1,5 +1,12 @@
 import React from "react";
-import { TextInput, Text, View, TextInputProps, StyleProp, ViewStyle } from "react-native";
+import {
+  TextInput,
+  Text,
+  View,
+  TextInputProps,
+  StyleProp,
+  ViewStyle,
+} from "react-native";
 import { addcardstyles } from "../styles/AddCardStyle";
 import { useColors } from "../hooks/useColors";
 import { Colors } from "../utils/Colors";

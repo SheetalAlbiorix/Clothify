@@ -1,5 +1,6 @@
 import { View, Image, TouchableOpacity } from "react-native";
 import { productstyle } from "../styles/ProductDetailStyle";
+import React from "react";
 
 const ProductImageGallery = ({
   selectedImage,

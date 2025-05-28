@@ -46,33 +46,33 @@ export const privacystyle = StyleSheet.create({
     ...Spacing.paddingHorizontal_20,
   },
   cancellationPara: {
-    ...Spacing.paddingTop_20
+    ...Spacing.paddingTop_20,
   },
   cancellationtext: {
     ...Fonts.size_18,
     ...Fonts.weight_600,
-    ...Spacing.marginBottom_10
+    ...Spacing.marginBottom_10,
   },
   headingCancellation: {
     ...Fonts.size_24,
     ...Fonts.weight_900,
-    color: Colors.darkbrown
+    color: Colors.darkbrown,
   },
   termsConditionContainer: {
     ...Spacing.paddingHorizontal_20,
-    ...Spacing.paddingVertical_20
+    ...Spacing.paddingVertical_20,
   },
   termsConditionPara: {
-    ...Spacing.paddingTop_20
+    ...Spacing.paddingTop_20,
   },
   termsConditiontext: {
     ...Fonts.size_18,
     ...Fonts.weight_600,
-    ...Spacing.marginBottom_10
+    ...Spacing.marginBottom_10,
   },
   headingtermsCondition: {
     ...Fonts.size_24,
     ...Fonts.weight_900,
-    color: Colors.darkbrown
-  }
+    color: Colors.darkbrown,
+  },
 });

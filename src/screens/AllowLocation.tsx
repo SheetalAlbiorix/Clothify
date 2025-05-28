@@ -34,7 +34,7 @@ const AllowLocation = () => {
       strings.locationaccessed,
       `${strings.latitude} ${location.coords.latitude}${strings.longitude} ${location.coords.longitude}`
     );
-    navigation.navigate('Tab', { name: "Home", location: ""})
+    navigation.navigate("Tab", { name: "Home", location: "" });
   };
 
   return (
@@ -44,7 +44,7 @@ const AllowLocation = () => {
         { backgroundColor: colors.colors.background },
       ]}
     >
-        <StatusBar style={statusBarStyle}/>
+      <StatusBar style={statusBarStyle} />
       <View style={allowlocationstyle.locationimageContainer}>
         <Image
           style={allowlocationstyle.locationIcon}

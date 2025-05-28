@@ -1,7 +1,12 @@
 import { ImageStyle, StyleSheet } from "react-native";
 import { Colors } from "../utils/Colors";
 import { Fonts } from "../components/fonts";
-import { borderStyles, layout, Spacing, textStyles } from "../components/layout";
+import {
+  borderStyles,
+  layout,
+  Spacing,
+  textStyles,
+} from "../components/layout";
 
 export const welcomestyle = StyleSheet.create({
   container: {
