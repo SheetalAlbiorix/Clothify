@@ -138,4 +138,4 @@ This project is licensed under the [MIT License](LICENSE).
 ---
 
 ## Preview Of Clothify
-- 🎥 [Watch Demo Video](src/assets/clothify.gif)
+- 🎥 ![Watch Demo Video](src/assets/clothify.gif)
