@@ -1,3 +1,6 @@
+## Preview Of Clothify
+- 🎥 ![Watch Demo Video](src/assets/clothify.gif)
+
 # 🧥 Clothify App
 
 Clothify is a beautifully crafted **Expo E-Commerce App** for clothing. It provides a seamless and responsive shopping experience for users, allowing them to browse, search, and purchase fashion items directly from their mobile devices.
@@ -137,5 +140,3 @@ This project is licensed under the [MIT License](LICENSE).
 
 ---
 
-## Preview Of Clothify
-- 🎥 ![Watch Demo Video](src/assets/clothify.gif)
