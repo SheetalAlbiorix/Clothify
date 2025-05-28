@@ -4,6 +4,7 @@ import { Colors } from "../utils/Colors";
 import { Fonts } from "./fonts";
 import { borderStyles, layout, Spacing } from "./layout";
 import { strings } from "../utils/strings";
+import { useColors } from "../hooks/useColors";
 
 interface CheckboxLabelProps {
   checked: boolean;
@@ -16,13 +17,17 @@ const LabelCheck: React.FC<CheckboxLabelProps> = ({
   label,
   onPress,
 }) => {
+  const colors = useColors();
+
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={onPress} style={styles.checkbox}>
         {checked && <Text style={styles.checkmark}>{strings.tick}</Text>}
       </TouchableOpacity>
       <TouchableOpacity onPress={onPress}>
-        <Text style={styles.label}>{label}</Text>
+        <Text style={[styles.label, { color: colors.colors.text }]}>
+          {label}
+        </Text>
       </TouchableOpacity>
     </View>
   );
@@ -50,7 +55,7 @@ const styles = StyleSheet.create({
   },
   label: {
     ...Spacing.marginLeft_12,
-    color: Colors.white,
+    // color: Colors.white,
     ...Fonts.size_14,
     ...Fonts.weight_500,
   },

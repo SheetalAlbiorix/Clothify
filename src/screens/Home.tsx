@@ -171,7 +171,9 @@ const HomeScreen = () => {
       <View style={homeStyles.header}>
         <TouchableOpacity
           style={homeStyles.locationContainer}
-          onPress={() => navigation.navigate("LocationMain")}
+          onPress={() =>
+            navigation.navigate("LocationMain", { fromHome: true })
+          }
         >
           <Image source={images.locationIcon} style={homeStyles.locationIcon} />
           <Text

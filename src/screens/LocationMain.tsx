@@ -15,7 +15,7 @@ import { strings } from "../utils/strings";
 import { Colors } from "../utils/Colors";
 import { useColors } from "../hooks/useColors";
 import { useTheme } from "../themes/theme";
-import { useNavigation } from "@react-navigation/native";
+import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { RootStackParamList } from "../../App";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { StatusBar } from "expo-status-bar";
@@ -25,8 +25,11 @@ type LocationNavigationProp = StackNavigationProp<
   "LocationMain"
 >;
 
+type LocationMainRouteProp = RouteProp<RootStackParamList, "LocationMain">;
+
 const LocationMain = () => {
   const navigation = useNavigation<LocationNavigationProp>();
+  const route = useRoute<LocationMainRouteProp>();
   const { statusBarStyle } = useTheme();
   const colors = useColors();
 
@@ -83,6 +86,8 @@ const LocationMain = () => {
     setSearchResults(filteredLocations);
   };
 
+  const fromHome = route.params?.fromHome ?? false;
+
   return (
     <View
       style={[
@@ -92,19 +97,20 @@ const LocationMain = () => {
     >
       <StatusBar style={statusBarStyle} />
       <View style={locationmainstyle.maincontainer}>
-        <TouchableOpacity
-          style={locationmainstyle.backButton}
-          onPress={() => navigation.navigate("AllowLocation")}
-        >
-          <Image
-            source={images.leftarrow}
-            style={[
-              locationmainstyle.backIcon,
-              { tintColor: colors.colors.tintColor },
-            ]}
-          />
-        </TouchableOpacity>
-
+        {!fromHome && (
+          <TouchableOpacity
+            style={locationmainstyle.backButton}
+            onPress={() => navigation.navigate("AllowLocation")}
+          >
+            <Image
+              source={images.leftarrow}
+              style={[
+                locationmainstyle.backIcon,
+                { tintColor: colors.colors.tintColor },
+              ]}
+            />
+          </TouchableOpacity>
+        )}
         <Text style={[locationmainstyle.title, { color: colors.colors.text }]}>
           {strings.enteryourlocation}
         </Text>

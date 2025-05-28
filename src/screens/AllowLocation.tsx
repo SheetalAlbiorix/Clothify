@@ -75,7 +75,10 @@ const AllowLocation = () => {
         <TouchableOpacity
           style={allowlocationstyle.manualButton}
           onPress={() => {
-            navigation.navigate("LocationMain");
+            navigation.navigate({
+              name: "LocationMain",
+              params: { fromHome: true },
+            });
           }}
         >
           <Text style={allowlocationstyle.manuallocationtext}>

@@ -191,7 +191,7 @@ export const strings = {
   expire0230: "02/30",
   CARDHOLDERNAME: "Card Holder Name",
   cardnumber: "Card Number",
-  placeholdercardnumber: "4716 9627 1635 8047",
+  placeholdercardnumber: "**** **** **** ****",
   expireDate: "Expiry Date",
   cvv: "CVV",
   three0: "000",

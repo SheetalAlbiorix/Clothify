@@ -24,7 +24,6 @@ export type RootStackParamList = {
   NewPass: undefined;
   CompleteProfile: undefined;
   AllowLocation: undefined;
-  LocationMain: undefined;
   Home: { location: string };
   Tab: { name?: string; location: string };
   productDetail: undefined;
@@ -56,6 +55,7 @@ export type RootStackParamList = {
   privacy: undefined;
   invite: undefined;
   notification: undefined;
+  LocationMain: { fromHome?: boolean };
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
