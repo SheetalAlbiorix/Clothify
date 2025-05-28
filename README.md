@@ -57,7 +57,7 @@ src/
 
 - [Node.js](https://nodejs.org/)
 - [Expo CLI](https://docs.expo.dev/get-started/installation/)
-- [Npm](https://www.npmjs.com/) or yarn
+- [Npm](https://www.npmjs.com/) or [Yarn] (https://classic.yarnpkg.com/lang/en/docs/cli/install/)
 
 ---
 
@@ -138,4 +138,4 @@ This project is licensed under the [MIT License](LICENSE).
 ---
 
 ## Preview Of Clothify
-- 🎥 [Watch Demo Video](src/assets/clothify.mp4)
+- 🎥 [Watch Demo Video](src/assets/clothify.gif)
