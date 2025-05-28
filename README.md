@@ -56,8 +56,8 @@ src/
 ### ✅ Prerequisites
 
 - [Node.js](https://nodejs.org/)
+- [npm](https://www.npmjs.com/) or [Yarn](https://classic.yarnpkg.com/lang/en/docs/cli/install/) (package manager)
 - [Expo CLI](https://docs.expo.dev/get-started/installation/)
-- [Npm](https://www.npmjs.com/) or [Yarn] (https://classic.yarnpkg.com/lang/en/docs/cli/install/)
 
 ---
 
