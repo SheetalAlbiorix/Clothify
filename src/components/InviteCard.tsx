@@ -2,18 +2,9 @@ import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { invitestyle } from "../styles/inviteStyle";
 import { strings } from "../utils/strings";
+import { inviteProps } from "../types/types";
 
-export const InviteCard = ({
-  name,
-  number,
-  images,
-  colors,
-}: {
-  name: string;
-  number: string;
-  images: any;
-  colors: any;
-}) => (
+export const InviteCard = ({ name, number, images, colors }: inviteProps) => (
   <View style={invitestyle.inviteContainer}>
     <View style={invitestyle.mainInvite}>
       <Image source={images} style={invitestyle.profileIcon} />

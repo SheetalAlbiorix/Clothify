@@ -2,14 +2,7 @@ import React from "react";
 import { TouchableOpacity, View, Text, Image } from "react-native";
 import { helpcenterstyle } from "../styles/HelpCenterStyle";
 import { images } from "../utils/images";
-
-interface FaqItemProps {
-  id: string;
-  question: string;
-  answer: string;
-  expanded: boolean;
-  onToggle: (id: string) => void;
-}
+import { FaqItemProps } from "../types/types";
 
 export const FaqItem: React.FC<FaqItemProps> = ({
   id,

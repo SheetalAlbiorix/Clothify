@@ -12,115 +12,36 @@ import { useTheme } from "../themes/theme";
 import { StatusBar } from "expo-status-bar";
 import { strings } from "../utils/strings";
 import { images } from "../utils/images";
+import Data from "../utils/Data.json";
+import type {
+  ContactItem as ContactItemType,
+  FaqItem as FaqItemType,
+} from "../types/types";
 
 const TABS = { FAQ: "FAQ", CONTACT_US: "Contact Us" };
 
-interface FaqItem {
-  id: string;
-  question: string;
-  answer: string;
-  expanded: boolean;
-}
+const faqData: FaqItemType[] = Data.Faqs.map((item) => ({
+  ...item,
+  question:
+    strings[`question${item.id}` as keyof typeof strings] || item.question,
+  answer: strings[`answer${item.id}` as keyof typeof strings] || item.answer,
+}));
 
-interface ContactItem {
-  id: string;
-  title: string;
-  icon: any;
-  phone?: string;
-  expanded: boolean;
-}
+const contactOptions: ContactItemType[] = Data.contacts.map((item) => ({
+  ...item,
+  title:
+    strings[item.title.replace("strings.", "") as keyof typeof strings] ||
+    item.title,
+  phone: item.phone
+    ? strings[item.phone.replace("strings.", "") as keyof typeof strings] ||
+      item.phone
+    : undefined,
+  icon: images[item.icon as keyof typeof images],
+}));
 
-const faqData: FaqItem[] = [
-  {
-    id: "1",
-    question: strings.question1,
-    answer: strings.answer1,
-    expanded: true,
-  },
-  {
-    id: "2",
-    question: strings.question2,
-    answer: strings.answer2,
-    expanded: false,
-  },
-  {
-    id: "3",
-    question: strings.question3,
-    answer: strings.answer3,
-    expanded: false,
-  },
-  {
-    id: "4",
-    question: strings.question4,
-    answer: strings.answer4,
-    expanded: false,
-  },
-  {
-    id: "5",
-    question: strings.question5,
-    answer: strings.answer5,
-    expanded: false,
-  },
-  {
-    id: "6",
-    question: strings.question6,
-    answer: strings.answer6,
-    expanded: false,
-  },
-  {
-    id: "7",
-    question: strings.question7,
-    answer: strings.answer7,
-    expanded: false,
-  },
-];
-
-const contactOptions: ContactItem[] = [
-  {
-    id: "1",
-    title: strings.contactoption1,
-    icon: images.headphones,
-    expanded: false,
-  },
-  {
-    id: "2",
-    title: strings.contactoption2,
-    icon: images.whatsapp,
-    phone: strings.phone,
-    expanded: true,
-  },
-  {
-    id: "3",
-    title: strings.contactoption3,
-    icon: images.globe,
-    expanded: false,
-  },
-  {
-    id: "4",
-    title: strings.contactoption4,
-    icon: images.metaIcon,
-    expanded: false,
-  },
-  {
-    id: "5",
-    title: strings.contactoption5,
-    icon: images.twitter,
-    expanded: false,
-  },
-  {
-    id: "6",
-    title: strings.contactoption6,
-    icon: images.instagram,
-    expanded: false,
-  },
-];
-
-const FAQ_CATEGORIES = [
-  strings.All,
-  strings.services,
-  strings.general,
-  strings.account,
-];
+const FAQ_CATEGORIES = Data.faqCategory.map(
+  (key) => strings[key as keyof typeof strings] || key
+);
 
 const HelpCenter = () => {
   const colors = useColors();

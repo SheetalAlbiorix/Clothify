@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   SafeAreaView,
   ScrollView,
@@ -6,7 +6,6 @@ import {
   Platform,
   View,
   TouchableOpacity,
-  Image,
   Text,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
@@ -16,11 +15,18 @@ import { RootStackParamList } from "../../App";
 import { useColors } from "../hooks/useColors";
 import { useTheme } from "../themes/theme";
 import { strings } from "../utils/strings";
-import { images } from "../utils/images";
 import { addcardstyles } from "../styles/AddCardStyle";
 import CardPreview from "../components/CardPreview";
 import InputField from "../components/InputField";
 import LabelCheck from "../components/LabelCheck";
+import {
+  detectCardType,
+  formatCardNumber,
+  formatExpiryDate,
+} from "../utils/CardUtils";
+import Header from "../components/HeaderGlobal";
+import NoDataFound from "../service/NoDataFound";
+import NetInfo from "@react-native-community/netinfo";
 
 type AddCardNavigationProp = StackNavigationProp<RootStackParamList, "AddCard">;
 
@@ -34,27 +40,14 @@ const AddCard = () => {
   const [cvv, setCvv] = useState("");
   const [saveCard, setSaveCard] = useState(false);
   const [cardType, setCardType] = useState<string | null>(null);
+  const [isConnected, setIsConnected] = useState(true);
 
-  const detectCardType = (number: string) => {
-    const cleaned = number.replace(/\D/g, "");
-    if (/^4/.test(cleaned)) return strings.visa;
-    if (/^5[1-5]/.test(cleaned)) return strings.mastercard;
-    if (/^3[47]/.test(cleaned)) return strings.americanexpress;
-    if (/^6(?:011|5)/.test(cleaned)) return strings.discover;
-    return null;
-  };
-
-  const formatCardNumber = (text: string) => {
-    const cleaned = text.replace(/\D/g, "").substring(0, 16);
-    return cleaned.match(/.{1,4}/g)?.join(" ") ?? "";
-  };
-
-  const formatExpiryDate = (text: string) => {
-    const cleaned = text.replace(/\D/g, "").substring(0, 4);
-    return cleaned.length > 2
-      ? `${cleaned.substring(0, 2)}/${cleaned.substring(2)}`
-      : cleaned;
-  };
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener(state => {
+      setIsConnected(!!state.isConnected);
+    });
+    return () => unsubscribe();
+  }, []);
 
   const handleCardNumberChange = (text: string) => {
     setCardNumber(formatCardNumber(text));
@@ -79,6 +72,23 @@ const AddCard = () => {
     }
   };
 
+  if (!isConnected) {
+    return (
+      <SafeAreaView
+        style={[
+          addcardstyles.container,
+          { backgroundColor: colors.colors.background },
+        ]}
+      >
+        <StatusBar style={statusBarStyle} />
+        <Header showBackButton title={strings.addcard} />
+        <View style={[{ flex: 1 }, {backgroundColor: colors.colors.background}]}>
+          <NoDataFound message="No Data Found." />
+        </View>
+      </SafeAreaView>
+    );
+  }
+
   return (
     <SafeAreaView
       style={[
@@ -91,20 +101,7 @@ const AddCard = () => {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={addcardstyles.keyboardAvoidView}
       >
-        <View style={addcardstyles.headerContainer}>
-          <TouchableOpacity
-            style={addcardstyles.backButton}
-            onPress={() => navigation.goBack()}
-          >
-            <Image
-              source={images.leftarrow}
-              style={addcardstyles.leftarrowImage}
-            />
-          </TouchableOpacity>
-          <Text style={[addcardstyles.header, { color: colors.colors.text }]}>
-            {strings.addcard}
-          </Text>
-        </View>
+        <Header showBackButton title={strings.addcard} />
         <ScrollView showsVerticalScrollIndicator={false}>
           <CardPreview
             cardType={cardType}

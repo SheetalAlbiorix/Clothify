@@ -10,6 +10,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import CouponCard from "../components/CouponCard";
 import { useTheme } from "../themes/theme";
 import { StatusBar } from "expo-status-bar";
+import Header from "../components/HeaderGlobal";
 
 type CouponNavigationProp = StackNavigationProp<RootStackParamList, "Coupons">;
 
@@ -27,20 +28,7 @@ const Coupons = () => {
       ]}
     >
       <StatusBar style={statusBarStyle} />
-      <View style={couponsStyle.headerContainer}>
-        <TouchableOpacity
-          style={couponsStyle.backButton}
-          onPress={() => navigation.goBack()}
-        >
-          <Image
-            source={images.leftarrow}
-            style={couponsStyle.leftarrowImage}
-          />
-        </TouchableOpacity>
-        <Text style={[couponsStyle.header, { color: colors.colors.text }]}>
-          {strings.coupon}
-        </Text>
-      </View>
+      <Header type="coupons" />
       <View style={couponsStyle.MainView}>
         <Text
           style={[couponsStyle.bestforyouText, { color: colors.colors.text }]}

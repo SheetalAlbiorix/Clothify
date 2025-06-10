@@ -3,9 +3,19 @@ import firestore from '@react-native-firebase/firestore';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { initializeApp } from "firebase/app";
 import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
-import { API_KEY, APPID, AUTHDOMAIN, GOOGLE_CLIENT_ID, MESSAGINGSENDERID, PROJECTID, STORAGEBUCKET } from './config';
+import Constants from 'expo-constants';
 import { strings } from '../utils/strings';
+import { getStorage } from 'firebase/storage';
 
+const {
+  GOOGLE_CLIENT_ID,
+  API_KEY,
+  AUTHDOMAIN,
+  PROJECTID,
+  STORAGEBUCKET,
+  MESSAGINGSENDERID,
+  APPID,
+} = Constants.expoConfig?.extra || {};
 
 GoogleSignin.configure({
   webClientId: GOOGLE_CLIENT_ID,
@@ -22,6 +32,8 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const storage = getStorage(app);
+
 export const saveUserProfile = async (user: any) => {
   try {
     const userRef = firestore().collection('users').doc(user.uid);
@@ -123,5 +135,22 @@ export const subscribeToAuthChanges = (callback: (user: any) => void) => {
   return auth().onAuthStateChanged(callback);
 };
 
-export { auth, GoogleAuthProvider,  db };
+export const getUserProfilePhoto = async (uid: string): Promise<string | null> => {
+  try {
+    const userDocRef = doc(db, "users", uid);
+    const userDoc = await getDoc(userDocRef);
+
+    if (userDoc.exists()) {
+      const data = userDoc.data();
+      return data.photoUrl || null;
+    } else {
+      console.log(strings.nouserfoundUID, uid);
+    }
+  } catch (error) {
+    console.error(strings.errorfetchinguserprofile, error);
+  }
+  return null;
+};
+
+export { auth, GoogleAuthProvider,  db, storage, firestore  };
 

@@ -23,6 +23,11 @@ import { signUpWithGoogle } from "../service/auth";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { generateOtp } from "../service/generateOtp";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import {
+  validateEmails,
+  validateName,
+  validatePasswords,
+} from "../utils/Validation";
 
 type SignUpNavigationProp = StackNavigationProp<RootStackParamList, "SignUp">;
 
@@ -41,25 +46,6 @@ const SignUp = () => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
-  const validateName = (input: string) => {
-    if (!input) return strings.namerequired;
-    if (input.length < 2) return strings.namelength;
-    return "";
-  };
-
-  const validateEmail = (input: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!input) return strings.emailrequired;
-    if (!emailRegex.test(input)) return strings.entervalidemail;
-    return "";
-  };
-
-  const validatePassword = (input: string) => {
-    if (!input) return strings.Passrequired;
-    if (input.length < 8) return strings.passwordlength;
-    return "";
-  };
-
   const handleNameChange = (text: string) => {
     setName(text);
     setNameError(validateName(text));
@@ -67,12 +53,12 @@ const SignUp = () => {
 
   const handleEmailChange = (text: string) => {
     setEmail(text);
-    setEmailError(validateEmail(text));
+    setEmailError(validateEmails(text));
   };
 
   const handlePasswordChange = (text: string) => {
     setPassword(text);
-    setPasswordError(validatePassword(text));
+    setPasswordError(validatePasswords(text));
   };
 
   const isFormValid =

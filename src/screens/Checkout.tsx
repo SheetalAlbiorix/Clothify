@@ -10,35 +10,22 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { Spacing } from "../components/layout";
 import { useTheme } from "../themes/theme";
 import { StatusBar } from "expo-status-bar";
+import Data from "../utils/Data.json";
+import Header from "../components/HeaderGlobal";
+import CheckoutRenderItem from "../components/CheckoutRenderItem";
 
 type CheckoutNavigationProp = StackNavigationProp<
   RootStackParamList,
   "Checkout"
 >;
 
-const orderList = [
-  {
-    id: "1",
-    image: images.jacket1,
-    title: strings.brownjacket,
-    size: strings.XL,
-    price: strings.price1,
-  },
-  {
-    id: "2",
-    image: images.suit1,
-    title: strings.brownsuit,
-    size: strings.M,
-    price: strings.price2,
-  },
-  {
-    id: "3",
-    image: images.jacket2,
-    title: strings.brownshirt,
-    size: strings.XL,
-    price: strings.price1,
-  },
-];
+const orderList = Data.orderList.map((item) => ({
+  ...item,
+  image: images[item.image as keyof typeof images],
+  title: strings[item.title as keyof typeof strings] || item.title,
+  size: strings[item.size as keyof typeof strings] || item.size,
+  price: strings[item.price as keyof typeof strings] || item.price,
+}));
 
 const Checkout = () => {
   const colors = useColors();
@@ -63,20 +50,7 @@ const Checkout = () => {
       ]}
     >
       <StatusBar style={statusBarStyle} />
-      <View style={checkoutstyle.headerContainer}>
-        <TouchableOpacity
-          style={checkoutstyle.backButton}
-          onPress={() => navigation.goBack()}
-        >
-          <Image
-            source={images.leftarrow}
-            style={checkoutstyle.leftarrowImage}
-          />
-        </TouchableOpacity>
-        <Text style={[checkoutstyle.header, { color: colors.colors.text }]}>
-          {strings.checkout}
-        </Text>
-      </View>
+      <Header type="checkout" />
 
       <View style={checkoutstyle.homeeconomycontainer}>
         <Text
@@ -162,37 +136,7 @@ const Checkout = () => {
         data={orderList}
         keyExtractor={(item) => item.id}
         contentContainerStyle={{ ...Spacing.paddingHorizontal_20 }}
-        renderItem={({ item }) => (
-          <View style={checkoutstyle.orderItem}>
-            <Image source={item.image} style={checkoutstyle.productImage} />
-            <View>
-              <Text
-                style={[
-                  checkoutstyle.productTitle,
-                  { color: colors.colors.text },
-                ]}
-              >
-                {item.title}
-              </Text>
-              <Text
-                style={[
-                  checkoutstyle.productSize,
-                  { color: colors.colors.text },
-                ]}
-              >
-                {strings.size} {item.size}
-              </Text>
-              <Text
-                style={[
-                  checkoutstyle.productPrice,
-                  { color: colors.colors.text },
-                ]}
-              >
-                {item.price}
-              </Text>
-            </View>
-          </View>
-        )}
+        renderItem={({ item }) => <CheckoutRenderItem item={item} />}
       />
 
       <View

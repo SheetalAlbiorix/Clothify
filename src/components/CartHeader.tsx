@@ -4,10 +4,7 @@ import { images } from "../utils/images";
 import { strings } from "../utils/strings";
 import { cartitemstyle } from "../styles/CartItemStyle";
 import { useColors } from "../hooks/useColors";
-
-interface CartHeaderProps {
-  onBack: () => void;
-}
+import { CartHeaderProps } from "../types/types";
 
 export const CartHeader = React.memo(({ onBack }: CartHeaderProps) => {
   const colors = useColors();

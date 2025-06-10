@@ -8,7 +8,7 @@ import { RootStackParamList } from "../../App";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { strings } from "../utils/strings";
 import { images } from "../utils/images";
-import * as Location from "expo-location";
+import { getCurrentLocation } from "../utils/locationUtils";
 import { StatusBar } from "expo-status-bar";
 
 type AllowLocationNavigationProp = StackNavigationProp<
@@ -22,18 +22,9 @@ const AllowLocation = () => {
   const colors = useColors();
 
   const requestLocationPermission = async () => {
-    const { status } = await Location.requestForegroundPermissionsAsync();
-    if (status !== "granted") {
-      Alert.alert(strings.permissionDenied, strings.locationaccessneeded);
-      return;
-    }
+    const location = await getCurrentLocation();
+    if (!location) return;
 
-    const location = await Location.getCurrentPositionAsync({});
-    console.log(strings.locationlog, location);
-    console.log(
-      strings.locationaccessed,
-      `${strings.latitude} ${location.coords.latitude}${strings.longitude} ${location.coords.longitude}`
-    );
     navigation.navigate("Tab", { name: "Home", location: "" });
   };
 

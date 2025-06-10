@@ -3,15 +3,11 @@ import { View, Text, TouchableOpacity, FlatList } from "react-native";
 import { strings } from "../utils/strings";
 import { useColors } from "../hooks/useColors";
 import { whistlistcategorystyle } from "../styles/WhistlistCategoryStyle";
+import Data from "../utils/Data.json";
 
-const categories = [
-  strings.All,
-  strings.Jacket,
-  strings.Shirt,
-  strings.pant,
-  strings.tshirt,
-  strings.Man,
-];
+const Whistlistcategories = Data.Whistlistcategories.map(
+  (key) => strings[key as keyof typeof strings] || key
+);
 
 const WhistlistCategory = () => {
   const [selected, setSelected] = useState(strings.All);
@@ -45,7 +41,7 @@ const WhistlistCategory = () => {
   return (
     <View style={whistlistcategorystyle.container}>
       <FlatList
-        data={categories}
+        data={Whistlistcategories}
         horizontal
         showsHorizontalScrollIndicator={false}
         keyExtractor={(item) => item}

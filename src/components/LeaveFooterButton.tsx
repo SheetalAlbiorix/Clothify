@@ -2,11 +2,7 @@ import React from "react";
 import { View, TouchableOpacity, Text } from "react-native";
 import { leavereviewstyle } from "../styles/LeaveReviewStyle";
 import { strings } from "../utils/strings";
-
-type LeaveFooterButtonsProps = {
-  onCancel: () => void;
-  onSubmit: () => void;
-};
+import { LeaveFooterButtonsProps } from "../types/types";
 
 const LeaveFooterButtons: React.FC<LeaveFooterButtonsProps> = ({
   onCancel,

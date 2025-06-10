@@ -14,7 +14,9 @@ const ProductColorSelector = ({
 
   return (
     <>
-      <Text style={[productstyle.sectionTitle, { color: colors.colors.text }]}>
+      <Text
+        style={[productstyle.sectionSizeTitle, { color: colors.colors.text }]}
+      >
         {strings.selectColor} {ColorNames[selectedColor] || strings.none}
       </Text>
       <View style={productstyle.colorContainer}>

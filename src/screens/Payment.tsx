@@ -16,6 +16,7 @@ import { images } from "../utils/images";
 import { strings } from "../utils/strings";
 import { useTheme } from "../themes/theme";
 import { StatusBar } from "expo-status-bar";
+import Header from "../components/HeaderGlobal";
 
 type PaymentNavigationProp = StackNavigationProp<RootStackParamList, "Payment">;
 
@@ -43,22 +44,7 @@ const Payment = () => {
       ]}
     >
       <StatusBar style={statusBarStyle} />
-      <View style={paymentstyles.headerContainer}>
-        <TouchableOpacity
-          style={paymentstyles.backButton}
-          onPress={() =>
-            navigation.navigate("Tab", { name: "Home", location: "" })
-          }
-        >
-          <Image
-            source={images.leftarrow}
-            style={paymentstyles.leftarrowImage}
-          />
-        </TouchableOpacity>
-        <Text style={[paymentstyles.header, { color: colors.colors.text }]}>
-          {strings.payment}
-        </Text>
-      </View>
+      <Header type="payment" />
       <View style={paymentstyles.paymenttextIconContainer}>
         <Animated.Image
           source={images.doneIcon}
@@ -99,7 +85,7 @@ const Payment = () => {
                 id: strings.numbers,
                 name: strings.brownshirt,
                 size: strings.M,
-                price: strings.fotynine,
+                price: Number(strings.fotynine),
                 image: images.creamyshirt,
               },
             })

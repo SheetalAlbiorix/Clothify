@@ -2,13 +2,7 @@ import React from "react";
 import { View, Text } from "react-native";
 import { addcardstyles } from "../styles/AddCardStyle";
 import { strings } from "../utils/strings";
-
-interface CardPreviewProps {
-  cardType: string | null;
-  cardNumber: string;
-  cardHolderName: string;
-  expiryDate: string;
-}
+import { CardPreviewProps } from "../types/types";
 
 const CardPreview: React.FC<CardPreviewProps> = ({
   cardType,

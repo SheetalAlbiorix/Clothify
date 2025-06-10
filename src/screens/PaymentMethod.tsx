@@ -17,19 +17,13 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { RootStackParamList } from "../../App";
 import { useTheme } from "../themes/theme";
 import { StatusBar } from "expo-status-bar";
+import { SavedCardType } from "../types/types";
+import Header from "../components/HeaderGlobal";
 
 type PaymentMethodNavigationProp = StackNavigationProp<
   RootStackParamList,
   "PaymentMethod"
 >;
-
-export type SavedCardType = {
-  cardNumber: string;
-  expiryDate: string;
-  cardHolderName: string;
-  cvv: string;
-  type: string | null;
-};
 
 const PaymentMethod = () => {
   const colors = useColors();
@@ -97,22 +91,7 @@ const PaymentMethod = () => {
       ]}
     >
       <StatusBar style={statusBarStyle} />
-      <View style={paymentmethodstyle.headerContainer}>
-        <TouchableOpacity
-          style={paymentmethodstyle.backButton}
-          onPress={() => navigation.goBack()}
-        >
-          <Image
-            source={images.leftarrow}
-            style={paymentmethodstyle.leftarrowImage}
-          />
-        </TouchableOpacity>
-        <Text
-          style={[paymentmethodstyle.header, { color: colors.colors.text }]}
-        >
-          {strings.paymentmethod}
-        </Text>
-      </View>
+      <Header type="paymentmethod" />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={paymentmethodstyle.savedCardsContainer}>
           <Text

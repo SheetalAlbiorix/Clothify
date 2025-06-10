@@ -17,8 +17,12 @@ import { useColors } from "../hooks/useColors";
 import { strings } from "../utils/strings";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../App";
+import Data from "../utils/Data.json";
+import CompleteProfileRenderItem from "../components/CompleteprofileRenderItem";
 
-const genderOptions = [strings.male, strings.female];
+const genderOptions = Data.genderOption.map(
+  (key) => strings[key as keyof typeof strings] || key
+);
 type completeprofileNavigationProp = StackNavigationProp<
   RootStackParamList,
   "CompleteProfile"
@@ -28,7 +32,6 @@ const CompleteProfile = () => {
   const navigation = useNavigation<completeprofileNavigationProp>();
   const { statusBarStyle } = useTheme();
   const colors = useColors();
-
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [gender, setGender] = useState("");
@@ -182,15 +185,13 @@ const CompleteProfile = () => {
                 data={genderOptions}
                 keyExtractor={(item) => item}
                 renderItem={({ item }) => (
-                  <TouchableOpacity
-                    style={compProfileStyle.modalItem}
-                    onPress={() => {
-                      setGender(item);
+                  <CompleteProfileRenderItem
+                    item={item}
+                    onSelect={(value) => {
+                      setGender(value);
                       setGenderDropdownVisible(false);
                     }}
-                  >
-                    <Text style={compProfileStyle.modalText}>{item}</Text>
-                  </TouchableOpacity>
+                  />
                 )}
               />
             </View>

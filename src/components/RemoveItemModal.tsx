@@ -10,21 +10,7 @@ import {
 import { strings } from "../utils/strings";
 import { cartitemstyle } from "../styles/CartItemStyle";
 import { useColors } from "../hooks/useColors";
-
-interface RemoveItemModalProps {
-  visible: boolean;
-  item: {
-    id: number;
-    name: string;
-    image: ImageSourcePropType;
-    size: string;
-    price: number;
-    quantity: number;
-    originalPrice: number;
-  } | null;
-  onClose: () => void;
-  onConfirm: () => void;
-}
+import { RemoveItemModalProps } from "../types/types";
 
 export const RemoveItemModal = React.memo(
   ({ visible, item, onClose, onConfirm }: RemoveItemModalProps) => {

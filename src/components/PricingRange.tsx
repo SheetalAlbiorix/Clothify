@@ -5,11 +5,7 @@ import { Colors } from "../utils/Colors";
 import { layout, Spacing } from "./layout";
 import { Fonts } from "./fonts";
 import { useColors } from "../hooks/useColors";
-
-type PricingRangeProps = {
-  value: number[];
-  onChange: (value: number[]) => void;
-};
+import { PricingRangeProps } from "../types/types";
 
 const PricingRange: React.FC<PricingRangeProps> = ({ value, onChange }) => {
   const screenWidth = Dimensions.get("window").width;

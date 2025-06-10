@@ -23,83 +23,28 @@ import CategoryFilterCarousel from "../components/CategoryFilter";
 import { StatusBar } from "expo-status-bar";
 import { useTheme } from "../themes/theme";
 import { BannerContainer } from "../components/BannerContainer";
+import { collection, setDoc, doc } from "firebase/firestore";
+import { db } from "../service/auth";
+import Data from "../utils/Data.json";
+import Header from "../components/HeaderGlobal";
+import HomeRenderItem from "../components/HomeRenderItem";
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, "Home">;
 type HomeScreenRouteProp = RouteProp<RootStackParamList, "Home">;
 
-const categories = [
-  { name: strings.tshirt, icon: images.tshirtIcon },
-  { name: strings.pant, icon: images.pantIcon },
-  { name: strings.Dress, icon: images.dressIcon },
-  { name: strings.Jacket, icon: images.jacketIcon },
-];
+const categories = Data.homeCategory.map((item) => ({
+  name: strings[item.name as keyof typeof strings] || item.name,
+  icon: images[item.icon as keyof typeof images],
+}));
 
-const flashSaleItems = [
-  {
-    id: 1,
-    name: strings.brownjacket,
-    image1: images.likeIcon,
-    price: strings.price1,
-    image: images.jacket1,
-    rating: 4.9,
-  },
-  {
-    id: 2,
-    name: strings.brownsuit,
-    image1: images.likeIcon,
-    price: strings.price2,
-    image: images.suit1,
-    rating: 5.0,
-  },
-  {
-    id: 3,
-    name: strings.brownjacket,
-    image1: images.likeIcon,
-    price: strings.price3,
-    image: images.jacket2,
-    rating: 4.9,
-  },
-  {
-    id: 4,
-    name: strings.yelloshirt,
-    image1: images.likeIcon,
-    price: strings.price4,
-    image: images.shirt1,
-    rating: 5.0,
-  },
-  {
-    id: 5,
-    name: strings.brownjacket,
-    image1: images.likeIcon,
-    price: strings.price1,
-    image: images.jacket1,
-    rating: 4.9,
-  },
-  {
-    id: 6,
-    name: strings.brownsuit,
-    image1: images.likeIcon,
-    price: strings.price2,
-    image: images.suit1,
-    rating: 5.0,
-  },
-  {
-    id: 7,
-    name: strings.brownjacket,
-    image1: images.likeIcon,
-    price: strings.price3,
-    image: images.jacket2,
-    rating: 4.9,
-  },
-  {
-    id: 8,
-    name: strings.yelloshirt,
-    image1: images.likeIcon,
-    price: strings.price4,
-    image: images.shirt1,
-    rating: 5.0,
-  },
-];
+const flashSaleItems = Data.flashSaleItems.map((item) => ({
+  id: item.id,
+  name: strings[item.name as keyof typeof strings] || item.name,
+  image1: images[item.image1 as keyof typeof images],
+  price: strings[item.price as keyof typeof strings] || item.price,
+  image: images[item.image as keyof typeof images],
+  rating: item.rating,
+}));
 
 const HomeScreen = () => {
   const route = useRoute<HomeScreenRouteProp>();
@@ -123,13 +68,43 @@ const HomeScreen = () => {
     }
   }, [navigation, location]);
 
+  useEffect(() => {
+    const uploadFlashSaleItems = async () => {
+      try {
+        const colRef = collection(db, "flashSales");
+        for (const item of flashSaleItems) {
+          await setDoc(doc(colRef, item.id.toString()), {
+            id: item.id,
+            name: item.name,
+            price: item.price,
+            rating: item.rating,
+            image: item.image.toString(),
+            image1: item.image1.toString(),
+          });
+        }
+        console.log(strings.flashsaleupload);
+      } catch (error) {
+        console.error(strings.firstoreuploaderror, error);
+      }
+    };
+
+    uploadFlashSaleItems();
+  }, []);
+
   const firstRowItems = flashSaleItems.filter((_, index) => index % 2 === 0);
   const secondRowItems = flashSaleItems.filter((_, index) => index % 2 !== 0);
 
-  const renderItem = ({ item }: any) => (
+  const renderItem = ({ item }: { item: (typeof flashSaleItems)[0] }) => (
     <TouchableOpacity
       onPress={() => {
-        navigation.navigate("productDetail");
+        navigation.navigate("productDetail", {
+          id: item.id,
+          name: item.name,
+          image1: item.image1,
+          price: item.price,
+          image: item.image,
+          rating: item.rating,
+        });
       }}
       style={homeStyles.flashSaleItem}
     >
@@ -143,7 +118,6 @@ const HomeScreen = () => {
         >
           {item.name}
         </Text>
-
         <View style={homeStyles.ratingContainer}>
           <Image source={images.starIcon} style={homeStyles.starIcon} />
           <Text style={[homeStyles.ratingText, { color: colors.colors.text }]}>
@@ -168,48 +142,12 @@ const HomeScreen = () => {
       <Text style={[homeStyles.locationheader, { color: colors.colors.text }]}>
         {strings.location}
       </Text>
-      <View style={homeStyles.header}>
-        <TouchableOpacity
-          style={homeStyles.locationContainer}
-          onPress={() =>
-            navigation.navigate("LocationMain", { fromHome: true })
-          }
-        >
-          <Image source={images.locationIcon} style={homeStyles.locationIcon} />
-          <Text
-            style={[homeStyles.locationText, { color: colors.colors.text }]}
-          >
-            {location}
-          </Text>
-          <Image
-            style={[
-              homeStyles.downarrowIcon,
-              { tintColor: colors.colors.tintColor },
-            ]}
-            source={images.downarrow}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={homeStyles.notificationButton}
-          onPress={() => navigation.navigate("notification")}
-        >
-          <Image
-            source={images.notificationIcon}
-            style={[
-              homeStyles.notificationIcon,
-              { tintColor: colors.colors.tintColor },
-            ]}
-          />
-          {unreadCount > 0 && (
-            <View style={homeStyles.notificationBubble}>
-              <Text style={homeStyles.notificationBubbleText}>
-                {unreadCount}
-              </Text>
-            </View>
-          )}
-        </TouchableOpacity>
-      </View>
+      <Header
+        showLocation
+        location={location}
+        showNotifications
+        unreadCount={unreadCount}
+      />
 
       <View style={homeStyles.searchfilterContainer}>
         <View style={homeStyles.searchContainer}>
@@ -231,6 +169,7 @@ const HomeScreen = () => {
           />
         </TouchableOpacity>
       </View>
+
       <ScrollView showsVerticalScrollIndicator={false}>
         <BannerContainer />
         <View style={homeStyles.sectionSeeAllcontainer}>
@@ -247,6 +186,7 @@ const HomeScreen = () => {
             </Text>
           </TouchableOpacity>
         </View>
+
         <FlatList
           data={categories}
           horizontal
@@ -275,14 +215,14 @@ const HomeScreen = () => {
           data={firstRowItems}
           horizontal
           keyExtractor={(item) => item.id.toString()}
-          renderItem={renderItem}
+          renderItem={({ item }) => <HomeRenderItem item={item} />}
           showsHorizontalScrollIndicator={false}
         />
         <FlatList
           data={secondRowItems}
           horizontal
           keyExtractor={(item) => item.id.toString()}
-          renderItem={renderItem}
+          renderItem={({ item }) => <HomeRenderItem item={item} />}
           showsHorizontalScrollIndicator={false}
         />
       </ScrollView>

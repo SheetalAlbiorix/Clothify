@@ -1,13 +1,7 @@
 import React from "react";
 import { TouchableOpacity, Text } from "react-native";
 import { newpassstyle } from "../styles/NewPassStyle";
-
-interface PasswordSubmitButtonProps {
-  isEnabled: boolean;
-  onPress: () => void;
-  buttonText: string;
-  backgroundColor: string;
-}
+import { PasswordSubmitButtonProps } from "../types/types";
 
 const PasswordSubmitButton: React.FC<PasswordSubmitButtonProps> = ({
   isEnabled,

@@ -1,6 +1,6 @@
-import { View, ScrollView } from "react-native";
 import React, { useState, useMemo } from "react";
-import { useNavigation } from "@react-navigation/native";
+import { View, ScrollView } from "react-native";
+import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../App";
 import { images } from "../utils/images";
@@ -16,48 +16,36 @@ import ProductDetailInfo from "../components/ProductDetailInfo";
 import ProductColorSelector from "../components/ProductColorSelector";
 import ProductFooter from "../components/ProductFooter";
 import ProductHeader from "../components/ProductHeader";
+import Data from "../utils/Data.json";
 
+type ProductDetailRouteProp = RouteProp<RootStackParamList, "productDetail">;
 type ProductDetailNavigationProp = StackNavigationProp<
   RootStackParamList,
   "productDetail"
 >;
 
 const ProductDetail = () => {
-  const colors = useColors();
+  const route = useRoute<ProductDetailRouteProp>();
   const navigation = useNavigation<ProductDetailNavigationProp>();
+  const { id, name, image1, price, image, rating } = route.params;
+  const colors = useColors();
   const { statusBarStyle } = useTheme();
 
-  const [selectedColor, setSelectedColor] = useState("Dark Brown");
+  const [selectedColor, setSelectedColor] = useState(strings.darkbrown);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
-  const [selectedImage, setSelectedImage] = useState(images.jacket1);
+  const [selectedImage, setSelectedImage] = useState(image);
 
-  const imageList = useMemo(
-    () => [
-      images.jacket1,
-      images.jacket3,
-      images.jacket4,
-      images.jacket5,
-      images.jacket6,
-    ],
-    []
-  );
+  const imageList = useMemo(() => {
+    return Data.imageList.map((key) => images[key as keyof typeof images]);
+  }, []);
 
-  const sizeList = useMemo(
-    () => [
-      strings.S,
-      strings.M,
-      strings.L,
-      strings.XL,
-      strings.XXL,
-      strings.XXXL,
-    ],
-    []
-  );
+  const sizeList = useMemo(() => {
+    return Data.sizeList.map((size) => strings[size as keyof typeof strings]);
+  }, []);
 
-  const colorList = useMemo(
-    () => [Colors.darkbrown, Colors.mediumbrown, Colors.brown, Colors.black],
-    []
-  );
+  const colorList = useMemo(() => {
+    return Data.colorList.map((color) => Colors[color as keyof typeof Colors]);
+  }, []);
 
   return (
     <View
@@ -74,7 +62,13 @@ const ProductDetail = () => {
           imageList={imageList}
           setSelectedImage={setSelectedImage}
         />
-        <ProductDetailInfo />
+
+        <ProductDetailInfo
+          name={name}
+          price={price.toString()}
+          rating={rating}
+        />
+
         <ProductSizeSelector
           selectedSize={selectedSize}
           setSelectedSize={setSelectedSize}

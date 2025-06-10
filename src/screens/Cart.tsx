@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useMemo } from "react";
-import { View, ScrollView, ImageSourcePropType } from "react-native";
+import { View, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { StatusBar } from "expo-status-bar";
@@ -17,87 +17,35 @@ import { OrderSummary } from "../components/OrderSummary";
 import { CheckoutButton } from "../components/CheckoutButton";
 import { RemoveItemModal } from "../components/RemoveItemModal";
 import { CouponSelector } from "../components/CouponSelector";
-
-interface CartItem {
-  id: number;
-  name: string;
-  image: ImageSourcePropType;
-  size: string;
-  price: number;
-  quantity: number;
-  originalPrice: number;
-}
+import { CartItemType } from "../types/types";
+import { applyPromoLogic, removePromoLogic } from "../utils/CartUtils";
+import Data from "../utils/Data.json";
 
 type CartNavigationProp = StackNavigationProp<RootStackParamList, "Cart">;
 
-const initialCartItems: CartItem[] = [
-  {
-    id: 1,
-    name: strings.brownjacket,
-    image: images.jacket1,
-    size: strings.XL,
-    price: 83.97,
-    quantity: 1,
-    originalPrice: 83.97,
-  },
-  {
-    id: 2,
-    name: strings.brownsuit,
-    image: images.suit1,
-    size: strings.M,
-    price: 120,
-    quantity: 1,
-    originalPrice: 120,
-  },
-  {
-    id: 3,
-    name: strings.brownshirt,
-    image: images.jacket2,
-    size: strings.XL,
-    price: 83.97,
-    quantity: 1,
-    originalPrice: 83.97,
-  },
-  {
-    id: 4,
-    name: strings.brownsuit,
-    image: images.jacket3,
-    size: strings.S,
-    price: 160,
-    quantity: 1,
-    originalPrice: 160,
-  },
-  {
-    id: 5,
-    name: strings.brownsuit,
-    image: images.jacket4,
-    size: strings.L,
-    price: 100,
-    quantity: 1,
-    originalPrice: 100,
-  },
-];
+const initialCartItems: CartItemType[] = Data.cartItems.map((item) => ({
+  id: item.id,
+  name: strings[item.name as keyof typeof strings] || item.name,
+  image: images[item.image as keyof typeof images],
+  size: strings[item.size as keyof typeof strings] || item.size,
+  price: item.price,
+  quantity: item.quantity,
+  originalPrice: item.originalPrice,
+}));
 
 const DELIVERY_FEE = 25;
-const PROMO_CODES = {
-  FREEFORALL: strings.freeforall,
-  FIRST100: strings.first100,
-  HAPPYNEW500: strings.happynew500,
-  WELCOME200: strings.welcome200,
-  CASHBACK12: strings.cashback12,
-};
 
 const Cart = () => {
   const colors = useColors();
   const { statusBarStyle } = useTheme();
   const navigation = useNavigation<CartNavigationProp>();
-  const [cartItems, setCartItems] = useState<CartItem[]>(initialCartItems);
+  const [cartItems, setCartItems] = useState<CartItemType[]>(initialCartItems);
   const [promoCode, setPromoCode] = useState<string>("");
   const [appliedPromoCode, setAppliedPromoCode] = useState<string>("");
   const [deliveryFee, setDeliveryFee] = useState<number>(DELIVERY_FEE);
   const [discount, setDiscount] = useState<number>(0);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
-  const [itemToRemove, setItemToRemove] = useState<CartItem | null>(null);
+  const [itemToRemove, setItemToRemove] = useState<CartItemType | null>(null);
 
   const subTotal = useMemo(() => {
     return cartItems.reduce(
@@ -128,7 +76,7 @@ const Cart = () => {
     );
   }, []);
 
-  const showRemoveConfirmation = useCallback((item: CartItem) => {
+  const showRemoveConfirmation = useCallback((item: CartItemType) => {
     setItemToRemove(item);
     setModalVisible(true);
   }, []);
@@ -144,65 +92,27 @@ const Cart = () => {
   }, [itemToRemove]);
 
   const applyPromoCode = useCallback(() => {
-    const code = promoCode.toUpperCase();
-
-    if (code === PROMO_CODES.FREEFORALL) {
-      setCartItems((prevItems) =>
-        prevItems.map((item) => ({
-          ...item,
-          price: 0,
-        }))
-      );
-      setDeliveryFee(0);
-      setDiscount(0);
-      setAppliedPromoCode(code);
-    } else if (
-      code === PROMO_CODES.FIRST100 ||
-      code === PROMO_CODES.WELCOME200 ||
-      code === PROMO_CODES.CASHBACK12
-    ) {
-      const itemCount = cartItems.length;
-      if (itemCount > 0) {
-        const discountPerItem = 100 / itemCount;
-        setCartItems((prevItems) =>
-          prevItems.map((item) => ({
-            ...item,
-            price: Math.max(item.originalPrice - discountPerItem, 0),
-          }))
-        );
-        setDiscount(-35);
-        setAppliedPromoCode(code);
-      }
-    } else if (code === PROMO_CODES.HAPPYNEW500) {
-      const itemCount = cartItems.length;
-      if (itemCount > 0) {
-        const discountPerItem = 500 / itemCount;
-        setCartItems((prevItems) =>
-          prevItems.map((item) => ({
-            ...item,
-            price: Math.max(item.originalPrice - discountPerItem, 0),
-          }))
-        );
-        setDiscount(-35);
-        setAppliedPromoCode(code);
-      }
-    } else {
-      alert(strings.invalidpromocode);
-    }
+    applyPromoLogic(
+      promoCode,
+      cartItems,
+      setCartItems,
+      setDeliveryFee,
+      setDiscount,
+      setAppliedPromoCode,
+      () => alert(strings.invalidpromocode)
+    );
     setPromoCode("");
-  }, [promoCode, cartItems.length]);
+  }, [promoCode, cartItems]);
 
   const removePromoCode = useCallback(() => {
-    setCartItems((prevItems) =>
-      prevItems.map((item) => ({
-        ...item,
-        price: item.originalPrice,
-      }))
+    removePromoLogic(
+      cartItems,
+      setCartItems,
+      () => setDeliveryFee(DELIVERY_FEE),
+      () => setDiscount(0),
+      () => setAppliedPromoCode("")
     );
-    setDeliveryFee(DELIVERY_FEE);
-    setDiscount(0);
-    setAppliedPromoCode("");
-  }, []);
+  }, [cartItems]);
 
   if (cartItems.length === 0) {
     return <NoCartItems onBack={() => navigation.goBack()} />;

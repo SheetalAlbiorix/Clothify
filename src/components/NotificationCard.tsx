@@ -2,15 +2,7 @@ import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { notificationstyle } from "../styles/NotificationStyle";
 import { useColors } from "../hooks/useColors";
-
-type Props = {
-  title: string;
-  subtitle: string;
-  time: string;
-  image: any;
-  isAltStyle?: boolean;
-  backgroundColor?: string;
-};
+import { Props } from "../types/types";
 
 const NotificationCard = ({
   title,

@@ -9,6 +9,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { settingsstyle } from "../styles/Settingsstyle";
 import { useTheme } from "../themes/theme";
 import { StatusBar } from "expo-status-bar";
+import Header from "../components/HeaderGlobal";
 
 type SettingsNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -27,20 +28,7 @@ const Settings = () => {
       ]}
     >
       <StatusBar style={statusBarStyle} />
-      <View style={settingsstyle.headerContainer}>
-        <TouchableOpacity
-          style={settingsstyle.backButton}
-          onPress={() => navigation.goBack()}
-        >
-          <Image
-            source={images.leftarrow}
-            style={settingsstyle.leftarrowImage}
-          />
-        </TouchableOpacity>
-        <Text style={[settingsstyle.header, { color: colors.colors.text }]}>
-          {strings.Settings}
-        </Text>
-      </View>
+      <Header type="settings" />
       <View style={settingsstyle.mainListContainer}>
         <TouchableOpacity style={settingsstyle.profileholder}>
           <View style={settingsstyle.profilefirstView}>

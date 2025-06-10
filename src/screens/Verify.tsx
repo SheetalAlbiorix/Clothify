@@ -17,6 +17,11 @@ import { RootStackParamList } from "../../App";
 import { strings } from "../utils/strings";
 import { images } from "../utils/images";
 import { generateOtp } from "../service/generateOtp";
+import {
+  createInputRefs,
+  handleChange,
+  handleKeyPress,
+} from "../utils/Validation";
 
 type VerifyNavigationProp = StackNavigationProp<RootStackParamList, "Verify">;
 
@@ -32,7 +37,7 @@ const Verify = () => {
   const [email] = useState(route.params.email);
   const [timer, setTimer] = useState(30);
 
-  const inputRefs = useRef<Array<TextInput | null>>([]);
+  const inputRefs = createInputRefs();
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -41,35 +46,6 @@ const Verify = () => {
     }
     return () => clearInterval(interval);
   }, [timer]);
-
-  const handleChange = (text: string, index: number) => {
-    if (!/^\d*$/.test(text)) return;
-
-    const digits = text.split("");
-    if (digits.length === OTP_LENGTH) {
-      setOtp(digits);
-      handleVerify(digits.join(""));
-      return;
-    }
-
-    const newOtp = [...otp];
-    newOtp[index] = text;
-    setOtp(newOtp);
-
-    if (text && index < OTP_LENGTH - 1) {
-      inputRefs.current[index + 1]?.focus();
-    }
-
-    if (newOtp.join("").length === OTP_LENGTH) {
-      handleVerify(newOtp.join(""));
-    }
-  };
-
-  const handleKeyPress = (e: any, index: number) => {
-    if (e.nativeEvent.key === "Backspace" && !otp[index] && index > 0) {
-      inputRefs.current[index - 1]?.focus();
-    }
-  };
 
   const handleVerify = (otpValue: string) => {
     if (otpValue === generatedOtp) {
@@ -135,7 +111,11 @@ const Verify = () => {
         {otp.map((digit, index) => (
           <TextInput
             key={index}
-            ref={(ref) => (inputRefs.current[index] = ref)}
+            ref={(ref) => {
+              if (inputRefs.current) {
+                inputRefs.current[index] = ref;
+              }
+            }}
             style={[
               verifystyle.OtpInputvalue,
               {
@@ -145,10 +125,26 @@ const Verify = () => {
               },
             ]}
             value={digit}
-            onChangeText={(text) => handleChange(text, index)}
+            onChangeText={(text) =>
+              handleChange({
+                text,
+                index,
+                otp,
+                setOtp,
+                inputRefs,
+                handleVerify,
+              })
+            }
             keyboardType="numeric"
             maxLength={1}
-            onKeyPress={(e) => handleKeyPress(e, index)}
+            onKeyPress={(e) =>
+              handleKeyPress({
+                e,
+                index,
+                otp,
+                inputRefs,
+              })
+            }
           />
         ))}
       </View>

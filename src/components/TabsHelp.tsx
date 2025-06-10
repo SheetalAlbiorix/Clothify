@@ -1,12 +1,7 @@
 import React from "react";
 import { View, TouchableOpacity, Text } from "react-native";
 import { helpcenterstyle } from "../styles/HelpCenterStyle";
-
-interface TabsHelpProps {
-  activeTab: string;
-  tabs: { key: string; label: string }[];
-  onTabSelect: (key: string) => void;
-}
+import { TabsHelpProps } from "../types/types";
 
 export const TabsHelp: React.FC<TabsHelpProps> = ({
   activeTab,

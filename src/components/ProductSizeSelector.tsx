@@ -14,7 +14,9 @@ const ProductSizeSelector = ({
 
   return (
     <>
-      <Text style={[productstyle.sectionTitle, { color: colors.colors.text }]}>
+      <Text
+        style={[productstyle.sectionSizeTitle, { color: colors.colors.text }]}
+      >
         {strings.selectsize}
       </Text>
       <View style={productstyle.sizeContainer}>

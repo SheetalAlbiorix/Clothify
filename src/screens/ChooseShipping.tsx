@@ -16,24 +16,21 @@ import { images } from "../utils/images";
 import { strings } from "../utils/strings";
 import { useTheme } from "../themes/theme";
 import { StatusBar } from "expo-status-bar";
+import { ArrivalType } from "../types/types";
+import Data from "../utils/Data.json";
+import Header from "../components/HeaderGlobal";
+import ChooseShipRenderItem from "../components/ChooseShipRenderItem";
 
 type ChooseShippingNavigationProp = StackNavigationProp<
   RootStackParamList,
   "ChooseShipping"
 >;
 
-export type ArrivalType = {
-  id: string;
-  label: string;
-  arrival: string;
-};
-
-const arrivals: ArrivalType[] = [
-  { id: "1", label: strings.Home, arrival: strings.address1 },
-  { id: "2", label: strings.office, arrival: strings.address2 },
-  { id: "3", label: strings.parentshouse, arrival: strings.address3 },
-  { id: "4", label: strings.friendshouse, arrival: strings.address4 },
-];
+const arrivals: ArrivalType[] = Data.ChooseShips.map((item: ArrivalType) => ({
+  id: item.id,
+  label: strings[item.label as keyof typeof strings] || item.label,
+  arrival: strings[item.arrival as keyof typeof strings] || item.arrival,
+}));
 
 const ChooseShipping = () => {
   const colors = useColors();
@@ -61,62 +58,17 @@ const ChooseShipping = () => {
       ]}
     >
       <StatusBar style={statusBarStyle} />
-      <View style={chooseshippingStyle.headerContainer}>
-        <TouchableOpacity
-          style={chooseshippingStyle.backButton}
-          onPress={() => navigation.goBack()}
-        >
-          <Image
-            source={images.leftarrow}
-            style={chooseshippingStyle.leftarrowImage}
-          />
-        </TouchableOpacity>
-        <Text
-          style={[chooseshippingStyle.header, { color: colors.colors.text }]}
-        >
-          {strings.chooseshipping}
-        </Text>
-      </View>
+      <Header type="chooseshipping" />
       <FlatList
         data={arrivals}
         contentContainerStyle={chooseshippingStyle.chooseaddress}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <Pressable
-            style={chooseshippingStyle.chooseaddressItem}
-            onPress={() => handleSelectArrival(item)}
-          >
-            <View style={chooseshippingStyle.chooseaddressInfo}>
-              <Image
-                source={images.locationpin}
-                style={chooseshippingStyle.boxtimeImage}
-              />
-              <View>
-                <Text
-                  style={[
-                    chooseshippingStyle.chooseaddressTitle,
-                    { color: colors.colors.text },
-                  ]}
-                >
-                  {item.label}
-                </Text>
-                <Text
-                  style={[
-                    chooseshippingStyle.chooseaddressDetails,
-                    { color: colors.colors.textAccent },
-                  ]}
-                >
-                  {item.arrival}
-                </Text>
-              </View>
-            </View>
-
-            <View style={chooseshippingStyle.radioButtonContainer}>
-              {selectedArrival?.id === item.id && (
-                <View style={chooseshippingStyle.selectedRadio} />
-              )}
-            </View>
-          </Pressable>
+          <ChooseShipRenderItem
+            item={item}
+            selectedItem={selectedArrival}
+            onSelect={handleSelectArrival}
+          />
         )}
       />
       <View

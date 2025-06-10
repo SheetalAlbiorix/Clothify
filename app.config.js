@@ -15,7 +15,7 @@ export default {
     slug: "clothify",
     version: "1.0.0",
     orientation: "portrait",
-    icon: "./src/assets/logo4.png",
+    icon: "./src/assets/logo.png",
     userInterfaceStyle: "light",
     newArchEnabled: true,
     splash: {
@@ -29,19 +29,19 @@ export default {
     },
     android: {
       adaptiveIcon: {
-        foregroundImage: "./src/assets/logo4.png",
+        foregroundImage: "./src/assets/logo.png",
         backgroundColor: "#ffffff"
       },
       softwareKeyboardLayoutMode: "pan",
       package: "com.anonymous.clothify",
       googleServicesFile: "./google-services.json",
       buildProperties: {
-      android: {
-        keystore: {
-          keystorePath: "./android/app/debugkeystore.jks",
-          keystorePassword: "123456",
-          keyAlias: "newkey",
-          keyPassword: "123456"
+        android: {
+          keystore: {
+            keystorePath: "./android/app/debugkeystore.jks",
+            keystorePassword: "123456",
+            keyAlias: "newkey",
+            keyPassword: "123456"
           }
         }
       }
@@ -49,7 +49,8 @@ export default {
     plugins: [
       "@react-native-firebase/app",
       "@react-native-firebase/crashlytics",
-      "@react-native-google-signin/google-signin"
+      "@react-native-google-signin/google-signin",
+      "expo-asset"
     ],
     web: {
       favicon: "./src/assets/favicon.png"
@@ -60,7 +61,7 @@ export default {
       GOOGLE_IOS_CLIENT_ID: process.env.GOOGLE_IOS_CLIENT_ID,
       API_KEY: process.env.API_KEY,
       AUTHDOMAIN: process.env.AUTHDOMAIN,
-      PROJECTID: process.env.PROJECTID?.replace(/["',]/g, "").trim(),
+      PROJECTID: process.env.PROJECTID,
       STORAGEBUCKET: process.env.STORAGEBUCKET,
       MESSAGINGSENDERID: process.env.MESSAGINGSENDERID,
       APPID: process.env.APPID,

@@ -20,6 +20,7 @@ import { images } from "../utils/images";
 import { signInWithEmail, signInWithGoogle } from "../service/auth";
 import { useUser } from "../hooks/userContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { validateEmail, validatePassword } from "../utils/Validation";
 
 type SignInNavigationProp = StackNavigationProp<RootStackParamList, "SignIn">;
 
@@ -33,19 +34,6 @@ const SignIn = () => {
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-
-  const validateEmail = (input: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!input) return strings.emailrequired;
-    if (!emailRegex.test(input)) return strings.entervalidemail;
-    return "";
-  };
-
-  const validatePassword = (input: string) => {
-    if (!input) return strings.Passrequired;
-    if (input.length < 8) return strings.passwordlength;
-    return "";
-  };
 
   const handleEmailChange = (text: string) => {
     setEmail(text);

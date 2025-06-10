@@ -10,21 +10,7 @@ import { useTheme } from "../themes/theme";
 import { StatusBar } from "expo-status-bar";
 import TrackProductRow from "../components/TrackProductRow";
 import TrackDetail from "../components/TrackDetail";
-
-type OrderDataType = {
-  id: string;
-  name: string;
-  size: string;
-  qty: number;
-  price: number;
-  image: any;
-};
-
-type RouteParams = {
-  TrackOrder: {
-    orderData: OrderDataType;
-  };
-};
+import Header from "../components/HeaderGlobal";
 
 const TrackOrder = () => {
   const navigation = useNavigation();
@@ -38,20 +24,7 @@ const TrackOrder = () => {
       ]}
     >
       <StatusBar style={statusBarStyle} />
-      <View style={trackorderstyle.headerContainer}>
-        <TouchableOpacity
-          style={trackorderstyle.backButton}
-          onPress={() => navigation.goBack()}
-        >
-          <Image
-            source={images.leftarrow}
-            style={trackorderstyle.leftarrowImage}
-          />
-        </TouchableOpacity>
-        <Text style={[trackorderstyle.header, { color: colors.colors.text }]}>
-          {strings.trackorder}
-        </Text>
-      </View>
+      <Header type="trackorder" />
       <View style={trackorderstyle.flexcontainer}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <TrackProductRow />

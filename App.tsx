@@ -7,11 +7,8 @@ import { setupFCMListeners } from "./src/service/notificationListeners";
 import * as Screens from "./src/screens";
 import { auth } from "./src/service/auth";
 import { UserProvider } from "./src/hooks/userContext";
-import { ActiveOrder, OrderItem } from "./src/screens/MyOrders";
-import { SavedCardType } from "./src/screens/PaymentMethod";
-import { AddressType } from "./src/screens/ShippingAddress";
-import { ArrivalType } from "./src/screens/ChooseShipping";
 import { LogBox } from "react-native";
+import { AddressType, ArrivalType, SavedCardType, OrderItem } from "./src/types/types";
 
 export type RootStackParamList = {
   Splash: undefined;
@@ -24,9 +21,16 @@ export type RootStackParamList = {
   NewPass: undefined;
   CompleteProfile: undefined;
   AllowLocation: undefined;
-  Home: { location: string };
+ Home: { location?: string } | undefined;
+  productDetail: {
+    id: number;
+    name: string;
+    image1: any;
+    price: string;
+    image: any;
+    rating: number;
+  };
   Tab: { name?: string; location: string };
-  productDetail: undefined;
   whistlist: undefined;
   Cart: { appliedCoupon: string };
   Checkout: { selectedAddress?: AddressType; selectedArrival?: ArrivalType };

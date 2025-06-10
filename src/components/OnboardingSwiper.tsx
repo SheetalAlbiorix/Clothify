@@ -4,14 +4,7 @@ import Swiper from "react-native-swiper";
 import { Onboardstyles } from "../styles/OnboradStyle";
 import { useColors } from "../hooks/useColors";
 import { strings } from "../utils/strings";
-
-interface OnboardingSwiperProps {
-  swiperRef: React.RefObject<Swiper>;
-  slides: { id: number; image: any; text: string; text2: string }[];
-  activeIndex: number;
-  setActiveIndex: (index: number) => void;
-  navigation: any;
-}
+import { OnboardingSwiperProps } from "../types/types";
 
 const OnboardingSwiper: React.FC<OnboardingSwiperProps> = ({
   swiperRef,

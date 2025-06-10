@@ -4,11 +4,7 @@ import { strings } from "../utils/strings";
 import { Colors } from "../utils/Colors";
 import { Fonts } from "./fonts";
 import { borderStyles, layout, Spacing } from "./layout";
-
-interface CustomCheckboxProps {
-  checked: boolean;
-  onToggle: () => void;
-}
+import { CustomCheckboxProps } from "../types/types";
 
 const CustomCheckbox: React.FC<CustomCheckboxProps> = ({
   checked,

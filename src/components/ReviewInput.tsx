@@ -3,11 +3,7 @@ import { TextInput, Text, View } from "react-native";
 import { leavereviewstyle } from "../styles/LeaveReviewStyle";
 import { strings } from "../utils/strings";
 import { Colors } from "../utils/Colors";
-
-type ReviewInputProps = {
-  reviewText: string;
-  onChangeText: (text: string) => void;
-};
+import { ReviewInputProps } from "../types/types";
 
 const ReviewInput: React.FC<ReviewInputProps> = ({
   reviewText,

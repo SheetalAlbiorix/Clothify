@@ -17,73 +17,18 @@ import { RootStackParamList } from "../../App";
 import { Colors } from "../utils/Colors";
 import { useTheme } from "../themes/theme";
 import { StatusBar } from "expo-status-bar";
+import Data from "../utils/Data.json";
+import Header from "../components/HeaderGlobal";
+import SearchRenderItem from "../components/SearchRenderItem";
 
-const showingResultsFor = [
-  {
-    id: 1,
-    name: strings.brownjacket,
-    image1: images.likeIcon,
-    price: strings.price1,
-    image: images.jacket1,
-    rating: 4.9,
-  },
-  {
-    id: 2,
-    name: strings.brownsuit,
-    image1: images.likeIcon,
-    price: strings.price2,
-    image: images.suit1,
-    rating: 5.0,
-  },
-  {
-    id: 3,
-    name: strings.brownjacket,
-    image1: images.likeIcon,
-    price: strings.price3,
-    image: images.jacket2,
-    rating: 4.9,
-  },
-  {
-    id: 4,
-    name: strings.yelloshirt,
-    image1: images.likeIcon,
-    price: strings.price4,
-    image: images.shirt1,
-    rating: 5.0,
-  },
-  {
-    id: 5,
-    name: strings.brownjacket,
-    image1: images.likeIcon,
-    price: strings.price1,
-    image: images.jacket1,
-    rating: 4.9,
-  },
-  {
-    id: 6,
-    name: strings.brownsuit,
-    image1: images.likeIcon,
-    price: strings.price2,
-    image: images.suit1,
-    rating: 5.0,
-  },
-  {
-    id: 7,
-    name: strings.brownjacket,
-    image1: images.likeIcon,
-    price: strings.price3,
-    image: images.jacket2,
-    rating: 4.9,
-  },
-  {
-    id: 8,
-    name: strings.yelloshirt,
-    image1: images.likeIcon,
-    price: strings.price4,
-    image: images.shirt1,
-    rating: 5.0,
-  },
-];
+const showingResultsFor = Data.showingResultsFor.map((item) => ({
+  id: item.id,
+  name: strings[item.name as keyof typeof strings] ?? item.name,
+  image1: images[item.image1 as keyof typeof images],
+  price: strings[item.price as keyof typeof strings] ?? item.price,
+  image: images[item.image as keyof typeof images],
+  rating: item.rating,
+}));
 
 type searchscreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -96,18 +41,11 @@ const SearchScreen = () => {
   const navigation = useNavigation<searchscreenNavigationProp>();
   const [name, setName] = useState<string>("");
 
-  const recentsData = [
-    { id: 1, name: strings.tshirt, image: images.crossIcon },
-    { id: 2, name: strings.jeans, image: images.crossIcon },
-    { id: 3, name: strings.shoes, image: images.crossIcon },
-    { id: 4, name: strings.Jacket, image: images.crossIcon },
-    { id: 5, name: strings.Dress, image: images.crossIcon },
-    { id: 6, name: strings.hat, image: images.crossIcon },
-    { id: 7, name: strings.socks, image: images.crossIcon },
-    { id: 8, name: strings.sweater, image: images.crossIcon },
-    { id: 9, name: strings.shorts, image: images.crossIcon },
-    { id: 10, name: strings.skirt, image: images.crossIcon },
-  ];
+  const recentsData = Data.showingResultsFor.map((item) => ({
+    id: item.id,
+    name: strings[item.name as keyof typeof strings] ?? item.name,
+    image: images[item.image as keyof typeof images],
+  }));
 
   const [recents, setRecents] = useState(recentsData);
 
@@ -130,20 +68,15 @@ const SearchScreen = () => {
       ]}
     >
       <StatusBar style={statusBarStyle} />
-      <View style={searchscreenstyle.headerContainer}>
-        <TouchableOpacity
-          style={searchscreenstyle.backButton}
-          onPress={() => navigation.goBack()}
-        >
-          <Image
-            source={images.leftarrow}
-            style={searchscreenstyle.leftarrowImage}
-          />
-        </TouchableOpacity>
-        <Text style={[searchscreenstyle.header, { color: colors.colors.text }]}>
-          {strings.search}
-        </Text>
-      </View>
+      <Header
+        showBackButton={true}
+        title={strings.search}
+        containerStyle={searchscreenstyle.headerContainer}
+        backButtonStyle={searchscreenstyle.backButton}
+        backButtonImageStyle={searchscreenstyle.leftarrowImage}
+        titleStyle={[searchscreenstyle.header, { color: colors.colors.text }]}
+      />
+
       <View style={searchscreenstyle.searchMainView}>
         <View style={searchscreenstyle.searchContainer}>
           <Image
@@ -191,63 +124,7 @@ const SearchScreen = () => {
         data={showingResultsFor}
         contentContainerStyle={searchscreenstyle.mainFlatListStyle}
         keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            style={searchscreenstyle.mainResultContainer}
-            onPress={() => {
-              navigation.navigate("productDetail");
-            }}
-          >
-            <View style={searchscreenstyle.jacketContainer}>
-              <View style={searchscreenstyle.jacketImageContainer}>
-                <View style={searchscreenstyle.HeartContainer}>
-                  <TouchableOpacity style={searchscreenstyle.bgheartContainer}>
-                    <Image
-                      source={item.image1}
-                      style={searchscreenstyle.heartImage}
-                    />
-                  </TouchableOpacity>
-                </View>
-                <Image
-                  source={item.image}
-                  style={searchscreenstyle.MainImageStyle}
-                />
-                <View style={searchscreenstyle.jacketTextContainer}>
-                  <Text
-                    style={[
-                      searchscreenstyle.jacketText,
-                      { color: colors.colors.text },
-                    ]}
-                  >
-                    {item.name}
-                  </Text>
-                  <View style={searchscreenstyle.jacketRatingContainer}>
-                    <Image
-                      source={images.starIcon}
-                      style={searchscreenstyle.starIcon}
-                    />
-                    <Text
-                      style={[
-                        searchscreenstyle.ratingText,
-                        { color: colors.colors.text },
-                      ]}
-                    >
-                      {item.rating}
-                    </Text>
-                  </View>
-                </View>
-              </View>
-              <Text
-                style={[
-                  searchscreenstyle.jacketPrice,
-                  { color: colors.colors.text },
-                ]}
-              >
-                {item.price}
-              </Text>
-            </View>
-          </TouchableOpacity>
-        )}
+        renderItem={({ item }) => <SearchRenderItem item={item} />}
       />
     </View>
   );

@@ -3,18 +3,14 @@ import { useColors } from "../hooks/useColors";
 import { profilestyle } from "../styles/ProfileStyle";
 import { images } from "../utils/images";
 import React from "react";
+import { ProfileOptions } from "../types/types";
 
 export const ProfileOption = ({
   icon,
   text,
   onPress,
   colors,
-}: {
-  icon: any;
-  text: string;
-  onPress: () => void;
-  colors: ReturnType<typeof useColors>;
-}) => (
+}: ProfileOptions) => (
   <TouchableOpacity style={profilestyle.profileholder} onPress={onPress}>
     <View style={profilestyle.profilefirstView}>
       <Image

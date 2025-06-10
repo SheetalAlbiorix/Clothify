@@ -1,10 +1,8 @@
 import React from "react";
-import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-
 import { strings } from "../utils/strings";
-import { images } from "../utils/images";
 import { useColors } from "../hooks/useColors";
 import { privacystyle } from "../styles/PrivacypolicyStyle";
 import { RootStackParamList } from "../../App";
@@ -14,6 +12,7 @@ import {
   PrivacyTextBlock,
   renderRepeatedText,
 } from "../components/PrivacyTextBlock";
+import Header from "../components/HeaderGlobal";
 
 type PrivacyNavigationProp = StackNavigationProp<RootStackParamList, "privacy">;
 
@@ -30,20 +29,7 @@ const PrivacyPolicy = () => {
       ]}
     >
       <StatusBar style={statusBarStyle} />
-      <View style={privacystyle.headerContainer}>
-        <TouchableOpacity
-          style={privacystyle.backButton}
-          onPress={() => navigation.goBack()}
-        >
-          <Image
-            source={images.leftarrow}
-            style={privacystyle.leftarrowImage}
-          />
-        </TouchableOpacity>
-        <Text style={[privacystyle.header, { color: colors.colors.text }]}>
-          {strings.privacypolicy}
-        </Text>
-      </View>
+      <Header type="privacypolicy" />
 
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={privacystyle.CancellationContainer}>

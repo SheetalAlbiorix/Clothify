@@ -2,15 +2,7 @@ import React from "react";
 import { TouchableOpacity, View, Text, Image } from "react-native";
 import { helpcenterstyle } from "../styles/HelpCenterStyle";
 import { images } from "../utils/images";
-
-interface ContactItemProps {
-  id: string;
-  title: string;
-  icon: any;
-  phone?: string;
-  expanded: boolean;
-  onToggle: (id: string) => void;
-}
+import { ContactItemProps } from "../types/types";
 
 export const ContactItem: React.FC<ContactItemProps> = ({
   id,

@@ -3,14 +3,7 @@ import { View, Text, Image, TouchableOpacity } from "react-native";
 import { leavereviewstyle } from "../styles/LeaveReviewStyle";
 import { strings } from "../utils/strings";
 import { useColors } from "../hooks/useColors";
-
-type ProductInfoProps = {
-  name: string;
-  size: string;
-  qty: number;
-  price: number;
-  image: any;
-};
+import { ProductInfoProps } from "../types/types";
 
 const ProductInfo: React.FC<ProductInfoProps> = ({
   name,

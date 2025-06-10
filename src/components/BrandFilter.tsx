@@ -3,20 +3,12 @@ import { View, Text, TouchableOpacity, FlatList } from "react-native";
 import { categoryfilterstyle } from "../styles/CategoryFilterStyle";
 import { strings } from "../utils/strings";
 import { useColors } from "../hooks/useColors";
+import { BrandFilterProps } from "../types/types";
+import Data from "../utils/Data.json";
 
-const categories = [
-  strings.All,
-  strings.Nike,
-  strings.Puma,
-  strings.Adidas,
-  strings.Jordans,
-  strings.Reebok,
-];
-
-type BrandFilterProps = {
-  selected: string;
-  onSelect: (value: string) => void;
-};
+const BrandFilters = Data.BrandFilters.map(
+  (key) => strings[key as keyof typeof strings] || key
+);
 
 const BrandFilter: React.FC<BrandFilterProps> = ({ selected, onSelect }) => {
   const colors = useColors();
@@ -48,7 +40,7 @@ const BrandFilter: React.FC<BrandFilterProps> = ({ selected, onSelect }) => {
   return (
     <View style={categoryfilterstyle.container}>
       <FlatList
-        data={categories}
+        data={BrandFilters}
         horizontal
         showsHorizontalScrollIndicator={false}
         keyExtractor={(item) => item}

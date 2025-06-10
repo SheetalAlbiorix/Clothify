@@ -8,16 +8,10 @@ import { useTheme } from "../themes/theme";
 import { useColors } from "../hooks/useColors";
 import { strings } from "../utils/strings";
 import { auth } from "../service/auth";
-
-type RootStackParamList = {
-  Splash: undefined;
-  Welcome: undefined;
-  SignIn: undefined;
-  Tab: undefined;
-};
+import { SplashRootStackParamList } from "../types/types";
 
 type SplashScreenNavigationProp = StackNavigationProp<
-  RootStackParamList,
+  SplashRootStackParamList,
   "Splash"
 >;
 

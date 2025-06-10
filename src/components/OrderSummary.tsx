@@ -3,13 +3,7 @@ import { View, Text } from "react-native";
 import { strings } from "../utils/strings";
 import { cartitemstyle } from "../styles/CartItemStyle";
 import { useColors } from "../hooks/useColors";
-
-interface OrderSummaryProps {
-  subTotal: number;
-  deliveryFee: number;
-  discount: number;
-  totalCost: number;
-}
+import { OrderSummaryProps } from "../types/types";
 
 export const OrderSummary = React.memo(
   ({ subTotal, deliveryFee, discount, totalCost }: OrderSummaryProps) => {

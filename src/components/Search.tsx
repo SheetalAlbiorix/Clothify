@@ -15,24 +15,17 @@ import { searchstyle } from "../styles/SearchStyle";
 import { useColors } from "../hooks/useColors";
 import { RootStackParamList } from "../../App";
 import { Colors } from "../utils/Colors";
+import Data from "../utils/Data.json";
 
 type SearchScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
   "Search"
 >;
 
-const initialRecents = [
-  { id: 1, name: strings.tshirt },
-  { id: 2, name: strings.jeans },
-  { id: 3, name: strings.shoes },
-  { id: 4, name: strings.Jacket },
-  { id: 5, name: strings.Dress },
-  { id: 6, name: strings.hat },
-  { id: 7, name: strings.socks },
-  { id: 8, name: strings.sweater },
-  { id: 9, name: strings.shorts },
-  { id: 10, name: strings.skirt },
-];
+const initialRecents = Data.initialRecents.map(item => ({
+  ...item,
+  name: strings[item.name as keyof typeof strings] || item.name,
+}));
 
 const Search = () => {
   const colors = useColors();

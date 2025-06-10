@@ -19,6 +19,9 @@ import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { RootStackParamList } from "../../App";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { StatusBar } from "expo-status-bar";
+import Data from "../utils/Data.json";
+import Header from "../components/HeaderGlobal";
+import LocationMainItem from "../components/LocationMain";
 
 type LocationNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -37,18 +40,9 @@ const LocationMain = () => {
   const [searchResults, setSearchResults] = useState<string[]>([]);
   const [currentLocation, setCurrentLocation] = useState<string | null>(null);
 
-  const locations = [
-    strings.newyork,
-    strings.losangeles,
-    strings.london,
-    strings.berlin,
-    strings.tokyo,
-    strings.sydney,
-    strings.toronto,
-    strings.mumbai,
-    strings.paris,
-    strings.dubai,
-  ];
+  const locations = Data.locations.map(
+    (key) => strings[key as keyof typeof strings] || key
+  );
 
   const handleUseCurrentLocation = async () => {
     const { status } = await Location.requestForegroundPermissionsAsync();
@@ -96,25 +90,7 @@ const LocationMain = () => {
       ]}
     >
       <StatusBar style={statusBarStyle} />
-      <View style={locationmainstyle.maincontainer}>
-        {!fromHome && (
-          <TouchableOpacity
-            style={locationmainstyle.backButton}
-            onPress={() => navigation.navigate("AllowLocation")}
-          >
-            <Image
-              source={images.leftarrow}
-              style={[
-                locationmainstyle.backIcon,
-                { tintColor: colors.colors.tintColor },
-              ]}
-            />
-          </TouchableOpacity>
-        )}
-        <Text style={[locationmainstyle.title, { color: colors.colors.text }]}>
-          {strings.enteryourlocation}
-        </Text>
-      </View>
+      <Header type="locationmain" showBackButton={!fromHome} />
 
       <View style={locationmainstyle.searchContainer}>
         <Image
@@ -163,26 +139,10 @@ const LocationMain = () => {
           data={searchResults}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => (
-            <TouchableOpacity
-              style={locationmainstyle.searchResultItem}
-              onPress={() => {
-                setCurrentLocation(item);
-                navigation.navigate("Tab", { location: item });
-              }}
-            >
-              <Image
-                source={images.locationarrow}
-                style={locationmainstyle.resultIcon}
-              />
-              <Text
-                style={[
-                  locationmainstyle.resultTitle,
-                  { color: colors.colors.text },
-                ]}
-              >
-                {item}
-              </Text>
-            </TouchableOpacity>
+            <LocationMainItem
+              item={item}
+              setCurrentLocation={setCurrentLocation}
+            />
           )}
         />
       ) : (

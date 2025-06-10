@@ -4,21 +4,7 @@ import { trackorderstyle } from "../styles/TrackOrderStyle";
 import { strings } from "../utils/strings";
 import { useColors } from "../hooks/useColors";
 import { RouteProp, useRoute } from "@react-navigation/native";
-
-type OrderDataType = {
-  id: string;
-  name: string;
-  size: string;
-  qty: number;
-  price: number;
-  image: any;
-};
-
-type RouteParams = {
-  TrackOrder: {
-    orderData: OrderDataType;
-  };
-};
+import { RouteParams } from "../types/types";
 
 const TrackProductRow = () => {
   const route = useRoute<RouteProp<RouteParams, "TrackOrder">>();

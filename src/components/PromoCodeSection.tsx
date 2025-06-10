@@ -4,14 +4,7 @@ import { strings } from "../utils/strings";
 import { cartitemstyle } from "../styles/CartItemStyle";
 import { useColors } from "../hooks/useColors";
 import { Colors } from "../utils/Colors";
-
-interface PromoCodeSectionProps {
-  promoCode: string;
-  appliedPromoCode: string;
-  onChangePromoCode: (code: string) => void;
-  onApplyPromoCode: () => void;
-  onRemovePromoCode: () => void;
-}
+import { PromoCodeSectionProps } from "../types/types";
 
 export const PromoCodeSection = React.memo(
   ({

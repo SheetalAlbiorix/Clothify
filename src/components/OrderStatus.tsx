@@ -5,13 +5,7 @@ import { strings } from "../utils/strings";
 import { useColors } from "../hooks/useColors";
 import { Colors } from "../utils/Colors";
 import { orderstatusstyle } from "../styles/OrderStatusStyle";
-
-interface OrderStatus {
-  title: string;
-  date: string;
-  completed: boolean;
-  icon: JSX.Element;
-}
+import { OrderStatus } from "../types/types";
 
 const OrderStatusTimeline = ({
   orderStatuses,

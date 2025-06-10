@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, Text } from "react-native";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
 import { useColors } from "../hooks/useColors";
@@ -10,38 +10,27 @@ import ErrorMessage from "../components/ErrorMessage";
 import PasswordSubmitButton from "../components/PasswordSubmitButton";
 import { StatusBar } from "expo-status-bar";
 import { useTheme } from "../themes/theme";
-
-type RootStackParamList = {
-  CompleteProfile: undefined;
-};
+import { RootStackParamList } from "../types/types";
+import { useNewPasswordForm } from "../hooks/useNewPasswordForm";
 
 const NewPassword = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const colors = useColors();
   const { statusBarStyle } = useTheme();
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [securePassword, setSecurePassword] = useState(true);
-  const [secureConfirmPassword, setSecureConfirmPassword] = useState(true);
-  const [error, setError] = useState("");
 
-  const isPasswordValid = (pass: string) => {
-    return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(
-      pass
-    );
-  };
-
-  const validateInputs = () => {
-    if (!isPasswordValid(password)) {
-      setError(strings.passwordcharacter);
-      return false;
-    }
-    if (password !== confirmPassword) {
-      setError(strings.confirmPasswordError);
-      return false;
-    }
-    return true;
-  };
+  const {
+    password,
+    confirmPassword,
+    setPassword,
+    setConfirmPassword,
+    securePassword,
+    setSecurePassword,
+    secureConfirmPassword,
+    setSecureConfirmPassword,
+    error,
+    validateInputs,
+    isFormValid,
+  } = useNewPasswordForm();
 
   const handleSubmit = () => {
     if (validateInputs()) {
@@ -75,7 +64,7 @@ const NewPassword = () => {
       <PasswordInput
         label={strings.password}
         value={password}
-        onChange={(text) => setPassword(text)}
+        onChange={setPassword}
         secureTextEntry={securePassword}
         toggleSecureTextEntry={() => setSecurePassword(!securePassword)}
         placeholder={strings.starText}
@@ -85,7 +74,7 @@ const NewPassword = () => {
       <PasswordInput
         label={strings.confirmPassword}
         value={confirmPassword}
-        onChange={(text) => setConfirmPassword(text)}
+        onChange={setConfirmPassword}
         secureTextEntry={secureConfirmPassword}
         toggleSecureTextEntry={() =>
           setSecureConfirmPassword(!secureConfirmPassword)
@@ -97,13 +86,11 @@ const NewPassword = () => {
       {error ? <ErrorMessage message={error} /> : null}
 
       <PasswordSubmitButton
-        isEnabled={isPasswordValid(password) && password === confirmPassword}
+        isEnabled={isFormValid}
         onPress={handleSubmit}
         buttonText={strings.createNewPassword}
         backgroundColor={
-          isPasswordValid(password) && password === confirmPassword
-            ? Colors.mediumbrown
-            : colors.colors.textAccent
+          isFormValid ? Colors.mediumbrown : colors.colors.textAccent
         }
       />
     </View>

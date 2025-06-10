@@ -10,71 +10,17 @@ import { invitestyle } from "../styles/inviteStyle";
 import { InviteCard } from "../components/InviteCard";
 import { useTheme } from "../themes/theme";
 import { StatusBar } from "expo-status-bar";
+import Data from "../utils/Data.json";
+import Header from "../components/HeaderGlobal";
 
 type InviteNavigationProp = StackNavigationProp<RootStackParamList, "invite">;
 
-const contacts = [
-  {
-    id: 1,
-    name: strings.avatar1,
-    number: strings.number1,
-    image: images.avatar1,
-  },
-  {
-    id: 2,
-    name: strings.avatar2,
-    number: strings.number2,
-    image: images.avatar2,
-  },
-  {
-    id: 3,
-    name: strings.avatar3,
-    number: strings.number3,
-    image: images.avatar3,
-  },
-  {
-    id: 4,
-    name: strings.avatar4,
-    number: strings.number4,
-    image: images.avatar4,
-  },
-  {
-    id: 5,
-    name: strings.avatar5,
-    number: strings.number5,
-    image: images.avatar5,
-  },
-  {
-    id: 6,
-    name: strings.avatar6,
-    number: strings.number6,
-    image: images.avatar6,
-  },
-  {
-    id: 7,
-    name: strings.avatar7,
-    number: strings.number7,
-    image: images.avatar7,
-  },
-  {
-    id: 8,
-    name: strings.avatar8,
-    number: strings.number8,
-    image: images.avatar8,
-  },
-  {
-    id: 9,
-    name: strings.avatar9,
-    number: strings.number9,
-    image: images.avatar11,
-  },
-  {
-    id: 10,
-    name: strings.avatar10,
-    number: strings.number10,
-    image: images.avatar13,
-  },
-];
+const contacts = Data.inviteFriends.map((item) => ({
+  id: item.id,
+  name: strings[item.name as keyof typeof strings] || item.name,
+  number: strings[item.number as keyof typeof strings] || item.number,
+  image: images[item.image as keyof typeof images],
+}));
 
 const InviteFriends = () => {
   const { colors } = useColors();
@@ -86,18 +32,7 @@ const InviteFriends = () => {
       style={[invitestyle.container, { backgroundColor: colors.background }]}
     >
       <StatusBar style={statusBarStyle} />
-      <View style={invitestyle.headerContainer}>
-        <TouchableOpacity
-          style={invitestyle.backButton}
-          onPress={() => navigation.goBack()}
-        >
-          <Image source={images.leftarrow} style={invitestyle.leftarrowImage} />
-        </TouchableOpacity>
-        <Text style={[invitestyle.header, { color: colors.text }]}>
-          {strings.invitefriends}
-        </Text>
-      </View>
-
+      <Header type="invitefriends" />
       <ScrollView>
         <View style={invitestyle.listholder}>
           {contacts.map((contact, index) => (

@@ -3,18 +3,12 @@ import { View, Text, TouchableOpacity, FlatList } from "react-native";
 import { categoryfilterstyle } from "../styles/CategoryFilterStyle";
 import { strings } from "../utils/strings";
 import { useColors } from "../hooks/useColors";
+import { SortByFilterProps } from "../types/types";
+import Data from "../utils/Data.json";
 
-const gender = [
-  strings.mostrecent,
-  strings.Popular,
-  strings.pricehigh,
-  strings.pricelow,
-  strings.trending,
-];
-type SortByFilterProps = {
-  selected: string;
-  onSelect: (value: string) => void;
-};
+const sortFilter = Data.sortFilter.map(
+  (key) => strings[key as keyof typeof strings] || key
+);
 
 const SortByFilter: React.FC<SortByFilterProps> = ({ selected, onSelect }) => {
   const colors = useColors();
@@ -47,7 +41,7 @@ const SortByFilter: React.FC<SortByFilterProps> = ({ selected, onSelect }) => {
   return (
     <View style={categoryfilterstyle.container}>
       <FlatList
-        data={gender}
+        data={sortFilter}
         horizontal
         showsHorizontalScrollIndicator={false}
         keyExtractor={(item) => item}

@@ -12,6 +12,7 @@ import { strings } from "../utils/strings";
 import { images } from "../utils/images";
 import OnboardingSwiper from "../components/OnboardingSwiper";
 import NavigationButtons from "../components/NavigationButtons";
+import Data from "../utils/Data.json";
 
 type OnboardNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -25,26 +26,12 @@ const OnboardingScreen = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const swiperRef = useRef<Swiper>(null);
 
-  const slides = [
-    {
-      id: 1,
-      image: images.onboarding1,
-      text: strings.SeamlessExp,
-      text2: strings.OnboardingLoremText,
-    },
-    {
-      id: 2,
-      image: images.onboarding2,
-      text: strings.NewFeatures,
-      text2: strings.OnboardingLoremText,
-    },
-    {
-      id: 3,
-      image: images.onboarding3,
-      text: strings.GetStarted,
-      text2: strings.OnboardingLoremText,
-    },
-  ];
+  const slides = Data.slides.map((item) => ({
+    id: item.id,
+    text: strings[item.text as keyof typeof strings] ?? item.text,
+    text2: strings[item.text2 as keyof typeof strings] ?? item.text2,
+    image: images[item.image as keyof typeof images],
+  }))
 
   return (
     <View

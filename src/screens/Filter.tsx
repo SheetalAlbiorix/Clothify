@@ -21,6 +21,9 @@ import PricingRange from "../components/PricingRange";
 import ReusableRadioButton from "../components/ReusableRadioButton";
 import { useTheme } from "../themes/theme";
 import { StatusBar } from "expo-status-bar";
+import Data from "../utils/Data.json";
+import Header from "../components/HeaderGlobal";
+import FilterRenderItem from "../components/FilterRenderItem";
 
 type FilterNavigationProp = StackNavigationProp<RootStackParamList, "Filter">;
 
@@ -58,43 +61,37 @@ const Filter = () => {
     setSelectedRating(value);
   };
 
-  const ratingData = [
-    { id: "1", stars: 5, label: strings.star1 },
-    { id: "2", stars: 5, label: strings.star2 },
-    { id: "3", stars: 5, label: strings.star3 },
-    { id: "4", stars: 5, label: strings.star4 },
-    { id: "5", stars: 5, label: strings.star5 },
-    { id: "6", stars: 5, label: strings.star6 },
-    { id: "8", stars: 5, label: strings.star7 },
-    { id: "7", stars: 5, label: strings.star8 },
-  ];
+  const ratingData = Data.ratingStar.map((item) => ({
+    ...item,
+    label: strings[item.label as keyof typeof strings] || item.label,
+  }));
 
-  const renderRatingItem = ({
-    item,
-  }: {
-    item: { id: string; stars: number; label: string };
-  }) => (
-    <View style={filterstyle.ratingTextContainer}>
-      <View style={filterstyle.starIconContainer}>
-        {[...Array(item.stars)].map((_, index) => (
-          <Image
-            key={index}
-            source={images.starIcon}
-            style={filterstyle.starIconImage}
-          />
-        ))}
-      </View>
-      <Text style={[filterstyle.ratingText, { color: colors.colors.text }]}>
-        {item.label}
-      </Text>
-      <ReusableRadioButton
-        value={item.id}
-        label={item.label}
-        selectedValue={selectedRating}
-        onPress={handleRadioPress}
-      />
-    </View>
-  );
+  // const renderRatingItem = ({
+  //   item,
+  // }: {
+  //   item: { id: string; stars: number; label: string };
+  // }) => (
+  //   <View style={filterstyle.ratingTextContainer}>
+  //     <View style={filterstyle.starIconContainer}>
+  //       {[...Array(item.stars)].map((_, index) => (
+  //         <Image
+  //           key={index}
+  //           source={images.starIcon}
+  //           style={filterstyle.starIconImage}
+  //         />
+  //       ))}
+  //     </View>
+  //     <Text style={[filterstyle.ratingText, { color: colors.colors.text }]}>
+  //       {item.label}
+  //     </Text>
+  //     <ReusableRadioButton
+  //       value={item.id}
+  //       label={item.label}
+  //       selectedValue={selectedRating}
+  //       onPress={handleRadioPress}
+  //     />
+  //   </View>
+  // );
 
   return (
     <View
@@ -104,17 +101,7 @@ const Filter = () => {
       ]}
     >
       <StatusBar style={statusBarStyle} />
-      <View style={filterstyle.headerContainer}>
-        <TouchableOpacity
-          style={filterstyle.backButton}
-          onPress={() => navigation.goBack()}
-        >
-          <Image source={images.leftarrow} style={filterstyle.leftarrowImage} />
-        </TouchableOpacity>
-        <Text style={[filterstyle.header, { color: colors.colors.text }]}>
-          {strings.filter}
-        </Text>
-      </View>
+      <Header type="filter" />
       <ScrollView
         contentContainerStyle={filterstyle.MainViewContainer}
         showsVerticalScrollIndicator={false}
@@ -159,7 +146,13 @@ const Filter = () => {
             <FlatList
               data={ratingData}
               keyExtractor={(item) => item.id}
-              renderItem={renderRatingItem}
+              renderItem={({ item }) => (
+                <FilterRenderItem
+                  item={item}
+                  selectedRating={selectedRating}
+                  handleRadioPress={handleRadioPress}
+                />
+              )}
               scrollEnabled={false}
             />
           </View>

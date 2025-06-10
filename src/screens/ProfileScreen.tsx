@@ -15,6 +15,7 @@ import MediaPickerModal from "../components/MediaPicker";
 import { useTheme } from "../themes/theme";
 import { StatusBar } from "expo-status-bar";
 import { ProfileOption } from "../components/ProfileOption";
+import Header from "../components/HeaderGlobal";
 
 type ProfileScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -89,20 +90,7 @@ const ProfileScreen = () => {
         { backgroundColor: colors.colors.background },
       ]}
     >
-      <View style={profilestyle.headerContainer}>
-        <TouchableOpacity
-          style={profilestyle.backButton}
-          onPress={() => navigation.goBack()}
-        >
-          <Image
-            source={images.leftarrow}
-            style={profilestyle.leftarrowImage}
-          />
-        </TouchableOpacity>
-        <Text style={[profilestyle.header, { color: colors.colors.text }]}>
-          {strings.profile}
-        </Text>
-      </View>
+      <Header type="profilescreen" />
 
       <MediaPickerModal
         visible={modalVisible}

@@ -79,6 +79,11 @@ export const productstyle = StyleSheet.create({
     ...Fonts.size_18,
     ...Fonts.weight_900,
     ...Spacing.marginTop_15,
+  },
+  sectionSizeTitle: {
+    ...Fonts.size_18,
+    ...Fonts.weight_900,
+    ...Spacing.marginTop_15,
     ...Spacing.marginHorizontal_20,
   },
   description: {

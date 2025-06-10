@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, ScrollView, Image } from "react-native";
+import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -10,6 +10,8 @@ import { notificationstyle } from "../styles/NotificationStyle";
 import NotificationCard from "../components/NotificationCard";
 import { useTheme } from "../themes/theme";
 import { StatusBar } from "expo-status-bar";
+import Data from "../utils/Data.json";
+import Header from "../components/HeaderGlobal";
 
 type NotificationNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -21,64 +23,16 @@ const Notification = () => {
   const { statusBarStyle } = useTheme();
   const navigation = useNavigation<NotificationNavigationProp>();
 
-  const [notifications, setNotifications] = useState([
-    {
-      id: 1,
-      title: strings.ordershipped,
-      subtitle: strings.yourorderhasbeenshipped,
-      time: strings.hour2,
-      read: false,
-      image: images.shippingtruck,
-    },
-    {
-      id: 2,
-      title: strings.flashsalealert,
-      subtitle: strings.hurrypricesmelting2hours,
-      time: strings.hour3,
-      read: false,
-      image: images.flashsale,
-    },
-    {
-      id: 3,
-      title: strings.productreviewrequest,
-      subtitle: strings.tellusaboutrecentpurchase,
-      time: strings.hour4,
-      read: false,
-      image: images.star2,
-    },
-    {
-      id: 4,
-      title: strings.ordershipped,
-      subtitle: strings.yourorderhasbeenshipped,
-      time: strings.d1,
-      read: true,
-      image: images.shippingtruck,
-    },
-    {
-      id: 5,
-      title: strings.newpaypaladded,
-      subtitle: strings.succeslinkpaypal,
-      time: strings.d1,
-      read: false,
-      image: images.wallet,
-    },
-    {
-      id: 6,
-      title: strings.flashsalealert,
-      subtitle: strings.stealdealyoulove,
-      time: strings.d1,
-      read: false,
-      image: images.flashsale,
-    },
-    {
-      id: 7,
-      title: strings.leftiteminyourcart,
-      subtitle: strings.cartmissesyou,
-      time: strings.d1,
-      read: true,
-      image: images.cartIcon,
-    },
-  ]);
+  const [notifications, setNotifications] = useState(() =>
+    Data.notificationlist.map((item) => ({
+      id: item.id,
+      title: strings[item.title as keyof typeof strings] ?? item.title,
+      subtitle: strings[item.subtitle as keyof typeof strings] ?? item.subtitle,
+      time: strings[item.time as keyof typeof strings] ?? item.time,
+      read: item.read,
+      image: images[item.image as keyof typeof images],
+    }))
+  );
 
   const unreadCount = notifications.filter(
     (notification) => !notification.read
@@ -98,25 +52,8 @@ const Notification = () => {
       ]}
     >
       <StatusBar style={statusBarStyle} />
-      <View style={notificationstyle.headerContainer}>
-        <TouchableOpacity
-          style={notificationstyle.backButton}
-          onPress={() => navigation.goBack()}
-        >
-          <Image
-            source={images.leftarrow}
-            style={notificationstyle.leftarrowImage}
-          />
-        </TouchableOpacity>
-        <Text style={[notificationstyle.header, { color: colors.colors.text }]}>
-          {strings.notification}
-        </Text>
-        <TouchableOpacity style={notificationstyle.new2container}>
-          <Text style={notificationstyle.new2Text}>
-            {unreadCount > 0 ? `${unreadCount} new` : 0}
-          </Text>
-        </TouchableOpacity>
-      </View>
+      <Header type="notification" unreadCount={unreadCount} />
+
 
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={notificationstyle.daymarkreadContainer}>

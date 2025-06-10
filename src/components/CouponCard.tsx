@@ -22,17 +22,12 @@ import Clipboard from "@react-native-clipboard/clipboard";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../App";
+import { CouponCardProps } from "../types/types";
 
 type CouponNavigationProp = StackNavigationProp<
   RootStackParamList,
   "CouponCard"
 >;
-type CouponCardProps = {
-  code: string;
-  amountNeeded: string;
-  discount: string;
-  onApplyCoupon?: (code: string) => void;
-};
 
 const CouponCard = ({
   code,

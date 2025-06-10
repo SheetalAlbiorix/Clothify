@@ -12,10 +12,7 @@ import { strings } from "../utils/strings";
 import { cartitemstyle } from "../styles/CartItemStyle";
 import { useColors } from "../hooks/useColors";
 import { useTheme } from "../themes/theme";
-
-interface NoCartItemsProps {
-  onBack: () => void;
-}
+import { NoCartItemsProps } from "../types/types";
 
 export const NoCartItems = React.memo(({ onBack }: NoCartItemsProps) => {
   const colors = useColors();

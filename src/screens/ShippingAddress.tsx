@@ -16,24 +16,21 @@ import { shippingAddressStyle } from "../styles/ShippingAdressStyle";
 import { strings } from "../utils/strings";
 import { useTheme } from "../themes/theme";
 import { StatusBar } from "expo-status-bar";
+import { AddressType } from "../types/types";
+import Data from "../utils/Data.json";
+import Header from "../components/HeaderGlobal";
+import ShippingRenderItem from "../components/ShippingRenderItem";
 
 type ShippingAddressNavigationProp = StackNavigationProp<
   RootStackParamList,
   "ShippingAddress"
 >;
 
-export type AddressType = {
-  id: string;
-  label: string;
-  address: string;
-};
-
-const addresses: AddressType[] = [
-  { id: "1", label: strings.Home, address: strings.address1 },
-  { id: "2", label: strings.office, address: strings.address2 },
-  { id: "3", label: strings.parentshouse, address: strings.address3 },
-  { id: "4", label: strings.friendshouse, address: strings.address4 },
-];
+const addresses: AddressType[] = Data.addresses.map((item: AddressType) => ({
+  id: item.id,
+  label: strings[item.label as keyof typeof strings] || item.label,
+  address: strings[item.address as keyof typeof strings] || item.address,
+}));
 
 const ShippingAddress = () => {
   const colors = useColors();
@@ -43,7 +40,7 @@ const ShippingAddress = () => {
     null
   );
 
-  const handleSelectAddress = (address: AddressType) => {
+  const handleSelectAddress: (address: AddressType) => void = (address: AddressType) => {
     setSelectedAddress(address);
   };
 
@@ -65,63 +62,18 @@ const ShippingAddress = () => {
       ]}
     >
       <StatusBar style={statusBarStyle} />
-      <View style={shippingAddressStyle.headerContainer}>
-        <TouchableOpacity
-          style={shippingAddressStyle.backButton}
-          onPress={() => navigation.goBack()}
-        >
-          <Image
-            source={images.leftarrow}
-            style={shippingAddressStyle.leftarrowImage}
-          />
-        </TouchableOpacity>
-        <Text
-          style={[shippingAddressStyle.header, { color: colors.colors.text }]}
-        >
-          {strings.shippingaddress}
-        </Text>
-      </View>
+      <Header type="shippingaddress" />
 
       <FlatList
         data={addresses}
         contentContainerStyle={shippingAddressStyle.locationaddress}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <Pressable
-            style={shippingAddressStyle.addressItem}
-            onPress={() => handleSelectAddress(item)}
-          >
-            <View style={shippingAddressStyle.addressInfo}>
-              <Image
-                source={images.locationpin}
-                style={shippingAddressStyle.locationpinImage}
-              />
-              <View>
-                <Text
-                  style={[
-                    shippingAddressStyle.addressTitle,
-                    { color: colors.colors.text },
-                  ]}
-                >
-                  {item.label}
-                </Text>
-                <Text
-                  style={[
-                    shippingAddressStyle.addressDetails,
-                    { color: colors.colors.textAccent },
-                  ]}
-                >
-                  {item.address}
-                </Text>
-              </View>
-            </View>
-
-            <View style={shippingAddressStyle.radioButtonContainer}>
-              {selectedAddress?.id === item.id && (
-                <View style={shippingAddressStyle.selectedRadio} />
-              )}
-            </View>
-          </Pressable>
+          <ShippingRenderItem
+            item={item}
+            selectedAddress={selectedAddress}
+            handleSelectAddress={handleSelectAddress}
+          />
         )}
       />
       <View style={shippingAddressStyle.addnewshipping}>

@@ -4,11 +4,7 @@ import { MaterialIcons as Icon } from "@expo/vector-icons";
 import { leavereviewstyle } from "../styles/LeaveReviewStyle";
 import { Colors } from "../utils/Colors";
 import { strings } from "../utils/strings";
-
-type StarRatingProps = {
-  rating: number;
-  onRatingChange: (rating: number) => void;
-};
+import { StarRatingProps } from "../types/types";
 
 const StarRating: React.FC<StarRatingProps> = ({ rating, onRatingChange }) => (
   <View style={leavereviewstyle.starratingcontainer}>

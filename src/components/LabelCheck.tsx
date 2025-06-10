@@ -5,12 +5,7 @@ import { Fonts } from "./fonts";
 import { borderStyles, layout, Spacing } from "./layout";
 import { strings } from "../utils/strings";
 import { useColors } from "../hooks/useColors";
-
-interface CheckboxLabelProps {
-  checked: boolean;
-  label: string;
-  onPress: () => void;
-}
+import { CheckboxLabelProps } from "../types/types";
 
 const LabelCheck: React.FC<CheckboxLabelProps> = ({
   checked,

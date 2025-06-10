@@ -15,21 +15,8 @@ import MediaPickerModal from "../components/MediaPicker";
 import { NoOrderFound } from "../components/NoOrderFound";
 import { images } from "../utils/images";
 import MediaPickerSection from "../components/MediaPickerSection";
-
-type OrderDataType = {
-  id: string;
-  name: string;
-  size: string;
-  qty: number;
-  price: number;
-  image: any;
-};
-
-type RouteParams = {
-  LeaveReview: {
-    orderData: OrderDataType;
-  };
-};
+import { RouteParams } from "../types/types";
+import Header from "../components/HeaderGlobal";
 
 const LeaveReviewScreen = () => {
   const navigation = useNavigation();
@@ -76,21 +63,7 @@ const LeaveReviewScreen = () => {
       ]}
     >
       <StatusBar style={statusBarStyle} />
-      <View style={leavereviewstyle.headerContainer}>
-        <TouchableOpacity
-          style={leavereviewstyle.backButton}
-          onPress={() => navigation.goBack()}
-        >
-          <Image
-            source={images.leftarrow}
-            style={leavereviewstyle.leftarrowImage}
-          />
-        </TouchableOpacity>
-        <Text style={[leavereviewstyle.header, { color: colors.colors.text }]}>
-          {strings.leavereview}
-        </Text>
-      </View>
-
+      <Header type="leavereview" />
       <View style={leavereviewstyle.flexcontainer}>
         <ProductInfo
           name={orderData.name}

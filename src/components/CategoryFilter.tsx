@@ -3,15 +3,11 @@ import { View, Text, TouchableOpacity, FlatList } from "react-native";
 import { categoryfilterstyle } from "../styles/CategoryFilterStyle";
 import { strings } from "../utils/strings";
 import { useColors } from "../hooks/useColors";
+import Data from "../utils/Data.json";
 
-const categories = [
-  strings.All,
-  strings.Newest,
-  strings.Popular,
-  strings.Man,
-  strings.Women,
-  strings.Kids,
-];
+const categories = Data.categories.map(
+  (key) => strings[key as keyof typeof strings] || key
+);
 
 const CategoryFilterCarousel = () => {
   const [selected, setSelected] = useState(strings.All);

@@ -1,0 +1,936 @@
+{
+    "BrandFilters": [
+        "All",
+        "Nike",
+        "Puma",
+        "Adidas",
+        "Jordans",
+        "Reebok"
+    ],
+    "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+    ],
+    "categories": [
+        "All",
+        "Newest",
+        "Popular",
+        "Man",
+        "Women",
+        "Kids"
+    ],
+    "gender": [
+        "All",
+        "Men",
+        "Women"
+    ],
+    "initialRecents": [
+        {
+            "id": 1,
+            "name": "tshirt"
+        },
+        {
+            "id": 2,
+            "name": "jeans"
+        },
+        {
+            "id": 3,
+            "name": "shoes"
+        },
+        {
+            "id": 4,
+            "name": "Jacket"
+        },
+        {
+            "id": 5,
+            "name": "Dress"
+        },
+        {
+            "id": 6,
+            "name": "hat"
+        },
+        {
+            "id": 7,
+            "name": "socks"
+        },
+        {
+            "id": 8,
+            "name": "sweater"
+        },
+        {
+            "id": 9,
+            "name": "shorts"
+        },
+        {
+            "id": 10,
+            "name": "skirt"
+        }
+    ],
+    "sortFilter": [
+        "Most Recent",
+        "Popular",
+        "Price High",
+        "Price Low",
+        "Trending"
+    ],
+    "Whistlistcategories": [
+        "All",
+        "Jacket",
+        "Shirt",
+        "Pant",
+        "T-Shirt",
+        "Man"
+    ],
+    "orderList": [
+        {
+            "id": "1",
+            "image": "jacket1",
+            "title": "Brown Jacket",
+            "size": "XL",
+            "price": "$83.97"
+        },
+        {
+            "id": "2",
+            "image": "suit1",
+            "title": "Brown Suit",
+            "size": "M",
+            "price": "$120.00"
+        },
+        {
+            "id": "3",
+            "image": "jacket2",
+            "title": "Brown Shirt",
+            "size": "XL",
+            "price": "$83.97"
+        }
+    ],
+    "ChooseShips": [
+        {
+            "id": "1",
+            "label": "Home",
+            "arrival": "1901 Thornridge Cir. Shiloh, Hawaii 81063"
+        },
+        {
+            "id": "2",
+            "label": "Office",
+            "arrival": "4517 Washington Ave. Manchester, Kentucky 39495"
+        },
+        {
+            "id": "3",
+            "label": "Parent's House",
+            "arrival": "8502 Preston Rd. Inglewood, Maine 98380"
+        },
+        {
+            "id": "4",
+            "label": "Friend's House",
+            "arrival": "2464 Royal Ln. Mesa, New Jersey 45463"
+        }
+    ],
+    "genderOption": [
+        "Male",
+        "Female"
+    ],
+    "ratingStar": [
+        {
+            "id": "1",
+            "stars": 5,
+            "label": "4.5 and above"
+        },
+        {
+            "id": "2",
+            "stars": 5,
+            "label": "4.0 - 4.5"
+        },
+        {
+            "id": "3",
+            "stars": 5,
+            "label": "3.5 - 4.0"
+        },
+        {
+            "id": "4",
+            "stars": 5,
+            "label": "3.0 - 3.5"
+        },
+        {
+            "id": "5",
+            "stars": 5,
+            "label": "2.5 - 3.0"
+        },
+        {
+            "id": "6",
+            "stars": 5,
+            "label": "2.0 - 2.5"
+        },
+        {
+            "id": "8",
+            "stars": 5,
+            "label": "1.5 - 2.0"
+        },
+        {
+            "id": "7",
+            "stars": 5,
+            "label": "1.0 - 1.5"
+        }
+    ],
+    "Faqs": [
+        {
+            "id": "1",
+            "question": "Can I track my order/'s delivery status?",
+            "answer": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            "expanded": true
+        },
+        {
+            "id": "2",
+            "question": "Is there a return policy?",
+            "answer": "Our return policy allows returns within 30 days of purchase with original receipt.",
+            "expanded": false
+        },
+        {
+            "id": "3",
+            "question": "Can I save my favorite items for later?",
+            "answer": "Yes, you can save items to your wishlist by clicking the heart icon.",
+            "expanded": false
+        },
+        {
+            "id": "4",
+            "question": "Can I share products with my friends?",
+            "answer": "Yes, you can share product links via social media or messaging apps.",
+            "expanded": false
+        },
+        {
+            "id": "5",
+            "question": "How do I contact customer support?",
+            "answer": "You can contact our customer support team via email, phone, or live chat.",
+            "expanded": false
+        },
+        {
+            "id": "6",
+            "question": "What payment methods are accepted?",
+            "answer": "We accept credit cards, debit cards, PayPal, Apple Pay, and Google Pay.",
+            "expanded": false
+        },
+        {
+            "id": "7",
+            "question": "How to add review?",
+            "answer": "You can add a review by navigating to the product page and scrolling to the reviews section.",
+            "expanded": false
+        }
+    ],
+    "contacts": [
+        {
+            "id": "1",
+            "title": "Customer Service",
+            "icon": "headphones",
+            "expanded": false
+        },
+        {
+            "id": "2",
+            "title": "WhatsApp",
+            "icon": "whatsapp",
+            "phone": "strings.phone",
+            "expanded": true
+        },
+        {
+            "id": "3",
+            "title": "Website",
+            "icon": "globe",
+            "expanded": false
+        },
+        {
+            "id": "4",
+            "title": "Facebook",
+            "icon": "metaIcon",
+            "expanded": false
+        },
+        {
+            "id": "5",
+            "title": "Twitter",
+            "icon": "twitter",
+            "expanded": false
+        },
+        {
+            "id": "6",
+            "title": "Instagram",
+            "icon": "instagram",
+            "expanded": false
+        }
+    ],
+    "faqCategory": [
+        "All",
+        "Services",
+        "General",
+        "Account"
+    ],
+    "homeCategory": [
+        {
+            "name": "T-Shirt",
+            "icon": "tshirtIcon"
+        },
+        {
+            "name": "Pant",
+            "icon": "pantIcon"
+        },
+        {
+            "name": "Dress",
+            "icon": "dressIcon"
+        },
+        {
+            "name": "Jacket",
+            "icon": "jacketIcon"
+        }
+    ],
+    "flashSaleItems": [
+        {
+            "id": 1,
+            "name": "Brown Jacket",
+            "image1": "likeIcon",
+            "price": "$83.97",
+            "image": "jacket1",
+            "rating": 4.9
+        },
+        {
+            "id": 2,
+            "name": "Brown Suit",
+            "image1": "likeIcon",
+            "price": "$120.00",
+            "image": "suit1",
+            "rating": "5.0"
+        },
+        {
+            "id": 3,
+            "name": "Brown Jacket",
+            "image1": "likeIcon",
+            "price": "$90.97",
+            "image": "jacket2",
+            "rating": 4.9
+        },
+        {
+            "id": 4,
+            "name": "Yellow Shirt",
+            "image1": "likeIcon",
+            "price": "$150.00",
+            "image": "shirt1",
+            "rating": "5.0"
+        },
+        {
+            "id": 5,
+            "name": "Brown Jacket",
+            "image1": "likeIcon",
+            "price": "$83.97",
+            "image": "jacket1",
+            "rating": 4.9
+        },
+        {
+            "id": 6,
+            "name": "Brown Suit",
+            "image1": "likeIcon",
+            "price": "$120.00",
+            "image": "suit1",
+            "rating": "5.0"
+        },
+        {
+            "id": 7,
+            "name": "Brown Jacket",
+            "image1": "likeIcon",
+            "price": "$90.97",
+            "image": "jacket2",
+            "rating": 4.9
+        },
+        {
+            "id": 8,
+            "name": "Yellow Shirt",
+            "image1": "likeIcon",
+            "price": "$150.00",
+            "image": "shirt1",
+            "rating": "5.0"
+        }
+    ],
+    "inviteFriends": [
+        {
+            "id": 1,
+            "name": "Carla Schoen",
+            "number": "207.555.0119",
+            "image": "avatar1"
+        },
+        {
+            "id": 2,
+            "name": "Ester Howard",
+            "number": "702.555.0122",
+            "image": "avatar2"
+        },
+        {
+            "id": 3,
+            "name": "Robert Fox",
+            "number": "239.555.0108",
+            "image": "avatar3"
+        },
+        {
+            "id": 4,
+            "name": "Jacob Jones",
+            "number": "316.555.0116",
+            "image": "avatar4"
+        },
+        {
+            "id": 5,
+            "name": "Darlene Robertson",
+            "number": "629.555.0129",
+            "image": "avatar5"
+        },
+        {
+            "id": 6,
+            "name": "Raplh Edwards",
+            "number": "203.555.0106",
+            "image": "avatar6"
+        },
+        {
+            "id": 7,
+            "name": "Ronald Richards",
+            "number": "209.555.0104",
+            "image": "avatar7"
+        },
+        {
+            "id": 8,
+            "name": "Courtney Harry",
+            "number": "213.555.0239",
+            "image": "avatar8"
+        },
+        {
+            "id": 9,
+            "name": "Vivian Richards",
+            "number": "765.555.0176",
+            "image": "avatar11"
+        },
+        {
+            "id": 10,
+            "name": "Brad Pitt",
+            "number": "654.555.0189",
+            "image": "avatar13"
+        }
+    ],
+    "locations": [
+        "New York, USA",
+        "Los Angeles, USA",
+        "London, UK",
+        "Berlin, Germany",
+        "Tokyo, Japan",
+        "Sydney, Australia",
+        "Toronto, Canada",
+        "Mumbai, India",
+        "Paris, France",
+        "Dubai, UAE"
+    ],
+    "activeOrder": [
+        {
+            "id": "1",
+            "name": "Brown Jacket",
+            "size": "L",
+            "qty": "2 pcs",
+            "price": 49.99,
+            "image": "jacket1"
+        },
+        {
+            "id": "2",
+            "name": "Yellow Shirt",
+            "size": "M",
+            "qty": "1 pc",
+            "price": 89.99,
+            "image": "jacket2"
+        },
+        {
+            "id": "3",
+            "name": "Light Grey Jacket",
+            "size": "M",
+            "qty": "1 pc",
+            "price": 89.99,
+            "image": "lightgreyjacket"
+        },
+        {
+            "id": "4",
+            "name": "Orange Shirt",
+            "size": "M",
+            "qty": "1 pc",
+            "price": 120.99,
+            "image": "orangeshirt"
+        },
+        {
+            "id": "5",
+            "name": "Sweatshirt",
+            "size": "XXL",
+            "qty": "1 pc",
+            "price": 100.99,
+            "image": "sweatshirt"
+        },
+        {
+            "id": "6",
+            "name": "Maroon Sweatshirt",
+            "size": "XL",
+            "qty": "1 pc",
+            "price": 90.99,
+            "image": "maroonsweatshirt"
+        },
+        {
+            "id": "7",
+            "name": "Creamy Shirt",
+            "size": "L",
+            "qty": "1 pc",
+            "price": 60.99,
+            "image": "creamyshirt"
+        }
+    ],
+    "completedOrders": [
+        {
+            "id": "1",
+            "name": "Dark Brown Jacket",
+            "size": "XL",
+            "qty": "1 pc",
+            "price": 59.99,
+            "image": "jacket3"
+        },
+        {
+            "id": "2",
+            "name": "Light Brown Jacket",
+            "size": "S",
+            "qty": "3 pcs",
+            "price": 120,
+            "image": "jacket4"
+        },
+        {
+            "id": "3",
+            "name": "White Creamy Shirt",
+            "size": "S",
+            "qty": "3 pcs",
+            "price": 120,
+            "image": "whitecreamyshirt"
+        },
+        {
+            "id": "4",
+            "name": "White Vanilla Shirt",
+            "size": "S",
+            "qty": "3 pcs",
+            "price": 120,
+            "image": "whitevanillashirt"
+        },
+        {
+            "id": "5",
+            "name": "Slim Brown Sweater",
+            "size": "S",
+            "qty": "3 pcs",
+            "price": 120,
+            "image": "slimbrownsweater"
+        },
+        {
+            "id": "6",
+            "name": "Light Green Coat",
+            "size": "S",
+            "qty": "3 pcs",
+            "price": 120,
+            "image": "lightgreencoat"
+        },
+        {
+            "id": "7",
+            "name": "White Frock",
+            "size": "S",
+            "qty": "3 pcs",
+            "price": 120,
+            "image": "whitefrock"
+        }
+    ],
+    "CancelledOrder": [
+        {
+            "id": "1",
+            "name": "Black Blazer",
+            "size": "S",
+            "qty": "strings.pcs4",
+            "price": 79.99,
+            "image": "jacket5"
+        },
+        {
+            "id": "2",
+            "name": "Red Shirt",
+            "size": "M",
+            "qty": "strings.pcs2",
+            "price": 39.99,
+            "image": "jacket6"
+        },
+        {
+            "id": "3",
+            "name": "Brown Suit",
+            "size": "M",
+            "qty": "strings.pcs4",
+            "price": 79.99,
+            "image": "suit1"
+        },
+        {
+            "id": "4",
+            "name": "Dark Wood Shirt",
+            "size": "M",
+            "qty": "strings.pcs2",
+            "price": 39.99,
+            "image": "darkwoodshirt"
+        },
+        {
+            "id": "5",
+            "name": "Brownish Tree Dress",
+            "size": "L",
+            "qty": "strings.pcs4",
+            "price": 79.99,
+            "image": "brownishTreeDress"
+        },
+        {
+            "id": "6",
+            "name": "White Wood Blazer",
+            "size": "M",
+            "qty": "strings.pcs2",
+            "price": 39.99,
+            "image": "whitewoodBlazer"
+        },
+        {
+            "id": "7",
+            "name": "Yellow Shirt",
+            "size": "M",
+            "qty": "strings.pcs2",
+            "price": 39.99,
+            "image": "shirt1"
+        }
+    ],
+    "notificationlist": [
+        {
+            "id": 1,
+            "title": "Order Shipped",
+            "subtitle": "Your order #13456 has been shipped.",
+            "time": "2 hr",
+            "read": false,
+            "image": "shippingtruck"
+        },
+        {
+            "id": 2,
+            "title": "Flash Sale Alert",
+            "subtitle": "Hurry! Prices are melting for the next 2 hours.",
+            "time": "3 hr",
+            "read": false,
+            "image": "flashsale"
+        },
+        {
+            "id": 3,
+            "title": "Product Review Request",
+            "subtitle": "Tell us what you think about your recent purchase!",
+            "time": "4 hr",
+            "read": false,
+            "image": "star2"
+        },
+        {
+            "id": 4,
+            "title": "Order Shipped",
+            "subtitle": "Your order #13456 has been shipped.",
+            "time": "1 d",
+            "read": true,
+            "image": "shippingtruck"
+        },
+        {
+            "id": 5,
+            "title": "New PayPal Added",
+            "subtitle": "You successfully linked a new PayPal account.",
+            "time": "1 d",
+            "read": false,
+            "image": "wallet"
+        },
+        {
+            "id": 6,
+            "title": "Flash Sale Alert",
+            "subtitle": "Everything you love, now at steal-deals!",
+            "time": "1 d",
+            "read": false,
+            "image": "flashsale"
+        },
+        {
+            "id": 7,
+            "title": "Left items in your cart",
+            "subtitle": "Your cart misses you! Checkout now!",
+            "time": "1 d",
+            "read": true,
+            "image": "cartIcon"
+        }
+    ],
+    "slides": [
+        {
+            "id": 1,
+            "image": "onboarding1",
+            "text": "Seamless Shopping Experiences",
+            "text2": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+        },
+        {
+            "id": 2,
+            "image": "onboarding2",
+            "text": "Discover New Features",
+            "text2": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+        },
+        {
+            "id": 3,
+            "image": "onboarding3",
+            "text": "Let's Get Started!",
+            "text2": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+        }
+    ],
+    "imageList": [
+        "jacket1",
+        "jacket3",
+        "jacket4",
+        "jacket5",
+        "jacket6"
+    ],
+    "sizeList": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL",
+        "XXXL"
+    ],
+    "colorList": [
+        "darkbrown",
+        "mediumbrown",
+        "brown",
+        "black"
+    ],
+    "showingResultsFor": [
+        {
+            "id": 1,
+            "name": "brownjacket",
+            "image1": "likeIcon",
+            "price": "price1",
+            "image": "jacket1",
+            "rating": 4.9
+        },
+        {
+            "id": 2,
+            "name": "brownsuit",
+            "image1": "likeIcon",
+            "price": "price2",
+            "image": "suit1",
+            "rating": "5.0"
+        },
+        {
+            "id": 3,
+            "name": "brownjacket",
+            "image1": "likeIcon",
+            "price": "price3",
+            "image": "jacket2",
+            "rating": 4.9
+        },
+        {
+            "id": 4,
+            "name": "yelloshirt",
+            "image1": "likeIcon",
+            "price": "price4",
+            "image": "shirt1",
+            "rating": "5.0"
+        },
+        {
+            "id": 5,
+            "name": "brownjacket",
+            "image1": "likeIcon",
+            "price": "price1",
+            "image": "jacket1",
+            "rating": 4.9
+        },
+        {
+            "id": 6,
+            "name": "brownsuit",
+            "image1": "likeIcon",
+            "price": "price2",
+            "image": "suit1",
+            "rating": "5.0"
+        },
+        {
+            "id": 7,
+            "name": "brownjacket",
+            "image1": "likeIcon",
+            "price": "price3",
+            "image": "jacket2",
+            "rating": 4.9
+        },
+        {
+            "id": 8,
+            "name": "yelloshirt",
+            "image1": "likeIcon",
+            "price": "price4",
+            "image": "shirt1",
+            "rating": "5.0"
+        }
+    ],
+    "recentsData": [
+        {
+            "id": 1,
+            "name": "tshirt",
+            "image": "crossIcon"
+        },
+        {
+            "id": 2,
+            "name": "jeans",
+            "image": "crossIcon"
+        },
+        {
+            "id": 3,
+            "name": "shoes",
+            "image": "crossIcon"
+        },
+        {
+            "id": 4,
+            "name": "Jacket",
+            "image": "crossIcon"
+        },
+        {
+            "id": 5,
+            "name": "Dress",
+            "image": "crossIcon"
+        },
+        {
+            "id": 6,
+            "name": "hat",
+            "image": "crossIcon"
+        },
+        {
+            "id": 7,
+            "name": "socks",
+            "image": "crossIcon"
+        },
+        {
+            "id": 8,
+            "name": "sweater",
+            "image": "crossIcon"
+        },
+        {
+            "id": 9,
+            "name": "shorts",
+            "image": "crossIcon"
+        },
+        {
+            "id": 10,
+            "name": "skirt",
+            "image": "crossIcon"
+        }
+    ],
+    "wishlistItems": [
+        {
+            "id": 1,
+            "name": "brownjacket",
+            "image1": "likeIcon",
+            "price": "price1",
+            "image": "jacket1",
+            "rating": 4.9
+        },
+        {
+            "id": 2,
+            "name": "brownsuit",
+            "image1": "likeIcon",
+            "price": "price2",
+            "image": "suit1",
+            "rating": "5.0"
+        },
+        {
+            "id": 3,
+            "name": "brownjacket",
+            "image1": "likeIcon",
+            "price": "price3",
+            "image": "jacket2",
+            "rating": 4.9
+        },
+        {
+            "id": 4,
+            "name": "yelloshirt",
+            "image1": "likeIcon",
+            "price": "price4",
+            "image": "shirt1",
+            "rating": "5.0"
+        },
+        {
+            "id": 5,
+            "name": "brownshirt",
+            "image1": "likeIcon",
+            "price": "price1",
+            "image": "sweatshirt",
+            "rating": "5.0"
+        },
+        {
+            "id": 6,
+            "name": "jacketchoco",
+            "image1": "likeIcon",
+            "price": "price1",
+            "image": "jacket3",
+            "rating": "5.0"
+        }
+    ],
+    "addresses": [
+        {
+            "id": "1",
+            "label": "Home",
+            "address": "address1"
+        },
+        {
+            "id": "2",
+            "label": "office",
+            "address": "address2"
+        },
+        {
+            "id": "3",
+            "label": "parentshouse",
+            "address": "address3"
+        },
+        {
+            "id": "4",
+            "label": "friendshouse",
+            "address": "address4"
+        }
+    ],
+    "cartItems": [
+        {
+            "id": 1,
+            "name": "brownjacket",
+            "image": "jacket1",
+            "size": "XL",
+            "price": 83.97,
+            "quantity": 1,
+            "originalPrice": 83.97
+        },
+        {
+            "id": 2,
+            "name": "brownsuit",
+            "image": "suit1",
+            "size": "M",
+            "price": 120,
+            "quantity": 1,
+            "originalPrice": 120
+        },
+        {
+            "id": 3,
+            "name": "brownshirt",
+            "image": "jacket2",
+            "size": "XL",
+            "price": 83.97,
+            "quantity": 1,
+            "originalPrice": 83.97
+        },
+        {
+            "id": 4,
+            "name": "brownsuit",
+            "image": "jacket3",
+            "size": "S",
+            "price": 160,
+            "quantity": 1,
+            "originalPrice": 160
+        },
+        {
+            "id": 5,
+            "name": "brownsuit",
+            "image": "jacket4",
+            "size": "L",
+            "price": 100,
+            "quantity": 1,
+            "originalPrice": 100
+        }
+    ]
+}

@@ -97,7 +97,7 @@ export const whistliststyle = StyleSheet.create({
   ratingText: {
     ...Fonts.size_12,
     ...Fonts.weight_600,
-    ...Spacing.marginLeft_3,
+    ...Spacing.marginLeft_10,
   },
   itemPrice: {
     ...Fonts.size_14,

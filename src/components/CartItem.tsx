@@ -1,29 +1,9 @@
 import React from "react";
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  ImageSourcePropType,
-} from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import { strings } from "../utils/strings";
 import { cartitemstyle } from "../styles/CartItemStyle";
 import { useColors } from "../hooks/useColors";
-
-interface CartItemProps {
-  item: {
-    id: number;
-    name: string;
-    image: ImageSourcePropType;
-    size: string;
-    price: number;
-    quantity: number;
-    originalPrice: number;
-  };
-  onIncrement: (id: number) => void;
-  onDecrement: (id: number) => void;
-  onRemove: (item: CartItemProps["item"]) => void;
-}
+import { CartItemProps } from "../types/types";
 
 export const CartItemComponent = React.memo(
   ({ item, onIncrement, onDecrement, onRemove }: CartItemProps) => {

@@ -1,12 +1,7 @@
 import React from "react";
 import { ScrollView, TouchableOpacity, Text } from "react-native";
 import { helpcenterstyle } from "../styles/HelpCenterStyle";
-
-interface CategoryTabsProps {
-  categories: string[];
-  activeCategory: string;
-  onSelect: (category: string) => void;
-}
+import { CategoryTabsProps } from "../types/types";
 
 export const CategoryTabs: React.FC<CategoryTabsProps> = ({
   categories,
