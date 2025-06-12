@@ -1,10 +1,14 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { useColors } from "../hooks/useColors";
 
 const NoDataFound = ({ message = "No data found." }: { message?: string }) => {
+  const colors = useColors();
   return (
     <View style={styles.container}>
-      <Text style={styles.message}>{message}</Text>
+      <Text style={[styles.message, { color: colors.colors.text }]}>
+        {message}
+      </Text>
     </View>
   );
 };

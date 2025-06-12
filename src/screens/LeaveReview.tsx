@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, Image, Alert, TouchableOpacity } from "react-native";
 import { useRoute, useNavigation, RouteProp } from "@react-navigation/native";
 import { useColors } from "../hooks/useColors";
@@ -17,6 +17,8 @@ import { images } from "../utils/images";
 import MediaPickerSection from "../components/MediaPickerSection";
 import { RouteParams } from "../types/types";
 import Header from "../components/HeaderGlobal";
+import NoDataFound from "../service/NoDataFound";
+import NetInfo from "@react-native-community/netinfo";
 
 const LeaveReviewScreen = () => {
   const navigation = useNavigation();
@@ -29,6 +31,14 @@ const LeaveReviewScreen = () => {
   const [reviewText, setReviewText] = useState("");
   const [mediaUri, setMediaUri] = useState<string | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
+  const [isConnected, setIsConnected] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      setIsConnected(!!state.isConnected);
+    });
+    return () => unsubscribe();
+  }, []);
 
   const handleMediaSelected = (uri: string) => {
     setMediaUri(uri);
@@ -53,6 +63,21 @@ const LeaveReviewScreen = () => {
 
   if (!orderData) {
     return <NoOrderFound />;
+  }
+
+  if (!isConnected) {
+    return (
+      <View
+        style={[
+          leavereviewstyle.container,
+          { backgroundColor: colors.colors.background },
+        ]}
+      >
+        <StatusBar style={statusBarStyle} />
+        <Header type="leavereview" />
+        <NoDataFound message={strings.noReviewsFound} />
+      </View>
+    );
   }
 
   return (

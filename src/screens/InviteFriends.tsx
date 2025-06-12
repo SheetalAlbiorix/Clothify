@@ -1,5 +1,5 @@
 import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../App";
 import { useColors } from "../hooks/useColors";
@@ -12,6 +12,8 @@ import { useTheme } from "../themes/theme";
 import { StatusBar } from "expo-status-bar";
 import Data from "../utils/Data.json";
 import Header from "../components/HeaderGlobal";
+import NoDataFound from "../service/NoDataFound";
+import NetInfo from "@react-native-community/netinfo";
 
 type InviteNavigationProp = StackNavigationProp<RootStackParamList, "invite">;
 
@@ -26,6 +28,26 @@ const InviteFriends = () => {
   const { colors } = useColors();
   const { statusBarStyle } = useTheme();
   const navigation = useNavigation<InviteNavigationProp>();
+  const [isConnected, setIsConnected] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      setIsConnected(!!state.isConnected);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  if (!isConnected) {
+    return (
+      <View
+        style={[invitestyle.container, { backgroundColor: colors.background }]}
+      >
+        <StatusBar style={statusBarStyle} />
+        <Header type="invitefriends" />
+        <NoDataFound message={strings.noInviteListFound} />
+      </View>
+    );
+  }
 
   return (
     <View

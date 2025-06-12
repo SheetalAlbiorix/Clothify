@@ -1,13 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { auth } from "../service/auth";
-
-type UserContextType = {
-  name: string | null;
-  setName: (name: string | null) => void;
-  photoUrl: string | null;
-  setPhotoUrl: (url: string | null) => void;
-};
+import { UserContextType } from "../types/types";
 
 const UserContext = createContext<UserContextType>({
   name: null,

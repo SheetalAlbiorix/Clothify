@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { View, ScrollView } from "react-native";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -17,6 +17,8 @@ import ProductColorSelector from "../components/ProductColorSelector";
 import ProductFooter from "../components/ProductFooter";
 import ProductHeader from "../components/ProductHeader";
 import Data from "../utils/Data.json";
+import NoDataFound from "../service/NoDataFound";
+import NetInfo from "@react-native-community/netinfo";
 
 type ProductDetailRouteProp = RouteProp<RootStackParamList, "productDetail">;
 type ProductDetailNavigationProp = StackNavigationProp<
@@ -34,6 +36,14 @@ const ProductDetail = () => {
   const [selectedColor, setSelectedColor] = useState(strings.darkbrown);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [selectedImage, setSelectedImage] = useState(image);
+  const [isConnected, setIsConnected] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      setIsConnected(!!state.isConnected);
+    });
+    return () => unsubscribe();
+  }, []);
 
   const imageList = useMemo(() => {
     return Data.imageList.map((key) => images[key as keyof typeof images]);
@@ -46,6 +56,21 @@ const ProductDetail = () => {
   const colorList = useMemo(() => {
     return Data.colorList.map((color) => Colors[color as keyof typeof Colors]);
   }, []);
+
+  if (!isConnected) {
+    return (
+      <View
+        style={[
+          productstyle.container,
+          { backgroundColor: colors.colors.background },
+        ]}
+      >
+        <StatusBar style={statusBarStyle} />
+        <ProductHeader navigation={navigation} />
+        <NoDataFound message={strings.noProductDetailsFound} />
+      </View>
+    );
+  }
 
   return (
     <View

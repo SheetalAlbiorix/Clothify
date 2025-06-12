@@ -6,7 +6,7 @@ import {
   FlatList,
   ScrollView,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { strings } from "../utils/strings";
 import { images } from "../utils/images";
 import { useColors } from "../hooks/useColors";
@@ -18,12 +18,13 @@ import BrandFilter from "../components/BrandFilter";
 import GenderFilter from "../components/GenderFilter";
 import SortByFilter from "../components/SortByFilter";
 import PricingRange from "../components/PricingRange";
-import ReusableRadioButton from "../components/ReusableRadioButton";
 import { useTheme } from "../themes/theme";
 import { StatusBar } from "expo-status-bar";
 import Data from "../utils/Data.json";
 import Header from "../components/HeaderGlobal";
 import FilterRenderItem from "../components/FilterRenderItem";
+import NoDataFound from "../service/NoDataFound";
+import NetInfo from "@react-native-community/netinfo";
 
 type FilterNavigationProp = StackNavigationProp<RootStackParamList, "Filter">;
 
@@ -36,6 +37,14 @@ const Filter = () => {
   const [selectedSort, setSelectedSort] = useState(strings.mostrecent);
   const [priceRange, setPriceRange] = useState([7, 100]);
   const [selectedRating, setSelectedRating] = useState("");
+  const [isConnected, setIsConnected] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      setIsConnected(!!state.isConnected);
+    });
+    return () => unsubscribe();
+  }, []);
 
   const handleReset = () => {
     setSelectedGender(strings.All);
@@ -66,32 +75,20 @@ const Filter = () => {
     label: strings[item.label as keyof typeof strings] || item.label,
   }));
 
-  // const renderRatingItem = ({
-  //   item,
-  // }: {
-  //   item: { id: string; stars: number; label: string };
-  // }) => (
-  //   <View style={filterstyle.ratingTextContainer}>
-  //     <View style={filterstyle.starIconContainer}>
-  //       {[...Array(item.stars)].map((_, index) => (
-  //         <Image
-  //           key={index}
-  //           source={images.starIcon}
-  //           style={filterstyle.starIconImage}
-  //         />
-  //       ))}
-  //     </View>
-  //     <Text style={[filterstyle.ratingText, { color: colors.colors.text }]}>
-  //       {item.label}
-  //     </Text>
-  //     <ReusableRadioButton
-  //       value={item.id}
-  //       label={item.label}
-  //       selectedValue={selectedRating}
-  //       onPress={handleRadioPress}
-  //     />
-  //   </View>
-  // );
+  if (!isConnected) {
+    return (
+      <View
+        style={[
+          filterstyle.container,
+          { backgroundColor: colors.colors.background },
+        ]}
+      >
+        <StatusBar style={statusBarStyle} />
+        <Header type="filter" />
+        <NoDataFound message={strings.noFilterDataFound} />
+      </View>
+    );
+  }
 
   return (
     <View

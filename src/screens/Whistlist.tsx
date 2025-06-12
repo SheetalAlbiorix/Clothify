@@ -1,5 +1,5 @@
 import { View, Text, Image, TouchableOpacity, FlatList } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { whistliststyle } from "../styles/WhistlistStyle";
 import { images } from "../utils/images";
 import { useColors } from "../hooks/useColors";
@@ -13,6 +13,8 @@ import WhistlistCategory from "../components/WhistlistCategory";
 import Data from "../utils/Data.json";
 import Header from "../components/HeaderGlobal";
 import WhistlistRenderItem from "../components/WhistlistRenderItem";
+import NoDataFound from "../service/NoDataFound";
+import NetInfo from "@react-native-community/netinfo";
 
 type WhistListNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -32,6 +34,30 @@ const Whistlist = () => {
   const colors = useColors();
   const navigation = useNavigation<WhistListNavigationProp>();
   const { statusBarStyle } = useTheme();
+  const [isConnected, setIsConnected] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      setIsConnected(!!state.isConnected);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  if (!isConnected) {
+    return (
+      <View
+        style={[
+          whistliststyle.container,
+          { backgroundColor: colors.colors.background },
+        ]}
+      >
+        <StatusBar style={statusBarStyle} />
+
+        <Header type="whistlist" />
+        <NoDataFound message="No Whistlist Found" />
+      </View>
+    );
+  }
 
   return (
     <View

@@ -1,21 +1,10 @@
-import React from 'react';
-import { View, Text, Image } from 'react-native';
-import { filterstyle } from '../styles/FilterStyle';
-import ReusableRadioButton from './ReusableRadioButton';
-import { useColors } from '../hooks/useColors';
-import { images } from '../utils/images';
-
-type RatingItem = {
-  id: string;
-  stars: number;
-  label: string;
-};
-
-type FilterRenderItemProps = {
-  item: RatingItem;
-  selectedRating: string;
-  handleRadioPress: (value: string) => void;
-};
+import React from "react";
+import { View, Text, Image } from "react-native";
+import { filterstyle } from "../styles/FilterStyle";
+import ReusableRadioButton from "./ReusableRadioButton";
+import { useColors } from "../hooks/useColors";
+import { images } from "../utils/images";
+import { FilterRenderItemProps } from "../types/types";
 
 const FilterRenderItem: React.FC<FilterRenderItemProps> = ({
   item,

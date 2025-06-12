@@ -3,12 +3,7 @@ import { View, Text, Image, Pressable } from "react-native";
 import { chooseshippingStyle } from "../styles/ChooseShippingStyle";
 import { images } from "../utils/images";
 import { useColors } from "../hooks/useColors";
-
-type ChooseShipRenderItemProps = {
-  item: any;
-  selectedItem: any;
-  onSelect: (item: any) => void;
-};
+import { ChooseShipRenderItemProps } from "../types/types";
 
 const ChooseShipRenderItem: React.FC<ChooseShipRenderItemProps> = ({
   item,

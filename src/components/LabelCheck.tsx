@@ -50,7 +50,6 @@ const styles = StyleSheet.create({
   },
   label: {
     ...Spacing.marginLeft_12,
-    // color: Colors.white,
     ...Fonts.size_14,
     ...Fonts.weight_500,
   },

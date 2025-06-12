@@ -1,11 +1,7 @@
 import React from "react";
 import { Text, TouchableOpacity } from "react-native";
 import { compProfileStyle } from "../styles/CompProfileStyle";
-
-type CompleteProfileRenderItemProps = {
-  item: string;
-  onSelect: (value: string) => void;
-};
+import { CompleteProfileRenderItemProps } from "../types/types";
 
 const CompleteProfileRenderItem: React.FC<CompleteProfileRenderItemProps> = ({
   item,

@@ -28,6 +28,8 @@ import { db } from "../service/auth";
 import Data from "../utils/Data.json";
 import Header from "../components/HeaderGlobal";
 import HomeRenderItem from "../components/HomeRenderItem";
+import NoDataFound from "../service/NoDataFound";
+import NetInfo from "@react-native-community/netinfo";
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, "Home">;
 type HomeScreenRouteProp = RouteProp<RootStackParamList, "Home">;
@@ -43,7 +45,7 @@ const flashSaleItems = Data.flashSaleItems.map((item) => ({
   image1: images[item.image1 as keyof typeof images],
   price: strings[item.price as keyof typeof strings] || item.price,
   image: images[item.image as keyof typeof images],
-  rating: item.rating,
+  rating: strings[item.rating as keyof typeof strings] || item.rating,
 }));
 
 const HomeScreen = () => {
@@ -53,6 +55,14 @@ const HomeScreen = () => {
   const [location, setLocation] = useState(strings.selectlocation);
   const [unreadCount, setUnreadCount] = useState(0);
   const { statusBarStyle } = useTheme();
+  const [isConnected, setIsConnected] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      setIsConnected(!!state.isConnected);
+    });
+    return () => unsubscribe();
+  }, []);
 
   useEffect(() => {
     if (route.params?.location) {
@@ -77,7 +87,7 @@ const HomeScreen = () => {
             id: item.id,
             name: item.name,
             price: item.price,
-            rating: item.rating,
+            rating: Number(item.rating),
             image: item.image.toString(),
             image1: item.image1.toString(),
           });
@@ -94,42 +104,30 @@ const HomeScreen = () => {
   const firstRowItems = flashSaleItems.filter((_, index) => index % 2 === 0);
   const secondRowItems = flashSaleItems.filter((_, index) => index % 2 !== 0);
 
-  const renderItem = ({ item }: { item: (typeof flashSaleItems)[0] }) => (
-    <TouchableOpacity
-      onPress={() => {
-        navigation.navigate("productDetail", {
-          id: item.id,
-          name: item.name,
-          image1: item.image1,
-          price: item.price,
-          image: item.image,
-          rating: item.rating,
-        });
-      }}
-      style={homeStyles.flashSaleItem}
-    >
-      <TouchableOpacity style={homeStyles.bgheartContainer}>
-        <Image source={item.image1} style={homeStyles.heartImage} />
-      </TouchableOpacity>
-      <Image source={item.image} style={homeStyles.flashSaleImage} />
-      <View style={homeStyles.namestarconatiner}>
+  if (!isConnected) {
+    return (
+      <View
+        style={[
+          homeStyles.container,
+          { backgroundColor: colors.colors.background },
+        ]}
+      >
+        <StatusBar style={statusBarStyle} />
         <Text
-          style={[homeStyles.flashSaleTitle, { color: colors.colors.text }]}
+          style={[homeStyles.locationheader, { color: colors.colors.text }]}
         >
-          {item.name}
+          {strings.location}
         </Text>
-        <View style={homeStyles.ratingContainer}>
-          <Image source={images.starIcon} style={homeStyles.starIcon} />
-          <Text style={[homeStyles.ratingText, { color: colors.colors.text }]}>
-            {item.rating}
-          </Text>
-        </View>
+        <Header
+          showLocation
+          location={location}
+          showNotifications
+          unreadCount={unreadCount}
+        />
+        <NoDataFound message={strings.noHomeDetailFound} />
       </View>
-      <Text style={[homeStyles.flashSalePrice, { color: colors.colors.text }]}>
-        {item.price}
-      </Text>
-    </TouchableOpacity>
-  );
+    );
+  }
 
   return (
     <View

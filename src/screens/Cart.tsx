@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from "react";
+import React, { useState, useCallback, useMemo, useEffect } from "react";
 import { View, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -20,6 +20,8 @@ import { CouponSelector } from "../components/CouponSelector";
 import { CartItemType } from "../types/types";
 import { applyPromoLogic, removePromoLogic } from "../utils/CartUtils";
 import Data from "../utils/Data.json";
+import NoDataFound from "../service/NoDataFound";
+import NetInfo from "@react-native-community/netinfo";
 
 type CartNavigationProp = StackNavigationProp<RootStackParamList, "Cart">;
 
@@ -46,6 +48,14 @@ const Cart = () => {
   const [discount, setDiscount] = useState<number>(0);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [itemToRemove, setItemToRemove] = useState<CartItemType | null>(null);
+  const [isConnected, setIsConnected] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      setIsConnected(!!state.isConnected);
+    });
+    return () => unsubscribe();
+  }, []);
 
   const subTotal = useMemo(() => {
     return cartItems.reduce(
@@ -113,6 +123,21 @@ const Cart = () => {
       () => setAppliedPromoCode("")
     );
   }, [cartItems]);
+
+  if (!isConnected) {
+    return (
+      <View
+        style={[
+          cartitemstyle.container,
+          { backgroundColor: colors.colors.background },
+        ]}
+      >
+        <StatusBar style={statusBarStyle} />
+        <CartHeader onBack={() => navigation.goBack()} />
+        <NoDataFound message={strings.noCartsFound} />
+      </View>
+    );
+  }
 
   if (cartItems.length === 0) {
     return <NoCartItems onBack={() => navigation.goBack()} />;

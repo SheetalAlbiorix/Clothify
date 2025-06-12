@@ -7,15 +7,11 @@ import { useColors } from "../hooks/useColors";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../App";
-
-type Props = {
-  item: string;
-  setCurrentLocation: (location: string) => void;
-};
+import { LocationMainProps } from "../types/types";
 
 type NavigationProp = StackNavigationProp<RootStackParamList, "LocationMain">;
 
-const LocationMainItem = ({ item, setCurrentLocation }: Props) => {
+const LocationMainItem = ({ item, setCurrentLocation }: LocationMainProps) => {
   const navigation = useNavigation<NavigationProp>();
   const colors = useColors();
 

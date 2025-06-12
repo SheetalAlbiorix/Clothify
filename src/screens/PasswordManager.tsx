@@ -1,11 +1,5 @@
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  TextInput,
-} from "react-native";
-import React from "react";
+import { View, Text, Image, TouchableOpacity, TextInput } from "react-native";
+import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { Ionicons } from "@expo/vector-icons";
@@ -18,6 +12,8 @@ import { passmanagerstyle } from "../styles/PassManagerStyle";
 import { RootStackParamList } from "../../App";
 import { usePasswordManagerForm } from "../hooks/usePasswordManagerForm";
 import Header from "../components/HeaderGlobal";
+import NoDataFound from "../service/NoDataFound";
+import NetInfo from "@react-native-community/netinfo";
 
 type PassmanagerNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -28,6 +24,14 @@ const PasswordManager = () => {
   const navigation = useNavigation<PassmanagerNavigationProp>();
   const colors = useColors();
   const { statusBarStyle } = useTheme();
+  const [isConnected, setIsConnected] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      setIsConnected(!!state.isConnected);
+    });
+    return () => unsubscribe();
+  }, []);
 
   const {
     currentPassword,
@@ -41,6 +45,21 @@ const PasswordManager = () => {
     passwordError,
     handlePasswordChange,
   } = usePasswordManagerForm(navigation);
+
+  if (!isConnected) {
+    return (
+      <View
+        style={[
+          passmanagerstyle.container,
+          { backgroundColor: colors.colors.background },
+        ]}
+      >
+        <StatusBar style={statusBarStyle} />
+        <Header type="passwordmanager" />
+        <NoDataFound message={strings.noPasswordManagerFound} />
+      </View>
+    );
+  }
 
   return (
     <View

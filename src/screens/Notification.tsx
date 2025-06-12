@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../App";
@@ -12,6 +12,8 @@ import { useTheme } from "../themes/theme";
 import { StatusBar } from "expo-status-bar";
 import Data from "../utils/Data.json";
 import Header from "../components/HeaderGlobal";
+import NoDataFound from "../service/NoDataFound";
+import NetInfo from "@react-native-community/netinfo";
 
 type NotificationNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -22,6 +24,14 @@ const Notification = () => {
   const colors = useColors();
   const { statusBarStyle } = useTheme();
   const navigation = useNavigation<NotificationNavigationProp>();
+  const [isConnected, setIsConnected] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      setIsConnected(!!state.isConnected);
+    });
+    return () => unsubscribe();
+  }, []);
 
   const [notifications, setNotifications] = useState(() =>
     Data.notificationlist.map((item) => ({
@@ -44,6 +54,21 @@ const Notification = () => {
     );
   };
 
+  if (!isConnected) {
+    return (
+      <View
+        style={[
+          notificationstyle.container,
+          { backgroundColor: colors.colors.background },
+        ]}
+      >
+        <StatusBar style={statusBarStyle} />
+        <Header type="notification" unreadCount={unreadCount} />
+        <NoDataFound message={strings.noNotificationFound} />
+      </View>
+    );
+  }
+
   return (
     <View
       style={[
@@ -53,7 +78,6 @@ const Notification = () => {
     >
       <StatusBar style={statusBarStyle} />
       <Header type="notification" unreadCount={unreadCount} />
-
 
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={notificationstyle.daymarkreadContainer}>

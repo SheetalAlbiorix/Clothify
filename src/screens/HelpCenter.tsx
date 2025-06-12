@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, FlatList } from "react-native";
 import { FaqItem } from "../components/FaqItem";
 import { ContactItem } from "../components/ContactItem";
@@ -17,6 +17,8 @@ import type {
   ContactItem as ContactItemType,
   FaqItem as FaqItemType,
 } from "../types/types";
+import NoDataFound from "../service/NoDataFound";
+import NetInfo from "@react-native-community/netinfo";
 
 const TABS = { FAQ: "FAQ", CONTACT_US: "Contact Us" };
 
@@ -51,7 +53,32 @@ const HelpCenter = () => {
   const [activeCategory, setActiveCategory] = useState(strings.All);
   const [faqs, setFaqs] = useState(faqData);
   const [contacts, setContacts] = useState(contactOptions);
+  const [isConnected, setIsConnected] = useState(true);
 
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      setIsConnected(!!state.isConnected);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  if (!isConnected) {
+    return (
+      <View
+        style={[
+          helpcenterstyle.container,
+          { backgroundColor: colors.colors.background },
+        ]}
+      >
+        <StatusBar style={statusBarStyle} />
+        <HelpCenterHeader
+          title={strings.helpcenter}
+          textColor={colors.colors.text}
+        />
+        <NoDataFound message={strings.noHelpCenterFound} />
+      </View>
+    );
+  }
   const toggleFaqExpanded = (id: string) => {
     setFaqs((prev) =>
       prev.map((faq) => ({

@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, FlatList } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { myorderstyles } from "../styles/MyOrdersStyle";
 import { strings } from "../utils/strings";
 import { images } from "../utils/images";
@@ -13,6 +13,8 @@ import { ActiveOrder, CompletedOrder, CancelledOrder } from "../types/types";
 import Data from "../utils/Data.json";
 import Header from "../components/HeaderGlobal";
 import MyOrdersRenderItem from "../components/MyOrdersRenderItem";
+import NoDataFound from "../service/NoDataFound";
+import NetInfo from "@react-native-community/netinfo";
 
 const activeOrders: ActiveOrder[] = Data.activeOrder.map((item) => ({
   id: item.id,
@@ -45,6 +47,14 @@ const MyOrders = () => {
   const colors = useColors();
   const { statusBarStyle } = useTheme();
   const [activeTab, setActiveTab] = useState(strings.active);
+  const [isConnected, setIsConnected] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      setIsConnected(!!state.isConnected);
+    });
+    return () => unsubscribe();
+  }, []);
 
   const getCurrentOrders = () => {
     if (activeTab === strings.active) return activeOrders;
@@ -53,6 +63,21 @@ const MyOrders = () => {
   };
 
   const status = [strings.active, strings.completed, strings.cancelled];
+
+  if (!isConnected) {
+    return (
+      <View
+        style={[
+          myorderstyles.container,
+          { backgroundColor: colors.colors.background },
+        ]}
+      >
+        <StatusBar style={statusBarStyle} />
+        <Header type="myorders" />
+        <NoDataFound message={strings.noOrdersFound} />
+      </View>
+    );
+  }
 
   return (
     <View

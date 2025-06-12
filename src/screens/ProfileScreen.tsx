@@ -16,6 +16,8 @@ import { useTheme } from "../themes/theme";
 import { StatusBar } from "expo-status-bar";
 import { ProfileOption } from "../components/ProfileOption";
 import Header from "../components/HeaderGlobal";
+import NoDataFound from "../service/NoDataFound";
+import NetInfo from "@react-native-community/netinfo";
 
 type ProfileScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -30,6 +32,14 @@ const ProfileScreen = () => {
   const { name, photoUrl, setName, setPhotoUrl } = useUser();
   const [mediaUri, setMediaUri] = useState<string | null>(null);
   const { statusBarStyle } = useTheme();
+  const [isConnected, setIsConnected] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      setIsConnected(!!state.isConnected);
+    });
+    return () => unsubscribe();
+  }, []);
 
   useEffect(() => {
     const loadUserData = async () => {
@@ -82,6 +92,21 @@ const ProfileScreen = () => {
     console.log(strings.mediaselected, uri);
     setMediaUri(uri);
   };
+
+  if (!isConnected) {
+    return (
+      <View
+        style={[
+          profilestyle.container,
+          { backgroundColor: colors.colors.background },
+        ]}
+      >
+        <StatusBar style={statusBarStyle} />
+        <Header type="profilescreen" />
+        <NoDataFound message={strings.noProfileFound} />
+      </View>
+    );
+  }
 
   return (
     <View

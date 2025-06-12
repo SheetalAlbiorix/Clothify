@@ -6,7 +6,7 @@ import {
   Pressable,
   FlatList,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { chooseshippingStyle } from "../styles/ChooseShippingStyle";
 import { useNavigation } from "@react-navigation/native";
 import { useColors } from "../hooks/useColors";
@@ -20,6 +20,8 @@ import { ArrivalType } from "../types/types";
 import Data from "../utils/Data.json";
 import Header from "../components/HeaderGlobal";
 import ChooseShipRenderItem from "../components/ChooseShipRenderItem";
+import NoDataFound from "../service/NoDataFound";
+import NetInfo from "@react-native-community/netinfo";
 
 type ChooseShippingNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -39,6 +41,14 @@ const ChooseShipping = () => {
   const [selectedArrival, setSelectedArrival] = useState<ArrivalType | null>(
     null
   );
+  const [isConnected, setIsConnected] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      setIsConnected(!!state.isConnected);
+    });
+    return () => unsubscribe();
+  }, []);
 
   const handleSelectArrival = (arrival: ArrivalType) => {
     setSelectedArrival(arrival);
@@ -49,6 +59,21 @@ const ChooseShipping = () => {
       navigation.navigate("Checkout", { selectedArrival });
     }
   };
+
+  if (!isConnected) {
+    return (
+      <View
+        style={[
+          chooseshippingStyle.container,
+          { backgroundColor: colors.colors.background },
+        ]}
+      >
+        <StatusBar style={statusBarStyle} />
+        <Header type="chooseshipping" />
+        <NoDataFound message={strings.noShippingFound} />
+      </View>
+    );
+  }
 
   return (
     <View

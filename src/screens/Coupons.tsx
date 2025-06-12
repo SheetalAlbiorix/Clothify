@@ -1,8 +1,7 @@
-import { View, Text, TouchableOpacity, Image, ScrollView } from "react-native";
-import React, { useState } from "react";
+import { View, Text, ScrollView } from "react-native";
+import React, { useEffect, useState } from "react";
 import { couponsStyle } from "../styles/CouponsStyle";
 import { strings } from "../utils/strings";
-import { images } from "../utils/images";
 import { useNavigation } from "@react-navigation/native";
 import { useColors } from "../hooks/useColors";
 import { RootStackParamList } from "../../App";
@@ -11,6 +10,8 @@ import CouponCard from "../components/CouponCard";
 import { useTheme } from "../themes/theme";
 import { StatusBar } from "expo-status-bar";
 import Header from "../components/HeaderGlobal";
+import NoDataFound from "../service/NoDataFound";
+import NetInfo from "@react-native-community/netinfo";
 
 type CouponNavigationProp = StackNavigationProp<RootStackParamList, "Coupons">;
 
@@ -19,6 +20,29 @@ const Coupons = () => {
   const { statusBarStyle } = useTheme();
   const navigation = useNavigation<CouponNavigationProp>();
   const [appliedCoupon, setAppliedCoupon] = useState<string | null>(null);
+  const [isConnected, setIsConnected] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      setIsConnected(!!state.isConnected);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  if (!isConnected) {
+    return (
+      <View
+        style={[
+          couponsStyle.container,
+          { backgroundColor: colors.colors.background },
+        ]}
+      >
+        <StatusBar style={statusBarStyle} />
+        <Header type="coupons" />
+        <NoDataFound message={strings.noCouponDataFound} />
+      </View>
+    );
+  }
 
   return (
     <View

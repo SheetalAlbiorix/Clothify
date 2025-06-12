@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, Image, FlatList } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { checkoutstyle } from "../styles/CheckoutStyle";
 import { strings } from "../utils/strings";
 import { images } from "../utils/images";
@@ -13,6 +13,8 @@ import { StatusBar } from "expo-status-bar";
 import Data from "../utils/Data.json";
 import Header from "../components/HeaderGlobal";
 import CheckoutRenderItem from "../components/CheckoutRenderItem";
+import NoDataFound from "../service/NoDataFound";
+import NetInfo from "@react-native-community/netinfo";
 
 type CheckoutNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -41,6 +43,29 @@ const Checkout = () => {
   >();
 
   const { selectedAddress, selectedArrival } = route.params || {};
+  const [isConnected, setIsConnected] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      setIsConnected(!!state.isConnected);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  if (!isConnected) {
+    return (
+      <View
+        style={[
+          checkoutstyle.container,
+          { backgroundColor: colors.colors.background },
+        ]}
+      >
+        <StatusBar style={statusBarStyle} />
+        <Header type="checkout" />
+        <NoDataFound message={strings.noCheckoutFound} />
+      </View>
+    );
+  }
 
   return (
     <View

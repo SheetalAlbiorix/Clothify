@@ -6,7 +6,7 @@ import {
   Easing,
   Animated,
 } from "react-native";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { paymentstyles } from "../styles/PaymentStyle";
 import { useColors } from "../hooks/useColors";
 import { useNavigation } from "@react-navigation/native";
@@ -17,6 +17,8 @@ import { strings } from "../utils/strings";
 import { useTheme } from "../themes/theme";
 import { StatusBar } from "expo-status-bar";
 import Header from "../components/HeaderGlobal";
+import NoDataFound from "../service/NoDataFound";
+import NetInfo from "@react-native-community/netinfo";
 
 type PaymentNavigationProp = StackNavigationProp<RootStackParamList, "Payment">;
 
@@ -24,6 +26,14 @@ const Payment = () => {
   const colors = useColors();
   const { statusBarStyle } = useTheme();
   const navigation = useNavigation<PaymentNavigationProp>();
+  const [isConnected, setIsConnected] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      setIsConnected(!!state.isConnected);
+    });
+    return () => unsubscribe();
+  }, []);
 
   const scaleAnim = useRef(new Animated.Value(0)).current;
 
@@ -35,6 +45,21 @@ const Payment = () => {
       useNativeDriver: true,
     }).start();
   }, []);
+
+  if (!isConnected) {
+    return (
+      <View
+        style={[
+          paymentstyles.container,
+          { backgroundColor: colors.colors.background },
+        ]}
+      >
+        <StatusBar style={statusBarStyle} />
+        <Header type="payment" />
+        <NoDataFound message={strings.noPaymentDataFound} />
+      </View>
+    );
+  }
 
   return (
     <View

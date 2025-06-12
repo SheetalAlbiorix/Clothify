@@ -6,7 +6,7 @@ import {
   Image,
   Pressable,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../App";
@@ -20,6 +20,8 @@ import { AddressType } from "../types/types";
 import Data from "../utils/Data.json";
 import Header from "../components/HeaderGlobal";
 import ShippingRenderItem from "../components/ShippingRenderItem";
+import NoDataFound from "../service/NoDataFound";
+import NetInfo from "@react-native-community/netinfo";
 
 type ShippingAddressNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -39,8 +41,18 @@ const ShippingAddress = () => {
   const [selectedAddress, setSelectedAddress] = useState<AddressType | null>(
     null
   );
+  const [isConnected, setIsConnected] = useState(true);
 
-  const handleSelectAddress: (address: AddressType) => void = (address: AddressType) => {
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      setIsConnected(!!state.isConnected);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const handleSelectAddress: (address: AddressType) => void = (
+    address: AddressType
+  ) => {
     setSelectedAddress(address);
   };
 
@@ -53,6 +65,21 @@ const ShippingAddress = () => {
   const addNewShippingAddress = () => {
     console.log("clicked");
   };
+
+  if (!isConnected) {
+    return (
+      <View
+        style={[
+          shippingAddressStyle.container,
+          { backgroundColor: colors.colors.background },
+        ]}
+      >
+        <StatusBar style={statusBarStyle} />
+        <Header type="shippingaddress" />
+        <NoDataFound message={strings.noShippingAddressFound} />
+      </View>
+    );
+  }
 
   return (
     <View

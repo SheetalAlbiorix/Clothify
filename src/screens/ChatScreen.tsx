@@ -134,7 +134,7 @@ const ChatScreen = () => {
         otherUserPhotoUrl={otherUserPhotoUrl}
         otherUserName={otherUserName}
         onBackPress={() => navigation.goBack()}
-        onChatMenuPress={() => console.log("Chat menu pressed")}
+        onChatMenuPress={() => console.log(strings.chatmenupressed)}
       />
 
       <View

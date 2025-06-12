@@ -1,21 +1,16 @@
 import React, { useCallback, useMemo } from "react";
 import { View, Text, Image, TouchableOpacity, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { OrderItem } from "../types/types";
+import { MyOrdersRenderItemProps, OrderItem } from "../types/types";
 import { myorderstyles } from "../styles/MyOrdersStyle";
 import { strings } from "../utils/strings";
 import { useColors } from "../hooks/useColors";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../App";
 
-interface Props {
-  item: OrderItem;
-  activeTab: string;
-}
-
 type MyorderNavigationProp = StackNavigationProp<RootStackParamList>;
 
-const MyOrdersRenderItem = ({ item, activeTab }: Props) => {
+const MyOrdersRenderItem = ({ item, activeTab }: MyOrdersRenderItemProps) => {
   const colors = useColors();
   const navigation = useNavigation<MyorderNavigationProp>();
 

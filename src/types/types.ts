@@ -1,9 +1,10 @@
 import { Timestamp } from "firebase/firestore";
-import { ImageSourcePropType, StyleProp, TextInput, TextInputProps, ViewStyle } from "react-native";
+import { ImageSourcePropType, ImageStyle, StyleProp, TextInput, TextInputProps, TextStyle, ViewStyle } from "react-native";
 import { Buffer } from "buffer";
 import Swiper from "react-native-swiper";
 import { useColors } from "../hooks/useColors";
 import React from "react";
+import { headerMap } from "../components/HeaderGlobal";
 
 export type CartItemType = {
   id: number;
@@ -383,3 +384,83 @@ export type handleKeyPressProps = {
   otp: string[],
   inputRefs: React.RefObject<Array<TextInput | null>>
 }
+
+export type checkoutRenderItemProps = {
+  item: {
+    image: any;
+    title: string;
+    size: string;
+    price: string;
+  };
+}
+
+export type ChooseShipRenderItemProps = {
+  item: any;
+  selectedItem: any;
+  onSelect: (item: any) => void;
+};
+
+export type CompleteProfileRenderItemProps = {
+  item: string;
+  onSelect: (value: string) => void;
+};
+
+export type RatingItem = {
+  id: string;
+  stars: number;
+  label: string;
+};
+
+export type FilterRenderItemProps = {
+  item: RatingItem;
+  selectedRating: string;
+  handleRadioPress: (value: string) => void;
+};
+
+export type HeaderProps = {
+  type?: keyof typeof headerMap | "home" | "back" | "chat";
+  location?: string;
+  showLocation?: boolean;
+  showNotifications?: boolean;
+  unreadCount?: number;
+  onLocationPress?: () => void;
+  onNotificationPress?: () => void;
+  showBackButton?: boolean;
+  onBackPress?: () => void;
+  title?: string;
+  otherUserPhotoUrl?: string | null;
+  otherUserName?: string | null;
+  onChatMenuPress?: () => void;
+  containerStyle?: StyleProp<ViewStyle>;
+  backButtonStyle?: StyleProp<ViewStyle>;
+  backButtonImageStyle?: StyleProp<ImageStyle>;
+  titleStyle?: StyleProp<TextStyle>;
+};
+
+export type LocationMainProps = {
+  item: string;
+  setCurrentLocation: (location: string) => void;
+};
+
+export interface MyOrdersRenderItemProps {
+    item: OrderItem;
+    activeTab: string;
+}
+
+export interface WhistlistItem {
+  image: any
+  name: string
+  rating: number | string
+  price: string | number
+}
+
+export interface WhistlistRenderItemProps {
+  item: WhistlistItem
+}
+
+export type UserContextType = {
+  name: string | null;
+  setName: (name: string | null) => void;
+  photoUrl: string | null;
+  setPhotoUrl: (url: string | null) => void;
+};

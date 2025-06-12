@@ -35,8 +35,9 @@ import { shippingAddressStyle } from "../styles/ShippingAdressStyle";
 import { trackorderstyle } from "../styles/TrackOrderStyle";
 import { whistliststyle } from "../styles/WhistlistStyle";
 import { notificationstyle } from "../styles/NotificationStyle";
+import { HeaderProps } from "../types/types";
 
-const headerMap = {
+export const headerMap = {
   checkout: { style: checkoutstyle, title: strings.checkout },
   chooseshipping: { style: chooseshippingStyle, title: strings.chooseshipping },
   coupons: { style: couponsStyle, title: strings.coupon },
@@ -59,26 +60,6 @@ const headerMap = {
   whistlist: { style: whistliststyle, title: strings.mywhistlist },
   notification: { style: notificationstyle, title: strings.notification },
 } as const;
-
-type HeaderProps = {
-  type?: keyof typeof headerMap | "home" | "back" | "chat";
-  location?: string;
-  showLocation?: boolean;
-  showNotifications?: boolean;
-  unreadCount?: number;
-  onLocationPress?: () => void;
-  onNotificationPress?: () => void;
-  showBackButton?: boolean;
-  onBackPress?: () => void;
-  title?: string;
-  otherUserPhotoUrl?: string | null;
-  otherUserName?: string | null;
-  onChatMenuPress?: () => void;
-  containerStyle?: StyleProp<ViewStyle>;
-  backButtonStyle?: StyleProp<ViewStyle>;
-  backButtonImageStyle?: StyleProp<ImageStyle>;
-  titleStyle?: StyleProp<TextStyle>;
-};
 
 const Header: React.FC<HeaderProps> = ({
   type = "home",

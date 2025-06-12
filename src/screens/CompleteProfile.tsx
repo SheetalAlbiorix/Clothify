@@ -19,6 +19,8 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../App";
 import Data from "../utils/Data.json";
 import CompleteProfileRenderItem from "../components/CompleteprofileRenderItem";
+import NoDataFound from "../service/NoDataFound";
+import NetInfo from "@react-native-community/netinfo";
 
 const genderOptions = Data.genderOption.map(
   (key) => strings[key as keyof typeof strings] || key
@@ -38,6 +40,14 @@ const CompleteProfile = () => {
   const [errors, setErrors] = useState({ name: "", phone: "", gender: "" });
   const [isValid, setIsValid] = useState(false);
   const [isGenderDropdownVisible, setGenderDropdownVisible] = useState(false);
+  const [isConnected, setIsConnected] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      setIsConnected(!!state.isConnected);
+    });
+    return () => unsubscribe();
+  }, []);
 
   useEffect(() => {
     const validateFields = () => {
@@ -71,6 +81,33 @@ const CompleteProfile = () => {
       console.log(strings.profilecompleted);
     }
   };
+
+  if (!isConnected) {
+    return (
+      <View
+        style={[
+          compProfileStyle.container,
+          { backgroundColor: colors.colors.background },
+        ]}
+      >
+        <StatusBar style={statusBarStyle} />
+
+        <TouchableOpacity
+          style={compProfileStyle.backButton}
+          onPress={() => navigation.goBack()}
+        >
+          <Image
+            style={[
+              compProfileStyle.arrowIcon,
+              { tintColor: colors.colors.text },
+            ]}
+            source={images.leftarrow}
+          />
+        </TouchableOpacity>
+        <NoDataFound message={strings.noCompletedProfileFound} />
+      </View>
+    );
+  }
 
   return (
     <View

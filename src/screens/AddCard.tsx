@@ -83,7 +83,7 @@ const AddCard = () => {
         <StatusBar style={statusBarStyle} />
         <Header showBackButton title={strings.addcard} />
         <View style={[{ flex: 1 }, {backgroundColor: colors.colors.background}]}>
-          <NoDataFound message="No Data Found." />
+          <NoDataFound message={strings.nocardsfound} />
         </View>
       </SafeAreaView>
     );

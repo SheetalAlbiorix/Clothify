@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -13,6 +13,8 @@ import {
   renderRepeatedText,
 } from "../components/PrivacyTextBlock";
 import Header from "../components/HeaderGlobal";
+import NoDataFound from "../service/NoDataFound";
+import NetInfo from "@react-native-community/netinfo";
 
 type PrivacyNavigationProp = StackNavigationProp<RootStackParamList, "privacy">;
 
@@ -20,6 +22,29 @@ const PrivacyPolicy = () => {
   const colors = useColors();
   const { statusBarStyle } = useTheme();
   const navigation = useNavigation<PrivacyNavigationProp>();
+  const [isConnected, setIsConnected] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      setIsConnected(!!state.isConnected);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  if (!isConnected) {
+    return (
+      <View
+        style={[
+          privacystyle.container,
+          { backgroundColor: colors.colors.background },
+        ]}
+      >
+        <StatusBar style={statusBarStyle} />
+        <Header type="privacypolicy" />
+        <NoDataFound message={strings.noPrivacyPolicyFound} />
+      </View>
+    );
+  }
 
   return (
     <View

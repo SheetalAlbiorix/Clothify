@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, Image } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { strings } from "../utils/strings";
 import { images } from "../utils/images";
 import { useColors } from "../hooks/useColors";
@@ -10,6 +10,8 @@ import { settingsstyle } from "../styles/Settingsstyle";
 import { useTheme } from "../themes/theme";
 import { StatusBar } from "expo-status-bar";
 import Header from "../components/HeaderGlobal";
+import NoDataFound from "../service/NoDataFound";
+import NetInfo from "@react-native-community/netinfo";
 
 type SettingsNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -20,6 +22,30 @@ const Settings = () => {
   const colors = useColors();
   const { statusBarStyle } = useTheme();
   const navigation = useNavigation<SettingsNavigationProp>();
+  const [isConnected, setIsConnected] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      setIsConnected(!!state.isConnected);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  if (!isConnected) {
+    return (
+      <View
+        style={[
+          settingsstyle.container,
+          { backgroundColor: colors.colors.background },
+        ]}
+      >
+        <StatusBar style={statusBarStyle} />
+        <Header type="settings" />
+        <NoDataFound message={strings.noSettingsFound} />
+      </View>
+    );
+  }
+
   return (
     <View
       style={[

@@ -6,7 +6,7 @@ import {
   Image,
   TextInput,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { strings } from "../utils/strings";
 import { images } from "../utils/images";
 import { searchscreenstyle } from "../styles/SearchScreenStyle";
@@ -20,6 +20,8 @@ import { StatusBar } from "expo-status-bar";
 import Data from "../utils/Data.json";
 import Header from "../components/HeaderGlobal";
 import SearchRenderItem from "../components/SearchRenderItem";
+import NoDataFound from "../service/NoDataFound";
+import NetInfo from "@react-native-community/netinfo";
 
 const showingResultsFor = Data.showingResultsFor.map((item) => ({
   id: item.id,
@@ -40,6 +42,14 @@ const SearchScreen = () => {
   const { statusBarStyle } = useTheme();
   const navigation = useNavigation<searchscreenNavigationProp>();
   const [name, setName] = useState<string>("");
+  const [isConnected, setIsConnected] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      setIsConnected(!!state.isConnected);
+    });
+    return () => unsubscribe();
+  }, []);
 
   const recentsData = Data.showingResultsFor.map((item) => ({
     id: item.id,
@@ -59,6 +69,28 @@ const SearchScreen = () => {
       console.log(strings.nomatchingaccount);
     }
   };
+
+  if (!isConnected) {
+    return (
+      <View
+        style={[
+          searchscreenstyle.container,
+          { backgroundColor: colors.colors.background },
+        ]}
+      >
+        <StatusBar style={statusBarStyle} />
+        <Header
+          showBackButton={true}
+          title={strings.search}
+          containerStyle={searchscreenstyle.headerContainer}
+          backButtonStyle={searchscreenstyle.backButton}
+          backButtonImageStyle={searchscreenstyle.leftarrowImage}
+          titleStyle={[searchscreenstyle.header, { color: colors.colors.text }]}
+        />
+        <NoDataFound message={strings.noSearchResultsFound} />
+      </View>
+    );
+  }
 
   return (
     <View

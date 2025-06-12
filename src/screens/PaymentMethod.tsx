@@ -19,6 +19,8 @@ import { useTheme } from "../themes/theme";
 import { StatusBar } from "expo-status-bar";
 import { SavedCardType } from "../types/types";
 import Header from "../components/HeaderGlobal";
+import NoDataFound from "../service/NoDataFound";
+import NetInfo from "@react-native-community/netinfo";
 
 type PaymentMethodNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -32,6 +34,14 @@ const PaymentMethod = () => {
   const navigation = useNavigation<PaymentMethodNavigationProp>();
   const [selectedMethod, setSelectedMethod] = useState<string | null>(null);
   const [savedCards, setSavedCards] = useState<SavedCardType[]>([]);
+  const [isConnected, setIsConnected] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      setIsConnected(!!state.isConnected);
+    });
+    return () => unsubscribe();
+  }, []);
 
   useEffect(() => {
     const loadCards = async () => {
@@ -82,6 +92,21 @@ const PaymentMethod = () => {
       JSON.stringify(updatedCards)
     );
   };
+
+  if (!isConnected) {
+    return (
+      <View
+        style={[
+          paymentmethodstyle.container,
+          { backgroundColor: colors.colors.background },
+        ]}
+      >
+        <StatusBar style={statusBarStyle} />
+        <Header type="paymentmethod" />
+        <NoDataFound message={strings.noPaymentMethodFound} />
+      </View>
+    );
+  }
 
   return (
     <View
